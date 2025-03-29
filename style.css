@@ -186,21 +186,32 @@ button:hover {
 }
 
 .discord-auth-container {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
 }
 
- #discord-login {
-            background-color: #5865F2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+#discord-login {
+    background-color: #5865F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    margin: 0 auto;
+    padding: 10px 20px; /* Add some padding for better appearance */
+}
 
-        #discord-login:hover {
-            background-color: #4752C4;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.7);
-        }
+/* Make sure the SVG icon is properly aligned with text */
+#discord-login svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Style the text part */
+#discord-login span {
+    display: inline-block;
+    vertical-align: middle;
+}
 
 
 /* Profile Container - Discord Rich Presence Style */
