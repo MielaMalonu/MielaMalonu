@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://discord.com/assets/ginto-nord.css" rel="stylesheet">
+<link href="https://discord.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff" rel="preload" as="font">
+<link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
+<link href="https://discord.com/assets/ginto-nord.css" rel="stylesheet">
+    <title>Miela Malonu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Application Form Container -->
+        <div class="container">
+            <h2>Miela Malonu Aplikacija.</h2>
+            
+         <div class="discord-auth-container">
+    <button id="discord-login">🌐 Prisijunkite su Discord 🌐</button>
+    <div id="profile-container" style="display: none;"></div>
+</div>
+            <form id="applicationForm">
+
+               <label for="username"></label>
+                <input type="number" id="username" hidden>
+
+                <label for="age">Kiek jums metų?</label>
+                <input type="number" id="age" required>
+
+                <label for="pl">Kaip vertinate savo pašaudimo lygį?</label>
+                <input type="number" id="pl" required>
+
+                <label for="kl">Kaip vertinate savo komunikacijos lygį?</label>
+                <input type="number" id="kl" required>
+
+                <label for="whyJoin">Kodėl norite tapti mūsų gaujos nariu?</label>
+                <textarea id="whyJoin" required></textarea>
+
+                <label for="pc">Ar sutiktumėte pasidaryti PC check?</label>
+                <textarea id="pc" required></textarea>
+
+                <label for="isp">Ar išpirktumėte įspėjimą, jei jis būtų gautas dėl jūsų kaltės?</label>
+                <textarea id="isp" required></textarea>
+
+                <button type="submit" id="submitButton">Pateikti</button>
+            </form>
+        </div>
+
+      <div class="rules-container">
+            <h2>Statusas</h2>
+           <p id="statusDisplay" class="status-offline">KRAUNAMA</p>
+            <h2>Reikalavimai</h2>
+            <ul class="rules-list">
+               <li>🌐 Butina prisijungti prie discord</li>
+                <h2>Blacklist lentelė</h2>
+                <li>📜 Išsipisinėjimas = BLACKLIST</li>
+                <li>💬 Rašymas PM = BLACKLIST</li>
+               
+<h2>Discord pakvietimas</h2>
+<div class="discord-invite">
+    <div class="invite-banner">
+        <img id="serverBanner" src="" alt="Server Banner">
+    </div>
+    <div class="invite-content">
+        <img id="serverIcon" src="" alt="Server Icon">
+        <div class="server-info">
+            <h3 id="serverName">Server Name</h3>
+            <p id="memberCount">Loading...</p>
+            <p id="onlineCount">Loading...</p>
+        </div>
+        <a id="inviteLink" href="#" target="_blank" class="join-button">Prisijungti</a>
+    </div>   
+
+            </ul>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" style="display: none;">
+             <h2>Admin Panel</h2>
+            <button id="statusButton">🔒 Status Control</button>
+            <button id="blacklistButton">🚫 Pridėti Į Blacklist</button>
+            <button id="removeButton">🚫 Pašalinti iš Blacklist</button>
+        </div>
+
+
+
+    <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</body>
+</html>

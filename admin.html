@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
+    <title>Admin Panel - Miela Malonu</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <!-- Display Data Table -->
+    <div class="data-container">
+        <table id="data-table"> 
+<div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 Ieškoti pagal bet kokį lauką..." onkeyup="filterTable()">
+    </div>
+            <thead>
+                <tr>
+<th>Nr.</th>
+<th>ID</th>
+                    <th>Discord Useris</th>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>Steam Nick</th>
+                    <th>Steam Nuoroda</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+  <div class="admin-panel">
+             <h2>Admin Panel</h2>
+            <p id="statusDisplay" class="status-offline">KRAUNAMA</p>
+            <button id="statusButton">🔒 Status Control</button>
+            <button id="blacklistButton">🚫 Pridėti Į Blacklist</button>
+            <button id="removeButton">🚫 Pašalinti iš Blacklist</button>
+        </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

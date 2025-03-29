@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://discord.com/assets/ginto-nord.css" rel="stylesheet">
+    <link href="https://discord.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff" rel="preload" as="font">
+    <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
+    <title>Miela Malonu</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: rgba(0, 0, 0, 0.6) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Glassmorphism Container */
+        .container {
+            background: rgba(40, 40, 40, 0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Logo */
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #5865f2;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(88, 101, 242, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(88, 101, 242, 0);
+            }
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .nav-button {
+            background: linear-gradient(90deg, #4CAF50, #00ff88);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+            text-align: center;
+            min-width: 180px;
+            flex: 0 1 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-button:hover {
+            background: linear-gradient(90deg, #00ff88, #4CAF50);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+            transform: scale(1.05);
+        }
+
+        .nav-button-icon {
+            font-size: 20px;
+        }
+
+        /* Discord Invite Container */
+        .discord-invite {
+            width: 100%;
+            background: #23272a;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #40444b;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Banner */
+        .invite-banner {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: #2f3136;
+        }
+
+        .invite-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Invite Content */
+        .invite-content {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+        }
+
+        /* Server Icon */
+        .server-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: #23272a;
+        }
+
+        /* Server Info */
+        .server-info {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .server-info h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .server-info p {
+            margin: 2px 0;
+            font-size: 12px;
+            color: #b9bbbe;
+        }
+
+        /* Join Button */
+        .join-button {
+            background: #3ba55d;
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .join-button:hover {
+            background: #2e8b57;
+        }
+
+        /* About Section */
+        .about-section {
+            margin: 20px auto;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .nav-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-button {
+                flex: 1 1 40%;
+                min-width: 150px;
+            }
+            
+            .invite-banner {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .invite-banner {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="Miela Malonu Logo" class="logo">
+            <h1>Miela Malonu</h1>
+            <p>Sveiki atvykę į oficialų Miela Malonu puslapį</p>
+            
+            <div class="nav-buttons">
+                <a href="https://anketa.mielamalonu.com" class="nav-button">
+                    <span class="nav-button-icon">📝</span> Aplikacija
+                </a>
+                <a href="https://icinfo.mielamalonu.com" class="nav-button">
+                    <span class="nav-button-icon">👥</span> IC Info Aplikacija
+                </a>
+                <a href="https://admin.mielamalonu.com" class="nav-button">
+                    <span class="nav-button-icon">🎮</span> Admin Puslapis
+                </a>
+            </div>
+            
+            <div class="about-section">
+                <h2>Apie Mus</h2>
+                <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką.</p>
+            </div>
+            
+            <div class="discord-invite">
+                <div class="invite-banner">
+                    <img id="serverBanner" src="https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096" alt="Server Banner">
+                </div>
+                <div class="invite-content">
+                    <img id="serverIcon" src="https://i.imgur.com/amma0ov.gif" alt="Server Icon" class="server-icon">
+                    <div class="server-info">
+                        <h3 id="serverName">Miela Malonu</h3>
+                        <p id="memberCount">Loading...</p>
+                    </div>
+                    <a id="inviteLink" href="https://discord.gg/mielamalonu" target="_blank" class="join-button">Prisijungti</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            &copy; Miela Malonu
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            // Default banner is already set in HTML
+            
+            // Fetch Discord invite information
+            async function fetchDiscordInvite(inviteCode) {
+                try {
+                    const response = await fetch(`https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    const data = await response.json();
+
+                    if (data.guild) {
+                        // Update server information
+                        document.getElementById('serverName').textContent = data.guild.name;
+                        document.getElementById('memberCount').textContent = 
+                            `${data.approximate_presence_count} Online • ${data.approximate_member_count} Members`;
+                        
+                        // Only update banner if it exists and is different from default
+                        if (data.guild.banner) {
+                            const bannerUrl = `https://cdn.discordapp.com/banners/${data.guild.id}/${data.guild.banner}.${data.guild.banner.startsWith('a_') ? 'gif' : 'png'}?size=4096`;
+                            // Keep the existing banner if the API doesn't return one
+                            if (bannerUrl) {
+                                const bannerImg = document.getElementById('serverBanner');
+                                // Preload the new image to ensure it loads before replacing
+                                const img = new Image();
+                                img.onload = function() {
+                                    bannerImg.src = bannerUrl;
+                                };
+                                img.src = bannerUrl;
+                            }
+                        }
+                        
+                        // Update server icon if it exists
+                        if (data.guild.icon) {
+                            const iconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.${data.guild.icon.startsWith('a_') ? 'gif' : 'png'}`;
+                            if (iconUrl) {
+                                const iconImg = document.getElementById('serverIcon');
+                                // Preload the new image
+                                const img = new Image();
+                                img.onload = function() {
+                                    iconImg.src = iconUrl;
+                                };
+                                img.src = iconUrl;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error fetching Discord invite:", error);
+                    // Keep default values on error - no need to do anything
+                }
+            }
+
+            // Call function to fetch Discord invite
+            fetchDiscordInvite("mielamalonu");
+        });
+    </script>
+</body>
+</html>
