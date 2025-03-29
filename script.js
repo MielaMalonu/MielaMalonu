@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function handleDiscordAuth() {
         const authUrl = new URL("https://discord.com/api/oauth2/authorize");
         authUrl.searchParams.append("client_id", CONFIG.DISCORD.CLIENT_ID);
-        authUrl.searchParams.append("redirect_uri", CONFIG.DISCORD.REDIRECT_URI);
+        authUrl.searchParams.append("redirect_uri", window.location.origin + window.location.pathname);
         authUrl.searchParams.append("response_type", "token");
         authUrl.searchParams.append("scope", CONFIG.DISCORD.SCOPES.join(" "));
         window.location.href = authUrl.toString();
