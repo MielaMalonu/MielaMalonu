@@ -196,6 +196,90 @@
             max-width: 600px;
         }
 
+        /* Discord Profiles Section */
+        .discord-profiles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .profile-card {
+            background: rgba(40, 40, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid;
+            margin-bottom: 12px;
+            object-fit: cover;
+        }
+
+        .admin-avatar {
+            border-color: #ff4545;
+        }
+
+        .mod-avatar {
+            border-color: #4f92ff;
+        }
+
+        .staff-avatar {
+            border-color: #45ff64;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .profile-role {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            margin: 5px 0 10px;
+            font-weight: bold;
+        }
+
+        .role-admin {
+            background: linear-gradient(90deg, #ff4545, #ff8145);
+        }
+
+        .role-mod {
+            background: linear-gradient(90deg, #4f92ff, #4552ff);
+        }
+
+        .role-staff {
+            background: linear-gradient(90deg, #45ff64, #45ffe0);
+            color: #1a1a1a;
+        }
+
+        .profile-desc {
+            font-size: 14px;
+            color: #dcddde;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -224,6 +308,11 @@
             .invite-banner {
                 height: 150px;
             }
+            
+            .profile-card {
+                width: calc(50% - 20px);
+                min-width: 220px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -239,6 +328,15 @@
             
             .invite-banner {
                 height: 120px;
+            }
+            
+            .profile-card {
+                width: 100%;
+            }
+            
+            .discord-profiles {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -265,6 +363,34 @@
             <div class="about-section">
                 <h2>Apie Mus</h2>
                 <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką.</p>
+            </div>
+            
+            <!-- New Discord Profiles Section -->
+            <h2>Mūsų Komanda</h2>
+            <div class="discord-profiles">
+                <!-- Admin Profile -->
+                <div class="profile-card">
+                    <img src="https://i.imgur.com/amma0ov.gif" alt="Admin Avatar" class="profile-avatar admin-avatar">
+                    <h3 class="profile-name">Žilvinas</h3>
+                    <div class="profile-role role-admin">Administratorius</div>
+                    <p class="profile-desc">Serverio įkūrėjas ir pagrindinis administratorius.</p>
+                </div>
+                
+                <!-- Moderator Profile -->
+                <div class="profile-card">
+                    <img src="https://i.imgur.com/amma0ov.gif" alt="Moderator Avatar" class="profile-avatar mod-avatar">
+                    <h3 class="profile-name">Gintarė</h3>
+                    <div class="profile-role role-mod">Moderatorius</div>
+                    <p class="profile-desc">Prižiūri bendruomenę ir padeda naujiems nariams.</p>
+                </div>
+                
+                <!-- Staff Profile -->
+                <div class="profile-card">
+                    <img src="https://i.imgur.com/amma0ov.gif" alt="Staff Avatar" class="profile-avatar staff-avatar">
+                    <h3 class="profile-name">Marius</h3>
+                    <div class="profile-role role-staff">Pagalbininkas</div>
+                    <p class="profile-desc">Padeda organizuoti renginius ir koordinuoti veiklas.</p>
+                </div>
             </div>
             
             <div class="discord-invite">
