@@ -413,7 +413,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="status-dot ${user.status}"></div>
                 </div>
                 <div class="user-info">
-                    <p class="username">${user.username}</p>
+                    <p class="username">${user.global_name}</p>
                     ${user.status === 'dnd' ? '<div class="dnd-banner">Do Not Disturb</div>' : ''}
                 </div>
                 <button id="logout">Atsijungti</button>
