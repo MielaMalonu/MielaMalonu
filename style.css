@@ -189,19 +189,19 @@ button:hover {
     margin-bottom: 20px;
 }
 
-#discord-login {
-    background-color: #5865F2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+ #discord-login {
+            background-color: #5865F2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-#discord-login:hover {
-    background-color: #4752C4;
-}
+        #discord-login:hover {
+            background-color: #4752C4;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.7);
+        }
+
 
 /* Profile Container - Discord Rich Presence Style */
 #profile-container {
