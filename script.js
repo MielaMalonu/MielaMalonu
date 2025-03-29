@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <p class="username">${user.username}</p>
                     ${user.status === 'dnd' ? '<div class="dnd-banner">Do Not Disturb</div>' : ''}
                 </div>
-                <button id="logout">Log Out</button>
+                <button id="logout">Atsijungti</button>
             `;
             document.getElementById("logout").addEventListener("click", handleLogout);
         }
