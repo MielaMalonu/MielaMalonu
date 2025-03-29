@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         },
         DISCORD: {
             CLIENT_ID: "1263389179249692693",
-            REDIRECT_URI: "https://gauja.mielamalonu.com/anketa",
+            REDIRECT_URI: window.location.origin + window.location.pathname,
             SCOPES: ["identify", "guilds.members.read"],
             WEBHOOK_URL: "https://discord.com/api/webhooks/1346529699081490472/k-O-v4wKDiUjsj1w-Achvrej1Kr-W-rXqZVibcftwWFn5sMZyhIMSb9E4r975HbQI3tF",
             GUILD_ID: "1325850250027597845"
@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function handleDiscordAuth() {
         const authUrl = new URL("https://discord.com/api/oauth2/authorize");
         authUrl.searchParams.append("client_id", CONFIG.DISCORD.CLIENT_ID);
-        authUrl.searchParams.append("redirect_uri", window.location.origin + window.location.pathname);
+        authUrl.searchParams.append("redirect_uri", CONFIG.DISCORD.REDIRECT_URI);
         authUrl.searchParams.append("response_type", "token");
         authUrl.searchParams.append("scope", CONFIG.DISCORD.SCOPES.join(" "));
         window.location.href = authUrl.toString();
