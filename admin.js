@@ -6,13 +6,54 @@ document.addEventListener("DOMContentLoaded", async function () {
             URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
             API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
         },
-        ADMIN_PASSWORD: "R&bRY5UY2QpG$uuMjLe4"
+        ADMIN_PASSWORD: "R&bRY5UY2QpG$uuMjLe4",
+        AUTH_KEY: "miela_malonu_auth"  // Key for local storage
     };
 
     const BLACKLIST_ID = 1;
     let fetchedData = [];
     let blacklist = [];
     let isOnline = "offline";
+
+    // Check if already authenticated via local storage
+    function checkAuthentication() {
+        const isAuthenticated = localStorage.getItem(CONFIG.AUTH_KEY);
+        if (isAuthenticated === "true") {
+            console.log("✅ Authentication found in local storage");
+            return true;
+        }
+        return false;
+    }
+
+    // Store authentication in local storage
+    function storeAuthentication() {
+        localStorage.setItem(CONFIG.AUTH_KEY, "true");
+        console.log("✅ Authentication stored in local storage");
+    }
+
+    // Clear authentication from local storage
+    function clearAuthentication() {
+        localStorage.removeItem(CONFIG.AUTH_KEY);
+        console.log("🔄 Authentication cleared from local storage");
+    }
+
+    // Add logout button to admin panel
+    function addLogoutButton() {
+        const adminPanel = document.querySelector('.admin-panel');
+        
+        // Check if logout button already exists
+        if (!document.getElementById('logoutButton')) {
+            const logoutButton = document.createElement('button');
+            logoutButton.id = 'logoutButton';
+            logoutButton.textContent = '🚪 Atsijungti';
+            logoutButton.addEventListener('click', function() {
+                clearAuthentication();
+                location.reload(); // Reload the page to show login
+            });
+            
+            adminPanel.appendChild(logoutButton);
+        }
+    }
 
     // Hide all content except auth overlay initially
     function hideContent() {
@@ -37,6 +78,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (authOverlay) {
             authOverlay.remove();
         }
+        
+        // Add logout button
+        addLogoutButton();
     }
 
     // Create and show auth overlay
@@ -53,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             title.textContent = 'Admin prisijungimas';
             
             const passwordInput = document.createElement('input');
-            passwordInput.type = 'Slaptažodis';
+            passwordInput.type = 'password';  // Fixed: changed from 'Slaptažodis' to 'password'
             passwordInput.id = 'adminPassword';
             passwordInput.placeholder = 'Įveskite admin slaptažodį';
             
@@ -86,6 +130,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         const password = passwordInput.value;
         
         if (password === CONFIG.ADMIN_PASSWORD) {
+            // Store authentication in local storage
+            storeAuthentication();
+            
             showContent();
             console.log("✅ Sėkmingai praėjote autorizacija");
             await fetchSupabaseData();
@@ -97,7 +144,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             passwordInput.classList.add('password-error');
             setTimeout(() => {
                 passwordInput.classList.remove('password-error');
-                passwordInput.placeholder = 'Enter Password';
+                passwordInput.placeholder = 'Įveskite admin slaptažodį';
             }, 1500);
         }
     }
@@ -354,6 +401,19 @@ document.addEventListener("DOMContentLoaded", async function () {
         populateTable(filteredData); // Re-populate table with filtered results
     });
 
-    // Start with authentication overlay
-    showAuthOverlay();
+    // Initialize the application
+    const init = async () => {
+        // Check if already authenticated
+        if (checkAuthentication()) {
+            showContent();
+            await fetchSupabaseData();
+            await fetchBlacklist();
+            await fetchStatus();
+        } else {
+            showAuthOverlay();
+        }
+    };
+
+    // Start the application
+    init();
 });
