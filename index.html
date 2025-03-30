@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://discord.com/assets/ginto-nord.css" rel="stylesheet">
-    <link href="https://discord.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff" rel="preload" as="font">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
     <title>Miela Malonu</title>
     <style>
@@ -18,13 +17,14 @@
             background-attachment: fixed;
             color: white;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             text-align: center;
+            line-height: 1.6;
         }
 
         /* Main Container */
@@ -34,43 +34,84 @@
             align-items: center;
             max-width: 1300px;
             width: 100%;
-            position: relative; /* Added for absolute positioning of invite */
+            position: relative;
+            padding: 20px;
         }
 
         /* Glassmorphism Container */
         .container {
-            background: rgba(40, 40, 40, 0.5);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 25, 55, 0.7);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 150, 255, 0.2);
             width: 100%;
             max-width: 1000px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6);
         }
 
         /* Logo */
         .logo {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            border: 3px solid #45ff64;
-            margin: 0 auto 20px;
+            border: 4px solid #4f92ff;
+            margin: 0 auto 25px;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 25px rgba(79, 146, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(69, 255, 100, 0.7);
+                box-shadow: 0 0 0 0 rgba(79, 146, 255, 0.7);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(69, 255, 100, 0);
+                box-shadow: 0 0 0 15px rgba(79, 146, 255, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(69, 255, 100, 0);
+                box-shadow: 0 0 0 0 rgba(79, 146, 255, 0);
             }
+        }
+
+        /* Heading styles */
+        h1 {
+            font-size: 3rem;
+            margin: 10px 0;
+            background: linear-gradient(to right, #4f92ff, #54c8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(79, 146, 255, 0.3);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 25px 0 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4f92ff, transparent);
+            bottom: -8px;
+            left: 20%;
         }
 
         /* Navigation */
@@ -78,63 +119,71 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px auto;
+            gap: 20px;
+            margin: 30px auto;
             width: 100%;
         }
 
         .nav-button {
-            background: linear-gradient(90deg, #4CAF50, #00ff88);
+            background: linear-gradient(135deg, #3a6fc9, #54c8ff);
             color: white;
-            padding: 15px 20px;
+            padding: 16px 24px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             transition: all 0.3s ease-in-out;
             text-decoration: none;
             text-align: center;
-            min-width: 180px;
+            min-width: 200px;
             flex: 0 1 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .nav-button:hover {
-            background: linear-gradient(90deg, #00ff88, #4CAF50);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #54c8ff, #3a6fc9);
+            box-shadow: 0 0 20px rgba(79, 146, 255, 0.7);
+            transform: translateY(-5px) scale(1.03);
         }
 
         .nav-button-icon {
-            font-size: 20px;
+            font-size: 22px;
         }
 
-        /* Discord Invite Container - UPDATED */
+        /* Discord Invite Container */
         .discord-invite {
-    width: 350px;
-    background: #23272a;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #40444b;
-    position: fixed; /* Change from absolute to fixed */
-    right: 30px; /* Increase right margin to move it more to the right */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Perfect vertical centering */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    z-index: 100;
-}
+            width: 350px;
+            background: linear-gradient(145deg, #1a1d20, #2c2f33);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #4f92ff;
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .discord-invite:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(79, 146, 255, 0.3);
+        }
 
         /* Banner */
         .invite-banner {
             width: 100%;
-            height: 100px; /* Smaller height */
+            height: 120px;
             position: relative;
             overflow: hidden;
             background: #2f3136;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
 
         .invite-banner img {
@@ -142,22 +191,34 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .invite-banner:hover img {
+            transform: scale(1.05);
         }
 
         /* Invite Content */
         .invite-content {
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 15px;
+            background: rgba(35, 39, 42, 0.9);
         }
 
         /* Server Icon */
         .server-icon {
-            width: 32px; /* Smaller icon */
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 12px;
             background: #23272a;
+            border: 2px solid #4f92ff;
+            transition: transform 0.3s ease;
+        }
+
+        .server-icon:hover {
+            transform: scale(1.1) rotate(10deg);
         }
 
         /* Server Info */
@@ -168,37 +229,51 @@
 
         .server-info h3 {
             margin: 0;
-            font-size: 14px; /* Smaller font */
+            font-size: 16px;
             font-weight: bold;
+            color: #ffffff;
         }
 
         .server-info p {
-            margin: 2px 0;
-            font-size: 10px; /* Smaller font */
+            margin: 4px 0 0;
+            font-size: 12px;
             color: #b9bbbe;
         }
 
         /* Join Button */
         .join-button {
-            background: #3ba55d;
+            background: linear-gradient(135deg, #3a6fc9, #54c8ff);
             color: white;
             text-decoration: none;
-            padding: 6px 10px; /* Smaller padding */
-            border-radius: 4px;
+            padding: 8px 14px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 12px; /* Smaller font */
-            transition: 0.2s;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .join-button:hover {
-            background: #2e8b57;
+            background: linear-gradient(135deg, #54c8ff, #3a6fc9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
         }
 
         /* About Section */
         .about-section {
-            margin: 20px auto;
+            margin: 30px auto;
             text-align: center;
-            max-width: 600px;
+            max-width: 700px;
+            padding: 20px;
+            background: rgba(15, 25, 55, 0.4);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(79, 146, 255, 0.1);
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.7;
         }
 
         /* Discord Profiles Section */
@@ -206,40 +281,47 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             margin: 30px auto;
             width: 100%;
-            max-width: 800px; /* Set a maximum width for better appearance */
+            max-width: 900px;
         }
 
         .profile-card {
-            background: rgba(40, 40, 40, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
+            background: rgba(20, 30, 60, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            border: 1px solid rgba(79, 146, 255, 0.2);
+            padding: 25px 20px;
             width: auto;
             flex: 1;
-            max-width: 180px; /* Smaller max-width for each card */
+            max-width: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .profile-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(79, 146, 255, 0.3);
+            border: 1px solid rgba(79, 146, 255, 0.4);
         }
 
         .profile-avatar {
-            width: 80px; /* Smaller avatar */
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 3px solid;
-            margin-bottom: 12px;
+            border: 4px solid;
+            margin-bottom: 15px;
             object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover .profile-avatar {
+            transform: scale(1.1);
         }
 
         .admin-avatar {
@@ -255,43 +337,57 @@
         }
 
         .profile-name {
-            font-size: 16px; /* Smaller font */
+            font-size: 18px;
             font-weight: bold;
-            margin: 8px 0;
+            margin: 10px 0;
         }
 
         .profile-role {
-            font-size: 12px; /* Smaller font */
-            padding: 4px 8px;
-            border-radius: 12px;
-            margin: 5px 0 8px;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin: 5px 0 12px;
             font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
 
         .role-admin {
-            background: linear-gradient(90deg, #ff4545, #ff8145);
+            background: linear-gradient(135deg, #ff4545, #ff8145);
         }
 
         .role-mod {
-            background: linear-gradient(90deg, #45ff64, #45ffe0);
+            background: linear-gradient(135deg, #45ff64, #45ffe0);
         }
 
         .role-staff {
-            background: linear-gradient(90deg, #4f92ff, #4552ff);
+            background: linear-gradient(135deg, #4f92ff, #54c8ff);
         }
 
         .profile-desc {
-            font-size: 12px; /* Smaller font */
-            color: #dcddde;
-            margin-top: 5px;
-            line-height: 1.3;
+            font-size: 14px;
+            color: #e0e0e0;
+            margin-top: 8px;
+            line-height: 1.5;
         }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 40px;
             text-align: center;
-            font-size: 14px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            width: 100%;
+            position: relative;
+        }
+
+        .footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(79, 146, 255, 0.5), transparent);
         }
 
         /* Responsive Design */
@@ -301,6 +397,7 @@
                 position: relative;
                 right: auto;
                 top: auto;
+                transform: none;
                 width: 100%;
                 max-width: 400px;
                 margin: 20px auto;
@@ -314,7 +411,7 @@
         @media (max-width: 768px) {
             .container {
                 width: 90%;
-                padding: 20px;
+                padding: 25px 15px;
             }
             
             .nav-buttons {
@@ -326,6 +423,7 @@
             .nav-button {
                 flex: 1 1 40%;
                 min-width: 150px;
+                font-size: 16px;
             }
             
             /* Make the profiles stack on smaller screens */
@@ -335,8 +433,16 @@
             }
             
             .profile-card {
-                max-width: 220px;
+                max-width: 240px;
                 width: 100%;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
             }
         }
 
@@ -350,12 +456,21 @@
                 width: 100%;
                 max-width: 300px;
             }
+
+            .logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <!-- Discord Invite - Moved to top right -->
+        <!-- Discord Invite - Positioned at top right -->
         <div class="discord-invite">
             <div class="invite-banner">
                 <img id="serverBanner" src="https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096" alt="Server Banner">
@@ -399,7 +514,7 @@
                 <div class="profile-card">
                     <img src="https://cdn.discordapp.com/avatars/728837313190297611/d9446fcc6fbea2f753b5d04d2350a669.webp?size=1024&format=webp" alt="Admin Avatar" class="profile-avatar admin-avatar">
                     <h3 class="profile-name">Šaškė</h3>
-                    <div class="profile-role role-admin">Įkūrėjas </div>
+                    <div class="profile-role role-admin">Įkūrėjas</div>
                     <p class="profile-desc">Vienas iš gaujos įkūrėjų patikimiausias AuraxoGT draugas.</p>
                 </div>
                 
