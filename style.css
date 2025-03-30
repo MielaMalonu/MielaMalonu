@@ -573,14 +573,18 @@ button:disabled {
 
 /* Discord Card - Server Invite Style */
 .discord-card {
-    padding: 0;
     width: 400px;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #2f3136;
-    border: 1px solid rgba(79, 84, 92, 0.4);
-    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.discord-card h2 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    text-align: left;
 }
 
 .discord-card:hover {
