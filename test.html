@@ -702,9 +702,7 @@
                     'Prefer': 'return=minimal'
                 },
                 body: JSON.stringify({
-                    discord_id: userData.id,
-                    discord_name: userData.global_name || userData.username,
-                    id_number: idNumber,
+                    IDs: idNumber,
                     submission_date: new Date().toISOString()
                 })
             })
