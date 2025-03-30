@@ -287,20 +287,6 @@
             animation: pulse 2s infinite;
         }
 
-        /* Referrer Error Message */
-        #referrer-error-message {
-            background-color: rgba(255, 69, 69, 0.15);
-            color: #ff4545;
-            padding: 16px;
-            border-radius: 10px;
-            margin: 24px 0;
-            text-align: center;
-            display: none;
-            border: 1px solid rgba(255, 69, 69, 0.3);
-            font-weight: 500;
-            animation: pulse 2s infinite;
-        }
-
         /* Form transitions */
         #form-section {
             transition: opacity 0.4s ease, transform 0.4s ease;
@@ -389,11 +375,6 @@
     <div class="container">
         <h1>ID Anketa</h1>
         
-        <!-- Referrer Error Message -->
-        <div id="referrer-error-message">
-            Šią svetainę galima atidaryti tik iš tam tikrų šaltinių.
-        </div>
-
         <!-- System Closed Message -->
         <div id="system-closed-message">
             Sistema šiuo metu uždaryta.
@@ -422,15 +403,12 @@
                 SUPABASE: {
                     URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
                     API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
-                },
-                // This tells system to only open when visiting from specific site
-                ALLOWED_REFERRER: "gauja.mielamalonu.com" // Change this to the site you want to allow
+                }
             };
             
             // Elements
             const formSection = document.getElementById("form-section");
             const systemClosedMessage = document.getElementById("system-closed-message");
-            const referrerErrorMessage = document.getElementById("referrer-error-message");
             const submitButton = document.getElementById("submit-button");
             const statusMessage = document.getElementById("status-message");
             const submitText = document.getElementById("submit-text");
@@ -442,13 +420,6 @@
             init();
             
             async function init() {
-                // Check if page is opened from allowed referrer
-                if (!checkReferrer()) {
-                    formSection.classList.add("hidden");
-                    referrerErrorMessage.style.display = "block";
-                    return;
-                }
-                
                 // Check system status
                 systemIsOpen = await checkSystemStatus();
                 
@@ -459,12 +430,6 @@
                     formSection.classList.remove("hidden");
                     systemClosedMessage.style.display = "none";
                 }
-            }
-            
-            // Check if page is opened from allowed referrer
-            function checkReferrer() {
-                const referrer = document.referrer;
-                return referrer.includes(CONFIG.ALLOWED_REFERRER);
             }
             
             // Form validation
