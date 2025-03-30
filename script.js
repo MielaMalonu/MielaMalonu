@@ -30,6 +30,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         discordButton: document.getElementById("discord-login"),
         profileContainer: document.getElementById("profile-container"),
         responseMessage: document.createElement("p"),
+        notification: document.getElementById("notification"),
+        notificationMessage: document.querySelector(".notification-message"),
+        notificationIcon: document.querySelector(".notification-icon"),
         // Add multi-step form elements
         steps: document.querySelectorAll(".step"),
         formSteps: document.querySelectorAll(".form-step"),
@@ -146,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.log("✅ Database initialized successfully!");
         } catch (error) {
             console.error("Database initialization error:", error);
+            showNotification("error", "Duomenų bazės inicializavimo klaida. Bandykite vėliau.");
         }
     }
 
@@ -209,7 +213,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
         } catch (error) {
             console.error("❌ Status fetch error:", error);
-            showErrorMessage("Failed to load application status. Check console for details.");
+            showNotification("error", "Nepavyko gauti aplikacijos statuso. Bandykite vėliau.");
         }
     }
 
@@ -247,13 +251,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         
         // Handle messages
         if (isBlacklisted) {
-            showErrorMessage("🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
+            showNotification("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
         } else if (!isOnline) {
-            showErrorMessage("❌ Aplikacijos šiuo metu nepriimamos!");
+            showNotification("error", "❌ Aplikacijos šiuo metu nepriimamos!");
         } else if (!isLoggedIn) {
-            showErrorMessage("❌ Prieš pateikiant anketą, reikia prisijungti su Discord! (Mygtukas viršuje!)");
+            showNotification("warning", "Prieš pateikiant anketą, reikia prisijungti su Discord! (Mygtukas viršuje!)");
         } else {
-            clearMessages();
+            // Clear notifications only if they are related to login/blacklist status
+            hideNotification();
         }
     }
 
@@ -283,7 +288,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             await submitApplication(formData);
 
             submitButton.textContent = "Pateikta!";
-            showSuccessMessage("✅ Aplikacija pateikta!");
+            showNotification("success", "✅ Aplikacija sėkmingai pateikta!");
             elements.form.reset();
             resetFormState();
             goToStep(1); // Go back to step 1 after submission
@@ -329,11 +334,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                 body: JSON.stringify({ userId: state.currentUser.id })
             });
 
-            if (!response.ok) throw new Error("Server error while checking role");
+            if (!response.ok) {
+                showNotification("error", "Serverio klaida tikrinant naudotojo rolę");
+                throw new Error("Server error while checking role");
+            }
+            
             const data = await response.json();
-
             if (data.hasRole) throw new Error("LA");
         } catch (error) {
+            if (error.message !== "LA") {
+                showNotification("error", "Nepavyko patikrinti naudotojo informacijos");
+            }
             throw error;
         }
     }
@@ -351,31 +362,39 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     async function submitApplication(data) {
-        const appId = `${state.currentUser.id.slice(0, 16)}-${Date.now()}`;
+        try {
+            const appId = `${state.currentUser.id.slice(0, 16)}-${Date.now()}`;
 
-        const payload = {
-            variables: [
-                { name: "userId", variable: "{event_userId}", value: `${data.userId}` },
-                { name: "age", variable: "{event_age}", value: `${data.age}` },
-                { name: "reason", variable: "{event_reason}", value: `${data.reason}` },
-                { name: "pl", variable: "{event_pl}", value: `${data.pl}/10` },
-                { name: "kl", variable: "{event_kl}", value: `${data.kl}/10` },
-                { name: "pc", variable: "{event_pc}", value: `${data.pc}` },
-                { name: "isp", variable: "{event_isp}", value: `${data.isp}` },
-                { name: "applicationId", variable: "{event_appId}", value: `${appId}` }
-            ]
-        };
+            const payload = {
+                variables: [
+                    { name: "userId", variable: "{event_userId}", value: `${data.userId}` },
+                    { name: "age", variable: "{event_age}", value: `${data.age}` },
+                    { name: "reason", variable: "{event_reason}", value: `${data.reason}` },
+                    { name: "pl", variable: "{event_pl}", value: `${data.pl}/10` },
+                    { name: "kl", variable: "{event_kl}", value: `${data.kl}/10` },
+                    { name: "pc", variable: "{event_pc}", value: `${data.pc}` },
+                    { name: "isp", variable: "{event_isp}", value: `${data.isp}` },
+                    { name: "applicationId", variable: "{event_appId}", value: `${appId}` }
+                ]
+            };
 
-        const response = await fetch("https://proxy-zzi2.onrender.com/send-to-botghost", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "ef0576a7eb018e3d7cb3a7d4564069245fa8a9fb2b4dd74b5bd3d20c19983041"
-            },
-            body: JSON.stringify(payload)
-        });
+            const response = await fetch("https://proxy-zzi2.onrender.com/send-to-botghost", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "ef0576a7eb018e3d7cb3a7d4564069245fa8a9fb2b4dd74b5bd3d20c19983041"
+                },
+                body: JSON.stringify(payload)
+            });
 
-        if (!response.ok) throw new Error("BotGhost API error");
+            if (!response.ok) {
+                showNotification("error", "BotGhost API klaida pateikiant anketą");
+                throw new Error("BotGhost API error");
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            throw error;
+        }
     }
 
     // ======================
@@ -405,7 +424,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             const user = await userData.json();
             const presence = await presenceData.json();
 
-            if (!user.id) throw new Error("Invalid user data");
+            if (!user.id) {
+                showNotification("error", "Nepavyko gauti Discord naudotojo informacijos");
+                throw new Error("Invalid user data");
+            }
             
             const status = presence.presence?.status || 'offline';
             const activities = presence.activities || [];
@@ -426,6 +448,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         } catch (error) {
             console.error("Discord API error:", error);
+            showNotification("error", "Nepavyko prisijungti prie Discord. Bandykite vėliau.");
             return { status: 'offline', activities: [] };
         }
     }
@@ -468,6 +491,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (elements.reviewDiscord) {
                 elements.reviewDiscord.textContent = user.global_name || user.username;
             }
+            
+            // Show success notification on successful login
+            showNotification("success", "Sėkmingai prisijungta prie Discord!");
         }
         
         toggleAuthElements(!!user);
@@ -486,22 +512,67 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // ======================
-    // MESSAGE HANDLING FUNCTIONS
+    // MESSAGE HANDLING FUNCTIONS - ENHANCED
     // ======================
 
     function clearMessages() {
         elements.responseMessage.textContent = "";
         elements.responseMessage.className = "";
+        hideNotification();
     }
 
     function showErrorMessage(message) {
         elements.responseMessage.textContent = message;
         elements.responseMessage.className = "error-message";
+        // Also show as notification
+        showNotification("error", message);
     }
 
     function showSuccessMessage(message) {
         elements.responseMessage.textContent = message;
         elements.responseMessage.className = "success-message";
+        // Also show as notification
+        showNotification("success", message);
+    }
+
+    // New notification system
+    function showNotification(type, message) {
+        if (!elements.notification || !elements.notificationMessage || !elements.notificationIcon) return;
+        
+        // Set notification content
+        elements.notificationMessage.textContent = message;
+        
+        // Set notification type
+        elements.notification.className = "notification";
+        elements.notification.classList.add(`notification-${type}`);
+        
+        // Set icon based on type
+        switch(type) {
+            case "success":
+                elements.notificationIcon.className = "notification-icon fas fa-check-circle";
+                break;
+            case "error":
+                elements.notificationIcon.className = "notification-icon fas fa-exclamation-circle";
+                break;
+            case "warning":
+                elements.notificationIcon.className = "notification-icon fas fa-exclamation-triangle";
+                break;
+            default:
+                elements.notificationIcon.className = "notification-icon fas fa-info-circle";
+        }
+        
+        // Show notification
+        elements.notification.classList.add("show");
+        
+        // Auto-hide after 5 seconds for success notifications
+        if (type === "success") {
+            setTimeout(hideNotification, 5000);
+        }
+    }
+
+    function hideNotification() {
+        if (!elements.notification) return;
+        elements.notification.classList.remove("show");
     }
 
     // ======================
@@ -534,6 +605,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 step.classList.remove('completed');
             }
         });
+        
+        // Clear any existing validation messages when changing steps
+        clearMessages();
     }
 
     function updateReviewPage() {
@@ -549,38 +623,40 @@ document.addEventListener("DOMContentLoaded", async function () {
     function validateStep2() {
         // Validate age
         if (!elements.ageInput.value || elements.ageInput.value < 13) {
-            showErrorMessage("Amžius privalo būti bent 13 metų");
+            showErrorMessage("❌ Amžius privalo būti bent 13 metų");
             return false;
         }
         
         // Validate star ratings
         if (!elements.plInput.value || elements.plInput.value === "0") {
-            showErrorMessage("Prašome įvertinti savo pašaudimo lygį");
+            showErrorMessage("❌ Prašome įvertinti savo pašaudimo lygį");
             return false;
         }
         
         if (!elements.klInput.value || elements.klInput.value === "0") {
-            showErrorMessage("Prašome įvertinti savo komunikacijos lygį");
+            showErrorMessage("❌ Prašome įvertinti savo komunikacijos lygį");
             return false;
         }
         
         // Validate reason
         if (!elements.whyJoinInput.value || elements.whyJoinInput.value.trim().length < 10) {
-            showErrorMessage("Prašome išsamiau aprašyti kodėl norite prisijungti");
+            showErrorMessage("❌ Prašome išsamiau aprašyti kodėl norite prisijungti");
             return false;
         }
         
         // Validate toggles and related text
         if (!elements.pcInput.value.trim()) {
-            showErrorMessage("Prašome atsakyti į klausimą dėl PC check");
+            showErrorMessage("❌ Prašome atsakyti į klausimą dėl PC check");
             return false;
         }
         
         if (!elements.ispInput.value.trim()) {
-            showErrorMessage("Prašome atsakyti į klausimą dėl įspėjimo išpirkimo");
+            showErrorMessage("❌ Prašome atsakyti į klausimą dėl įspėjimo išpirkimo");
             return false;
         }
         
+        // If all validations pass, show success message
+        showNotification("success", "✅ Visi laukai užpildyti teisingai!");
         clearMessages();
         return true;
     }
@@ -598,6 +674,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         
         // Clear character count
         updateCharCount(elements.whyJoinInput, 0);
+        
+        // Clear any error messages
+        clearMessages();
     }
 
     // ======================
@@ -690,6 +769,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 countDisplay.classList.add('char-limit-exceeded');
                 textarea.value = textarea.value.substring(0, maxLength);
                 updateCharCount(textarea);
+                showNotification("warning", "Pasiektas maksimalus simbolių skaičius (200)");
             } else {
                 countDisplay.classList.remove('char-limit-exceeded');
             }
