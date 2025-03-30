@@ -414,19 +414,26 @@
             const submitText = document.getElementById("submit-text");
             const loadingSpinner = document.getElementById("loading-spinner");
             
-            let systemIsOpen = false;
+            let systemIsOpen = true; // Set to true by default to avoid initial issues
 
             // Initialize the application
             init();
             
             async function init() {
-                // Check system status
-                systemIsOpen = await checkSystemStatus();
-                
-                if (!systemIsOpen) {
-                    formSection.classList.add("hidden");
-                    systemClosedMessage.style.display = "block";
-                } else {
+                try {
+                    // Check system status
+                    systemIsOpen = await checkSystemStatus();
+                    
+                    if (!systemIsOpen) {
+                        formSection.classList.add("hidden");
+                        systemClosedMessage.style.display = "block";
+                    } else {
+                        formSection.classList.remove("hidden");
+                        systemClosedMessage.style.display = "none";
+                    }
+                } catch (error) {
+                    console.error("Initialization error:", error);
+                    // Still allow form submission if status check fails
                     formSection.classList.remove("hidden");
                     systemClosedMessage.style.display = "none";
                 }
@@ -466,17 +473,20 @@
                         }
                     });
                     
-                    if (!response.ok) throw new Error("Failed to fetch system status");
+                    if (!response.ok) {
+                        console.error("Status check failed:", response.status, response.statusText);
+                        return true; // Default to open if status check fails
+                    }
                     
                     const data = await response.json();
                     if (data.length > 0) {
                         return data[0].status === "online";
                     }
                     
-                    return false;
+                    return true; // Default to open if no data
                 } catch (error) {
                     console.error("Error checking system status:", error);
-                    return false;
+                    return true; // Default to open if error
                 }
             }
             
@@ -492,10 +502,12 @@
                 }, 5000);
             }
             
-            // Submit ID to Supabase Event table's ID's array
+            // Submit ID directly without array check
             async function submitID(idNumber) {
                 try {
-                    // First, fetch the current IDs array
+                    console.log("Submitting ID:", idNumber);
+                    
+                    // First try to get existing entries
                     const getResponse = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
                         method: "GET",
                         headers: {
@@ -504,19 +516,35 @@
                         }
                     });
                     
-                    if (!getResponse.ok) throw new Error("Failed to fetch current IDs");
+                    if (!getResponse.ok) {
+                        console.error("Failed to fetch data:", getResponse.status, getResponse.statusText);
+                        throw new Error("Failed to fetch current IDs");
+                    }
                     
                     const data = await getResponse.json();
+                    console.log("Fetched data:", data);
                     
                     // Get current IDs array or initialize an empty one
                     let currentIDs = [];
-                    if (data.length > 0 && data[0].IDs) {
-                        currentIDs = data[0].IDs;
+                    if (data.length > 0) {
+                        if (data[0].IDs) {
+                            if (Array.isArray(data[0].IDs)) {
+                                currentIDs = data[0].IDs;
+                            } else {
+                                // If IDs exists but is not an array, initialize it
+                                console.warn("IDs is not an array, initializing it:", data[0].IDs);
+                                currentIDs = [];
+                            }
+                        }
                     }
+                    
+                    console.log("Current IDs:", currentIDs);
                     
                     // Add the new ID if it doesn't already exist
                     if (!currentIDs.includes(idNumber)) {
                         currentIDs.push(idNumber);
+                        
+                        console.log("Updating with IDs:", currentIDs);
                         
                         // Update the IDs array in the database
                         const updateResponse = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
@@ -527,11 +555,16 @@
                                 "Prefer": "return=minimal"
                             },
                             body: JSON.stringify({
-                                IDs: currentIDs
+                                "IDs": currentIDs
                             })
                         });
                         
-                        if (!updateResponse.ok) throw new Error("Failed to update IDs");
+                        if (!updateResponse.ok) {
+                            console.error("Failed to update:", updateResponse.status, updateResponse.statusText);
+                            const errorText = await updateResponse.text();
+                            console.error("Error details:", errorText);
+                            throw new Error("Failed to update IDs");
+                        }
                         
                         return true;
                     } else {
@@ -546,12 +579,6 @@
             
             // Submit button click handler
             submitButton.addEventListener("click", async function() {
-                // Check if system is open
-                if (!systemIsOpen) {
-                    showStatusMessage("Sistema šiuo metu uždaryta", "error");
-                    return;
-                }
-                
                 // Validate inputs
                 if (!validateForm()) {
                     showStatusMessage("Įveskite savo ID", "error");
