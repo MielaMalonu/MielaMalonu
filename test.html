@@ -691,33 +691,74 @@
         return response.ok ? response.json() : null;
     }
 
-    async function submitID(idNumber) {
-        // Submit ID to Supabase database
-        return new Promise((resolve, reject) => {
-            fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
+   async function submitID(idNumber) {
+    // First, get the current IDs array from the database
+    return new Promise((resolve, reject) => {
+        // Step 1: Get the current IDs array
+        fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': CONFIG.SUPABASE.API_KEY
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Nepavyko gauti duomenų");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data || data.length === 0) {
+                throw new Error("Duomenys nerasti");
+            }
+            
+            // Step 2: Update with the combined array
+            let currentIds = data[0].IDs || [];
+            
+            // If currentIds is a string, try to parse it as JSON
+            if (typeof currentIds === 'string') {
+                try {
+                    currentIds = JSON.parse(currentIds);
+                } catch(e) {
+                    currentIds = [];
+                }
+            }
+            
+            // If it's still not an array, initialize as empty array
+            if (!Array.isArray(currentIds)) {
+                currentIds = [];
+            }
+            
+            // Add the new ID to the array
+            currentIds.push(idNumber);
+            
+            // Step 3: Update the database with the new array
+            return fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'apikey': CONFIG.SUPABASE.API_KEY,
                     'Prefer': 'return=minimal'
                 },
-               body: JSON.stringify({
-                IDs: idNumber 
+                body: JSON.stringify({
+                    IDs: currentIds
                 })
-            })
-            .then(response => {
-                if (response.ok) {
-                    resolve();
-                } else {
-                    reject(new Error("Nepavyko pateikti ID"));
-                }
-            })
-            .catch(error => {
-                console.error("Error submitting ID:", error);
-                reject(new Error("Įvyko serverio klaida"));
             });
+        })
+        .then(response => {
+            if (response.ok) {
+                resolve();
+            } else {
+                reject(new Error("Nepavyko atnaujinti ID"));
+            }
+        })
+        .catch(error => {
+            console.error("Error submitting ID:", error);
+            reject(new Error("Įvyko serverio klaida"));
         });
-    }
+    });
+}
 
     function validateForm() {
         const input = document.getElementById("id-number");
