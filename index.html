@@ -34,6 +34,7 @@
             align-items: center;
             max-width: 1300px;
             width: 100%;
+            position: relative; /* Added for absolute positioning of invite */
         }
 
         /* Glassmorphism Container */
@@ -112,22 +113,24 @@
             font-size: 20px;
         }
 
-        /* Discord Invite Container */
+        /* Discord Invite Container - UPDATED */
         .discord-invite {
-            width: 100%;
+            width: 250px; /* Smaller width */
             background: #23272a;
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid #40444b;
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
+            position: absolute; /* Position absolutely */
+            right: 20px; /* On the right side */
+            top: 20px; /* Near the top */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add shadow for better visibility */
+            z-index: 100; /* Ensure it's above other content */
         }
 
         /* Banner */
         .invite-banner {
             width: 100%;
-            height: 200px;
+            height: 100px; /* Smaller height */
             position: relative;
             overflow: hidden;
             background: #2f3136;
@@ -144,15 +147,15 @@
         .invite-content {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 10px;
         }
 
         /* Server Icon */
         .server-icon {
-            width: 48px;
-            height: 48px;
+            width: 32px; /* Smaller icon */
+            height: 32px;
             border-radius: 50%;
-            margin-right: 12px;
+            margin-right: 8px;
             background: #23272a;
         }
 
@@ -164,13 +167,13 @@
 
         .server-info h3 {
             margin: 0;
-            font-size: 16px;
+            font-size: 14px; /* Smaller font */
             font-weight: bold;
         }
 
         .server-info p {
             margin: 2px 0;
-            font-size: 12px;
+            font-size: 10px; /* Smaller font */
             color: #b9bbbe;
         }
 
@@ -179,9 +182,10 @@
             background: #3ba55d;
             color: white;
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 6px 10px; /* Smaller padding */
             border-radius: 4px;
             font-weight: bold;
+            font-size: 12px; /* Smaller font */
             transition: 0.2s;
         }
 
@@ -196,7 +200,7 @@
             max-width: 600px;
         }
 
-        /* Discord Profiles Section - FIXED */
+        /* Discord Profiles Section */
         .discord-profiles {
             display: flex;
             flex-direction: row;
@@ -290,6 +294,22 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1100px) {
+            /* Move invite under the header when screen gets smaller */
+            .discord-invite {
+                position: relative;
+                right: auto;
+                top: auto;
+                width: 100%;
+                max-width: 400px;
+                margin: 20px auto;
+            }
+            
+            .invite-banner {
+                height: 120px;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 width: 90%;
@@ -305,10 +325,6 @@
             .nav-button {
                 flex: 1 1 40%;
                 min-width: 150px;
-            }
-            
-            .invite-banner {
-                height: 150px;
             }
             
             /* Make the profiles stack on smaller screens */
@@ -333,15 +349,26 @@
                 width: 100%;
                 max-width: 300px;
             }
-            
-            .invite-banner {
-                height: 120px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
+        <!-- Discord Invite - Moved to top right -->
+        <div class="discord-invite">
+            <div class="invite-banner">
+                <img id="serverBanner" src="https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096" alt="Server Banner">
+            </div>
+            <div class="invite-content">
+                <img id="serverIcon" src="https://i.imgur.com/amma0ov.gif" alt="Server Icon" class="server-icon">
+                <div class="server-info">
+                    <h3 id="serverName">Miela Malonu</h3>
+                    <p id="memberCount">Loading...</p>
+                </div>
+                <a id="inviteLink" href="https://discord.gg/mielamalonu" target="_blank" class="join-button">Join</a>
+            </div>
+        </div>
+        
         <div class="container">
             <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="Miela Malonu Logo" class="logo">
             <h1>Miela Malonu</h1>
@@ -364,7 +391,7 @@
                 <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką.</p>
             </div>
             
-            <!-- Fixed Discord Profiles Section -->
+            <!-- Discord Profiles Section -->
             <h2>Mūsų Komanda</h2>
             <div class="discord-profiles">
                 <!-- Admin Profile -->
@@ -389,20 +416,6 @@
                     <h3 class="profile-name">Civilis</h3>
                     <div class="profile-role role-staff">Bosas</div>
                     <p class="profile-desc">Vienas iš bosų patikimiausias AuraxoGT draugas.</p>
-                </div>
-            </div>
-            
-            <div class="discord-invite">
-                <div class="invite-banner">
-                    <img id="serverBanner" src="https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096" alt="Server Banner">
-                </div>
-                <div class="invite-content">
-                    <img id="serverIcon" src="https://i.imgur.com/amma0ov.gif" alt="Server Icon" class="server-icon">
-                    <div class="server-info">
-                        <h3 id="serverName">Miela Malonu</h3>
-                        <p id="memberCount">Loading...</p>
-                    </div>
-                    <a id="inviteLink" href="https://discord.gg/mielamalonu" target="_blank" class="join-button">Prisijungti</a>
                 </div>
             </div>
         </div>
