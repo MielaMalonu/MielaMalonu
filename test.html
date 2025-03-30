@@ -526,18 +526,18 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-    document.addEventListener("DOMContentLoaded", function() {
-   const CONFIG = {
-    SUPABASE: {
-        URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
-        API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
-    },
-DISCORD: {
-    DISCORD_CLIENT_ID: "1263389179249692693",
-    REDIRECT_URI: window.location.origin + window.location.pathname,
-    ROLE_CHECK_ENDPOINT: "https://mielamalonu-rolecheck1-production.up.railway.app/api/check-role"
-};
+     document.addEventListener("DOMContentLoaded", function() {
+    const CONFIG = {
+        SUPABASE: {
+            URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
+            API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
+        },
+        DISCORD: {
+            DISCORD_CLIENT_ID: "1263389179249692693",
+            REDIRECT_URI: window.location.origin + window.location.pathname,
+            ROLE_CHECK_ENDPOINT: "https://mielamalonu-rolecheck1-production.up.railway.app/api/check-role"
+        }
+    };
 
     // Elements
     const elements = {
@@ -609,7 +609,7 @@ DISCORD: {
     // Role Check
     async function checkUserRole(userId, token) {
         try {
-            const response = await fetch(CONFIG.ROLE_CHECK_ENDPOINT, {
+            const response = await fetch(CONFIG.DISCORD.ROLE_CHECK_ENDPOINT, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, token })
@@ -642,7 +642,7 @@ DISCORD: {
 
     // Event Listeners
     elements.discordLogin.addEventListener("click", () => {
-        window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&response_type=token&scope=identify`;
+        window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.DISCORD.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.DISCORD.REDIRECT_URI)}&response_type=token&scope=identify`;
     });
 
     elements.logoutButton.addEventListener("click", logout);
