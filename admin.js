@@ -388,7 +388,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Fetch Event IDs from Supabase
     async function fetchEventIds() {
         try {
-            // Fixed: Using "IDs" instead of "event_ids" in the select query
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
                 method: "GET",
                 headers: {
@@ -400,8 +399,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) throw new Error("⚠️ Failed to fetch event IDs");
 
             const data = await response.json();
-            if (data.length > 0 && data[0].IDs) {  // Fixed: Access "IDs" property
-                const eventIds = data[0].IDs;  // Fixed: Access "IDs" property
+            if (data.length > 0 && data[0].IDs) {
+                const eventIds = data[0].IDs;
                 console.log("📜 Current Event IDs:", eventIds);
                 displayEventIds(eventIds);
                 return eventIds;
@@ -417,7 +416,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // Display Event IDs
+    // Display Event IDs as comma-separated list
     function displayEventIds(ids) {
         const container = document.getElementById("event-ids-display");
         container.innerHTML = "";
@@ -427,15 +426,66 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
         
+        // Create a comma-separated string of all IDs
+        const allIdsText = ids.join(", ");
+        
+        // Create the main container that holds all IDs
+        const allIdsContainer = document.createElement("div");
+        allIdsContainer.className = "all-ids-container copy-text";
+        allIdsContainer.setAttribute("data-copy", allIdsText);
+        allIdsContainer.textContent = allIdsText;
+        
+        // Create a copy button
+        const copyAllButton = document.createElement("button");
+        copyAllButton.className = "copy-all-button";
+        copyAllButton.textContent = "📋 Kopijuoti visus";
+        copyAllButton.addEventListener("click", function() {
+            navigator.clipboard.writeText(allIdsText)
+                .then(() => {
+                    this.textContent = "✅ Nukopijuota!";
+                    setTimeout(() => {
+                        this.textContent = "📋 Kopijuoti visus";
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    this.textContent = "❌ Nepavyko kopijuoti";
+                    setTimeout(() => {
+                        this.textContent = "📋 Kopijuoti visus";
+                    }, 1000);
+                });
+        });
+        
+        // Create a wrapper for the title and copy button
+        const headerWrapper = document.createElement("div");
+        headerWrapper.className = "ids-header-wrapper";
+        
+        const idsTitle = document.createElement("h3");
+        idsTitle.textContent = "Event IDs:";
+        idsTitle.className = "ids-title";
+        
+        headerWrapper.appendChild(idsTitle);
+        headerWrapper.appendChild(copyAllButton);
+        
+        // Add to container
+        container.appendChild(headerWrapper);
+        container.appendChild(allIdsContainer);
+        
+        // Also display individual IDs that can be copied separately
+        const individualIdsContainer = document.createElement("div");
+        individualIdsContainer.className = "individual-ids-container";
+        
         ids.forEach(id => {
             const idElement = document.createElement("div");
             idElement.className = "event-id-tag copy-text";
             idElement.setAttribute("data-copy", id);
             idElement.textContent = id;
-            container.appendChild(idElement);
+            individualIdsContainer.appendChild(idElement);
         });
         
-        // Add click event to copy functionality
+        container.appendChild(individualIdsContainer);
+        
+        // Add click event to copy functionality for individual ID elements
         document.querySelectorAll('#event-ids-display .copy-text').forEach(element => {
             element.addEventListener('click', function() {
                 const textToCopy = this.getAttribute('data-copy');
@@ -467,7 +517,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         
         try {
-            // Fixed: Using "IDs" instead of "event_ids" in the request body
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
                 method: "PATCH",
                 headers: {
@@ -475,7 +524,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     "Content-Type": "application/json",
                     "Prefer": "return=minimal"
                 },
-                body: JSON.stringify({ IDs: [] })  // Fixed: Use "IDs" property name
+                body: JSON.stringify({ IDs: [] })
             });
 
             if (!response.ok) throw new Error("⚠️ Failed to clear event IDs");
