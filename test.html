@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
+    <title>ID Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4f92ff;
+            --primary-dark: #3a6fc9;
+            --success-color: #45ff64;
+            --error-color: #ff4545;
+            --card-bg: rgba(15, 25, 55, 0.7);
+            --input-bg: rgba(40, 40, 45, 0.7);
+            --input-focus-bg: rgba(60, 60, 70, 0.8);
+            --input-border: rgba(255, 255, 255, 0.1);
+            --input-focus-border: rgba(79, 146, 255, 0.4);
+            --button-gradient: linear-gradient(135deg, #3a6fc9, #54c8ff);
+            --button-hover-gradient: linear-gradient(135deg, #54c8ff, #3a6fc9);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: rgba(0, 0, 0, 0.6) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: darken;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--button-gradient);
+            z-index: 1;
+        }
+
+        h1 {
+            margin-bottom: 24px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 28px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            background: linear-gradient(to right, #4f92ff, #54c8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(79, 146, 255, 0.3);
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4f92ff, transparent);
+            border-radius: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: white;
+            outline: none;
+            font-size: 16px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:focus {
+            background: var(--input-focus-bg);
+            border-color: var(--input-focus-border);
+            box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.25);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            background: var(--button-gradient);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background: var(--button-hover-gradient);
+            box-shadow: 0 0 20px rgba(79, 146, 255, 0.7);
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(88, 101, 242, 0.2);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        #discord-login {
+            background: var(--button-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #discord-login:hover {
+            background: var(--button-hover-gradient);
+        }
+
+        #discord-login svg {
+            transition: var(--transition);
+        }
+
+        #discord-login:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* Profile container */
+        #profile-container {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin: 24px auto;
+            padding: 20px;
+            width: 100%;
+            max-width: 320px;
+            background: linear-gradient(145deg, rgba(79, 146, 255, 0.15) 0%, rgba(20, 30, 60, 0.9) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(79, 146, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status message */
+        #status-message {
+            margin-top: 24px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            animation: fadeIn 0.3s ease;
+            transform-origin: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(79, 146, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(79, 146, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 146, 255, 0); }
+        }
+
+        .success {
+            background-color: rgba(69, 255, 100, 0.2);
+            color: #45ff64;
+            border: 1px solid rgba(69, 255, 100, 0.3);
+        }
+
+        .error {
+            background-color: rgba(255, 69, 69, 0.2);
+            color: #ff4545;
+            border: 1px solid rgba(255, 69, 69, 0.3);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* System Closed Message */
+        #system-closed-message {
+            background-color: rgba(255, 193, 69, 0.15);
+            color: #ffc145;
+            padding: 16px;
+            border-radius: 10px;
+            margin: 24px 0;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(255, 193, 69, 0.3);
+            font-weight: 500;
+            animation: pulse 2s infinite;
+        }
+
+        /* Referrer Error Message */
+        #referrer-error-message {
+            background-color: rgba(255, 69, 69, 0.15);
+            color: #ff4545;
+            padding: 16px;
+            border-radius: 10px;
+            margin: 24px 0;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(255, 69, 69, 0.3);
+            font-weight: 500;
+            animation: pulse 2s infinite;
+        }
+
+        /* Form transitions */
+        #form-section {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Submit button with loading state */
+        #submit-button {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #submit-button.loading #submit-text {
+            visibility: hidden;
+        }
+
+        #loading-spinner {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+        }
+
+        /* Logo styles */
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            margin: 0 auto 25px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 25px rgba(79, 146, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 576px) {
+            .container {
+                padding: 24px 20px;
+                margin: 0 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            input {
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+            
+            button {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ID Anketa</h1>
+        
+        <!-- Referrer Error Message -->
+        <div id="referrer-error-message">
+            Šią svetainę galima atidaryti tik iš tam tikrų šaltinių.
+        </div>
+
+        <!-- System Closed Message -->
+        <div id="system-closed-message">
+            Sistema šiuo metu uždaryta.
+        </div>
+        
+        <!-- Form Section -->
+        <div id="form-section">
+            <div class="form-group">
+                <label for="id-number">Jūsų ID</label>
+                <input type="text" id="id-number" placeholder="Įveskite ID numerį" required>
+            </div>
+            <button id="submit-button">
+                <span id="submit-text">Pateikti</span>
+                <span id="loading-spinner" class="spinner hidden"></span>
+            </button>
+        </div>
+        
+        <!-- Status Message -->
+        <div id="status-message" class="hidden"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Configuration
+            const CONFIG = {
+                SUPABASE: {
+                    URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
+                    API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
+                },
+                // This tells system to only open when visiting from specific site
+                ALLOWED_REFERRER: "gauja.mielamalonu.com" // Change this to the site you want to allow
+            };
+            
+            // Elements
+            const formSection = document.getElementById("form-section");
+            const systemClosedMessage = document.getElementById("system-closed-message");
+            const referrerErrorMessage = document.getElementById("referrer-error-message");
+            const submitButton = document.getElementById("submit-button");
+            const statusMessage = document.getElementById("status-message");
+            const submitText = document.getElementById("submit-text");
+            const loadingSpinner = document.getElementById("loading-spinner");
+            
+            let systemIsOpen = false;
+
+            // Initialize the application
+            init();
+            
+            async function init() {
+                // Check if page is opened from allowed referrer
+                if (!checkReferrer()) {
+                    formSection.classList.add("hidden");
+                    referrerErrorMessage.style.display = "block";
+                    return;
+                }
+                
+                // Check system status
+                systemIsOpen = await checkSystemStatus();
+                
+                if (!systemIsOpen) {
+                    formSection.classList.add("hidden");
+                    systemClosedMessage.style.display = "block";
+                } else {
+                    formSection.classList.remove("hidden");
+                    systemClosedMessage.style.display = "none";
+                }
+            }
+            
+            // Check if page is opened from allowed referrer
+            function checkReferrer() {
+                const referrer = document.referrer;
+                return referrer.includes(CONFIG.ALLOWED_REFERRER);
+            }
+            
+            // Form validation
+            function validateForm() {
+                const idInput = document.getElementById('id-number');
+                
+                if (!idInput.value.trim()) {
+                    idInput.style.borderColor = 'rgba(237, 66, 69, 0.6)';
+                    idInput.style.boxShadow = '0 0 0 2px rgba(237, 66, 69, 0.2)';
+                    return false;
+                } else {
+                    idInput.style.borderColor = '';
+                    idInput.style.boxShadow = '';
+                    return true;
+                }
+            }
+            
+            // Reset validation styles on input
+            document.querySelectorAll('#form-section input').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.style.borderColor = '';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Check if system is open for submissions
+            async function checkSystemStatus() {
+                try {
+                    const response = await fetch(`${CONFIG.SUPABASE.URL}/Status?id=eq.1&select=status`, {
+                        method: "GET",
+                        headers: {
+                            "apikey": CONFIG.SUPABASE.API_KEY,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    
+                    if (!response.ok) throw new Error("Failed to fetch system status");
+                    
+                    const data = await response.json();
+                    if (data.length > 0) {
+                        return data[0].status === "online";
+                    }
+                    
+                    return false;
+                } catch (error) {
+                    console.error("Error checking system status:", error);
+                    return false;
+                }
+            }
+            
+            // Show status message
+            function showStatusMessage(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = type;
+                statusMessage.classList.remove("hidden");
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    statusMessage.classList.add("hidden");
+                }, 5000);
+            }
+            
+            // Submit ID to Supabase Event table's ID's array
+            async function submitID(idNumber) {
+                try {
+                    // First, fetch the current IDs array
+                    const getResponse = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
+                        method: "GET",
+                        headers: {
+                            "apikey": CONFIG.SUPABASE.API_KEY,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    
+                    if (!getResponse.ok) throw new Error("Failed to fetch current IDs");
+                    
+                    const data = await getResponse.json();
+                    
+                    // Get current IDs array or initialize an empty one
+                    let currentIDs = [];
+                    if (data.length > 0 && data[0].IDs) {
+                        currentIDs = data[0].IDs;
+                    }
+                    
+                    // Add the new ID if it doesn't already exist
+                    if (!currentIDs.includes(idNumber)) {
+                        currentIDs.push(idNumber);
+                        
+                        // Update the IDs array in the database
+                        const updateResponse = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
+                            method: "PATCH",
+                            headers: {
+                                "apikey": CONFIG.SUPABASE.API_KEY,
+                                "Content-Type": "application/json",
+                                "Prefer": "return=minimal"
+                            },
+                            body: JSON.stringify({
+                                IDs: currentIDs
+                            })
+                        });
+                        
+                        if (!updateResponse.ok) throw new Error("Failed to update IDs");
+                        
+                        return true;
+                    } else {
+                        // ID already exists
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error updating IDs:", error);
+                    throw error;
+                }
+            }
+            
+            // Submit button click handler
+            submitButton.addEventListener("click", async function() {
+                // Check if system is open
+                if (!systemIsOpen) {
+                    showStatusMessage("Sistema šiuo metu uždaryta", "error");
+                    return;
+                }
+                
+                // Validate inputs
+                if (!validateForm()) {
+                    showStatusMessage("Įveskite savo ID", "error");
+                    return;
+                }
+                
+                const idNumber = document.getElementById("id-number").value.trim();
+                
+                // Show loading state
+                submitButton.disabled = true;
+                submitButton.classList.add("loading");
+                loadingSpinner.classList.remove("hidden");
+                
+                try {
+                    const success = await submitID(idNumber);
+                    
+                    if (success) {
+                        showStatusMessage("ID pateiktas sėkmingai ✅", "success");
+                        // Reset form
+                        document.getElementById("id-number").value = "";
+                    } else {
+                        showStatusMessage("Šis ID jau buvo pateiktas", "error");
+                    }
+                } catch (error) {
+                    console.error("Error submitting ID:", error);
+                    showStatusMessage("Nepavyko išsiųsti duomenų. Bandykite vėliau.", "error");
+                } finally {
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.classList.remove("loading");
+                    loadingSpinner.classList.add("hidden");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
