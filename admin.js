@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             await fetchSupabaseData();
             await fetchBlacklist();
             await fetchStatus();
-            await fetchEventIds(); // Add this line to fetch event IDs
+            await fetchEventIds();
         } else {
             passwordInput.value = '';
             passwordInput.placeholder = 'Neteisingas slaptažodis';
@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // Display Event IDs as comma-separated list in a single line
+    // Display Event IDs as individual tags only
     function displayEventIds(ids) {
         const container = document.getElementById("event-ids-display");
         container.innerHTML = "";
@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
         
-        // Create a comma-separated string of all IDs
+        // Create a comma-separated string of all IDs (for the copy all button)
         const allIdsText = ids.join(", ");
         
         // Create a title for the IDs section
@@ -435,18 +435,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         idsTitle.className = "ids-title";
         container.appendChild(idsTitle);
         
-        // Create the main container that holds all IDs in one line
-        const allIdsContainer = document.createElement("div");
-        allIdsContainer.className = "all-ids-container copy-text";
-        allIdsContainer.setAttribute("data-copy", allIdsText);
-        allIdsContainer.textContent = allIdsText;
-        allIdsContainer.style.whiteSpace = "nowrap";
-        allIdsContainer.style.overflow = "hidden";
-        allIdsContainer.style.textOverflow = "ellipsis";
-        allIdsContainer.style.width = "100%";
-        container.appendChild(allIdsContainer);
-        
-        // Create a copy button and place it below the IDs
+        // Create a copy button for all IDs
         const copyAllButton = document.createElement("button");
         copyAllButton.className = "copy-all-button";
         copyAllButton.textContent = "📋 Kopijuoti visus";
@@ -468,10 +457,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
         });
         
-        // Add copy button below the IDs
+        // Add copy button below the title
         container.appendChild(copyAllButton);
         
-        // Also display individual IDs that can be copied separately
+        // Display individual IDs that can be copied separately
         const individualIdsContainer = document.createElement("div");
         individualIdsContainer.className = "individual-ids-container";
         individualIdsContainer.style.display = "flex";
@@ -568,7 +557,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             await fetchSupabaseData();
             await fetchBlacklist();
             await fetchStatus();
-            await fetchEventIds(); // Added to fetch event IDs
+            await fetchEventIds();
         } else {
             showAuthOverlay();
         }
