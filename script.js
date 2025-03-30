@@ -256,7 +256,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             // Clear notifications only if they are related to login/blacklist status
             hideNotification();
         }
-    }
 
     // ======================
     // FORM HANDLING
