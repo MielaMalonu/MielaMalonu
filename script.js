@@ -252,11 +252,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Handle messages
         if (isBlacklisted) {
             showNotification("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
-        } else if (!isOnline) {
-            showNotification("error", "❌ Aplikacijos šiuo metu nepriimamos!");
-        } else if (!isLoggedIn) {
-            showNotification("warning", "Prieš pateikiant anketą, reikia prisijungti su Discord! (Mygtukas viršuje!)");
-        } else {
+        } 
             // Clear notifications only if they are related to login/blacklist status
             hideNotification();
         }
