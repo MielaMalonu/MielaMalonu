@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             title.textContent = 'Admin prisijungimas';
             
             const passwordInput = document.createElement('input');
-            passwordInput.type = 'password';  // Fixed: changed from 'Slaptažodis' to 'password'
+            passwordInput.type = 'password';
             passwordInput.id = 'adminPassword';
             passwordInput.placeholder = 'Įveskite admin slaptažodį';
             
@@ -388,6 +388,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Fetch Event IDs from Supabase
     async function fetchEventIds() {
         try {
+            // Fixed: Using "IDs" instead of "event_ids" in the select query
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
                 method: "GET",
                 headers: {
@@ -399,8 +400,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) throw new Error("⚠️ Failed to fetch event IDs");
 
             const data = await response.json();
-            if (data.length > 0) {
-                const eventIds = data[0].event_ids || [];
+            if (data.length > 0 && data[0].IDs) {  // Fixed: Access "IDs" property
+                const eventIds = data[0].IDs;  // Fixed: Access "IDs" property
                 console.log("📜 Current Event IDs:", eventIds);
                 displayEventIds(eventIds);
                 return eventIds;
@@ -466,6 +467,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         
         try {
+            // Fixed: Using "IDs" instead of "event_ids" in the request body
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
                 method: "PATCH",
                 headers: {
@@ -473,7 +475,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     "Content-Type": "application/json",
                     "Prefer": "return=minimal"
                 },
-                body: JSON.stringify({ event_ids: [] })
+                body: JSON.stringify({ IDs: [] })  // Fixed: Use "IDs" property name
             });
 
             if (!response.ok) throw new Error("⚠️ Failed to clear event IDs");
