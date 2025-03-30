@@ -400,7 +400,78 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         populateTable(filteredData); // Re-populate table with filtered results
     });
+function displayEventIds(ids) {
+    const container = document.getElementById("event-ids-display");
+    container.innerHTML = "";
+    
+    if (!ids || ids.length === 0) {
+        container.innerHTML = "<p class='empty-message'>Nėra pridėtų ID</p>";
+        return;
+    }
+    
+    ids.forEach(id => {
+        const idElement = document.createElement("div");
+        idElement.className = "event-id-tag copy-text";
+        idElement.setAttribute("data-copy", id);
+        idElement.textContent = id;
+        container.appendChild(idElement);
+    });
+    
+    // Add click event to copy functionality
+    document.querySelectorAll('#event-ids-display .copy-text').forEach(element => {
+        element.addEventListener('click', function() {
+            const textToCopy = this.getAttribute('data-copy');
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Visual feedback
+                    const originalText = this.textContent;
+                    this.classList.add('copy-flash');
+                    this.setAttribute('data-original-text', originalText);
+                    this.textContent = 'Nukopijuota ✅';
+                    
+                    setTimeout(() => {
+                        this.classList.remove('copy-flash');
+                        this.textContent = this.getAttribute('data-original-text');
+                        this.removeAttribute('data-original-text');
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        });
+    });
+}
 
+// Clear Event IDs function
+async function clearEventIds() {
+    if (!confirm("Ar tikrai norite išvalyti visus Event ID?")) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
+            method: "PATCH",
+            headers: {
+                "apikey": CONFIG.SUPABASE.API_KEY,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({ event_ids: [] })
+        });
+
+        if (!response.ok) throw new Error("⚠️ Failed to clear event IDs");
+        
+        alert("✅ Visi ID sėkmingai išvalyti!");
+        displayEventIds([]); // Update the display
+        
+    } catch (error) {
+        console.error("❌ Error clearing event IDs:", error);
+        alert("⚠️ Nepavyko išvalyti ID.");
+    }
+}
+
+// Add this to your init function and event listeners
+document.getElementById("clearEventIdsButton").addEventListener("click", clearEventIds);
     // Initialize the application
     const init = async () => {
         // Check if already authenticated
