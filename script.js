@@ -862,41 +862,72 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     async function fetchDiscordInvite(inviteCode, containerClass) {
-        try {
-            const response = await fetch(`https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`);
-            const data = await response.json();
+    try {
+        const response = await fetch(`https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`);
+        const data = await response.json();
 
-            if (data.guild) {
-                const container = document.querySelector(`.${containerClass}`);
- if (!container) return console.error("Container not found!");
+        if (data.guild) {
+            const container = document.querySelector(`.${containerClass}`);
+            if (!container) return;
 
-                // Remove any existing invite before adding a new one
-                const oldInvite = container.querySelector(".discord-invite");
-                if (oldInvite) oldInvite.remove();
+            // Clear previous content
+            const oldInvite = container.querySelector(".discord-invite-box");
+            if (oldInvite) oldInvite.remove();
 
-                // Create the Discord invite HTML structure dynamically
-                const inviteHTML = `
-                    <div class="discord-invite">
-                        <div class="invite-banner">
-                            ${data.guild.banner ? `<img src="https://cdn.discordapp.com/banners/${data.guild.id}/${data.guild.banner}.png?size=600" alt="Server Banner">` : ""}
-                        </div>
-                        <div class="invite-content">
-                            <img src="https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.png" alt="Server Icon" class="server-icon">
-                            <div class="server-info">
-                                <h3>${data.guild.name}</h3>
-                                <p>${data.approximate_presence_count} Online • ${data.approximate_member_count} Members</p>
-                            </div>
-                            <a href="https://discord.gg/mielamalonu" target="_blank" class="join-button">Join</a>
-                        </div>
+            // Create new invite element
+            const inviteHTML = `
+                <div class="discord-invite-box">
+                    <div class="server-banner glow">
+                        <img src="${data.guild.banner ? 
+                            `https://cdn.discordapp.com/banners/${data.guild.id}/${data.guild.banner}.gif?size=600` : 
+                            'https://i.imgur.com/amma0ov.gif'}" 
+                            alt="Server Banner">
                     </div>
-                `;
+                    <div class="server-content">
+                        <div class="server-header">
+                            <img src="https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.gif"
+                                alt="Server Icon" 
+                                class="server-icon pulse">
+                            <div class="server-info">
+                                <h3 class="server-name glow-text">${data.guild.name}</h3>
+                                <div class="server-stats">
+                                    <div class="online-status">
+                                        <div class="status-dot online"></div>
+                                        <span id="onlineCount">${data.approximate_presence_count} Online</span>
+                                    </div>
+                                    <div class="total-members">
+                                        <i class="fas fa-users"></i>
+                                        <span id="memberCount">${data.approximate_member_count} Nariai</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="https://discord.gg/${inviteCode}" 
+                            class="join-button hover-glow" 
+                            target="_blank">
+                            <i class="fab fa-discord"></i>
+                            Prisijungti prie Serverio
+                        </a>
+                    </div>
+                </div>
+            `;
 
-                container.insertAdjacentHTML("beforeend", inviteHTML);
-            }
-        } catch (error) {
-            console.error("Error fetching Discord invite:", error);
+            container.insertAdjacentHTML("beforeend", inviteHTML);
+            
+            // Add hover effects
+            const serverIcon = container.querySelector('.server-icon');
+            serverIcon.addEventListener('mouseenter', () => {
+                serverIcon.style.transform = 'translateY(-20px) rotate(-5deg) scale(1.1)';
+            });
+            serverIcon.addEventListener('mouseleave', () => {
+                serverIcon.style.transform = 'translateY(-20px) scale(1)';
+            });
         }
+    } catch (error) {
+        console.error("Error fetching Discord invite:", error);
+        showNotification("error", "Nepavyko įkelti Discord serverio informacijos");
     }
+}
 
     // Call function and pass the container class where you want the invite to be displayed
     fetchDiscordInvite("mielamalonu", "rules-container");
