@@ -862,7 +862,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 showErrorMessage("❌ Prieš pateikiant anketą, reikia prisijungti per Discord! (Spauskite mygtuką viršuje!)");
                 break;
             case "Applications closed":
-                showErrorMessage("❌ Aplikacijos šiuo metu nepriimamos!");
+                showErrorMessage("");
                 break;
             case "User blacklisted":
                 showErrorMessage("🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
