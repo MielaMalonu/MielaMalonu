@@ -863,7 +863,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function fetchDiscordInvite(inviteCode, containerClass) {
     try {
-        const response = await fetch(`https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`);
+        const response = await fetch(`https://discord.com/api/v9/invites/mielamalonu?with_counts=true`);
         const data = await response.json();
 
         if (data.guild) {
