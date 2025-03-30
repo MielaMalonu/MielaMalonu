@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", async function () {
     console.log("✅ DOM fully loaded!");
 
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         currentUser: null, // Modified: Memory-only Discord auth
         updateInterval: null,
         isSubmitting: false, // Added to prevent multiple submissions
-        currentStep: 1, // Track the current form step
+        currentStep: B1, // Track the current form step
         // Form data
         formData: {
             pl: 0,
@@ -237,7 +238,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const submitBtn = elements.submitButton;
         if (!submitBtn) return;
         
-        // Only enable if all conditions are met
+        // Only enable if conditions are met (removed notifications)
         const isLoggedIn = !!state.currentUser;
         const isBlacklisted = isLoggedIn && isUserBlacklisted(state.currentUser.id, state.blacklist);
         const isOnline = state.lastStatus === "online";
@@ -249,15 +250,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             elements.nextStep1Button.disabled = !isLoggedIn;
         }
         
-        // Handle messages
+        // Handle messages - removed notification displays
         if (isBlacklisted) {
-            showNotification("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
+            // Silently handle blacklist check without notification
         } else if (!isOnline) {
-            showNotification("error", "❌ Aplikacijos šiuo metu nepriimamos!");
+            // Silently handle offline status without notification
         } else if (!isLoggedIn) {
-            showNotification("warning", "Prieš pateikiant anketą, reikia prisijungti su Discord! (Mygtukas viršuje!)");
+            // No login notification 
         } else {
-            // Clear notifications only if they are related to login/blacklist status
+            // Clear any existing notifications
             hideNotification();
         }
     }
@@ -492,8 +493,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 elements.reviewDiscord.textContent = user.global_name || user.username;
             }
             
-            // Show success notification on successful login
-            showNotification("success", "Sėkmingai prisijungta prie Discord!");
+            // Remove login success notification
         }
         
         toggleAuthElements(!!user);
@@ -524,20 +524,32 @@ document.addEventListener("DOMContentLoaded", async function () {
     function showErrorMessage(message) {
         elements.responseMessage.textContent = message;
         elements.responseMessage.className = "error-message";
-        // Also show as notification
-        showNotification("error", message);
+        // Show only critical error notifications
+        if (message.includes("klaida") || message.includes("Serverio klaida")) {
+            showNotification("error", message);
+        }
     }
 
     function showSuccessMessage(message) {
         elements.responseMessage.textContent = message;
         elements.responseMessage.className = "success-message";
-        // Also show as notification
-        showNotification("success", message);
+        // Only show critical success notifications
+        if (message.includes("sėkmingai pateikta")) {
+            showNotification("success", message);
+        }
     }
 
-    // New notification system
+    // New notification system - modified to be more selective
     function showNotification(type, message) {
         if (!elements.notification || !elements.notificationMessage || !elements.notificationIcon) return;
+        
+        // Skip showing authorization and closed application notifications
+        if (message.includes("Prieš pateikiant anketą, reikia prisijungti") || 
+            message.includes("prisijungta prie Discord") ||
+            message.includes("Aplikacijos šiuo metu nepriimamos") ||
+            message.includes("Jūs esate užblokuotas")) {
+            return;
+        }
         
         // Set notification content
         elements.notificationMessage.textContent = message;
@@ -655,8 +667,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             return false;
         }
         
-        // If all validations pass, show success message
-        showNotification("success", "✅ Visi laukai užpildyti teisingai!");
+        // If all validations pass, don't show notification
         clearMessages();
         return true;
     }
@@ -775,7 +786,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
     }
-
     // ======================
     // UTILITY FUNCTIONS
     // ======================
