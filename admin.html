@@ -52,7 +52,12 @@
             </table>
         </div>
     </div>
-
+<!-- Add this after the data-container div -->
+<div class="data-container" id="event-container">
+    <h2>Event IDs</h2>
+    <div id="event-ids-display" class="event-ids-wrapper"></div>
+    <button id="clearEventIdsButton" class="action-button">🗑️ Išvalyti visus ID</button>
+</div>
     <!-- Admin Panel (Fixed Position) -->
     <div class="admin-panel">
         <h2>Admin Valdymas</h2>
@@ -61,6 +66,7 @@
         <button id="blacklistButton">🚫 Pridėti Į Blacklist</button>
         <button id="removeButton">🚫 Pašalinti iš Blacklist</button>
     </div>
+
 
     <script src="admin.js"></script>
 </body>
