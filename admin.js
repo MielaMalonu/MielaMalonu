@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Fetch Event IDs from Supabase
     async function fetchEventIds() {
         try {
-            const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=event_ids`, {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
                 method: "GET",
                 headers: {
                     "apikey": CONFIG.SUPABASE.API_KEY,
