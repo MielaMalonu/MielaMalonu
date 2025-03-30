@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // Display Event IDs as comma-separated list
+    // Display Event IDs as comma-separated list in a single line
     function displayEventIds(ids) {
         const container = document.getElementById("event-ids-display");
         container.innerHTML = "";
@@ -429,16 +429,28 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Create a comma-separated string of all IDs
         const allIdsText = ids.join(", ");
         
-        // Create the main container that holds all IDs
+        // Create a title for the IDs section
+        const idsTitle = document.createElement("h3");
+        idsTitle.textContent = "Event IDs:";
+        idsTitle.className = "ids-title";
+        container.appendChild(idsTitle);
+        
+        // Create the main container that holds all IDs in one line
         const allIdsContainer = document.createElement("div");
         allIdsContainer.className = "all-ids-container copy-text";
         allIdsContainer.setAttribute("data-copy", allIdsText);
         allIdsContainer.textContent = allIdsText;
+        allIdsContainer.style.whiteSpace = "nowrap";
+        allIdsContainer.style.overflow = "hidden";
+        allIdsContainer.style.textOverflow = "ellipsis";
+        allIdsContainer.style.width = "100%";
+        container.appendChild(allIdsContainer);
         
-        // Create a copy button
+        // Create a copy button and place it below the IDs
         const copyAllButton = document.createElement("button");
         copyAllButton.className = "copy-all-button";
         copyAllButton.textContent = "📋 Kopijuoti visus";
+        copyAllButton.style.marginTop = "8px";
         copyAllButton.addEventListener("click", function() {
             navigator.clipboard.writeText(allIdsText)
                 .then(() => {
@@ -456,24 +468,16 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
         });
         
-        // Create a wrapper for the title and copy button
-        const headerWrapper = document.createElement("div");
-        headerWrapper.className = "ids-header-wrapper";
-        
-        const idsTitle = document.createElement("h3");
-        idsTitle.textContent = "Event IDs:";
-        idsTitle.className = "ids-title";
-        
-        headerWrapper.appendChild(idsTitle);
-        headerWrapper.appendChild(copyAllButton);
-        
-        // Add to container
-        container.appendChild(headerWrapper);
-        container.appendChild(allIdsContainer);
+        // Add copy button below the IDs
+        container.appendChild(copyAllButton);
         
         // Also display individual IDs that can be copied separately
         const individualIdsContainer = document.createElement("div");
         individualIdsContainer.className = "individual-ids-container";
+        individualIdsContainer.style.display = "flex";
+        individualIdsContainer.style.flexWrap = "wrap";
+        individualIdsContainer.style.gap = "5px";
+        individualIdsContainer.style.marginTop = "10px";
         
         ids.forEach(id => {
             const idElement = document.createElement("div");
