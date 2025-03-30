@@ -701,7 +701,8 @@
                     'apikey': CONFIG.SUPABASE.API_KEY,
                     'Prefer': 'return=minimal'
                 },
-                body: JSON.stringify({ idNumber })
+               body: JSON.stringify({
+                IDs: idNumber 
                 })
             })
             .then(response => {
