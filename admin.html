@@ -3,40 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
     <title>Admin Panel - Miela Malonu</title>
     <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
-    <!-- Display Data Table -->
-    <div class="data-container">
-        <table id="data-table"> 
-<div class="search-container">
-        <input type="text" id="searchInput" placeholder="🔍 Ieškoti pagal bet kokį lauką..." onkeyup="filterTable()">
-    </div>
-            <thead>
-                <tr>
-<th>Nr.</th>
-<th>ID</th>
-                    <th>Discord Useris</th>
-                    <th>Vardas</th>
-                    <th>Pavardė</th>
-                    <th>Steam Nick</th>
-                    <th>Steam Nuoroda</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="main-container">
+        <!-- Header Section -->
+        <div class="container">
+            <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="Miela Malonu Logo" class="logo" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid #4f92ff; margin: 0 auto 25px; box-shadow: 0 0 25px rgba(79, 146, 255, 0.5);">
+            <h1>Admin Panel</h1>
+            <p>Miela Malonu administracijos puslapis</p>
+            
+            <!-- Navigation buttons similar to index page -->
+            <div class="nav-buttons" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin: 30px auto; width: 100%;">
+                <a href="https://gauja.mielamalonu.com/" class="nav-button" style="background: linear-gradient(135deg, #3a6fc9, #54c8ff); color: white; padding: 16px 24px; border: none; border-radius: 12px; cursor: pointer; font-size: 18px; font-weight: bold; transition: all 0.3s ease-in-out; text-decoration: none; text-align: center; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);">
+                    <span>🏠 Pagrindinis</span>
+                </a>
+                <a href="https://gauja.mielamalonu.com/anketa" class="nav-button" style="background: linear-gradient(135deg, #3a6fc9, #54c8ff); color: white; padding: 16px 24px; border: none; border-radius: 12px; cursor: pointer; font-size: 18px; font-weight: bold; transition: all 0.3s ease-in-out; text-decoration: none; text-align: center; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);">
+                    <span>📝 Aplikacija</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 Ieškoti pagal bet kokį lauką..." onkeyup="filterTable()">
+        </div>
+
+        <!-- Display Data Table -->
+        <div class="data-container">
+            <h2>Vartotojų Duomenys</h2>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Nr.</th>
+                        <th>ID</th>
+                        <th>Discord Useris</th>
+                        <th>Vardas</th>
+                        <th>Pavardė</th>
+                        <th>Steam Nick</th>
+                        <th>Steam Nuoroda</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
-  <div class="admin-panel">
-             <h2>Admin Panel</h2>
-            <p id="statusDisplay" class="status-offline">KRAUNAMA</p>
-            <button id="statusButton">🔒 Status Control</button>
-            <button id="blacklistButton">🚫 Pridėti Į Blacklist</button>
-            <button id="removeButton">🚫 Pašalinti iš Blacklist</button>
-        </div>
+    <!-- Admin Panel (Fixed Position) -->
+    <div class="admin-panel">
+        <h2>Admin Valdymas</h2>
+        <p id="statusDisplay" class="status-offline">KRAUNAMA</p>
+        <button id="statusButton">🔒 Status Control</button>
+        <button id="blacklistButton">🚫 Pridėti Į Blacklist</button>
+        <button id="removeButton">🚫 Pašalinti iš Blacklist</button>
+    </div>
 
     <script src="admin.js"></script>
 </body>
