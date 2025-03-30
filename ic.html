@@ -240,6 +240,17 @@
             transform: translateX(-50%);
             margin: 0;
         }
+
+        /* No Role Message */
+        #no-role-message {
+            background-color: rgba(237, 66, 69, 0.3);
+            color: #ed4245;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -267,6 +278,11 @@
                 <h3 id="discord-username" class="username">Username</h3>
             </div>
             <button id="logout-button">Atsijungti</button>
+        </div>
+        
+        <!-- No Role Message -->
+        <div id="no-role-message">
+            Jūs neturite reikiamos rolės. Kreipkitės į serverio administraciją.
         </div>
         
         <!-- Form Section (Hidden by default) -->
@@ -306,13 +322,15 @@
                     API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
                 },
                 DISCORD_CLIENT_ID: "1263389179249692693", // Your Discord client ID
-                REDIRECT_URI: window.location.origin + window.location.pathname
+                REDIRECT_URI: window.location.origin + window.location.pathname,
+                ROLE_CHECK_ENDPOINT: "https://mielamalonu-rolecheck1-production.up.railway.app/check-role"
             };
             
             // Elements
             const loginSection = document.getElementById("login-section");
             const profileContainer = document.getElementById("profile-container");
             const formSection = document.getElementById("form-section");
+            const noRoleMessage = document.getElementById("no-role-message");
             const discordLogin = document.getElementById("discord-login");
             const logoutButton = document.getElementById("logout-button");
             const submitButton = document.getElementById("submit-button");
@@ -324,6 +342,34 @@
             
             // Discord user data
             let userData = null;
+            let hasRequiredRole = false;
+            
+            // Check if user has required role
+            async function checkUserRole(discordId, token) {
+                try {
+                    const response = await fetch(`${CONFIG.ROLE_CHECK_ENDPOINT}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            userId: discordId,
+                            token: token
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        console.error("Role check failed with status:", response.status);
+                        return false;
+                    }
+                    
+                    const data = await response.json();
+                    return data.hasRole === true;
+                } catch (error) {
+                    console.error("Error checking user role:", error);
+                    return false;
+                }
+            }
             
             // Check if system is open for submissions
             async function checkSystemStatus() {
@@ -377,6 +423,12 @@
             
             // Submit form data to Supabase
             async function submitForm() {
+                // Check if user has required role
+                if (!hasRequiredRole) {
+                    showStatusMessage("Jūs neturite reikiamos rolės", "error");
+                    return;
+                }
+                
                 const vardas = document.getElementById("vardas").value.trim();
                 const pavarde = document.getElementById("pavarde").value.trim();
                 const steamNick = document.getElementById("steam-nick").value.trim();
@@ -495,7 +547,7 @@
                         localStorage.setItem('discord_user', JSON.stringify(userData));
                         
                         // Update UI
-                        updateUIForLoggedInUser();
+                        updateUIForLoggedInUser(accessToken);
                     }
                 } else {
                     // Check for saved token and user data
@@ -513,7 +565,7 @@
                             localStorage.setItem('discord_user', JSON.stringify(userData));
                             
                             // Update UI
-                            updateUIForLoggedInUser();
+                            updateUIForLoggedInUser(savedToken);
                         } else {
                             // Token is invalid, clear storage
                             localStorage.removeItem('discord_token');
@@ -524,15 +576,16 @@
             }
             
             // Update UI for logged in user
-            async function updateUIForLoggedInUser() {
-                
-                
+            async function updateUIForLoggedInUser(token) {
                 // Check if user is blacklisted
                 const isBlacklisted = await checkBlacklist(userData.id);
                 if (isBlacklisted) {
                     showStatusMessage("Jūs esate blackliste", "error");
                     return;
                 }
+                
+                // Check if user has required role
+                hasRequiredRole = await checkUserRole(userData.id, token);
                 
                 // Update profile display
                 discordUsername.textContent = userData.global_name;
@@ -547,7 +600,14 @@
                 // Show/hide relevant sections
                 loginSection.classList.add("hidden");
                 profileContainer.style.display = "flex"; // Show profile container
-                formSection.classList.remove("hidden");
+                
+                if (hasRequiredRole) {
+                    formSection.classList.remove("hidden");
+                    noRoleMessage.style.display = "none";
+                } else {
+                    formSection.classList.add("hidden");
+                    noRoleMessage.style.display = "block";
+                }
             }
             
             // Sign in with Discord using implicit flow
@@ -561,11 +621,13 @@
                 localStorage.removeItem("discord_token");
                 localStorage.removeItem("discord_user");
                 userData = null;
+                hasRequiredRole = false;
                 
                 // Reset UI
                 loginSection.classList.remove("hidden");
                 profileContainer.style.display = "none"; // Hide profile container
                 formSection.classList.add("hidden");
+                noRoleMessage.style.display = "none";
                 statusMessage.classList.add("hidden");
             });
             
