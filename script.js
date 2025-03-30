@@ -886,7 +886,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                                 <h3>${data.guild.name}</h3>
                                 <p>${data.approximate_presence_count} Online • ${data.approximate_member_count} Members</p>
                             </div>
-                            <a href="https://discord.gg/${inviteCode}" target="_blank" class="join-button">Join</a>
+                            <a href="https://discord.gg/mielamalonu" target="_blank" class="join-button">Join</a>
                         </div>
                     </div>
                 `;
