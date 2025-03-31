@@ -480,7 +480,7 @@ button:disabled {
 }
 
 .status-offline {
-    background: rgba(237, 66, 69, 0.3) !important;
+    background: linear-gradient(135deg, #ff4545, #ff8145) !important;
     border-left: 4px solid var(--danger-color);
 }
 
