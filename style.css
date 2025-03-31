@@ -482,6 +482,7 @@ button:disabled {
 
 .status-offline {
     background: linear-gradient(135deg, #ff4545, #ff8145) !important;
+    color: #000;
     border-left: 4px solid var(--danger-color);
 }
 
