@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         } catch (error) {
             console.error("❌ Error fetching Supabase data:", error);
-            alert("⚠️ Unable to fetch data from Supabase.");
+            alert("⚠️ Nepavyko gauti duomenų iš duombazės.");
         }
     }
 
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         } catch (error) {
             console.error("❌ Error fetching blacklist:", error);
-            alert("⚠️ Unable to fetch blacklist.");
+            alert("⚠️ Nepavyko gauti duomenų iš duombazės.");
         }
     }
 
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     async function addToBlacklist() {
         const userId = prompt("Enter the User ID to Blacklist:");
         if (!userId || blacklist.includes(userId)) {
-            alert("⚠️ User already in blacklist or invalid input.");
+            alert("⚠️ Asmuo jau yra blackliste arba neteisingai ivestas ID.");
             return;
         }
 
@@ -221,12 +221,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
 
             if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
-            alert("✅ User added to blacklist!");
+            alert("✅ Asmuo pridėtas į Blacklista!");
             console.log("📜 Updated Blacklist:", blacklist);
 
         } catch (error) {
             console.error("❌ Error updating blacklist:", error);
-            alert("⚠️ Unable to update blacklist.");
+            alert("⚠️ Nepavyko atnaujinti blacklisto.");
         }
     }
 
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     async function removeFromBlacklist() {
         const userId = prompt("Enter the User ID to Remove from Blacklist:");
         if (!userId || !blacklist.includes(userId)) {
-            alert("⚠️ User not found in blacklist.");
+            alert("⚠️ Asmuo nėra Blackliste.");
             return;
         }
 
