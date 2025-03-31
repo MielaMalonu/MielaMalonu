@@ -475,7 +475,8 @@ button:disabled {
 }
 
 .status-online {
-    background: rgba(59, 165, 92, 0.3) !important;
+    background: linear-gradient(135deg, #45ff64, #45ffe0);
+    color: #000;
     border-left: 4px solid var(--success-color);
 }
 
