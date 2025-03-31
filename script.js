@@ -595,7 +595,142 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Clear any existing validation messages when changing steps
         clearMessages();
     }
+function showLoader() {
+  document.getElementById('formLoader').style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
 
+function hideLoader() {
+  document.getElementById('formLoader').style.display = 'none';
+  document.body.style.overflow = 'auto'; // Enable scrolling
+}
+
+// Example usage when submitting form
+document.getElementById('submitButton').addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  // Show loader while form is being processed
+  showLoader();
+  
+  // Simulate form submission (replace with your actual submission logic)
+  setTimeout(function() {
+    hideLoader();
+    // Show success notification or redirect
+  }, 2000);
+});
+
+// Form Validation Functions
+const formGroups = document.querySelectorAll('.form-group');
+
+// Function to validate form field
+function validateField(input) {
+  const formGroup = input.closest('.form-group');
+  const validationMessage = formGroup.querySelector('.validation-message');
+  
+  // Reset classes
+  formGroup.classList.remove('valid', 'invalid');
+  input.classList.remove('valid', 'invalid');
+  validationMessage.classList.remove('show', 'error', 'success');
+  
+  // Specific validation based on input type
+  if (input.id === 'age') {
+    const age = parseInt(input.value);
+    if (isNaN(age) || age < 13 || age > 99) {
+      showError(input, formGroup, validationMessage, 'Amžius turi būti tarp 13 ir 99');
+      return false;
+    }
+  } else if (input.id === 'whyJoin') {
+    if (input.value.trim().length < 20) {
+      showError(input, formGroup, validationMessage, 'Reikia bent 20 simbolių');
+      return false;
+    }
+  } else if (input.hasAttribute('required') && input.value.trim() === '') {
+    showError(input, formGroup, validationMessage, 'Šis laukas yra privalomas');
+    return false;
+  }
+  
+  // If we made it here, input is valid
+  showSuccess(input, formGroup, validationMessage);
+  return true;
+}
+
+function showError(input, formGroup, validationMessage, message) {
+  formGroup.classList.add('invalid');
+  input.classList.add('invalid');
+  validationMessage.textContent = message;
+  validationMessage.classList.add('show', 'error');
+  
+  // Add shake animation to invalid input
+  input.classList.add('shake');
+  setTimeout(() => input.classList.remove('shake'), 500);
+}
+
+function showSuccess(input, formGroup, validationMessage) {
+  formGroup.classList.add('valid');
+  input.classList.add('valid');
+  validationMessage.textContent = 'Atrodo gerai!';
+  validationMessage.classList.add('show', 'success');
+}
+
+// Add event listeners to form inputs
+document.querySelectorAll('.form-control').forEach(input => {
+  // Validate on blur (when field loses focus)
+  input.addEventListener('blur', function() {
+    validateField(this);
+  });
+  
+  // Validate on input (as user types)
+  input.addEventListener('input', function() {
+    if (this.classList.contains('invalid')) {
+      validateField(this);
+    }
+  });
+});
+
+// Validate entire form on submission
+document.getElementById('applicationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  let isValid = true;
+  
+  // Validate all inputs
+  this.querySelectorAll('.form-control').forEach(input => {
+    if (!validateField(input)) {
+      isValid = false;
+    }
+  });
+  
+  if (isValid) {
+    showLoader();
+    // Proceed with form submission
+    setTimeout(() => {
+      hideLoader();
+      // Continue to next step or submit form
+      // For example: document.getElementById('next-step-2').click();
+    }, 1500);
+  } else {
+    // Scroll to first invalid input
+    const firstInvalid = this.querySelector('.form-control.invalid');
+    if (firstInvalid) {
+      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+});
+
+// Add these additional CSS animations
+document.head.insertAdjacentHTML('beforeend', `
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    .shake {
+      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+  </style>
+`);
     function updateReviewPage() {
         // Update review page with form data
         if (elements.reviewAge) elements.reviewAge.textContent = elements.ageInput.value || 'N/A';
