@@ -1159,3 +1159,270 @@ button:disabled {
   70% { box-shadow: 0 0 0 10px rgba(88, 101, 242, 0); }
   100% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0); }
 }
+/* Mobile Responsiveness - Add these to your existing CSS */
+
+/* Base responsive settings */
+@media (max-width: 1200px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+  }
+  
+  .rules-container {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .form-container, .discord-card {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  /* Adjust form and containers */
+  .container, .rules-container, .status-card, .requirements-card, .blacklist-card, .discord-card {
+    padding: 15px;
+  }
+  
+  .form-container {
+    width: 100%;
+  }
+  
+  /* Steps indicator modifications */
+  .steps-indicator {
+    margin: 20px 0;
+  }
+  
+  .step-label {
+    font-size: 10px;
+  }
+  
+  /* Button adjustments */
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  /* Admin panel adjustments */
+  .admin-panel {
+    position: static;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Discord card adjustments */
+  .discord-card {
+    width: 100%;
+  }
+  
+  .server-banner {
+    height: 120px;
+  }
+}
+
+/* Mobile phone adjustments */
+@media (max-width: 480px) {
+  /* Further compress padding */
+  body {
+    padding: 10px;
+  }
+  
+  .container, .rules-container, .status-card, .requirements-card, .blacklist-card, .discord-card {
+    padding: 12px;
+  }
+  
+  /* Form elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  /* Steps indicator for small screens */
+  .steps-indicator {
+    margin: 15px 0;
+  }
+  
+  .step-number {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  
+  .step-label {
+    display: none; /* Hide labels on very small screens */
+  }
+  
+  /* Make step numbers more visible when labels are hidden */
+  .step.active .step-number {
+    box-shadow: 0 0 12px rgba(88, 101, 242, 0.9);
+  }
+  
+  /* Mobile optimized status display */
+  #statusDisplay {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  /* Optimize server info display */
+  .server-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .server-icon {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .server-stats {
+    justify-content: center;
+  }
+  
+  /* Adjustments for profile container */
+  #profile-container {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .avatar-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+  
+  /* Fix font sizes for mobile */
+  .form-header h2, .discord-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  /* Mobile-friendly server content */
+  .server-content {
+    padding: 15px;
+  }
+  
+  /* Make sure buttons are easy to tap */
+  button {
+    min-height: 44px; /* Recommended minimum touch target size */
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+  .step:not(:last-child)::after {
+    display: none; /* Remove connecting lines between steps on tiny screens */
+  }
+  
+  .form-control {
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .char-count {
+    font-size: 10px;
+  }
+  
+  /* Further adjustments for tiny screens */
+  .server-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .server-name {
+    font-size: 16px;
+  }
+  
+  /* Ensure all important elements remain visible */
+  .status-icon, .member-count::before {
+    display: none;
+  }
+}
+
+/* Font size adjustments for readability */
+@media (max-width: 768px) {
+  .server-description {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .rules-list li {
+    font-size: 13px;
+  }
+}
+
+/* Make validation messages more visible on mobile */
+@media (max-width: 480px) {
+  .validation-message {
+    position: static;
+    margin-top: 5px;
+    height: auto;
+  }
+  
+  .form-group::after {
+    top: 38px;
+  }
+}
+
+/* Fix for iOS Safari specific issues */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific styles */
+  input, textarea, select, button {
+    font-size: 16px; /* Prevents zoom on focus in iOS Safari */
+  }
+  
+  /* Fix for position: fixed on iOS */
+  .admin-panel {
+    position: absolute;
+  }
+}
+
+/* Improve touch targets for controls */
+@media (hover: none) and (pointer: coarse) {
+  /* Styles for touch-only devices */
+  .form-control, button, .toggle-label, .star-rating i {
+    cursor: pointer;
+  }
+  
+  /* Increase spacing for better touch experience */
+  .form-group label {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 14px 24px;
+  }
+  
+  .star-rating i {
+    font-size: 28px;
+    margin: 0 8px;
+  }
+}
+
+/* Fix for viewport height issues on mobile browsers */
+.main-container {
+  min-height: calc(100vh - 40px); /* Adjust based on your padding */
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Meta viewport tag - add this to your HTML head */
+/* <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> */
