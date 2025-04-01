@@ -195,7 +195,7 @@ button:hover {
 }
 
 /* Status Display */
-#statusDisplay {
+#statusDisplay, #idStatusDisplay {
     padding: 10px 15px;
     border-radius: 8px;
     font-size: 14px;
@@ -203,6 +203,8 @@ button:hover {
     margin: 10px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    width: 200px;
+    text-align: center;
 }
 
 .status-online {
@@ -212,6 +214,7 @@ button:hover {
 
 .status-offline {
     background: linear-gradient(135deg, #ff4545, #ff8145);
+    color: white;
 }
 
 /* Table styling */

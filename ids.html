@@ -467,9 +467,6 @@
                 height: 120px;
             }
         }
-
-        /* Keep all your original styles here */
-        /* ... (include all your original CSS styles) ... */
     </style>
 </head>
 <body>
@@ -556,9 +553,13 @@
 
     let userData = null;
     let hasRequiredRole = false;
+    let isSystemOpen = true; // Default state, will be updated by checkSystemStatus
 
     // Auth Functions
     async function initAuth() {
+        // First check if the system is open
+        await checkSystemStatus();
+        
         const fragmentParams = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = fragmentParams.get('access_token');
 
@@ -567,6 +568,43 @@
             await handleLogin(accessToken);
         } else {
             await checkExistingSession();
+        }
+    }
+
+    // New function to check system status
+    async function checkSystemStatus() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': CONFIG.SUPABASE.API_KEY
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error("Nepavyko patikrinti sistemos statuso");
+            }
+            
+            const data = await response.json();
+            if (data && data.length > 0) {
+                // Check if status is "uždaryta" (closed)
+                isSystemOpen = data[0].statusas !== "uždaryta";
+                
+                // Show system closed message if applicable
+                if (!isSystemOpen) {
+                    elements.systemClosedMessage.style.display = "block";
+                    elements.formSection.classList.add("hidden");
+                } else {
+                    elements.systemClosedMessage.style.display = "none";
+                }
+            }
+        } catch (error) {
+            console.error("Error checking system status:", error);
+            // Default to system closed if there's an error
+            isSystemOpen = false;
+            elements.systemClosedMessage.style.display = "block";
+            elements.formSection.classList.add("hidden");
         }
     }
 
@@ -630,13 +668,19 @@
             ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`
             : `https://cdn.discordapp.com/embed/avatars/${userData.discriminator % 5}.png`;
 
-        // Show form only if user has the required role
-        if (hasRequiredRole) {
+        // Show form only if user has the required role AND system is open
+        if (hasRequiredRole && isSystemOpen) {
             elements.formSection.classList.remove("hidden");
             elements.noRoleMessage.style.display = "none";
-        } else {
+            elements.systemClosedMessage.style.display = "none";
+        } else if (!hasRequiredRole) {
             elements.formSection.classList.add("hidden");
             elements.noRoleMessage.style.display = "block";
+            elements.systemClosedMessage.style.display = "none";
+        } else if (!isSystemOpen) {
+            elements.formSection.classList.add("hidden");
+            elements.noRoleMessage.style.display = "none";
+            elements.systemClosedMessage.style.display = "block";
         }
     }
 
@@ -648,9 +692,14 @@
     elements.logoutButton.addEventListener("click", logout);
 
     elements.submitButton.addEventListener("click", async () => {
-        // Double-check that user has role before allowing submission
+        // Double-check that user has role before allowing submission and system is open
         if (!hasRequiredRole) {
             showStatusMessage("Neturite reikiamos rolės", "error");
+            return;
+        }
+        
+        if (!isSystemOpen) {
+            showStatusMessage("Sistema šiuo metu uždaryta", "error");
             return;
         }
         
@@ -659,6 +708,8 @@
         const idNumber = document.getElementById("id-number").value.trim();
         elements.submitButton.disabled = true;
         elements.submitButton.classList.add("loading");
+        elements.loadingSpinner = document.getElementById("loading-spinner");
+        elements.loadingSpinner.classList.remove("hidden");
         
         try {
             await submitID(idNumber);
@@ -669,6 +720,7 @@
         } finally {
             elements.submitButton.disabled = false;
             elements.submitButton.classList.remove("loading");
+            elements.loadingSpinner.classList.add("hidden");
         }
     });
 

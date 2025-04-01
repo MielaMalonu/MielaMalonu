@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let fetchedData = [];
     let blacklist = [];
     let isOnline = "offline";
+    let idStatus = "uždaryta"; // Add a new variable to track ID status
 
     // Check if already authenticated via local storage
     function checkAuthentication() {
@@ -139,6 +140,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             await fetchBlacklist();
             await fetchStatus();
             await fetchEventIds();
+            await fetchIdStatus(); // Add a call to fetch the ID status
         } else {
             passwordInput.value = '';
             passwordInput.placeholder = 'Neteisingas slaptažodis';
@@ -288,6 +290,75 @@ document.addEventListener("DOMContentLoaded", async function () {
             updateStatusDisplay();
         } catch (error) {
             console.error("❌ Error fetching status:", error);
+        }
+    }
+
+    // NEW FUNCTION: Fetch ID Status
+    async function fetchIdStatus() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1&select=statusas`, {
+                method: "GET",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to fetch ID status");
+
+            const data = await response.json();
+            if (data.length > 0) {
+                idStatus = data[0].statusas || "uždaryta";
+                console.log("📜 Current ID Status:", idStatus);
+            } else {
+                idStatus = "uždaryta";
+                console.log("❗ No ID status found, defaulting to 'uždaryta'");
+            }
+            updateIdStatusDisplay();
+        } catch (error) {
+            console.error("❌ Error fetching ID status:", error);
+        }
+    }
+
+    // NEW FUNCTION: Toggle ID Status
+    async function toggleIdStatus() {
+        // Toggle between "atidaryta" and "uždaryta"
+        idStatus = idStatus === "atidaryta" ? "uždaryta" : "atidaryta";
+        updateIdStatusDisplay();
+
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1`, {
+                method: "PATCH",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({ statusas: idStatus })
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to update ID status");
+            console.log(`🔄 ID Status changed to: ${idStatus}`);
+            alert(`✅ ID Statusas pakeistas į: ${idStatus}`);
+        } catch (error) {
+            console.error("❌ Error updating ID status:", error);
+            alert("⚠️ Nepavyko atnaujinti ID statuso.");
+        }
+    }
+
+    // NEW FUNCTION: Update ID Status Display
+    function updateIdStatusDisplay() {
+        const idStatusDisplay = document.getElementById("idStatusDisplay");
+        if (idStatusDisplay) {
+            if (idStatus === "atidaryta") {
+                idStatusDisplay.textContent = "✅ IDS atidaryta ✅";
+                idStatusDisplay.classList.remove("status-offline");
+                idStatusDisplay.classList.add("status-online");
+            } else {
+                idStatusDisplay.textContent = "❌ IDS uždaryta ❌";
+                idStatusDisplay.classList.remove("status-online");
+                idStatusDisplay.classList.add("status-offline");
+            }
         }
     }
 
@@ -531,6 +602,34 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    // Add ID Status section to the admin panel
+    function addIdStatusSection() {
+        const adminPanel = document.querySelector('.admin-panel');
+        
+        // Create ID status display element
+        const idStatusDisplay = document.createElement('p');
+        idStatusDisplay.id = 'idStatusDisplay';
+        idStatusDisplay.className = idStatus === 'atidaryta' ? 'status-online' : 'status-offline';
+        idStatusDisplay.textContent = idStatus === 'atidaryta' ? 
+            '✅ IDS atidaryta ✅' : 
+            '❌ IDS uždaryta ❌';
+        
+        // Create ID status toggle button
+        const idStatusButton = document.createElement('button');
+        idStatusButton.id = 'idStatusButton';
+        idStatusButton.textContent = '🔄 Keisti ID statusą';
+        idStatusButton.addEventListener('click', toggleIdStatus);
+        
+        // Add elements to admin panel
+        adminPanel.insertBefore(idStatusDisplay, document.getElementById('blacklistButton'));
+        adminPanel.insertBefore(idStatusButton, document.getElementById('blacklistButton'));
+        
+        // Add some spacing
+        const spacer = document.createElement('div');
+        spacer.style.margin = '10px 0';
+        adminPanel.insertBefore(spacer, document.getElementById('blacklistButton'));
+    }
+
     // Event Listeners
     document.getElementById("statusButton").addEventListener("click", toggleStatus);
     document.getElementById("blacklistButton").addEventListener("click", addToBlacklist);
@@ -558,6 +657,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             await fetchBlacklist();
             await fetchStatus();
             await fetchEventIds();
+            await fetchIdStatus(); // Fetch ID status
+            addIdStatusSection(); // Add ID status section to the admin panel
         } else {
             showAuthOverlay();
         }
