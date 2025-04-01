@@ -351,11 +351,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const idStatusDisplay = document.getElementById("idStatusDisplay");
         if (idStatusDisplay) {
             if (idStatus === "atidaryta") {
-                idStatusDisplay.textContent = "✅ ID Registracija atidaryta ✅";
+                idStatusDisplay.textContent = "✅ IDS atidaryta ✅";
                 idStatusDisplay.classList.remove("status-offline");
                 idStatusDisplay.classList.add("status-online");
             } else {
-                idStatusDisplay.textContent = "❌ ID Registracija uždaryta ❌";
+                idStatusDisplay.textContent = "❌ IDS uždaryta ❌";
                 idStatusDisplay.classList.remove("status-online");
                 idStatusDisplay.classList.add("status-offline");
             }
