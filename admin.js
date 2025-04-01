@@ -611,8 +611,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         idStatusDisplay.id = 'idStatusDisplay';
         idStatusDisplay.className = idStatus === 'atidaryta' ? 'status-online' : 'status-offline';
         idStatusDisplay.textContent = idStatus === 'atidaryta' ? 
-            '✅ ID Registracija atidaryta ✅' : 
-            '❌ ID Registracija uždaryta ❌';
+            '✅ IDS atidaryta ✅' : 
+            '❌ IDS uždaryta ❌';
         
         // Create ID status toggle button
         const idStatusButton = document.createElement('button');
