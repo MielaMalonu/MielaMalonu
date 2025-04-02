@@ -6,9 +6,597 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
     <title>Admin Panel - Miela Malonu</title>
-    <link rel="stylesheet" href="admin.css">
+    
 </head>
+<style>
+/* General Styles */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: rgba(0, 0, 0, 0.7) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.6;
+}
 
+/* Main Layout */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1300px;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+}
+
+/* Glassmorphism Containers */
+.container, .rules-container, .data-container {
+    background: rgba(15, 25, 55, 0.7);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(100, 150, 255, 0.2);
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover, .rules-container:hover, .data-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6);
+}
+
+/* Application Form Container */
+.container {
+    width: 600px;
+    text-align: center;
+}
+
+/* Rules Container */
+.rules-container {
+    width: 400px;
+    color: white;
+}
+
+/* Rules List Styling */
+.rules-list {
+    text-align: left;
+    padding: 0 20px;
+    list-style-type: none;
+}
+
+.rules-list li {
+    margin-bottom: 15px;
+    font-size: 14px;
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+}
+
+/* Heading styles */
+h1, h2 {
+    margin: 10px 0;
+    background: linear-gradient(to right, #4f92ff, #54c8ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(79, 146, 255, 0.3);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 25px 0 20px;
+    position: relative;
+    display: inline-block;
+}
+
+h2:after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #4f92ff, transparent);
+    bottom: -8px;
+    left: 20%;
+}
+
+/* Form Elements */
+input, textarea, select {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(79, 146, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+    resize: none;
+}
+
+textarea {
+    min-height: 80px;
+}
+
+input:focus, textarea:focus, select:focus {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: #4f92ff;
+    box-shadow: 0 0 15px rgba(79, 146, 255, 0.6);
+}
+
+/* Button Styles */
+button {
+    background: linear-gradient(135deg, #3a6fc9, #54c8ff);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #54c8ff, #3a6fc9);
+    box-shadow: 0 0 20px rgba(79, 146, 255, 0.7);
+    transform: translateY(-3px) scale(1.03);
+}
+
+/* Admin Panel (Updated) */
+.admin-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: rgba(15, 25, 55, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(100, 150, 255, 0.2);
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6);
+}
+
+.admin-panel h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+/* Admin Panel Buttons */
+.admin-panel button {
+    width: 200px;
+    padding: 12px;
+    font-size: 16px;
+    margin: 5px 0;
+    background: linear-gradient(135deg, #3a6fc9, #54c8ff);
+}
+
+.admin-panel button:hover {
+    background: linear-gradient(135deg, #54c8ff, #3a6fc9);
+}
+
+/* Status Display */
+#statusDisplay, #idStatusDisplay {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    width: 200px;
+    text-align: center;
+}
+
+.status-online {
+    background: linear-gradient(135deg, #45ff64, #45ffe0);
+    color: #000;
+}
+
+.status-offline {
+    background: linear-gradient(135deg, #ff4545, #ff8145);
+    color: white;
+}
+
+/* Table styling */
+.data-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    padding: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 15px;
+    background: rgba(20, 30, 60, 0.4);
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(79, 146, 255, 0.2);
+}
+
+th {
+    background: rgba(20, 30, 60, 0.7);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background: rgba(79, 146, 255, 0.1);
+}
+
+td {
+    transition: all 0.3s ease;
+}
+
+/* Search container styling */
+.search-container {
+    margin: 20px auto;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 1px solid rgba(79, 146, 255, 0.3);
+    border-radius: 30px;
+    text-align: center;
+    outline: none;
+    transition: 0.3s ease-in-out;
+    background: rgba(15, 25, 55, 0.6);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#searchInput:focus {
+    border-color: #4f92ff;
+    box-shadow: 0 0 20px rgba(79, 146, 255, 0.6);
+    background: rgba(15, 25, 55, 0.8);
+}
+
+#searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+a {
+    color: #4f92ff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #54c8ff;
+    text-decoration: underline;
+}
+
+.copy-text {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.copy-text:hover {
+    text-decoration: underline;
+    color: #4f92ff;
+}
+
+.copy-flash {
+    color: #4f92ff;
+    font-weight: bold;
+}
+
+/* Authentication Overlay */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.auth-overlay h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.auth-overlay input {
+    width: 250px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(79, 146, 255, 0.3);
+    border-radius: 30px;
+    background: rgba(15, 25, 55, 0.7);
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.auth-overlay input:focus {
+    box-shadow: 0 0 20px rgba(79, 146, 255, 0.6);
+    background: rgba(15, 25, 55, 0.9);
+    border-color: #4f92ff;
+}
+
+.auth-overlay button {
+    width: 250px;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #3a6fc9, #54c8ff);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-overlay button:hover {
+    background: linear-gradient(135deg, #54c8ff, #3a6fc9);
+    box-shadow: 0 0 20px rgba(79, 146, 255, 0.7);
+    transform: translateY(-3px) scale(1.03);
+}
+
+.password-error {
+    animation: shake 0.5s;
+    border: 1px solid #ff4545 !important;
+    box-shadow: 0 0 15px rgba(255, 69, 69, 0.6) !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+/* Discord Profile Elements */
+.discord-auth-container {
+    margin-bottom: 20px;
+}
+
+#discord-login {
+    background: linear-gradient(135deg, #5865F2, #4752C4);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#discord-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(88, 101, 242, 0.4);
+}
+
+/* Profile Container - Discord Rich Presence Style */
+#profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 280px;
+    background: linear-gradient(145deg, rgba(15, 25, 55, 0.7) 0%, rgba(15, 25, 55, 0.9) 100%);
+    border-radius: 15px;
+    border: 1px solid rgba(79, 146, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+#profile-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6);
+}
+
+/* Status Animation */
+@keyframes status-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(59, 165, 92, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(59, 165, 92, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(59, 165, 92, 0); }
+}
+
+/* Avatar with Status Indicator */
+#profile-container .avatar-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+}
+
+#profile-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #4f92ff;
+    transition: transform 0.3s ease;
+}
+
+#profile-container:hover img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+/* Status Dot */
+#profile-container .status-dot {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #18191c;
+    background: #3ba55c;
+    animation: status-pulse 2s infinite;
+}
+
+/* User Info Section */
+#profile-container .user-info {
+    text-align: center;
+    width: 100%;
+}
+
+#profile-container .username {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#profile-container .activity {
+    color: #b9bbbe;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* Logout Button */
+#profile-container button {
+    background: linear-gradient(135deg, #ff4545, #ff8145);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+#profile-container button:hover {
+    background: linear-gradient(135deg, #ff5e5e, #ff9962);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 69, 69, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .container, .rules-container, .data-container {
+        width: 95%;
+        max-width: 600px;
+        padding: 25px 15px;
+    }
+
+    .admin-panel {
+        position: static;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .admin-panel button {
+        width: 100%;
+    }
+    
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container, .data-container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    #searchInput {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+</style>
 <body>
     <div class="main-container">
         <!-- Header Section -->
@@ -75,6 +663,676 @@
     </div>
 
 
-    <script src="admin.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", async function () {
+    console.log("✅ Admin panel loaded!");
+
+    const CONFIG = {
+        SUPABASE: {
+            URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
+            API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
+        },
+        ADMIN_PASSWORD: "R&bRY5UY2QpG$uuMjLe4",
+        AUTH_KEY: "miela_malonu_auth"  // Key for local storage
+    };
+
+    const BLACKLIST_ID = 1;
+    let fetchedData = [];
+    let blacklist = [];
+    let isOnline = "offline";
+    let idStatus = "uždaryta"; // Add a new variable to track ID status
+
+    // Check if already authenticated via local storage
+    function checkAuthentication() {
+        const isAuthenticated = localStorage.getItem(CONFIG.AUTH_KEY);
+        if (isAuthenticated === "true") {
+            console.log("✅ Authentication found in local storage");
+            return true;
+        }
+        return false;
+    }
+
+    // Store authentication in local storage
+    function storeAuthentication() {
+        localStorage.setItem(CONFIG.AUTH_KEY, "true");
+        console.log("✅ Authentication stored in local storage");
+    }
+
+    // Clear authentication from local storage
+    function clearAuthentication() {
+        localStorage.removeItem(CONFIG.AUTH_KEY);
+        console.log("🔄 Authentication cleared from local storage");
+    }
+
+    // Add logout button to admin panel
+    function addLogoutButton() {
+        const adminPanel = document.querySelector('.admin-panel');
+        
+        // Check if logout button already exists
+        if (!document.getElementById('logoutButton')) {
+            const logoutButton = document.createElement('button');
+            logoutButton.id = 'logoutButton';
+            logoutButton.textContent = '🚪 Atsijungti';
+            logoutButton.addEventListener('click', function() {
+                clearAuthentication();
+                location.reload(); // Reload the page to show login
+            });
+            
+            adminPanel.appendChild(logoutButton);
+        }
+    }
+
+    // Hide all content except auth overlay initially
+    function hideContent() {
+        // Hide all body content
+        document.querySelectorAll('body > *').forEach(el => {
+            if (!el.classList.contains('auth-overlay')) {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    // Show content after authentication
+    function showContent() {
+        // Show all body content
+        document.querySelectorAll('body > *').forEach(el => {
+            if (!el.classList.contains('auth-overlay')) {
+                el.style.display = '';
+            }
+        });
+        // Remove the auth overlay
+        const authOverlay = document.querySelector('.auth-overlay');
+        if (authOverlay) {
+            authOverlay.remove();
+        }
+        
+        // Add logout button
+        addLogoutButton();
+    }
+
+    // Create and show auth overlay
+    function showAuthOverlay() {
+        // Hide all other content first
+        hideContent();
+        
+        // Create auth overlay if it doesn't exist
+        if (!document.querySelector('.auth-overlay')) {
+            const overlay = document.createElement('div');
+            overlay.className = 'auth-overlay';
+            
+            const title = document.createElement('h2');
+            title.textContent = 'Admin prisijungimas';
+            
+            const passwordInput = document.createElement('input');
+            passwordInput.type = 'password';
+            passwordInput.id = 'adminPassword';
+            passwordInput.placeholder = 'Įveskite admin slaptažodį';
+            
+            const loginButton = document.createElement('button');
+            loginButton.textContent = 'Prisijungti';
+            loginButton.id = 'loginButton';
+            loginButton.addEventListener('click', validatePassword);
+            
+            // Add keypress event to input field
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    validatePassword();
+                }
+            });
+            
+            overlay.appendChild(title);
+            overlay.appendChild(passwordInput);
+            overlay.appendChild(loginButton);
+            
+            document.body.appendChild(overlay);
+            
+            // Focus on password input
+            passwordInput.focus();
+        }
+    }
+
+    // Validate password
+    async function validatePassword() {
+        const passwordInput = document.getElementById('adminPassword');
+        const password = passwordInput.value;
+        
+        if (password === CONFIG.ADMIN_PASSWORD) {
+            // Store authentication in local storage
+            storeAuthentication();
+            
+            showContent();
+            console.log("✅ Sėkmingai praėjote autorizacija");
+            await fetchSupabaseData();
+            await fetchBlacklist();
+            await fetchStatus();
+            await fetchEventIds();
+            await fetchIdStatus(); // Add a call to fetch the ID status
+        } else {
+            passwordInput.value = '';
+            passwordInput.placeholder = 'Neteisingas slaptažodis';
+            passwordInput.classList.add('password-error');
+            setTimeout(() => {
+                passwordInput.classList.remove('password-error');
+                passwordInput.placeholder = 'Įveskite admin slaptažodį';
+            }, 1500);
+        }
+    }
+
+    // Fetch Supabase Data
+    async function fetchSupabaseData() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/IC`, {
+                method: "GET",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to fetch data");
+
+            fetchedData = await response.json();
+            populateTable(fetchedData);
+
+        } catch (error) {
+            console.error("❌ Error fetching Supabase data:", error);
+            alert("⚠️ Nepavyko gauti duomenų iš duombazės.");
+        }
+    }
+
+    // Fetch Blacklist from Supabase
+    async function fetchBlacklist() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}&select=blacklist`, {
+                method: "GET",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to fetch blacklist data");
+
+            const data = await response.json();
+            if (data.length > 0) {
+                blacklist = data[0].blacklist || [];
+                console.log("📜 Current Blacklist:", blacklist);
+            } else {
+                console.log("❌ No blacklist found in Supabase.");
+                blacklist = [];
+            }
+        } catch (error) {
+            console.error("❌ Error fetching blacklist:", error);
+            alert("⚠️ Nepavyko gauti duomenų iš duombazės.");
+        }
+    }
+
+    // Add User to Blacklist
+    async function addToBlacklist() {
+        const userId = prompt("Enter the User ID to Blacklist:");
+        if (!userId || blacklist.includes(userId)) {
+            alert("⚠️ Asmuo jau yra blackliste arba neteisingai ivestas ID.");
+            return;
+        }
+
+        blacklist.push(userId);
+
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
+                method: "PATCH",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({ blacklist })
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
+            alert("✅ Asmuo pridėtas į Blacklista!");
+            console.log("📜 Updated Blacklist:", blacklist);
+
+        } catch (error) {
+            console.error("❌ Error updating blacklist:", error);
+            alert("⚠️ Nepavyko atnaujinti blacklisto.");
+        }
+    }
+
+    // Remove User from Blacklist
+    async function removeFromBlacklist() {
+        const userId = prompt("Enter the User ID to Remove from Blacklist:");
+        if (!userId || !blacklist.includes(userId)) {
+            alert("⚠️ Asmuo nėra Blackliste.");
+            return;
+        }
+
+        blacklist = blacklist.filter(id => id !== userId);
+
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
+                method: "PATCH",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({ blacklist })
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
+            alert("✅ User removed from blacklist!");
+            console.log("📜 Updated Blacklist:", blacklist);
+
+        } catch (error) {
+            console.error("❌ Error updating blacklist:", error);
+            alert("⚠️ Unable to update blacklist.");
+        }
+    }
+
+    // Fetch Status
+    async function fetchStatus() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Status?id=eq.${BLACKLIST_ID}&select=status`, {
+                method: "GET",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to fetch status");
+
+            const data = await response.json();
+            // Update to handle string values
+            if (data.length > 0) {
+                isOnline = data[0].status;
+                // Convert to string if it's still boolean
+                if (typeof isOnline === 'boolean') {
+                    isOnline = isOnline ? "online" : "offline";
+                }
+            } else {
+                isOnline = "offline";
+            }
+            updateStatusDisplay();
+        } catch (error) {
+            console.error("❌ Error fetching status:", error);
+        }
+    }
+
+    // NEW FUNCTION: Fetch ID Status
+    async function fetchIdStatus() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1&select=statusas`, {
+                method: "GET",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to fetch ID status");
+
+            const data = await response.json();
+            if (data.length > 0) {
+                idStatus = data[0].statusas || "uždaryta";
+                console.log("📜 Current ID Status:", idStatus);
+            } else {
+                idStatus = "uždaryta";
+                console.log("❗ No ID status found, defaulting to 'uždaryta'");
+            }
+            updateIdStatusDisplay();
+        } catch (error) {
+            console.error("❌ Error fetching ID status:", error);
+        }
+    }
+
+    // NEW FUNCTION: Toggle ID Status
+    async function toggleIdStatus() {
+        // Toggle between "atidaryta" and "uždaryta"
+        idStatus = idStatus === "atidaryta" ? "uždaryta" : "atidaryta";
+        updateIdStatusDisplay();
+
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1`, {
+                method: "PATCH",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({ statusas: idStatus })
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to update ID status");
+            console.log(`🔄 ID Status changed to: ${idStatus}`);
+            alert(`✅ ID Statusas pakeistas į: ${idStatus}`);
+        } catch (error) {
+            console.error("❌ Error updating ID status:", error);
+            alert("⚠️ Nepavyko atnaujinti ID statuso.");
+        }
+    }
+
+    // NEW FUNCTION: Update ID Status Display
+    function updateIdStatusDisplay() {
+        const idStatusDisplay = document.getElementById("idStatusDisplay");
+        if (idStatusDisplay) {
+            if (idStatus === "atidaryta") {
+                idStatusDisplay.textContent = "✅ IDS atidaryta ✅";
+                idStatusDisplay.classList.remove("status-offline");
+                idStatusDisplay.classList.add("status-online");
+            } else {
+                idStatusDisplay.textContent = "❌ IDS uždaryta ❌";
+                idStatusDisplay.classList.remove("status-online");
+                idStatusDisplay.classList.add("status-offline");
+            }
+        }
+    }
+
+    // Toggle Status
+    async function toggleStatus() {
+        // Toggle between "online" and "offline" strings
+        isOnline = isOnline === "online" ? "offline" : "online";
+        updateStatusDisplay();
+
+        try {
+            await fetch(`${CONFIG.SUPABASE.URL}/Status?id=eq.${BLACKLIST_ID}`, {
+                method: "PATCH",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({ status: isOnline }) // Now sending "online" or "offline"
+            });
+
+            console.log(`🔄 Status changed to: ${isOnline}`);
+        } catch (error) {
+            console.error("❌ Error updating status:", error);
+        }
+    }
+
+    function updateStatusDisplay() {
+        const statusDisplay = document.getElementById("statusDisplay");
+        if (isOnline === "online") {
+            statusDisplay.textContent = "✅ Anketos atidarytos ✅"; // Custom text for online
+        } else {
+            statusDisplay.textContent = "❌ Anketos uždarytos ❌"; // Custom text for offline
+        }
+        // Update class logic based on string values
+        statusDisplay.classList.toggle("status-online", isOnline === "online");
+        statusDisplay.classList.toggle("status-offline", isOnline === "offline");
+    }
+
+    // Populate Table
+    function populateTable(data) {
+        const dataTableBody = document.querySelector("#data-table tbody");
+        dataTableBody.innerHTML = "";
+
+        data.forEach((item, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${index + 1}.</td> <!-- Row number -->
+                <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
+                <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
+                <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
+                <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
+                <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
+                <td>
+                  <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
+                  <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
+                </td>
+            `;
+            dataTableBody.appendChild(row);
+        });
+        
+        // Add event listeners to all copy text elements
+        document.querySelectorAll('.copy-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const textToCopy = this.getAttribute('data-copy');
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // Visual feedback
+                        const originalText = this.textContent;
+                        this.classList.add('copy-flash');
+                        
+                        // Only change text content if it's not the clipboard icon
+                        if (this.textContent !== '📋') {
+                            this.setAttribute('data-original-text', originalText);
+                            this.textContent = 'Nukopijuota ✅';
+                        } else {
+                            this.textContent = '✓';
+                        }
+                        
+                        setTimeout(() => {
+                            this.classList.remove('copy-flash');
+                            
+                            // Restore original text if it was changed
+                            if (this.hasAttribute('data-original-text')) {
+                                this.textContent = this.getAttribute('data-original-text');
+                                this.removeAttribute('data-original-text');
+                            } else if (this.textContent === '✓') {
+                                this.textContent = '📋';
+                            }
+                        }, 1000);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            });
+        });
+    }
+
+    // Fetch Event IDs from Supabase
+    async function fetchEventIds() {
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
+                method: "GET",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to fetch event IDs");
+
+            const data = await response.json();
+            if (data.length > 0 && data[0].IDs) {
+                const eventIds = data[0].IDs;
+                console.log("📜 Current Event IDs:", eventIds);
+                displayEventIds(eventIds);
+                return eventIds;
+            } else {
+                console.log("❗ No event IDs found");
+                displayEventIds([]);
+                return [];
+            }
+        } catch (error) {
+            console.error("❌ Error fetching event IDs:", error);
+            alert("⚠️ Unable to fetch event IDs.");
+            return [];
+        }
+    }
+
+    // Display Event IDs as individual tags only
+    function displayEventIds(ids) {
+        const container = document.getElementById("event-ids-display");
+        container.innerHTML = "";
+        
+        if (!ids || ids.length === 0) {
+            container.innerHTML = "<p class='empty-message'>Nėra pridėtų ID</p>";
+            return;
+        }
+        
+        // Create a comma-separated string of all IDs (for the copy all button)
+        const allIdsText = ids.join(", ");
+        
+        // Create a title for the IDs section
+        const idsTitle = document.createElement("h3");
+        idsTitle.textContent = "Event IDs:";
+        idsTitle.className = "ids-title";
+        container.appendChild(idsTitle);
+        
+        // Create a copy button for all IDs
+        const copyAllButton = document.createElement("button");
+        copyAllButton.className = "copy-all-button";
+        copyAllButton.textContent = "📋 Kopijuoti visus";
+        copyAllButton.style.marginTop = "8px";
+        copyAllButton.addEventListener("click", function() {
+            navigator.clipboard.writeText(allIdsText)
+                .then(() => {
+                    this.textContent = "✅ Nukopijuota!";
+                    setTimeout(() => {
+                        this.textContent = "📋 Kopijuoti visus";
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    this.textContent = "❌ Nepavyko kopijuoti";
+                    setTimeout(() => {
+                        this.textContent = "📋 Kopijuoti visus";
+                    }, 1000);
+                });
+        });
+        
+        // Add copy button below the title
+        container.appendChild(copyAllButton);
+        
+        // Display individual IDs that can be copied separately
+        const individualIdsContainer = document.createElement("div");
+        individualIdsContainer.className = "individual-ids-container";
+        individualIdsContainer.style.display = "flex";
+        individualIdsContainer.style.flexWrap = "wrap";
+        individualIdsContainer.style.gap = "5px";
+        individualIdsContainer.style.marginTop = "10px";
+        
+        ids.forEach(id => {
+            const idElement = document.createElement("div");
+            idElement.className = "event-id-tag copy-text";
+            idElement.setAttribute("data-copy", id);
+            idElement.textContent = id;
+            individualIdsContainer.appendChild(idElement);
+        });
+        
+        container.appendChild(individualIdsContainer);
+        
+        // Add click event to copy functionality for individual ID elements
+        document.querySelectorAll('#event-ids-display .copy-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const textToCopy = this.getAttribute('data-copy');
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // Visual feedback
+                        const originalText = this.textContent;
+                        this.classList.add('copy-flash');
+                        this.setAttribute('data-original-text', originalText);
+                        this.textContent = 'Nukopijuota ✅';
+                        
+                        setTimeout(() => {
+                            this.classList.remove('copy-flash');
+                            this.textContent = this.getAttribute('data-original-text');
+                            this.removeAttribute('data-original-text');
+                        }, 1000);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            });
+        });
+    }
+
+    // Clear Event IDs function
+    async function clearEventIds() {
+        if (!confirm("Ar tikrai norite išvalyti visus Event ID?")) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
+                method: "PATCH",
+                headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({ IDs: [] })
+            });
+
+            if (!response.ok) throw new Error("⚠️ Failed to clear event IDs");
+            
+            alert("✅ Visi ID sėkmingai išvalyti!");
+            displayEventIds([]); // Update the display
+            
+        } catch (error) {
+            console.error("❌ Error clearing event IDs:", error);
+            alert("⚠️ Nepavyko išvalyti ID.");
+        }
+    }
+
+    // Add ID Status section to the admin panel
+    function addIdStatusSection() {
+        const adminPanel = document.querySelector('.admin-panel');
+        
+        // Create ID status display element
+        const idStatusDisplay = document.createElement('p');
+        idStatusDisplay.id = 'idStatusDisplay';
+        idStatusDisplay.className = idStatus === 'atidaryta' ? 'status-online' : 'status-offline';
+        idStatusDisplay.textContent = idStatus === 'atidaryta' ? 
+            '✅ IDS atidaryta ✅' : 
+            '❌ IDS uždaryta ❌';
+        
+        // Create ID status toggle button
+        const idStatusButton = document.createElement('button');
+        idStatusButton.id = 'idStatusButton';
+        idStatusButton.textContent = '🔄 Keisti ID statusą';
+        idStatusButton.addEventListener('click', toggleIdStatus);
+        
+        // Add elements to admin panel
+        adminPanel.insertBefore(idStatusDisplay, document.getElementById('blacklistButton'));
+        adminPanel.insertBefore(idStatusButton, document.getElementById('blacklistButton'));
+        
+        // Add some spacing
+        const spacer = document.createElement('div');
+        spacer.style.margin = '10px 0';
+        adminPanel.insertBefore(spacer, document.getElementById('blacklistButton'));
+    }
+
+    // Event Listeners
+    document.getElementById("statusButton").addEventListener("click", toggleStatus);
+    document.getElementById("blacklistButton").addEventListener("click", addToBlacklist);
+    document.getElementById("removeButton").addEventListener("click", removeFromBlacklist);
+    document.getElementById("clearEventIdsButton").addEventListener("click", clearEventIds);
+
+    document.getElementById("searchInput").addEventListener("input", function () {
+        const searchInput = this.value.toLowerCase();
+
+        const filteredData = fetchedData.filter(item => 
+            Object.values(item).some(value => 
+                value.toString().toLowerCase().includes(searchInput)
+            )
+        );
+
+        populateTable(filteredData); // Re-populate table with filtered results
+    });
+
+    // Initialize the application
+    const init = async () => {
+        // Check if already authenticated
+        if (checkAuthentication()) {
+            showContent();
+            await fetchSupabaseData();
+            await fetchBlacklist();
+            await fetchStatus();
+            await fetchEventIds();
+            await fetchIdStatus(); // Fetch ID status
+            addIdStatusSection(); // Add ID status section to the admin panel
+        } else {
+            showAuthOverlay();
+        }
+    };
+
+    // Start the application
+    init();
+});
+</script>
 </body>
 </html>
