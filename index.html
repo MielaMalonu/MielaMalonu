@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
     <title>Miela Malonu</title>
     <style>
@@ -26,18 +25,6 @@
             min-height: 100vh;
             text-align: center;
             line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Particle overlay */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
         }
 
         /* Main Container */
@@ -49,7 +36,6 @@
             width: 100%;
             position: relative;
             padding: 20px;
-            z-index: 1;
         }
 
         /* Glassmorphism Container */
@@ -65,42 +51,11 @@
             text-align: center;
             margin-bottom: 40px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .container:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6), 0 0 40px rgba(79, 146, 255, 0.3);
-        }
-
-        /* Animated background glow */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(79, 146, 255, 0.1) 0%, rgba(15, 25, 55, 0) 70%);
-            opacity: 0;
-            z-index: -1;
-            animation: pulse-glow 8s infinite;
-        }
-
-        @keyframes pulse-glow {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
+            box-shadow: 0 15px 35px rgba(0, 40, 100, 0.6);
         }
 
         /* Logo */
@@ -110,14 +65,13 @@
             border-radius: 50%;
             border: 4px solid #4f92ff;
             margin: 0 auto 25px;
-            animation: pulse 2s infinite, rotate 20s linear infinite;
+            animation: pulse 2s infinite;
             box-shadow: 0 0 25px rgba(79, 146, 255, 0.5);
             transition: transform 0.3s ease;
         }
 
         .logo:hover {
             transform: scale(1.05);
-            animation-play-state: paused;
         }
 
         @keyframes pulse {
@@ -132,32 +86,15 @@
             }
         }
 
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
         /* Heading styles */
         h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin: 10px 0;
-            background: linear-gradient(to right, #4f92ff, #54c8ff, #4f92ff);
-            background-size: 200% auto;
+            background: linear-gradient(to right, #4f92ff, #54c8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 10px rgba(79, 146, 255, 0.3);
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
         }
 
         h2 {
@@ -175,22 +112,6 @@
             background: linear-gradient(90deg, transparent, #4f92ff, transparent);
             bottom: -8px;
             left: 20%;
-            animation: pulse-width 3s infinite;
-        }
-
-        @keyframes pulse-width {
-            0% {
-                width: 40%;
-                left: 30%;
-            }
-            50% {
-                width: 80%;
-                left: 10%;
-            }
-            100% {
-                width: 40%;
-                left: 30%;
-            }
         }
 
         /* Navigation */
@@ -222,29 +143,12 @@
             justify-content: center;
             gap: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.5s;
         }
 
         .nav-button:hover {
             background: linear-gradient(135deg, #54c8ff, #3a6fc9);
             box-shadow: 0 0 20px rgba(79, 146, 255, 0.7);
             transform: translateY(-5px) scale(1.03);
-        }
-
-        .nav-button:hover::before {
-            left: 100%;
         }
 
         .nav-button-icon {
@@ -270,38 +174,6 @@
         .discord-invite:hover {
             transform: translateY(-50%) scale(1.05);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(79, 146, 255, 0.3);
-        }
-
-        /* Animated border effect */
-        .discord-invite::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            background: linear-gradient(45deg, 
-                #4f92ff, #54c8ff, #5452ff, #4f92ff, 
-                #54c8ff, #5452ff, #4f92ff);
-            background-size: 400%;
-            z-index: -1;
-            animation: border-animate 20s linear infinite;
-            border-radius: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .discord-invite:hover::after {
-            opacity: 1;
-        }
-
-        @keyframes border-animate {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 400% 0;
-            }
         }
 
         /* Banner */
@@ -343,7 +215,6 @@
             background: #23272a;
             border: 2px solid #4f92ff;
             transition: transform 0.3s ease;
-            animation: pulse 2s infinite;
         }
 
         .server-icon:hover {
@@ -380,29 +251,12 @@
             font-size: 14px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .join-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.5s;
         }
 
         .join-button:hover {
             background: linear-gradient(135deg, #54c8ff, #3a6fc9);
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .join-button:hover::before {
-            left: 100%;
         }
 
         /* About Section */
@@ -415,43 +269,6 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(79, 146, 255, 0.1);
-            transform: translateZ(0);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border-color: rgba(79, 146, 255, 0.3);
-        }
-
-        .about-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(79, 146, 255, 0.1) 0%, rgba(15, 25, 55, 0) 70%);
-            z-index: -1;
-            animation: ripple 10s infinite linear;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.3;
-            }
-            100% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
         }
 
         .about-section p {
@@ -485,33 +302,12 @@
             align-items: center;
             transition: all 0.4s ease;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                                      rgba(79, 146, 255, 0) 0%,
-                                      rgba(79, 146, 255, 0.05) 50%,
-                                      rgba(79, 146, 255, 0) 100%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
         }
 
         .profile-card:hover {
             transform: translateY(-10px) scale(1.05);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(79, 146, 255, 0.3);
             border: 1px solid rgba(79, 146, 255, 0.4);
-        }
-
-        .profile-card:hover::before {
-            transform: translateX(100%);
         }
 
         .profile-avatar {
@@ -526,8 +322,7 @@
         }
 
         .profile-card:hover .profile-avatar {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 0 20px rgba(79, 146, 255, 0.5);
+            transform: scale(1.1);
         }
 
         .admin-avatar {
@@ -559,8 +354,6 @@
             margin: 5px 0 12px;
             font-weight: bold;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
         }
 
         .role-admin {
@@ -604,128 +397,6 @@
             width: 50%;
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(79, 146, 255, 0.5), transparent);
-        }
-
-        /* Social Icons */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(20, 30, 60, 0.7);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            font-size: 18px;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 0 0 15px rgba(79, 146, 255, 0.4);
-            color: #4f92ff;
-        }
-
-        /* Back to top button */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3a6fc9, #54c8ff);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            opacity: 0;
-            transition: all 0.3s ease;
-            transform: translateY(100px);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(79, 146, 255, 0.4);
-        }
-
-        /* Loading animation */
-        .loader {
-            width: 100%;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #0f1937;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loader.done {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-inner {
-            width: 100px;
-            height: 100px;
-            position: relative;
-        }
-
-        .loader-circle {
-            width: 100%;
-            height: 100%;
-            border: 5px solid transparent;
-            border-top-color: #4f92ff;
-            border-radius: 50%;
-            position: absolute;
-            animation: spin 1.5s linear infinite;
-        }
-
-        .loader-circle:nth-child(2) {
-            width: 80%;
-            height: 80%;
-            top: 10%;
-            left: 10%;
-            border-top-color: #54c8ff;
-            animation-duration: 1.2s;
-            animation-direction: reverse;
-        }
-
-        .loader-circle:nth-child(3) {
-            width: 60%;
-            height: 60%;
-            top: 20%;
-            left: 20%;
-            border-top-color: #5452ff;
-            animation-duration: 0.9s;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         /* Responsive Design */
@@ -807,18 +478,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loader" id="loader">
-        <div class="loader-inner">
-            <div class="loader-circle"></div>
-            <div class="loader-circle"></div>
-            <div class="loader-circle"></div>
-        </div>
-    </div>
-
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
-
     <div class="main-container">
         <!-- Discord Invite - Positioned at top right -->
         <div class="discord-invite">
@@ -844,17 +503,12 @@
                 <a href="https://mielamalonu.com/anketa" class="nav-button">
                     <span class="nav-button-icon"><i class="fas fa-clipboard-list"></i></span>Aplikacija
                 </a>
-                <a href="#team" class="nav-button">
-                    <span class="nav-button-icon"><i class="fas fa-users"></i></span>Komanda
-                </a>
-                <a href="#about" class="nav-button">
-                    <span class="nav-button-icon"><i class="fas fa-info-circle"></i></span>Apie Mus
-                </a>
+               
             </div>
             
-            <div class="about-section" id="about">
+            <div class="about-section">
                 <h2>Apie Mus</h2>
-                <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką. Mūsų bendruomenė yra vieta, kur galite susirasti draugų, dalyvauti renginiuose ir tiesiog mėgautis gera atmosfera.</p>
+                <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką.</p>
             </div>
             
             <!-- Discord Profiles Section - Reorganized to 3x2 grid -->
