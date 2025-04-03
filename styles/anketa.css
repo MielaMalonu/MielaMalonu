@@ -1,1 +1,1425 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+:root {
+    --primary-color: #5865F2;
+    --primary-dark: #4752C4;
+    --success-color: #3BA55C;
+    --danger-color: #ED4245;
+    --warning-color: #FAA81A;
+    --text-color: #FFFFFF;
+    --secondary-text: #B9BBBE;
+    --background-dark: #36393F;
+    --glass-background: rgba(47, 49, 54, 0.8);
+    --glass-border: rgba(79, 84, 92, 0.4);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --input-background: rgba(32, 34, 37, 0.8);
+    --discord-dark: #23272A;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: rgba(0, 0, 0, 0.6) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+.page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(88, 101, 242, 0.2), rgba(0, 0, 0, 0.6));
+    z-index: -1;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Main Layout */
+.main-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Glassmorphism Containers */
+.container, .rules-container, .status-card, .requirements-card, .blacklist-card, .discord-card {
+    background: var(--glass-background);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover, .rules-container > div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Glowing text effect */
+.glow-text {
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+    }
+    to {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 20px rgba(88, 101, 242, 0.8);
+    }
+}
+
+/* Application Form Container */
+.form-container {
+    width: 600px;
+    text-align: center;
+}
+
+.form-header {
+    margin-bottom: 25px;
+}
+
+.form-header h2 {
+    margin-bottom: 20px;
+}
+
+/* Steps Indicator */
+.steps-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+}
+
+.step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+    left: 50%;
+}
+
+.step.active:not(:last-child)::after {
+    background: linear-gradient(90deg, var(--primary-color), rgba(255, 255, 255, 0.2));
+}
+
+.step.completed:not(:last-child)::after {
+    background: var(--primary-color);
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: var(--primary-color);
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.7);
+}
+
+.step.completed .step-number {
+    background: var(--success-color);
+}
+
+.step-label {
+    font-size: 12px;
+    color: var(--secondary-text);
+    transition: all 0.3s ease;
+}
+
+.step.active .step-label {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* Form Steps */
+.form-step {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: var(--input-background);
+    color: var(--text-color);
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.4);
+    transform: translateY(-2px);
+}
+
+.form-control.invalid {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 10px rgba(237, 66, 69, 0.4);
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.validation-message {
+    color: var(--danger-color);
+    font-size: 12px;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.char-count {
+    text-align: right;
+    font-size: 12px;
+    color: var(--secondary-text);
+    margin-top: 5px;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.star-rating i {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.star-rating i:hover {
+    transform: scale(1.2);
+    color: var(--warning-color);
+}
+
+.star-rating i.fas {
+    color: var(--warning-color);
+    text-shadow: 0 0 10px rgba(250, 168, 26, 0.7);
+}
+
+/* Toggle Switch */
+.toggle-container {
+    display: inline-block;
+    margin: 0 0 10px 0;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 50px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-label::after {
+    content: '';
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: all 0.3s ease;
+}
+
+.toggle-input:checked + .toggle-label {
+    background: var(--success-color);
+}
+
+.toggle-input:checked + .toggle-label::after {
+    left: calc(100% - 21px);
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(90deg, var(--primary-color), #00ff88);
+    color: var(--text-color);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.pulse-button {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(88, 101, 242, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(88, 101, 242, 0);
+    }
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.prev-button {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+}
+
+.next-button {
+    background: linear-gradient(90deg, var(--primary-color), #7289da);
+}
+
+.submit-button {
+    background: linear-gradient(90deg, var(--success-color), #4CAF50);
+}
+
+/* Rules Container */
+.rules-container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.status-card, .requirements-card, .blacklist-card, .discord-card {
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Rules List Styling */
+.rules-list {
+    text-align: left;
+    padding: 0;
+    list-style-type: none;
+}
+
+.rules-list li {
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rules-list li i {
+    color: var(--primary-color);
+    font-size: 16px;
+}
+
+/* Status Display */
+#statusDisplay {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+#statusDisplay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}
+
+.status-online {
+    background: linear-gradient(135deg, #45ff64, #45ffe0);
+    color: #000;
+    border-left: 4px solid var(--success-color);
+}
+
+.status-offline {
+    background: linear-gradient(135deg, #ff4545, #ff8145) !important;
+    color: #000;
+    border-left: 4px solid var(--danger-color);
+}
+
+/* Admin Panel */
+.admin-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.admin-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.admin-panel h2 {
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Admin Panel Buttons */
+.admin-button {
+    width: 200px;
+    padding: 12px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.admin-button i {
+    font-size: 16px;
+}
+
+#statusButton {
+    background: linear-gradient(90deg, #4A4A4A, #333333);
+}
+
+#blacklistButton {
+    background: linear-gradient(90deg, var(--danger-color), #C42C2C);
+}
+
+#removeButton {
+    background: linear-gradient(90deg, var(--success-color), #2E8B57);
+}
+
+/* Discord Integration - Updated to look more like Discord */
+.discord-auth-container {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#discord-login {
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    width: auto;
+}
+
+#discord-login:hover {
+    background-color: var(--primary-dark);
+}
+
+#discord-login i {
+    font-size: 18px;
+}
+
+/* Discord Card - Server Invite Style */
+.discord-card {
+    width: 400px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.discord-card h2 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.discord-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.4);
+}
+
+.server-banner {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(79, 84, 92, 0.3);
+    transition: transform 0.5s ease;
+}
+
+.discord-card:hover .server-banner {
+    transform: scale(1.03);
+}
+
+.server-content {
+    padding: 20px;
+}
+
+.server-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.server-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    margin-right: 16px;
+    background-color: var(--primary-color);
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.discord-card:hover .server-icon {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.server-info {
+    flex: 1;
+}
+
+.server-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 6px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.server-status {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--secondary-text);
+}
+
+.status-icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+}
+
+.status-icon.online {
+    background-color: var(--success-color);
+    box-shadow: 0 0 8px rgba(59, 165, 92, 0.6);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 165, 92, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(59, 165, 92, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 165, 92, 0);
+    }
+}
+
+.member-count {
+    margin-left: 15px;
+    position: relative;
+    padding-left: 15px;
+    font-weight: 500;
+}
+
+.member-count::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--secondary-text);
+}
+
+.server-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #dcddde;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(79, 84, 92, 0.3);
+}
+
+.join-server {
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, var(--primary-color), #7289da);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(114, 137, 218, 0.4);
+}
+
+.join-server::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.join-server:hover::before {
+    left: 100%;
+}
+
+.join-server:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 15px rgba(114, 137, 218, 0.6);
+}
+
+.join-server:active {
+    transform: translateY(0);
+}
+
+/* Members Preview */
+.members-preview {
+    display: flex;
+    margin-bottom: 20px;
+    padding-left: 4px;
+}
+
+.member-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: -12px;
+    border: 3px solid #2f3136;
+    overflow: hidden;
+    background-color: #7289DA;
+    transition: transform 0.2s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.member-avatar:hover {
+    transform: translateY(-5px);
+    z-index: 10;
+}
+
+.member-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.more-members {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgba(79, 84, 92, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-color);
+    border: 3px solid #2f3136;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.more-members:hover {
+    transform: translateY(-5px);
+    background-color: rgba(79, 84, 92, 0.8);
+    z-index: 10;
+}
+/* Profile Container - Discord Rich Presence Style */
+#profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 20px auto;
+    padding: 16px;
+    width: 300px;
+    background: var(--background-dark);
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Avatar with Status Indicator */
+#profile-container .avatar-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#profile-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#profile-container .avatar-wrapper:hover {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+#profile-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+#profile-container .avatar-wrapper:hover img {
+    transform: scale(1.1);
+}
+
+/* Status Dot */
+.status-dot {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #18191c;
+    z-index: 2;
+}
+
+.status-dot.online {
+    background: var(--success-color);
+    animation: pulse 2s infinite;
+}
+
+/* User Info */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+
+.discriminator {
+    font-size: 14px;
+    color: var(--secondary-text);
+    margin-bottom: 8px;
+}
+
+/* User Status */
+.user-status {
+    font-size: 13px;
+    color: var(--secondary-text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(79, 84, 92, 0.3);
+    width: 100%;
+    justify-content: center;
+}
+
+.status-emoji {
+    font-size: 16px;
+}
+
+/* Badge container */
+.badge-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.badge i {
+    color: var(--text-color);
+}
+/* Discord Invite Section */
+.discord-invite-box {
+    background: var(--discord-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.server-banner {
+    height: 120px;
+    background: var(--primary-color);
+    overflow: hidden;
+    position: relative;
+}
+
+.server-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+.server-content {
+    padding: 20px;
+}
+
+.server-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.server-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    margin-right: 15px;
+    transform: translateY(-20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.server-icon.pulse {
+    animation: iconPulse 2s infinite;
+}
+
+@keyframes iconPulse {
+    0% { transform: translateY(-20px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+    100% { transform: translateY(-20px) scale(1); }
+}
+
+.server-info {
+    flex: 1;
+}
+
+.server-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.online-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--success-color);
+    box-shadow: 0 0 8px rgba(59, 165, 92, 0.6);
+}
+
+.total-members {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary-text);
+}
+
+.join-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--primary-color), #7289da);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.join-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(114, 137, 218, 0.4);
+}
+
+.glow {
+    animation: bannerGlow 6s infinite;
+}
+
+@keyframes bannerGlow {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+    100% { filter: brightness(1); }
+}
+
+.hover-glow:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Enhanced Form Validation Styles */
+.form-group {
+  position: relative;
+}
+
+.form-control.valid {
+  border-color: var(--success-color);
+  background: rgba(59, 165, 92, 0.1);
+}
+
+.form-control.invalid {
+  border-color: var(--danger-color);
+  background: rgba(237, 66, 69, 0.1);
+}
+
+.validation-message {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+.validation-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.validation-message.error {
+  color: var(--danger-color);
+}
+
+.validation-message.success {
+  color: var(--success-color);
+}
+
+/* Validation Icons */
+.form-group::after {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 15px;
+  top: 42px;
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.form-group.valid::after {
+  content: "\f00c"; /* checkmark */
+  color: var(--success-color);
+  opacity: 1;
+}
+
+.form-group.invalid::after {
+  content: "\f00d"; /* X mark */
+  color: var(--danger-color);
+  opacity: 1;
+}
+
+/* Form Input Focus Animation */
+.form-control:focus {
+  animation: inputPulse 1s ease;
+}
+
+@keyframes inputPulse {
+  0% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(88, 101, 242, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0); }
+}
+/* Mobile Responsiveness - Add these to your existing CSS */
+
+/* Base responsive settings */
+@media (max-width: 1200px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+  }
+  
+  .rules-container {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .form-container, .discord-card {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  /* Adjust form and containers */
+  .container, .rules-container, .status-card, .requirements-card, .blacklist-card, .discord-card {
+    padding: 15px;
+  }
+  
+  .form-container {
+    width: 100%;
+  }
+  
+  /* Steps indicator modifications */
+  .steps-indicator {
+    margin: 20px 0;
+  }
+  
+  .step-label {
+    font-size: 10px;
+  }
+  
+  /* Button adjustments */
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  /* Admin panel adjustments */
+  .admin-panel {
+    position: static;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Discord card adjustments */
+  .discord-card {
+    width: 100%;
+  }
+  
+  .server-banner {
+    height: 120px;
+  }
+}
+
+/* Mobile phone adjustments */
+@media (max-width: 480px) {
+  /* Further compress padding */
+  body {
+    padding: 10px;
+  }
+  
+  .container, .rules-container, .status-card, .requirements-card, .blacklist-card, .discord-card {
+    padding: 12px;
+  }
+  
+  /* Form elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  /* Steps indicator for small screens */
+  .steps-indicator {
+    margin: 15px 0;
+  }
+  
+  .step-number {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  
+  .step-label {
+    display: none; /* Hide labels on very small screens */
+  }
+  
+  /* Make step numbers more visible when labels are hidden */
+  .step.active .step-number {
+    box-shadow: 0 0 12px rgba(88, 101, 242, 0.9);
+  }
+  
+  /* Mobile optimized status display */
+  #statusDisplay {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  /* Optimize server info display */
+  .server-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .server-icon {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .server-stats {
+    justify-content: center;
+  }
+  
+  /* Adjustments for profile container */
+  #profile-container {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .avatar-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+  
+  /* Fix font sizes for mobile */
+  .form-header h2, .discord-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  /* Mobile-friendly server content */
+  .server-content {
+    padding: 15px;
+  }
+  
+  /* Make sure buttons are easy to tap */
+  button {
+    min-height: 44px; /* Recommended minimum touch target size */
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+  .step:not(:last-child)::after {
+    display: none; /* Remove connecting lines between steps on tiny screens */
+  }
+  
+  .form-control {
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .char-count {
+    font-size: 10px;
+  }
+  
+  /* Further adjustments for tiny screens */
+  .server-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .server-name {
+    font-size: 16px;
+  }
+  
+  /* Ensure all important elements remain visible */
+  .status-icon, .member-count::before {
+    display: none;
+  }
+}
+
+/* Font size adjustments for readability */
+@media (max-width: 768px) {
+  .server-description {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .rules-list li {
+    font-size: 13px;
+  }
+}
+
+/* Make validation messages more visible on mobile */
+@media (max-width: 480px) {
+  .validation-message {
+    position: static;
+    margin-top: 5px;
+    height: auto;
+  }
+  
+  .form-group::after {
+    top: 38px;
+  }
+}
+
+/* Fix for iOS Safari specific issues */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific styles */
+  input, textarea, select, button {
+    font-size: 16px; /* Prevents zoom on focus in iOS Safari */
+  }
+  
+  /* Fix for position: fixed on iOS */
+  .admin-panel {
+    position: absolute;
+  }
+}
+
+/* Improve touch targets for controls */
+@media (hover: none) and (pointer: coarse) {
+  /* Styles for touch-only devices */
+  .form-control, button, .toggle-label, .star-rating i {
+    cursor: pointer;
+  }
+  
+  /* Increase spacing for better touch experience */
+  .form-group label {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 14px 24px;
+  }
+  
+  .star-rating i {
+    font-size: 28px;
+    margin: 0 8px;
+  }
+}
+
+/* Fix for viewport height issues on mobile browsers */
+.main-container {
+  min-height: calc(100vh - 40px); /* Adjust based on your padding */
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
