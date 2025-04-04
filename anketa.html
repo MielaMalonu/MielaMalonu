@@ -52,7 +52,7 @@
                     <input type="number" id="username" hidden>
     
                     <div class="form-group">
-                        <label for="age">Kiek jums metų?</label>
+                        <label for="age">Kiek jums metu?</label>
                         <input type="number" id="age" required class="form-control" min="13" max="99">
                         <div class="validation-message"></div>
                     </div>
@@ -221,6 +221,10 @@
             </a>
         </div>
     </div>
+</div>
+<div id="formLoader" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+  <div class="loader-spinner"></div>
+  <p style="color: white; margin-top: 20px; font-size: 18px;">Pateikiama aplikacija...</p>
 </div>
 
         <!-- Admin Panel -->
@@ -503,46 +507,53 @@ document.addEventListener("DOMContentLoaded", async function () {
     // FORM HANDLING
     // ======================
 
-    async function handleFormSubmit(event) {
-        event.preventDefault();
+   async function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    // Prevent multiple submissions
+    if (state.isSubmitting) return;
+    state.isSubmitting = true;
+    
+    clearMessages();
+
+    const submitButton = elements.submitButton;
+    submitButton.disabled = true;
+    submitButton.textContent = "Pateikiama...";
+    
+    // Show loader at the beginning of submission
+    showLoader();
+
+    try {
+        // Validate all requirements in one go
+        await validateAllRequirements();
         
-        // Prevent multiple submissions
-        if (state.isSubmitting) return;
-        state.isSubmitting = true;
+        // If validation passes, gather data and submit
+        const formData = gatherFormData();
+        await submitApplication(formData);
+
+        submitButton.textContent = "Pateikta!";
+        showNotification("success", "✅ Aplikacija sėkmingai pateikta!");
+        elements.form.reset();
+        resetFormState();
+        goToStep(1); // Go back to step 1 after submission
         
-        clearMessages();
-
-        const submitButton = elements.submitButton;
-        submitButton.disabled = true;
-        submitButton.textContent = "Pateikiama...";
-
-        try {
-            // Validate all requirements in one go
-            await validateAllRequirements();
-            
-            // If validation passes, gather data and submit
-            const formData = gatherFormData();
-            await submitApplication(formData);
-
-            submitButton.textContent = "Pateikta!";
-            showNotification("success", "✅ Aplikacija sėkmingai pateikta!");
-            elements.form.reset();
-            resetFormState();
-            goToStep(1); // Go back to step 1 after submission
-            
-        } catch (error) {
-            handleSubmissionError(error);
-            submitButton.textContent = "Bandykite dar kartą";
-        } finally {
-            // Reset submission state after delay
-            setTimeout(() => {
-                state.isSubmitting = false;
-                submitButton.textContent = "Pateikti aplikaciją";
-                submitButton.disabled = false;
-                updateFormState();
-            }, 3000);
-        }
+    } catch (error) {
+        handleSubmissionError(error);
+        submitButton.textContent = "Bandykite dar kartą";
+    } finally {
+        // Hide loader when everything is complete (success or error)
+        hideLoader();
+        
+        // Reset submission state after delay
+        setTimeout(() => {
+            state.isSubmitting = false;
+            submitButton.textContent = "Pateikti aplikaciją";
+            submitButton.disabled = false;
+            updateFormState();
+        }, 3000);
     }
+}
+
 
     // Combined validation function
     async function validateAllRequirements() {
