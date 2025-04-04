@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #000000;
-    --primary-dark: #111111;
-    --success-color: #1a9b3c;
+    --primary-color: #5865F2;  /* Changed to Discord-style blue */
+    --primary-dark: #4752C4;
+    --success-color: #3BA55C;
     --danger-color: #ED4245;
     --warning-color: #FAA81A;
-    --text-color: #FFFFFF;
-    --secondary-text: #B9BBBE;
-    --background-dark: #121212;
-    --glass-background: rgba(0, 0, 0, 0.8);
-    --glass-border: rgba(40, 40, 40, 0.4);
-    --glass-shadow: rgba(0, 0, 0, 0.5);
-    --input-background: rgba(20, 20, 20, 0.9);
-    --discord-dark: #0a0a0a;
+    --text-color: #23272A;     /* Changed to darker text for contrast */
+    --secondary-text: #4F545C;
+    --background-light: #F6F6F7; /* New light background */
+    --glass-background: rgba(255, 255, 255, 0.8); /* Changed to white-based */
+    --glass-border: rgba(220, 220, 220, 0.6);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --input-background: rgba(245, 245, 245, 0.95);
+    --discord-light: #FFFFFF;
 }
 
 * {
@@ -24,7 +24,7 @@
 
 body {
     font-family: 'Poppins', Arial, sans-serif;
-    background: rgba(0, 0, 0, 0.8) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+    background: rgba(255, 255, 255, 0.85) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -44,7 +44,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.85));
     z-index: -1;
     animation: gradientShift 8s ease infinite;
 }
@@ -61,7 +61,6 @@ body {
     }
 }
 
-
 /* Main Layout */
 .main-container {
     display: flex;
@@ -74,12 +73,12 @@ body {
 
 /* Glassmorphism Containers */
 .container, .rules-container, .status-card, .requirements-card, .blacklist-card, .discord-card {
-   background: rgba(0, 0, 0, 0.75);
+   background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 35px;
     border-radius: 20px;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(220, 220, 220, 0.5);
     width: 100%;
     max-width: 1200px;
     text-align: center;
@@ -89,22 +88,22 @@ body {
 
 .container:hover, .rules-container > div:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* Glowing text effect */
 .glow-text {
-    color: white;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(88, 101, 242, 0.4);
     animation: glow 3s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
     from {
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        text-shadow: 0 0 5px rgba(88, 101, 242, 0.4);
     }
     to {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 20px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 0 15px rgba(88, 101, 242, 0.6), 0 0 20px rgba(88, 101, 242, 0.4);
     }
 }
 
@@ -143,13 +142,13 @@ body {
     top: 15px;
     width: 100%;
     height: 3px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(200, 200, 200, 0.4);
     z-index: 1;
     left: 50%;
 }
 
 .step.active:not(:last-child)::after {
-    background: linear-gradient(90deg, var(--primary-color), rgba(255, 255, 255, 0.2));
+    background: linear-gradient(90deg, var(--primary-color), rgba(200, 200, 200, 0.4));
 }
 
 .step.completed:not(:last-child)::after {
@@ -160,7 +159,7 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(200, 200, 200, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -169,11 +168,12 @@ body {
     position: relative;
     z-index: 2;
     transition: all 0.3s ease;
+    color: #FFFFFF;
 }
 
 .step.active .step-number {
     background: var(--primary-color);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
 }
 
 .step.completed .step-number {
@@ -218,13 +218,14 @@ body {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
+    color: var(--text-color);
 }
 
 .form-control {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: 1px solid rgba(200, 200, 200, 0.6);
     background: var(--input-background);
     color: var(--text-color);
     outline: none;
@@ -233,15 +234,15 @@ body {
 }
 
 .form-control:focus {
-    background: rgba(20, 20, 20, 0.9);
+    background: rgba(245, 245, 245, 0.95);
     border-color: var(--primary-color);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.25);
     transform: translateY(-2px);
 }
 
 .form-control.invalid {
     border-color: var(--danger-color);
-    box-shadow: 0 0 10px rgba(237, 66, 69, 0.4);
+    box-shadow: 0 0 10px rgba(237, 66, 69, 0.25);
 }
 
 textarea.form-control {
@@ -272,7 +273,7 @@ textarea.form-control {
 
 .star-rating i {
     font-size: 24px;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(150, 150, 150, 0.4);
     margin: 0 5px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -285,7 +286,7 @@ textarea.form-control {
 
 .star-rating i.fas {
     color: var(--warning-color);
-    text-shadow: 0 0 10px rgba(250, 168, 26, 0.7);
+    text-shadow: 0 0 10px rgba(250, 168, 26, 0.4);
 }
 
 /* Toggle Switch */
@@ -302,7 +303,7 @@ textarea.form-control {
     display: block;
     width: 50px;
     height: 24px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(200, 200, 200, 0.5);
     border-radius: 12px;
     position: relative;
     cursor: pointer;
@@ -331,8 +332,8 @@ textarea.form-control {
 
 /* Buttons */
 button {
-    background: linear-gradient(90deg, #000000, #222222);
-    color: var(--text-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    color: white;
     padding: 12px 24px;
     border: none;
     border-radius: 8px;
@@ -351,21 +352,22 @@ button::before {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(50, 50, 50, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: all 0.5s ease;
 }
 
 .prev-button {
     background: transparent;
-    border: 1px solid #333333;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
 .next-button {
-    background: linear-gradient(90deg, #000000, #222222);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
 }
 
 .submit-button {
-    background: linear-gradient(90deg, #000000, #222222);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
 }
 
 button:hover::before {
@@ -374,7 +376,7 @@ button:hover::before {
 
 button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(88, 101, 242, 0.25);
 }
 
 button:active {
@@ -392,13 +394,13 @@ button:disabled {
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.7);
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 10px rgba(88, 101, 242, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(88, 101, 242, 0);
     }
 }
 
@@ -406,19 +408,6 @@ button:disabled {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-}
-
-.prev-button {
-    background: transparent;
-    border: 1px solid var(--primary-color);
-}
-
-.next-button {
-    background: linear-gradient(90deg, #000000, #222222);
-}
-
-.submit-button {
-    background: linear-gradient(90deg, #000000, #333333);
 }
 
 /* Rules Container */
@@ -492,14 +481,14 @@ button:disabled {
 }
 
 .status-online {
-    background: linear-gradient(135deg, #000000, #222222);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #EAF0FF, #F5F7FF);
+    color: var(--text-color);
     border-left: 4px solid var(--success-color);
 }
 
 .status-offline {
-    background: linear-gradient(135deg, #333333, #222222);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #F5F5F5, #EAEAEA);
+    color: var(--text-color);
     border-left: 4px solid var(--danger-color);
 }
 
@@ -514,23 +503,24 @@ button:disabled {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(220, 220, 220, 0.5);
     transition: all 0.3s ease;
 }
 
 .admin-panel:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
 .admin-panel h2 {
     margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: var(--text-color);
+    text-shadow: 0 0 10px rgba(88, 101, 242, 0.3);
 }
 
 /* Admin Panel Buttons */
@@ -544,23 +534,11 @@ button:disabled {
     gap: 10px;
 }
 
-.admin-button i {
-    font-size: 16px;
+#statusButton, #blacklistButton, #removeButton {
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
 }
 
-#statusButton {
-    background: linear-gradient(90deg, #000000, #222222);
-}
-
-#blacklistButton {
-    background: linear-gradient(90deg, #000000, #222222);
-}
-
-#removeButton {
-    background: linear-gradient(90deg, #000000, #222222);
-}
-
-/* Discord Integration - Updated to look more like Discord */
+/* Discord Integration */
 .discord-auth-container {
     margin-bottom: 30px;
     display: flex;
@@ -570,11 +548,11 @@ button:disabled {
 
 /* Discord integration button */
 #discord-login {
-    background-color: #000000;
+    background-color: var(--primary-color);
 }
 
 #discord-login:hover {
-    background-color: #222222;
+    background-color: var(--primary-dark);
 }
 
 #discord-login i {
@@ -599,14 +577,14 @@ button:disabled {
 
 .discord-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.1);
 }
 
 .server-banner {
     width: 100%;
     height: 160px;
     object-fit: cover;
-    border-bottom: 1px solid rgba(79, 84, 92, 0.3);
+    border-bottom: 1px solid rgba(220, 220, 220, 0.5);
     transition: transform 0.5s ease;
 }
 
@@ -616,6 +594,8 @@ button:disabled {
 
 .server-content {
     padding: 20px;
+    background: var(--discord-light);
+    border-radius: 0 0 16px 16px;
 }
 
 .server-header {
@@ -631,9 +611,9 @@ button:disabled {
     margin-right: 16px;
     background-color: var(--primary-color);
     overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(88, 101, 242, 0.2);
     transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .discord-card:hover .server-icon {
@@ -649,7 +629,7 @@ button:disabled {
     font-weight: 700;
     color: var(--text-color);
     margin-bottom: 6px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .server-status {
@@ -669,7 +649,7 @@ button:disabled {
 
 .status-icon.online {
     background-color: var(--success-color);
-    box-shadow: 0 0 8px rgba(59, 165, 92, 0.6);
+    box-shadow: 0 0 8px rgba(59, 165, 92, 0.4);
     animation: pulse 2s infinite;
 }
 
@@ -695,15 +675,15 @@ button:disabled {
 .server-description {
     font-size: 14px;
     line-height: 1.6;
-    color: #dcddde;
+    color: var(--secondary-text);
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(79, 84, 92, 0.3);
+    border-bottom: 1px solid rgba(200, 200, 200, 0.3);
 }
 
 /* Join server button */
 .join-server, .join-button {
-    background: linear-gradient(135deg, #000000, #222222);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .join-server::before {
@@ -723,7 +703,7 @@ button:disabled {
 
 .join-server:hover {
     transform: translateY(-3px);
-    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 7px 15px rgba(88, 101, 242, 0.3);
 }
 
 .join-server:active {
@@ -742,13 +722,13 @@ button:disabled {
     height: 38px;
     border-radius: 50%;
     margin-right: -12px;
-    border: 3px solid #0f0f0f;
+    border: 3px solid #FFFFFF;
     overflow: hidden;
-    background-color: #333333;
+    background-color: #E9E9E9;
     transition: transform 0.2s ease;
     position: relative;
     z-index: 1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .member-avatar:hover {
@@ -766,23 +746,23 @@ button:disabled {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background-color: rgba(50, 50, 50, 0.6);
+    background-color: rgba(200, 200, 200, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: 700;
     color: var(--text-color);
-    border: 3px solid #0f0f0f;
+    border: 3px solid #FFFFFF;
     position: relative;
     z-index: 1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .more-members:hover {
     transform: translateY(-5px);
-    background-color: rgba(50, 50, 50, 0.8);
+    background-color: rgba(200, 200, 200, 0.7);
     z-index: 10;
 }
 
@@ -795,10 +775,10 @@ button:disabled {
     margin: 20px auto;
     padding: 16px;
     width: 300px;
-    background: var(--background-dark);
+    background: var(--discord-light);
     border-radius: 8px;
     border: 1px solid var(--glass-border);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -845,7 +825,7 @@ button:disabled {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 3px solid #0a0a0a;
+    border: 3px solid #FFFFFF;
     z-index: 2;
 }
 
@@ -883,7 +863,7 @@ button:disabled {
     align-items: center;
     gap: 6px;
     padding: 8px 0;
-    border-top: 1px solid rgba(50, 50, 50, 0.3);
+    border-top: 1px solid rgba(200, 200, 200, 0.3);
     width: 100%;
     justify-content: center;
 }
@@ -903,7 +883,7 @@ button:disabled {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(150, 150, 150, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -911,12 +891,12 @@ button:disabled {
 }
 
 .badge i {
-    color: var(--text-color);
+    color: var(--secondary-text);
 }
 
 /* Discord Invite Section */
 .discord-invite-box {
-    background: var(--discord-dark);
+    background: var(--discord-light);
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid var(--glass-border);
@@ -951,10 +931,10 @@ button:disabled {
     width: 64px;
     height: 64px;
     border-radius: 16px;
-    border: 3px solid rgba(50, 50, 50, 0.3);
+    border: 3px solid rgba(200, 200, 200, 0.5);
     margin-right: 15px;
     transform: translateY(-20px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -989,7 +969,7 @@ button:disabled {
     height: 10px;
     border-radius: 50%;
     background: var(--success-color);
-    box-shadow: 0 0 8px rgba(59, 165, 92, 0.6);
+    box-shadow: 0 0 8px rgba(59, 165, 92, 0.4);
 }
 
 .total-members {
@@ -1007,7 +987,7 @@ button:disabled {
     width: 100%;
     padding: 12px;
     border-radius: 4px;
-    background: linear-gradient(135deg, #000000, #222222);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     text-decoration: none;
     font-weight: 600;
@@ -1018,7 +998,7 @@ button:disabled {
 
 .join-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.25);
 }
 
 .glow {
@@ -1027,13 +1007,13 @@ button:disabled {
 
 @keyframes bannerGlow {
     0% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
+    50% { filter: brightness(1.1); }
     100% { filter: brightness(1); }
 }
 
 .hover-glow:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 0 15px var(--primary-color);
+    filter: brightness(1.05);
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.3);
 }
 
 .loading-container {
@@ -1047,7 +1027,7 @@ button:disabled {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(5px);
     z-index: 9999;
     animation: fadeIn 0.3s ease;
@@ -1056,7 +1036,7 @@ button:disabled {
 .loading-spinner {
     width: 60px;
     height: 60px;
-    border: 5px solid rgba(255, 255, 255, 0.2);
+    border: 5px solid rgba(88, 101, 242, 0.2);
     border-radius: 50%;
     border-top-color: var(--primary-color);
     animation: spin 1s linear infinite;
