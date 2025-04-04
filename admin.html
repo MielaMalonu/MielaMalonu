@@ -7,6 +7,7 @@
     <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
 <link rel="stylesheet" href="styles/admin.css">
     <title>Admin Panel - Miela Malonu</title>
+    
 </head>
 <body>
     <div class="main-container">
@@ -83,7 +84,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
             API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
         },
-        ADMIN_PASSWORD: "R&bRY5UY2QpG$uuMjLe4",
+        DISCORD: {
+            CLIENT_ID: "1263389179249692693", // Replace with your Discord app's client ID
+            REDIRECT_URI: window.location.origin + window.location.pathname, // Current URL
+            SCOPE: "identify",
+        },
+        ALLOWED_ADMIN_IDS: [
+            "959449311366766622", // Replace with actual admin Discord IDs
+            "495602170507296778",
+            "1041400598450413688",
+            "898196277534261258",
+            "898196277534261258",
+            "640523849250766868",
+        ],
         AUTH_KEY: "miela_malonu_auth"  // Key for local storage
     };
 
@@ -91,27 +104,126 @@ document.addEventListener("DOMContentLoaded", async function () {
     let fetchedData = [];
     let blacklist = [];
     let isOnline = "offline";
-    let idStatus = "uždaryta"; // Add a new variable to track ID status
+    let idStatus = "uždaryta";
+    let currentUser = null;
+
+    // Check if we have a Discord auth code in the URL (redirect from Discord OAuth)
+    async function handleDiscordCallback() {
+        // Check for token in hash (implicit grant)
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = urlParams.get("access_token");
+        
+        // Check for code in query parameters (authorization code flow)
+        const queryParams = new URLSearchParams(window.location.search);
+        const authCode = queryParams.get("code");
+        
+        console.log("Auth check - Token:", accessToken, "Code:", authCode);
+        
+        if (accessToken) {
+            // Clear the URL to remove the token
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            try {
+                // Get user info from Discord
+                const userResponse = await fetch('https://discord.com/api/users/@me', {
+                    headers: {
+                        authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                
+                if (!userResponse.ok) throw new Error("Failed to get Discord user data");
+                
+                const userData = await userResponse.json();
+                console.log("✅ Discord user data received:", userData);
+                
+                // Check if user ID is in the allowed list
+                if (CONFIG.ALLOWED_ADMIN_IDS.includes(userData.id)) {
+                    // Store user data and authentication
+                    currentUser = userData;
+                    storeAuthentication(userData);
+                    
+                    showContent();
+                    await fetchSupabaseData();
+                    await fetchBlacklist();
+                    await fetchStatus();
+                    await fetchEventIds();
+                    await fetchIdStatus();
+                    addIdStatusSection();
+                    
+                    // Display welcome message with username
+                    showWelcomeMessage(userData.username);
+                } else {
+                    // Not authorized
+                    showAuthError("Neturite teisių prieiti prie administracijos puslapio.");
+                }
+            } catch (error) {
+                console.error("❌ Error processing Discord auth:", error);
+                showAuthError("Įvyko klaida autentifikuojant per Discord.");
+            }
+        } else if (authCode) {
+            // If you're using authorization code flow instead of implicit flow
+            console.log("Authorization code found, but this implementation uses implicit flow");
+            showAuthError("Netinkamas autorizacijos metodas. Prašome susisiekti su administratoriumi.");
+        }
+    }
+
+    // Show welcome message
+    function showWelcomeMessage(username) {
+        const adminPanel = document.querySelector('.admin-panel');
+        const welcomeMsg = document.createElement('p');
+        welcomeMsg.className = 'welcome-message';
+        welcomeMsg.textContent = `Sveiki, ${username}!`;
+        adminPanel.insertBefore(welcomeMsg, adminPanel.firstChild);
+    }
+
+    // Show authentication error message
+    function showAuthError(message) {
+        const authOverlay = document.querySelector('.auth-overlay');
+        const errorMsg = document.createElement('p');
+        errorMsg.className = 'auth-error';
+        errorMsg.textContent = message;
+        errorMsg.style.color = '#ff5555';
+        errorMsg.style.marginTop = '10px';
+        
+        // Remove existing error messages
+        document.querySelectorAll('.auth-error').forEach(el => el.remove());
+        
+        // Add new error message
+        if (authOverlay) {
+            authOverlay.appendChild(errorMsg);
+        } else {
+            showAuthOverlay();
+            document.querySelector('.auth-overlay').appendChild(errorMsg);
+        }
+    }
 
     // Check if already authenticated via local storage
     function checkAuthentication() {
-        const isAuthenticated = localStorage.getItem(CONFIG.AUTH_KEY);
-        if (isAuthenticated === "true") {
-            console.log("✅ Authentication found in local storage");
-            return true;
+        const authData = localStorage.getItem(CONFIG.AUTH_KEY);
+        if (authData) {
+            try {
+                currentUser = JSON.parse(authData);
+                console.log("✅ Authentication found in local storage");
+                return true;
+            } catch (e) {
+                console.error("❌ Error parsing auth data:", e);
+                clearAuthentication();
+                return false;
+            }
         }
         return false;
     }
 
     // Store authentication in local storage
-    function storeAuthentication() {
-        localStorage.setItem(CONFIG.AUTH_KEY, "true");
+    function storeAuthentication(userData) {
+        localStorage.setItem(CONFIG.AUTH_KEY, JSON.stringify(userData));
         console.log("✅ Authentication stored in local storage");
     }
 
     // Clear authentication from local storage
     function clearAuthentication() {
         localStorage.removeItem(CONFIG.AUTH_KEY);
+        currentUser = null;
         console.log("🔄 Authentication cleared from local storage");
     }
 
@@ -161,7 +273,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         addLogoutButton();
     }
 
-    // Create and show auth overlay
+    // Build Discord OAuth URL
+    function getDiscordAuthUrl() {
+        return `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.DISCORD.CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.DISCORD.REDIRECT_URI)}&response_type=token&scope=${CONFIG.DISCORD.SCOPE}`;
+    }
+
+    // Create and show auth overlay with Discord OAuth button
     function showAuthOverlay() {
         // Hide all other content first
         hideContent();
@@ -174,61 +291,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             const title = document.createElement('h2');
             title.textContent = 'Admin prisijungimas';
             
-            const passwordInput = document.createElement('input');
-            passwordInput.type = 'password';
-            passwordInput.id = 'adminPassword';
-            passwordInput.placeholder = 'Įveskite admin slaptažodį';
-            
-            const loginButton = document.createElement('button');
-            loginButton.textContent = 'Prisijungti';
-            loginButton.id = 'loginButton';
-            loginButton.addEventListener('click', validatePassword);
-            
-            // Add keypress event to input field
-            passwordInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    validatePassword();
-                }
+            const discordButton = document.createElement('button');
+            discordButton.className = 'discord-login-button';
+            discordButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.54 0c1.356 0 2.46 1.104 2.46 2.472v21.528l-2.58-2.28-1.452-1.344-1.536-1.428.636 2.22h-13.608c-1.356 0-2.46-1.104-2.46-2.472v-16.224c0-1.368 1.104-2.472 2.46-2.472h16.08zm-4.632 15.672c2.652-.084 3.672-1.824 3.672-1.824 0-3.864-1.728-6.996-1.728-6.996-1.728-1.296-3.372-1.26-3.372-1.26l-.168.192c2.04.624 2.988 1.524 2.988 1.524-1.248-.684-2.472-1.02-3.612-1.152-.864-.096-1.692-.072-2.424.024l-.204.024c-.42.036-1.44.192-2.724.756-.444.204-.708.348-.708.348s.996-.948 3.156-1.572l-.12-.144s-1.644-.036-3.372 1.26c0 0-1.728 3.132-1.728 6.996 0 0 1.008 1.74 3.66 1.824 0 0 .444-.54.804-.996-1.524-.456-2.1-1.416-2.1-1.416l.336.204.048.036.047.027.014.006.047.027c.3.168.6.3.876.408.492.192 1.08.384 1.764.516.9.168 1.956.228 3.108.012.564-.096 1.14-.264 1.74-.516.42-.156.888-.384 1.38-.708 0 0-.6.984-2.172 1.428.36.456.792.972.792.972zm-5.58-5.604c-.684 0-1.224.6-1.224 1.332 0 .732.552 1.332 1.224 1.332.684 0 1.224-.6 1.224-1.332.012-.732-.54-1.332-1.224-1.332zm4.38 0c-.684 0-1.224.6-1.224 1.332 0 .732.552 1.332 1.224 1.332.684 0 1.224-.6 1.224-1.332 0-.732-.54-1.332-1.224-1.332z" fill="currentColor"></path></svg> Prisijungti su Discord';
+            discordButton.addEventListener('click', function() {
+                window.location.href = getDiscordAuthUrl();
             });
             
             overlay.appendChild(title);
-            overlay.appendChild(passwordInput);
-            overlay.appendChild(loginButton);
+            overlay.appendChild(discordButton);
             
             document.body.appendChild(overlay);
-            
-            // Focus on password input
-            passwordInput.focus();
         }
     }
-
-    // Validate password
-    async function validatePassword() {
-        const passwordInput = document.getElementById('adminPassword');
-        const password = passwordInput.value;
-        
-        if (password === CONFIG.ADMIN_PASSWORD) {
-            // Store authentication in local storage
-            storeAuthentication();
-            
-            showContent();
-            console.log("✅ Sėkmingai praėjote autorizacija");
-            await fetchSupabaseData();
-            await fetchBlacklist();
-            await fetchStatus();
-            await fetchEventIds();
-            await fetchIdStatus(); // Add a call to fetch the ID status
-        } else {
-            passwordInput.value = '';
-            passwordInput.placeholder = 'Neteisingas slaptažodis';
-            passwordInput.classList.add('password-error');
-            setTimeout(() => {
-                passwordInput.classList.remove('password-error');
-                passwordInput.placeholder = 'Įveskite admin slaptažodį';
-            }, 1500);
-        }
-    }
-
     // Fetch Supabase Data
     async function fetchSupabaseData() {
         try {
@@ -726,17 +801,30 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // Initialize the application
-    const init = async () => {
-        // Check if already authenticated
-        if (checkAuthentication()) {
+ const init = async () => {
+        console.log("🚀 Initializing admin panel");
+        
+        // First check if there's an OAuth callback to handle
+        if (window.location.hash.includes("access_token=") || window.location.search.includes("code=")) {
+            console.log("🔑 OAuth callback detected");
+            await handleDiscordCallback();
+        }
+        // Then check if already authenticated
+        else if (checkAuthentication()) {
+            console.log("🔒 Already authenticated");
             showContent();
             await fetchSupabaseData();
             await fetchBlacklist();
             await fetchStatus();
             await fetchEventIds();
-            await fetchIdStatus(); // Fetch ID status
-            addIdStatusSection(); // Add ID status section to the admin panel
+            await fetchIdStatus();
+            addIdStatusSection();
+            // Display welcome message with username
+            if (currentUser && currentUser.username) {
+                showWelcomeMessage(currentUser.username);
+            }
         } else {
+            console.log("🔓 Not authenticated, showing login");
             showAuthOverlay();
         }
     };
