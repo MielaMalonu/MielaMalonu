@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,7 +105,7 @@
                             <input type="checkbox" id="pc-toggle" class="toggle-input">
                             <label for="pc-toggle" class="toggle-label"></label>
                         </div>
-                        <textarea id="pc" required class="form-control"></textarea>
+                        <textarea id="pc" required class="form-control" style="display: none"></textarea>
                     </div>
     
                     <div class="form-group">
@@ -113,7 +114,7 @@
                             <input type="checkbox" id="isp-toggle" class="toggle-input">
                             <label for="isp-toggle" class="toggle-label"></label>
                         </div>
-                        <textarea id="isp" required class="form-control"></textarea>
+                        <textarea id="isp" required class="form-control" style="display: none"></textarea>
                     </div>
     
                     <div class="button-group">
@@ -1018,16 +1019,14 @@ document.head.insertAdjacentHTML('beforeend', `
             return false;
         }
         
-        // Validate toggles and related text
-        if (!elements.pcInput.value.trim()) {
-            showErrorMessage("❌ Prašome atsakyti į klausimą dėl PC check");
-            return false;
-        }
-        
-        if (!elements.ispInput.value.trim()) {
-            showErrorMessage("❌ Prašome atsakyti į klausimą dėl įspėjimo išpirkimo");
-            return false;
-        }
+       // Validate toggles and related text
+if (!elements.pcInput.value.trim()) {
+    elements.pcInput.value = "Ne"; // Set default value to "Ne" if empty
+}
+
+if (!elements.ispInput.value.trim()) {
+    elements.ispInput.value = "Ne"; // Set default value to "Ne" if empty
+}
         
         // If all validations pass, show success message
         showNotification("success", "✅ Visi laukai užpildyti teisingai!");
