@@ -8,7 +8,7 @@
     --warning-color: #FAA81A;
     --text-color: #23272A;     /* Changed to darker text for contrast */
     --secondary-text: #4F545C;
-    --background-light: #F6F6F7; /* New light background */
+    --background-light: #000000; /* New light background */
     --glass-background: rgba(255, 255, 255, 0.8); /* Changed to white-based */
     --glass-border: rgba(220, 220, 220, 0.6);
     --glass-shadow: rgba(0, 0, 0, 0.1);
