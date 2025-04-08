@@ -788,17 +788,91 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById("removeButton").addEventListener("click", removeFromBlacklist);
     document.getElementById("clearEventIdsButton").addEventListener("click", clearEventIds);
 
-    document.getElementById("searchInput").addEventListener("input", function () {
-        const searchInput = this.value.toLowerCase();
+ document.getElementById("searchInput").addEventListener("input", function() {
+    const searchInput = this.value.toLowerCase();
+    
+    // Make sure we're only searching the main data table, not the holidays table
+    if (fetchedData && fetchedData.length > 0) {
+        try {
+            const filteredData = fetchedData.filter(item => {
+                if (!item) return false;
+                
+                return Object.entries(item).some(([key, value]) => {
+                    if (value === null || value === undefined) return false;
+                    return String(value).toLowerCase().includes(searchInput);
+                });
+            });
+            
+            // Only update the main data table
+            const dataTableBody = document.querySelector("#data-table tbody");
+            if (dataTableBody) {
+                // Clear current table data
+                dataTableBody.innerHTML = "";
+                
+                // Repopulate with filtered data
+                filteredData.forEach((item, index) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${index + 1}.</td>
+                        <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
+                        <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
+                        <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
+                        <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
+                        <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
+                        <td>
+                          <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
+                          <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
+                        </td>
+                    `;
+                    dataTableBody.appendChild(row);
+                });
+                
+                // Reattach copy functionality to the newly created elements
+                addCopyFunctionality();
+            }
+        } catch (error) {
+            console.error("Error filtering data:", error);
+        }
+    }
+});
 
-        const filteredData = fetchedData.filter(item => 
-            Object.values(item).some(value => 
-                value.toString().toLowerCase().includes(searchInput)
-            )
-        );
-
-        populateTable(filteredData); // Re-populate table with filtered results
+// Helper function to add copy functionality to elements (extracted from populateTable)
+function addCopyFunctionality() {
+    document.querySelectorAll('#data-table .copy-text').forEach(element => {
+        element.addEventListener('click', function() {
+            const textToCopy = this.getAttribute('data-copy');
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Visual feedback
+                    const originalText = this.textContent;
+                    this.classList.add('copy-flash');
+                    
+                    // Only change text content if it's not the clipboard icon
+                    if (this.textContent !== '📋') {
+                        this.setAttribute('data-original-text', originalText);
+                        this.textContent = 'Nukopijuota ✅';
+                    } else {
+                        this.textContent = '✓';
+                    }
+                    
+                    setTimeout(() => {
+                        this.classList.remove('copy-flash');
+                        
+                        // Restore original text if it was changed
+                        if (this.hasAttribute('data-original-text')) {
+                            this.textContent = this.getAttribute('data-original-text');
+                            this.removeAttribute('data-original-text');
+                        } else if (this.textContent === '✓') {
+                            this.textContent = '📋';
+                        }
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        });
     });
+}
 
     // Initialize the application
  const init = async () => {
