@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #000000;
+            --primary-color: #0f0f0f;
             --secondary-color: #1e1e1e;
             --tertiary-color: #111111;
-            --accent-color: #FFFFFF;
+            --accent-color: #5865F2;
             --text-primary: #ffffff;
             --text-secondary: #b9bbbe;
             --text-muted: #72767d;
             --embed-bg: rgba(15, 15, 15, 0.95);
             --separator: rgba(60, 60, 60, 0.5);
-            --border-radius: 8px;
+            --border-radius: 10px;
             --transition: all 0.2s ease;
             --embed-border: 4px;
             --discord-color: #5865F2;
@@ -30,7 +30,7 @@
 
         body {
             font-family: 'Poppins', 'Whitney', 'Helvetica Neue', Arial, sans-serif;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.75);
             background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
             background-size: cover;
             background-position: center;
@@ -50,7 +50,7 @@
         .container {
             background-color: var(--primary-color);
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
             width: 100%;
             max-width: 800px;
             padding: 0;
@@ -61,9 +61,9 @@
         header {
             background-color: var(--tertiary-color);
             color: var(--text-primary);
-            padding: 15px 20px;
+            padding: 18px 20px;
             margin: 0;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             border-bottom: 1px solid var(--separator);
             display: flex;
@@ -77,8 +77,8 @@
         }
 
         .logo-img {
-            width: 32px;
-            height: 32px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             margin-right: 12px;
             border: 2px solid var(--accent-color);
@@ -87,8 +87,8 @@
         .navigation {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            padding: 12px;
+            gap: 15px;
+            padding: 15px;
             background-color: var(--secondary-color);
             border-bottom: 1px solid var(--separator);
         }
@@ -97,12 +97,12 @@
             background-color: var(--tertiary-color);
             color: var(--text-primary);
             border: 1px solid var(--separator);
-            padding: 8px 20px;
+            padding: 10px 25px;
             cursor: pointer;
             transition: var(--transition);
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 500;
-            width: 120px;
+            width: 130px;
             text-align: center;
         }
 
@@ -117,7 +117,7 @@
         }
 
         .content-container {
-            padding: 20px;
+            padding: 25px;
         }
 
         .tab-content {
@@ -130,55 +130,71 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
             color: var(--discord-color);
             border-bottom: 2px solid var(--discord-color);
-            padding-bottom: 5px;
+            padding-bottom: 8px;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .rule-section {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             background-color: var(--embed-bg);
             border-radius: var(--border-radius);
-            padding: 16px;
+            padding: 18px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border-left: var(--embed-border) solid var(--discord-color);
+            transition: transform 0.2s ease;
+        }
+
+        .rule-section:hover {
+            transform: translateY(-2px);
         }
 
         .rule-section h3 {
             color: var(--text-primary);
-            margin-bottom: 12px;
-            font-size: 16px;
+            margin-bottom: 15px;
+            font-size: 18px;
             font-weight: 600;
         }
 
         .rule {
-            margin-bottom: 10px;
-            padding: 8px 12px;
+            margin-bottom: 12px;
+            padding: 10px 14px;
             background-color: rgba(30, 30, 30, 0.5);
-            border-radius: 4px;
+            border-radius: 6px;
             border: 1px solid rgba(60, 60, 60, 0.3);
+            transition: var(--transition);
+        }
+
+        .rule:hover {
+            background-color: rgba(40, 40, 40, 0.7);
+            border-color: rgba(80, 80, 80, 0.5);
         }
 
         .info-section {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             background-color: var(--embed-bg);
             border-radius: var(--border-radius);
-            padding: 16px;
+            padding: 18px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border-left: var(--embed-border) solid var(--discord-color);
+            transition: transform 0.2s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-2px);
         }
 
         .info-section h3 {
             color: var(--text-primary);
-            margin-bottom: 12px;
-            font-size: 16px;
+            margin-bottom: 15px;
+            font-size: 18px;
             font-weight: 600;
         }
 
@@ -189,27 +205,41 @@
         .info-label {
             font-weight: 500;
             color: var(--text-secondary);
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin-bottom: 8px;
+            font-size: 15px;
         }
 
         .vest-color-value {
             background-color: rgba(30, 30, 30, 0.5);
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 6px;
             border: 1px solid rgba(60, 60, 60, 0.3);
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            background-color: #336699;
+            border-radius: 4px;
+            display: inline-block;
         }
 
         .bind-box {
             background-color: rgba(30, 30, 30, 0.5);
-            padding: 12px;
-            border-radius: 4px;
+            padding: 14px;
+            border-radius: 6px;
             font-family: monospace;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             position: relative;
             cursor: pointer;
             border: 1px solid rgba(60, 60, 60, 0.3);
             transition: var(--transition);
+            font-size: 15px;
         }
 
         .bind-box:hover {
@@ -221,13 +251,14 @@
             position: absolute;
             background-color: var(--discord-color);
             color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            top: -30px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            top: -35px;
             right: 0;
             display: none;
-            font-size: 12px;
+            font-size: 13px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
         }
 
         .bind-box:active {
@@ -236,11 +267,12 @@
 
         .copy-icon {
             position: absolute;
-            right: 10px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 16px;
+            transition: var(--transition);
         }
 
         .bind-box:hover .copy-icon {
@@ -249,44 +281,45 @@
 
         /* Discord invite styling - matching real Discord invites */
         .discord-invite-container {
-            padding: 16px;
+            padding: 18px;
             background-color: rgba(30, 30, 30, 0.5);
             border-radius: 8px;
             border: 1px solid rgba(60, 60, 60, 0.3);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
         .discord-server-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .discord-server-icon {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 16px;
             object-fit: cover;
         }
 
         .discord-server-name {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .server-members {
             color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            margin-top: 4px;
         }
 
         .online-indicator {
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             background-color: #3ba55c;
             border-radius: 50%;
             display: inline-block;
@@ -296,10 +329,10 @@
             background-color: var(--discord-color);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 4px;
+            padding: 14px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
             transition: background-color 0.2s ease;
             text-align: center;
@@ -307,7 +340,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .join-discord-btn:hover {
@@ -316,30 +349,45 @@
 
         footer {
             text-align: center;
-            padding: 15px;
+            padding: 18px;
             background-color: var(--tertiary-color);
             border-top: 1px solid var(--separator);
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-muted);
         }
 
         @media (max-width: 768px) {
             .container {
-                margin: 0 10px;
+                margin: 10px;
             }
             
             .navigation {
-                padding: 8px;
+                padding: 10px;
+                gap: 10px;
             }
             
             .nav-button {
-                width: 100px;
-                padding: 8px 10px;
+                width: 110px;
+                padding: 8px 15px;
                 font-size: 14px;
             }
             
+            .content-container {
+                padding: 15px;
+            }
+            
+            .rule-section, .info-section {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
             .rule, .vest-color-value, .bind-box {
-                padding: 8px 10px;
+                padding: 10px;
+            }
+            
+            .discord-server-icon {
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
@@ -349,7 +397,7 @@
         <header>
             <div class="header-left">
                 <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="Gang Logo" class="logo-img">
-                <span>Gang Rules & Info</span>
+                <span>Miela Malonu</span>
             </div>
         </header>
         
@@ -404,7 +452,10 @@
                     <h3>Apranga</h3>
                     <div class="info-item">
                         <div class="info-label">Liemenė</div>
-                        <div class="vest-color-value">156</div>
+                        <div class="vest-color-value">
+                            <span class="color-box"></span>
+                            156
+                        </div>
                     </div>
                 </div>
                 
@@ -453,7 +504,7 @@
         </div>
         
         <footer>
-            © 2025 Gang Rules & Info | Visos teisės saugomos
+            © 2025 Miela Malonu | Visos teisės saugomos
         </footer>
     </div>
 
