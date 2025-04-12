@@ -495,6 +495,46 @@
     </div>
 
     <script>
+// Add this to your existing script
+function updateDiscordInvite() {
+  const inviteCode = "VfC3Ay86cW"; // Your invite code
+  
+  // Using Discord's invite widget endpoint (which sometimes allows CORS)
+  fetch(`https://discordapp.com/api/invites/${inviteCode}?with_counts=true`)
+    .then(response => response.json())
+    .then(data => {
+      // Update member counts with real data
+      document.querySelector('.server-members').innerHTML = `
+        <span class="online-indicator"></span>
+        <span>${data.approximate_presence_count} Online</span>
+        <span style="margin: 0 4px;">•</span>
+        <span>${data.approximate_member_count} Members</span>
+      `;
+      
+      // Update server name if needed
+      if (data.guild && data.guild.name) {
+        document.querySelector('.discord-server-name').textContent = data.guild.name;
+      }
+      
+      // Update server icon if needed
+      if (data.guild && data.guild.icon) {
+        const serverIconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.${data.guild.icon.startsWith('a_') ? 'gif' : 'png'}?size=1024`;
+        document.querySelector('.discord-server-icon').src = serverIconUrl;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching Discord invite data:', error);
+      
+      // Alternative approach using another endpoint if the first one fails
+      fetch(`https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`)
+        .then(response => response.json())
+        .then(handleDiscordData)
+        .catch(err => console.error('Failed with alternative endpoint as well:', err));
+    });
+}
+
+// Call the function when the page loads
+window.addEventListener('DOMContentLoaded', updateDiscordInvite);
         function showTab(tabId) {
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -527,6 +567,7 @@
                 }, 2000);
             });
         }
+
     </script>
 </body>
 </html>
