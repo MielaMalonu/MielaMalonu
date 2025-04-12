@@ -769,11 +769,11 @@
        // ===== SUPABASE AND DISCORD AUTH INTEGRATION =====
 document.addEventListener('DOMContentLoaded', function() {
     // Supabase configuration
-    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
     
     // Discord OAuth configuration
-    const DISCORD_CLIENT_ID = 'YOUR_DISCORD_CLIENT_ID';
+    const DISCORD_CLIENT_ID = '1263389179249692693';
     const REDIRECT_URI = encodeURIComponent(window.location.origin + '/auth-callback');
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
     
