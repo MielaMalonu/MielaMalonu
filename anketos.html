@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application History</title>
+    <link rel="stylesheet" href="styles/anketos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="MM Logo" class="logo-img">
+            Miela Malonu
+        </h1>
+        
+        <!-- Hidden search box that maintains functionality -->
+        <div class="search-box">
+            <input type="text" id="userId" placeholder="Enter User ID">
+            <button id="searchButton">View User Applications</button>
+        </div>
+        
+        <div id="content">
+            <div class="loading">Loading application data...</div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase credentials
+        const SUPABASE_URL = "https://smodsdsnswwtnbnmzhse.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI";
+        
+        // Get query parameters from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Get status class based on status value
+        function getStatusClass(status) {
+            status = (status || '').toLowerCase();
+            if (status === 'patvirtinta' || status === 'priimtas' || status === 'accepted') {
+                return 'status-accepted';
+            } else if (status === 'atmesta' || status === 'atmestas' || status === 'rejected') {
+                return 'status-rejected';
+            } else if (status === 'laukiama' || status === 'pending') {
+                return 'status-pending';
+            } else {
+                return 'status-reviewing';
+            }
+        }
+
+        // Format date if it exists
+        function formatDate(dateStr) {
+            if (!dateStr) return 'N/A';
+            
+            try {
+                const date = new Date(dateStr);
+                return date.toISOString().split('T')[0]; // Returns YYYY-MM-DD
+            } catch (e) {
+                return dateStr;
+            }
+        }
+
+        // Create Discord-style embed for applications data
+        function createDiscordEmbeds(applications) {
+            if (!applications || applications.length === 0) {
+                return '<div class="error">No applications found.</div>';
+            }
+
+            let embedsHtml = '';
+
+            applications.forEach(app => {
+                const statusClass = getStatusClass(app.STATUS);
+                const formattedDate = formatDate(app.DATA);
+                const isRejected = (app.STATUS || '').toLowerCase() === 'atmesta' || 
+                                  (app.STATUS || '').toLowerCase() === 'atmestas' || 
+                                  (app.STATUS || '').toLowerCase() === 'rejected';
+                
+                embedsHtml += `
+                    <div class="application-item">
+                        <div class="application-header">
+                            <div class="application-id">
+                                <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="MM" class="header-logo">
+                                <div class="user-info">
+                                    <span class="username">Anketos</span>
+                                    <span class="user-id">@${app.NICK || 'N/A'}</span>
+                                </div>
+                                <span class="status-tag ${statusClass}">${app.STATUS || 'Peržiūrima'}</span>
+                            </div>
+                            <div class="application-date">${formattedDate}</div>
+                        </div>
+                        
+                        <div class="application-field">
+                            <div class="field-name">Amžius</div>
+                            <div class="field-value">${app.METAI || 'N/A'}</div>
+                        </div>
+                        
+                        ${isRejected ? `
+                        <div class="application-field">
+                            <div class="field-name">Atmetimo priežastis</div>
+                            <div class="field-value rejection-reason">${app.PRIEŽASTIS || 'Nepateikta'}</div>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="application-field">
+                            <div class="field-name">Ar sutiktumėte pasidaryti pc check?</div>
+                            <div class="field-value">${app.PCCHECK || 'Taip'}</div>
+                        </div>
+                        
+                        <div class="application-field">
+                            <div class="field-name">Ar išpirkumėte įspėjimą jei jis būtų dėl jūsų kaltės?</div>
+                            <div class="field-value">${app.ISP || 'Taip'}</div>
+                        </div>
+                        
+                        <div class="rating-row">
+                            <div class="rating-item">
+                                <div class="rating-label">Pašaudymo lygis</div>
+                                <div class="rating-value">${app.PL || '0'}</div>
+                            </div>
+                            <div class="rating-item">
+                                <div class="rating-label">Komunikavimo lygis</div>
+                                <div class="rating-value">${app.KL || '0'}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bottom-info">
+                            <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="MM" class="footer-logo">
+                            Miela Malonu | Anketos
+                        </div>
+                    </div>
+                `;
+            });
+
+            return embedsHtml;
+        }
+
+        // Fetch applications from Supabase
+        async function fetchApplications(userId = null) {
+            const contentElement = document.getElementById('content');
+            
+            try {
+                let url = `${SUPABASE_URL}/rest/v1/Anketos?select=ID,METAI,PRIEŽASTIS,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK`;
+                
+                if (userId) {
+                    url += `&ID=eq.${encodeURIComponent(userId)}`;
+                }
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display the data using Discord-style embeds
+                contentElement.innerHTML = createDiscordEmbeds(data);
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                contentElement.innerHTML = `<div class="error">Failed to load applications: ${error.message}</div>`;
+            }
+        }
+
+        // Handle search button click (hidden but functional)
+        function setupSearchButton() {
+            const searchButton = document.getElementById('searchButton');
+            const userIdInput = document.getElementById('userId');
+            
+            searchButton.addEventListener('click', () => {
+                const userId = userIdInput.value.trim();
+                if (userId) {
+                    window.location.href = `anketos.html?user=${userId}`;
+                }
+            });
+            
+            // Allow pressing Enter in the input field
+            userIdInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            setupSearchButton();
+            
+            const userId = getQueryParam('user');
+            if (userId) {
+                // Pre-fill the search box with the current user ID
+                document.getElementById('userId').value = userId;
+            }
+            
+            fetchApplications(userId);
+        });
+    </script>
+</body>
+</html>
