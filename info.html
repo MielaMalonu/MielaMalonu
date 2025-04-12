@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gang Rules and Info</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #1e1e1e;
+            --tertiary-color: #111111;
+            --accent-color: #FFFFFF;
+            --text-primary: #ffffff;
+            --text-secondary: #b9bbbe;
+            --text-muted: #72767d;
+            --embed-bg: rgba(15, 15, 15, 0.95);
+            --separator: rgba(60, 60, 60, 0.5);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+            --embed-border: 4px;
+            --discord-color: #5865F2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', 'Whitney', 'Helvetica Neue', Arial, sans-serif;
+            background: rgba(0, 0, 0, 0.8);
+            background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: darken;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .container {
+            background-color: var(--primary-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 800px;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid var(--separator);
+        }
+
+        header {
+            background-color: var(--tertiary-color);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--separator);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .discord-invite {
+            background-color: var(--discord-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .discord-invite:hover {
+            background-color: #4752c4;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--separator);
+        }
+
+        .nav-button {
+            background-color: var(--tertiary-color);
+            color: var(--text-primary);
+            border: 1px solid var(--separator);
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+            font-weight: 500;
+            width: 120px;
+            text-align: center;
+        }
+
+        .nav-button.active {
+            background-color: var(--discord-color);
+            border-color: var(--discord-color);
+        }
+
+        .nav-button:hover:not(.active) {
+            background-color: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+
+        .content-container {
+            padding: 20px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: var(--discord-color);
+            border-bottom: 2px solid var(--discord-color);
+            padding-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .rule-section {
+            margin-bottom: 24px;
+            background-color: var(--embed-bg);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-left: var(--embed-border) solid var(--discord-color);
+        }
+
+        .rule-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .rule {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background-color: rgba(30, 30, 30, 0.5);
+            border-radius: 4px;
+            border: 1px solid rgba(60, 60, 60, 0.3);
+        }
+
+        .info-section {
+            margin-bottom: 24px;
+            background-color: var(--embed-bg);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-left: var(--embed-border) solid var(--discord-color);
+        }
+
+        .info-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .vest-color {
+            display: flex;
+            align-items: center;
+            background-color: rgba(30, 30, 30, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(60, 60, 60, 0.3);
+        }
+
+        .color-box {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            border: 1px solid var(--separator);
+            border-radius: 4px;
+        }
+
+        .bind-box {
+            background-color: rgba(30, 30, 30, 0.5);
+            padding: 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-bottom: 10px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(60, 60, 60, 0.3);
+            transition: var(--transition);
+        }
+
+        .bind-box:hover {
+            background-color: rgba(40, 40, 40, 0.7);
+            border-color: var(--discord-color);
+        }
+
+        .copy-message {
+            position: absolute;
+            background-color: var(--discord-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            top: -30px;
+            right: 0;
+            display: none;
+            font-size: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .bind-box:active {
+            transform: scale(0.98);
+        }
+
+        .copy-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .bind-box:hover .copy-icon {
+            color: var(--discord-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--tertiary-color);
+            border-top: 1px solid var(--separator);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0 10px;
+            }
+            
+            .navigation {
+                padding: 8px;
+            }
+            
+            .nav-button {
+                width: 100px;
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .rule, .vest-color, .bind-box {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <img src="https://cdn.discordapp.com/attachments/1329462181344288878/1330598297486495804/D3sArtwork_create_logo_for_gang_black_and_white_63991a1d-5a8d-43df-9b86-e80af8c59321.png?ex=66178a94&is=661638d4&hm=ef6ec7cb1a5e82b8bfba2e95c7a11e1a1f1c9eb1e995a42c5c9bd5857682ea23&" alt="Gang Logo" class="logo-img">
+                <span>Gang Rules & Info</span>
+            </div>
+            <a href="https://discord.gg/VfC3Ay86cW" target="_blank" class="discord-invite">
+                <svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#ffffff"/>
+                </svg>
+                Join Discord
+            </a>
+        </header>
+        
+        <div class="navigation">
+            <button class="nav-button active" onclick="showTab('rules')">Taisyklės</button>
+            <button class="nav-button" onclick="showTab('info')">Info</button>
+        </div>
+        
+        <div class="content-container">
+            <!-- Rules Tab -->
+            <div id="rules" class="tab-content active">
+                <h2>Gaujos Taisyklės</h2>
+                
+                <div class="rule-section">
+                    <h3>Bendrosios taisyklės</h3>
+                    <div class="rule">1.1 Kiekvienas gaujos narys privalo laikytis vadovybės nurodymų ir gaujos nustatytų taisyklių.</div>
+                    <div class="rule">1.2 Gaujos nariai privalo būti aktyvūs ir dalyvauti gaujos veikloje.</div>
+                    <div class="rule">1.3 Griežtai draudžiama bendradarbiauti su kitomis gaujomis.</div>
+                    <div class="rule">1.4 Draudžiama naudoti bet kokias programas ar metodus, suteikiančius nesąžiningą pranašumą (cheat'ai, exploit'ai).</div>
+                </div>
+                
+                <div class="rule-section">
+                    <h3>PVP taisyklės</h3>
+                    <div class="rule">2.1 Prieš pradedant kovą su kita gauja, būtina suderinti veiksmus su gaujos vadu ar pavaduotoju arba kapitonu</div>
+                    <div class="rule">2.2 Draudžiama šaudyti į sąjungininkus ar neutralius žaidėjus be priežasties.</div>
+                    <div class="rule">2.3 Racijoj. bei Discorde komomunikuoti suprantamai ir tik reikalinga info.</div>
+                    <div class="rule">2.4 Kiekvienas gaujos narys privalo dalyvauti organizuotose kovose, nebent turi pagrįstą priežastį nedalyvauti.</div>
+                    <div class="rule">2.5 Komunikuojant draudžiama bet kokia nepagarba saviems</div>
+                </div>
+                
+                <div class="rule-section">
+                    <h3>Vidinės sankcijos</h3>
+                    <div class="rule">3.1 Už taisyklių pažeidimą narys gali būti įspėtas arba pašalintas iš gaujos.</div>
+                    <div class="rule">3.2 Už tyčini sabotažą (Trolinama ar kitoki trugdymą) taikomos griežtos sankcijos, įskaitant pašalinimą iš gaujos be įspėjimo.</div>
+                </div>
+                
+                <div class="rule-section">
+                    <h3>Discord taisyklės</h3>
+                    <div class="rule">4.1 Draudžiama kitų discord serverių reklama, nebent turite vadovybės leidimą (Kitų FiveM serverių, gaujų discordų, discord shopu ir pnš. reklama)</div>
+                    <div class="rule">4.2 Draudžiama leak'inti bet kokio savo informacija (OOC Vardas, Pavardė, IP, Veidas ir t.t.)</div>
+                    <div class="rule">4.3 Draudžiama dezinformacija</div>
+                    <div class="rule">4.4 Draudžiama bet kokia nepagarba discord chatuose</div>
+                    <div class="rule">4.5 Būtina užsipildyti ⁠『📃』𝗜𝗖-𝗜𝗡𝗙𝗢 Kitaip bus nuimtas jobas IC</div>
+                </div>
+            </div>
+            
+            <!-- Info Tab -->
+            <div id="info" class="tab-content">
+                <h2>Informacija Apie Gaują</h2>
+                
+                <div class="info-section">
+                    <h3>Apranga</h3>
+                    <div class="info-item">
+                        <div class="info-label">Liemenė Spalva</div>
+                        <div class="vest-color">
+                            <div class="color-box" style="background-color: rgb(156, 1, 1);"></div>
+                            <span>156 1</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3>Bindai (spustelėkite, kad nukopijuoti)</h3>
+                    <div class="info-item">
+                        <div class="bind-box" onclick="copyToClipboard('bind keyboard 0 &quot;s ~ws~ ~b~ ~l~STOJI ~w~/ ~l~PAKELI ~w~RANKAS ~l~ARBA ~w~SAUDYSIM ~ws&quot;')">
+                            bind keyboard 0 "s ~ws~ ~b~ ~l~STOJI ~w~/ ~l~PAKELI ~w~RANKAS ~l~ARBA ~w~SAUDYSIM ~ws"
+                            <div class="copy-message">Nukopijuota!</div>
+                            <span class="copy-icon">📋</span>
+                        </div>
+                        <div class="bind-box" onclick="copyToClipboard('bind keyboard 9 &quot;s ~ws ~l~MIELA MALONU ~ws~&quot;')">
+                            bind keyboard 9 "s ~ws ~l~MIELA MALONU ~ws~"
+                            <div class="copy-message">Nukopijuota!</div>
+                            <span class="copy-icon">📋</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3>Discord Serveris</h3>
+                    <div class="info-item">
+                        <a href="https://discord.gg/VfC3Ay86cW" target="_blank" class="discord-invite" style="width: 100%; justify-content: center; padding: 12px;">
+                            <svg width="24" height="24" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#ffffff"/>
+                            </svg>
+                            Prisijungti prie Discord serverio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            © 2025 Gang Rules & Info | Visos teisės saugomos
+        </footer>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show the selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Set the clicked button as active
+            event.currentTarget.classList.add('active');
+        }
+        
+        function copyToClipboard(text) {
+            const el = event.currentTarget;
+            const copyMessage = el.querySelector('.copy-message');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show copy message
+                copyMessage.style.display = 'block';
+                
+                // Hide copy message after 2 seconds
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
