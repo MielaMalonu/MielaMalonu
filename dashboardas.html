@@ -727,7 +727,6 @@
 
 
     <script>
-// ===== SUPABASE AND DISCORD AUTH INTEGRATION =====
 document.addEventListener('DOMContentLoaded', function() {
     // Supabase configuration
     const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1';
@@ -739,7 +738,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
     
     // Initialize Supabase client
-    const supabase = supabaseInit();
+    // FIX: Create the supabase client directly instead of using a function that tries to access supabase
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     // DOM Elements
     const tabButtons = document.querySelectorAll('.nav-button');
@@ -766,10 +766,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== INITIALIZATION FUNCTIONS =====
     
-    function supabaseInit() {
-        return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
+    // FIX: Remove the supabaseInit function since it causes circular reference
+    // function supabaseInit() {
+    //    return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // }
     
+    // Helper function to create Supabase client (replaces supabaseInit)
+    function createClient(url, key) {
+        return supabase.createClient(url, key);
+    }
     // ===== AUTHENTICATION FUNCTIONS =====
     
     function initiateDiscordLogin() {
