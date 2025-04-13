@@ -908,6 +908,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadIcInfo(discordId),
                 loadRecentActivity(discordId)
             ]);
+            
+            // Initialize the links tab
+            initializeLinksTab();
         } catch (err) {
             console.error('Error loading dashboard data:', err);
         }
@@ -1065,9 +1068,18 @@ document.addEventListener('DOMContentLoaded', function() {
         characterNameItem.className = 'icinfo-item';
         characterNameItem.innerHTML = `
             <div>Character Name:</div>
-            <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDE || ''}</div>
+            <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDĖ || ''}</div>
         `;
         icStatusContainer.appendChild(characterNameItem);
+        
+        // Steam Nickname - Added this field
+        const steamNicknameItem = document.createElement('div');
+        steamNicknameItem.className = 'icinfo-item';
+        steamNicknameItem.innerHTML = `
+            <div>Steam Nickname:</div>
+            <div>${icInfo.STEAM_NICKAS || 'Unknown'}</div>
+        `;
+        icStatusContainer.appendChild(steamNicknameItem);
         
         // Gang details - Rank
         const rankItem = document.createElement('div');
@@ -1126,6 +1138,28 @@ document.addEventListener('DOMContentLoaded', function() {
             <div>No gang information available.</div>
         `;
         gangDetailsContainer.appendChild(noGangItem);
+    }
+    
+    function initializeLinksTab() {
+        // Get the links container
+        const linksTab = document.getElementById('links');
+        if (!linksTab) return;
+        
+        // Make sure links are visible and properly formatted
+        const linkItems = linksTab.querySelectorAll('.links-item');
+        linkItems.forEach(link => {
+            // Ensure the link is visible
+            link.style.display = 'flex';
+            
+            // Add proper event handling to open links in new tab
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = link.querySelector('.fa-external-link-alt').textContent;
+                if (href) {
+                    window.open(href, '_blank');
+                }
+            });
+        });
     }
     
     async function loadRecentActivity(discordId) {
