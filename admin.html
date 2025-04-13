@@ -617,7 +617,6 @@ function populateTable(data) {
         });
     });
 }
-// Function to handle warning button clicks
 async function handleWarningButton() {
     const userId = this.getAttribute('data-user-id');
     const userName = this.getAttribute('data-user-name');
@@ -644,6 +643,7 @@ async function handleWarningButton() {
             method: "POST",
             headers: {
                 "apikey": CONFIG.SUPABASE.API_KEY,
+                "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal"
             },
