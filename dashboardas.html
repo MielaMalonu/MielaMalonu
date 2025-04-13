@@ -1029,7 +1029,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let { data: icInfo, error } = await supabase
                 .from('IC')
                 .select('*')
-                .filter('ID', 'eq', stringDiscordId);
+                .filter('DISCORD_ID', 'eq', stringDiscordId);
             
             // If there's an error or no data, try alternative approach
             if (error || (Array.isArray(icInfo) && icInfo.length === 0)) {
