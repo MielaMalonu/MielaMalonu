@@ -619,11 +619,11 @@
         <header>
             <div class="header-left">
                 <img src="/api/placeholder/40/40" alt="Gang Logo" class="logo-img">
-                <span>Gang Dashboard</span>
+                <span>Miela Malonu</span>
             </div>
             <div class="user-profile">
                 <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar" id="userAvatar">
-                <span class="user-name" id="userName">Not Logged In</span>
+                <span class="user-name" id="userName">Neprisijungta</span>
                 <span class="logout-btn" id="logoutBtn" style="display: none;">
                     <i class="fas fa-sign-out-alt"></i>
                 </span>
@@ -640,21 +640,21 @@
         <div class="content-container">
             <!-- Login screen (shown when not authenticated) -->
             <div class="welcome-section" id="loginScreen">
-                <h2>Welcome to Gang Dashboard</h2>
-                <p>Please login with Discord to access your gang information</p>
+                <h2>Sveikas, Prisijunges I Miela Malonu</h2>
+                <p>Prašome prisijungti su Discord</p>
                 <button class="login-btn" id="loginButton">
-                    <i class="fab fa-discord"></i> Login with Discord
+                    <i class="fab fa-discord"></i> Prisijungti
                 </button>
                 <div id="loginError" class="error-message" style="display: none;"></div>
             </div>
 
             <!-- Dashboard Tab -->
             <div class="tab-content" id="dashboard">
-                <h2>Dashboard</h2>
+                <h2>Dashboardas</h2>
 
                 <div class="stat-cards">
                     <div class="stat-card">
-                        <div class="stat-label">Warnings</div>
+                        <div class="stat-label">Ispėjimai</div>
                         <div class="stat-value" id="warningCount">-</div>
                         <span class="status-badge" id="warningStatus">-</span>
                     </div>
@@ -663,31 +663,11 @@
                         <div class="stat-value"><i id="icStatusIcon" class="fas fa-circle" style="color: #3ba55c; font-size: 24px;"></i></div>
                         <span class="status-badge" id="icStatusBadge">-</span>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Gang Rank</div>
-                        <div class="stat-value" id="gangRank">-</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Last Login</div>
-                        <div class="stat-value" style="font-size: 18px;" id="lastLogin">-</div>
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>Recent Activity</h3>
-                    <div id="recentActivity">
-                        <div class="loading">
-                            <div class="loading-spinner"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Warnings Tab -->
             <div class="tab-content" id="warnings">
-                <h2>Your Warnings</h2>
+                <h2>Tavo Ispėjimai</h2>
                 <div class="info-section">
-                    <h3>Active Warnings</h3>
+                    <h3>Ispėjimai</h3>
                     <div id="warningsContainer">
                         <div class="loading">
                             <div class="loading-spinner"></div>
@@ -698,9 +678,9 @@
 
             <!-- IC Info Tab -->
             <div class="tab-content" id="icinfo">
-                <h2>IC Information</h2>
+                <h2>IC Informacija</h2>
                 <div class="info-section">
-                    <h3>Status</h3>
+                    <h3>Statusas</h3>
                     <div id="icStatusContainer">
                         <div class="loading">
                             <div class="loading-spinner"></div>
@@ -708,7 +688,7 @@
                     </div>
                 </div>
                 <div class="info-section">
-                    <h3>Gang Details</h3>
+                    <h3>Gango Informacija</h3>
                     <div id="gangDetailsContainer">
                         <div class="loading">
                             <div class="loading-spinner"></div>
@@ -719,48 +699,29 @@
 
             <!-- Links Tab -->
             <div class="tab-content" id="links">
-                <h2>Useful Links</h2>
+                <h2>Naudingos Nuorodos</h2>
                 <div class="info-section">
-                    <h3>Gang Resources</h3>
+                    <h3>Gaujos resursai</h3>
                     <a href="#" class="links-item">
                         <i class="fas fa-book"></i>
-                        <div class="links-name">Gang Rulebook</div>
-                        <i class="fas fa-external-link-alt"></i>
+                        <div class="links-name">IC INFO</div>
+                        <i class="fas fa-external-link-alt">https://mielamalonu.com/ic</i>
                     </a>
                     <a href="#" class="links-item">
                         <i class="fas fa-map-marked-alt"></i>
-                        <div class="links-name">Territory Map</div>
-                        <i class="fas fa-external-link-alt"></i>
+                        <div class="links-name">IDS</div>
+                        <i class="fas fa-external-link-alt">https://mielamalonu.com/id</i>
                     </a>
                     <a href="#" class="links-item">
                         <i class="fas fa-calendar-alt"></i>
-                        <div class="links-name">Events Calendar</div>
-                        <i class="fas fa-external-link-alt"></i>
+                        <div class="links-name">Pagrindinis Puslapis</div>
+                        <i class="fas fa-external-link-alt">https://mielamalonu.com</i>
                     </a>
                 </div>
-                <div class="info-section">
-                    <h3>Server Resources</h3>
-                    <a href="#" class="links-item">
-                        <i class="fab fa-discord"></i>
-                        <div class="links-name">Official Discord</div>
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                    <a href="#" class="links-item">
-                        <i class="fas fa-gavel"></i>
-                        <div class="links-name">Server Rules</div>
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                    <a href="#" class="links-item">
-                        <i class="fas fa-ticket-alt"></i>
-                        <div class="links-name">Support Ticket System</div>
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+               
 
         <footer>
-            Gang Dashboard &copy; 2025 | Created for gang members
+            Miela Malonu Dashboardas &copy; 2025
         </footer>
     </div>
 
