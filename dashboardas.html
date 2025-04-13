@@ -1202,10 +1202,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Steam Nickname
         const steamNicknameItem = document.createElement('div');
         steamNicknameItem.className = 'icinfo-item';
-        steamNicknameItem.innerHTML = `
-            <div>Steam Nickname:</div>
-            <div>${icInfo.STEAM NICKAS || 'Unknown'}</div>
-        `;
+        steamNicknameItem.innerHTML = 
+steamNicknameItem.innerHTML = `
+    <div>Steam Nickname:</div>
+    <div>${icInfo["STEAM NICKAS"] || 'Unknown'}</div>
+`;
         icStatusContainer.appendChild(steamNicknameItem);
         
         // Gang details - Rank
