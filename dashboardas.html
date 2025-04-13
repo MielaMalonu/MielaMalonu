@@ -1216,7 +1216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // ===== LOGOUT FUNCTION =====
+// ===== LOGOUT FUNCTION =====
     
     function logoutUser() {
         // Clear stored Discord data
@@ -1230,9 +1230,8 @@ document.addEventListener('DOMContentLoaded', function() {
         logoutBtn.style.display = 'none';
         showLoginScreen();
     }
-// Add this to the bottom of your existing JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Ensure links in the "links" tab work properly
+    
+    // Setup link handling for links tab
     const linkItems = document.querySelectorAll('.links-item');
     linkItems.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -1242,8 +1241,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // The link will naturally open in a new tab due to target="_blank"
         });
     });
+    
+// This is the closing bracket and parenthesis for the DOMContentLoaded event listener
 });
-
     </script>
 </body>
 </html>
