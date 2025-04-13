@@ -912,8 +912,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadRecentActivity(discordId)
             ]);
             
-            // Initialize the links tab
-            initializeLinksTab();
+            // Remove the links tab initialization that was causing problems
+            // This will make the links work with their default behavior
         } catch (err) {
             console.error('Error loading dashboard data:', err);
         }
@@ -1199,27 +1199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         gangDetailsContainer.appendChild(rankItem);
     }
     
-    function initializeLinksTab() {
-        // Get the links container
-        const linksTab = document.getElementById('links');
-        if (!linksTab) return;
-        
-        // Make sure links are visible and properly formatted
-        const linkItems = linksTab.querySelectorAll('.links-item');
-        linkItems.forEach(link => {
-            // Ensure the link is visible
-            link.style.display = 'flex';
-            
-            // Add proper event handling to open links in new tab
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = link.querySelector('.fa-external-link-alt').textContent;
-                if (href) {
-                    window.open(href, '_blank');
-                }
-            });
-        });
-    }
+    // Removed the initializeLinksTab function that was preventing links from working normally
     
     async function loadRecentActivity(discordId) {
         try {
