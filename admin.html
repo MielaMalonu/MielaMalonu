@@ -551,71 +551,72 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // Populate Table
-    function populateTable(data) {
-        const dataTableBody = document.querySelector("#data-table tbody");
-        dataTableBody.innerHTML = "";
+  // Populate Table
+function populateTable(data) {
+    const dataTableBody = document.querySelector("#data-table tbody");
+    dataTableBody.innerHTML = "";
 
-        data.forEach((item, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${index + 1}.</td> <!-- Row number -->
-                <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
-                <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
-                <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
-                <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
-                <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
-                <td>
-                  <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
-                  <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
-                </td>
- <td>
+    data.forEach((item, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${index + 1}.</td> <!-- Row number -->
+            <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
+            <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
+            <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
+            <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
+            <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
+            <td>
+              <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
+              <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
+            </td>
+            <td>
               <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
             </td>
-            `;
-            dataTableBody.appendChild(row);
-        });
-        
- // Add event listeners to all warning buttons
+        `;
+        dataTableBody.appendChild(row);
+    });
+    
+    // Add event listeners to all warning buttons
     document.querySelectorAll('.warning-button').forEach(button => {
         button.addEventListener('click', handleWarningButton);
     });
-}
-        // Add event listeners to all copy text elements
-        document.querySelectorAll('.copy-text').forEach(element => {
-            element.addEventListener('click', function() {
-                const textToCopy = this.getAttribute('data-copy');
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        // Visual feedback
-                        const originalText = this.textContent;
-                        this.classList.add('copy-flash');
+    
+    // Add event listeners to all copy text elements
+    document.querySelectorAll('.copy-text').forEach(element => {
+        element.addEventListener('click', function() {
+            const textToCopy = this.getAttribute('data-copy');
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Visual feedback
+                    const originalText = this.textContent;
+                    this.classList.add('copy-flash');
+                    
+                    // Only change text content if it's not the clipboard icon
+                    if (this.textContent !== '📋') {
+                        this.setAttribute('data-original-text', originalText);
+                        this.textContent = 'Nukopijuota ✅';
+                    } else {
+                        this.textContent = '✓';
+                    }
+                    
+                    setTimeout(() => {
+                        this.classList.remove('copy-flash');
                         
-                        // Only change text content if it's not the clipboard icon
-                        if (this.textContent !== '📋') {
-                            this.setAttribute('data-original-text', originalText);
-                            this.textContent = 'Nukopijuota ✅';
-                        } else {
-                            this.textContent = '✓';
+                        // Restore original text if it was changed
+                        if (this.hasAttribute('data-original-text')) {
+                            this.textContent = this.getAttribute('data-original-text');
+                            this.removeAttribute('data-original-text');
+                        } else if (this.textContent === '✓') {
+                            this.textContent = '📋';
                         }
-                        
-                        setTimeout(() => {
-                            this.classList.remove('copy-flash');
-                            
-                            // Restore original text if it was changed
-                            if (this.hasAttribute('data-original-text')) {
-                                this.textContent = this.getAttribute('data-original-text');
-                                this.removeAttribute('data-original-text');
-                            } else if (this.textContent === '✓') {
-                                this.textContent = '📋';
-                            }
-                        }, 1000);
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy: ', err);
-                    });
-            });
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
         });
-    }
+    });
+}
 // Function to handle warning button clicks
 async function handleWarningButton() {
     const userId = this.getAttribute('data-user-id');
@@ -891,7 +892,7 @@ async function handleWarningButton() {
                 addCopyFunctionality();
 document.querySelectorAll('.warning-button').forEach(button => {
                     button.addEventListener('click', handleWarningButton);
-                })
+                });
             }
         } catch (error) {
             console.error("Error filtering data:", error);
