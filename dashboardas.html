@@ -918,229 +918,254 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    async function loadWarnings(discordId) {
-        try {
-            // Fetch warnings from Supabase using Discord ID
-            const { data: warnings, error } = await supabase
-                .from('Ispejimai')
-                .select('*')
-                .eq('ID', discordId)
-                .order('DATA', { ascending: false });
-                
-            if (error) throw error;
+   // Fix for the loadWarnings function
+async function loadWarnings(discordId) {
+    try {
+        // Fetch warnings from Supabase using Discord ID
+        const { data: warnings, error } = await supabase
+            .from('Ispejimai')
+            .select('*')
+            .eq('ID', discordId)
+            .order('DATA', { ascending: false });
             
-            // Update warnings count in dashboard
-            const warningCount = document.getElementById('warningCount');
-            if (warningCount) {
-                warningCount.textContent = warnings.length;
-                
-                // Update status badge based on warning count
-                const warningStatus = document.getElementById('warningStatus');
-                if (warningStatus) {
-                    if (warnings.length === 0) {
-                        warningStatus.textContent = 'Clean';
-                        warningStatus.className = 'status-badge badge-success';
-                    } else if (warnings.length < 3) {
-                        warningStatus.textContent = 'Low';
-                        warningStatus.className = 'status-badge badge-warning';
-                    } else {
-                        warningStatus.textContent = 'High';
-                        warningStatus.className = 'status-badge badge-danger';
-                    }
-                }
-            }
-            
-            // Update warnings tab
-            updateWarningsTab(warnings);
-            
-            return warnings;
-        } catch (err) {
-            console.error('Error loading warnings:', err);
-            return [];
-        }
-    }
-    
-    function updateWarningsTab(warnings) {
-        const warningsContainer = document.getElementById('warningsContainer');
-        if (!warningsContainer) return;
+        if (error) throw error;
         
-        warningsContainer.innerHTML = ''; // Clear loading spinner
-        
-        if (warnings.length === 0) {
-            const noWarningsElement = document.createElement('div');
-            noWarningsElement.className = 'warning-item';
-            noWarningsElement.innerHTML = '<div class="warning-reason">No active warnings</div>';
-            warningsContainer.appendChild(noWarningsElement);
-        } else {
-            warnings.forEach((warning, index) => {
-                const warningElement = document.createElement('div');
-                warningElement.className = 'warning-item';
-                warningElement.style.setProperty('--item-delay', index);
-                
-                // Format date
-                const date = new Date(warning.DATA);
-                const formattedDate = date.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                });
-                
-                warningElement.innerHTML = `
-                    <div class="warning-reason">${warning.PRIEŽASTIS || 'Unknown reason'}</div>
-                    <div class="warning-date">${formattedDate}</div>
-                `;
-                
-                warningsContainer.appendChild(warningElement);
-            });
-        }
-    }
-    
-    async function loadIcInfo(discordId) {
-        try {
-            // Fetch IC info from Supabase using Discord ID
-            const { data: icInfo, error } = await supabase
-                .from('IC')
-                .select('*')
-                .eq('ID', discordId)
-                .single();
-                
-            if (error) throw error;
+        // Update warnings count in dashboard
+        const warningCount = document.getElementById('warningCount');
+        if (warningCount) {
+            warningCount.textContent = warnings ? warnings.length : 0;
             
-            // Update IC status in dashboard
-            const icStatusIcon = document.getElementById('icStatusIcon');
-            const icStatusBadge = document.getElementById('icStatusBadge');
-            
-            if (icStatusIcon && icStatusBadge) {
-                if (icInfo.STATUSAS === 'ACTIVE') {
-                    icStatusIcon.style.color = '#3ba55c';
-                    icStatusBadge.textContent = 'Active';
-                    icStatusBadge.className = 'status-badge badge-success';
+            // Update status badge based on warning count
+            const warningStatus = document.getElementById('warningStatus');
+            if (warningStatus) {
+                if (!warnings || warnings.length === 0) {
+                    warningStatus.textContent = 'Clean';
+                    warningStatus.className = 'status-badge badge-success';
+                } else if (warnings.length < 3) {
+                    warningStatus.textContent = 'Low';
+                    warningStatus.className = 'status-badge badge-warning';
                 } else {
-                    icStatusIcon.style.color = '#ed4245';
-                    icStatusBadge.textContent = 'Inactive';
-                    icStatusBadge.className = 'status-badge badge-danger';
+                    warningStatus.textContent = 'High';
+                    warningStatus.className = 'status-badge badge-danger';
+                }
+            }
+        }
+        
+        // Update warnings tab
+        updateWarningsTab(warnings || []);
+        
+        return warnings;
+    } catch (err) {
+        console.error('Error loading warnings:', err);
+        // Make sure to update the UI even when there's an error
+        updateWarningsTab([]);
+        return [];
+    }
+}
+
+// Fix for the updateWarningsTab function
+function updateWarningsTab(warnings) {
+    const warningsContainer = document.getElementById('warningsContainer');
+    if (!warningsContainer) return;
+    
+    // Clear loading spinner and any existing content
+    warningsContainer.innerHTML = '';
+    
+    if (!warnings || warnings.length === 0) {
+        const noWarningsElement = document.createElement('div');
+        noWarningsElement.className = 'warning-item';
+        noWarningsElement.innerHTML = '<div class="warning-reason">No active warnings</div>';
+        warningsContainer.appendChild(noWarningsElement);
+    } else {
+        warnings.forEach((warning, index) => {
+            const warningElement = document.createElement('div');
+            warningElement.className = 'warning-item';
+            warningElement.style.setProperty('--item-delay', index);
+            
+            // Format date - add fallback for invalid dates
+            let formattedDate = 'Unknown date';
+            if (warning.DATA) {
+                try {
+                    const date = new Date(warning.DATA);
+                    formattedDate = date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                } catch (err) {
+                    console.error('Error formatting date:', err);
                 }
             }
             
-            // Update IC info tab
-            updateIcInfoTab(icInfo);
+            warningElement.innerHTML = `
+                <div class="warning-reason">${warning.PRIEŽASTIS || 'Unknown reason'}</div>
+                <div class="warning-date">${formattedDate}</div>
+            `;
             
-            return icInfo;
-        } catch (err) {
-            console.error('Error loading IC info:', err);
-            // Show default "not found" state in the IC info tab
-            updateIcInfoTabNotFound();
-            return null;
+            warningsContainer.appendChild(warningElement);
+        });
+    }
+}
+
+// Fix for the loadIcInfo function
+async function loadIcInfo(discordId) {
+    try {
+        // Fetch IC info from Supabase using Discord ID
+        const { data: icInfo, error } = await supabase
+            .from('IC')
+            .select('*')
+            .eq('ID', discordId)
+            .single();
+            
+        if (error) throw error;
+        
+        // Update IC status in dashboard
+        const icStatusIcon = document.getElementById('icStatusIcon');
+        const icStatusBadge = document.getElementById('icStatusBadge');
+        
+        if (icStatusIcon && icStatusBadge && icInfo) {
+            if (icInfo.STATUSAS === 'ACTIVE') {
+                icStatusIcon.style.color = '#3ba55c';
+                icStatusBadge.textContent = 'Active';
+                icStatusBadge.className = 'status-badge badge-success';
+            } else {
+                icStatusIcon.style.color = '#ed4245';
+                icStatusBadge.textContent = 'Inactive';
+                icStatusBadge.className = 'status-badge badge-danger';
+            }
         }
+        
+        // Update IC info tab
+        updateIcInfoTab(icInfo);
+        
+        return icInfo;
+    } catch (err) {
+        console.error('Error loading IC info:', err);
+        // Show default "not found" state in the IC info tab
+        updateIcInfoTabNotFound();
+        
+        // Also update the dashboard icons to show inactive
+        const icStatusIcon = document.getElementById('icStatusIcon');
+        const icStatusBadge = document.getElementById('icStatusBadge');
+        
+        if (icStatusIcon && icStatusBadge) {
+            icStatusIcon.style.color = '#ed4245';
+            icStatusBadge.textContent = 'Not Found';
+            icStatusBadge.className = 'status-badge badge-danger';
+        }
+        
+        return null;
+    }
+}
+
+// Improved updateIcInfoTab function
+function updateIcInfoTab(icInfo) {
+    const icStatusContainer = document.getElementById('icStatusContainer');
+    const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+    
+    if (!icStatusContainer || !gangDetailsContainer) return;
+    
+    // Clear loading spinners
+    icStatusContainer.innerHTML = '';
+    gangDetailsContainer.innerHTML = '';
+    
+    // If icInfo is null or undefined, show "not found" message
+    if (!icInfo) {
+        updateIcInfoTabNotFound();
+        return;
     }
     
-    function updateIcInfoTab(icInfo) {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-        
-        if (!icStatusContainer || !gangDetailsContainer) return;
-        
-        // Clear loading spinners
-        icStatusContainer.innerHTML = '';
-        gangDetailsContainer.innerHTML = '';
-        
-        // Create status section
-        const statusItem = document.createElement('div');
-        statusItem.className = 'icinfo-item';
-        statusItem.innerHTML = `
-            <div>Status:</div>
-            <div class="icinfo-status ${icInfo.STATUSAS === 'ACTIVE' ? 'active-status' : 'inactive-status'}">
-                ${icInfo.STATUSAS || 'Unknown'}
-            </div>
-        `;
-        icStatusContainer.appendChild(statusItem);
-        
-        // Last updated
+    // Create status section
+    const statusItem = document.createElement('div');
+    statusItem.className = 'icinfo-item';
+    statusItem.innerHTML = `
+        <div>Status:</div>
+        <div class="icinfo-status ${icInfo.STATUSAS === 'ACTIVE' ? 'active-status' : 'inactive-status'}">
+            ${icInfo.STATUSAS || 'Unknown'}
+        </div>
+    `;
+    icStatusContainer.appendChild(statusItem);
+    
+    // Last updated - add try/catch for date parsing
+    try {
         const lastUpdatedItem = document.createElement('div');
         lastUpdatedItem.className = 'icinfo-item';
-        const lastUpdated = new Date(icInfo.PASKUTINIS_ATNAUJINIMAS);
+        let lastUpdatedText = 'Unknown';
+        
+        if (icInfo.PASKUTINIS_ATNAUJINIMAS) {
+            const lastUpdated = new Date(icInfo.PASKUTINIS_ATNAUJINIMAS);
+            lastUpdatedText = lastUpdated.toLocaleString();
+        }
+        
         lastUpdatedItem.innerHTML = `
             <div>Last Updated:</div>
-            <div>${lastUpdated.toLocaleString()}</div>
+            <div>${lastUpdatedText}</div>
         `;
         icStatusContainer.appendChild(lastUpdatedItem);
-        
-        // Character name
-        const characterNameItem = document.createElement('div');
-        characterNameItem.className = 'icinfo-item';
-        characterNameItem.innerHTML = `
-            <div>Character Name:</div>
-            <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDĖ || ''}</div>
-        `;
-        icStatusContainer.appendChild(characterNameItem);
-        
-        // Steam Nickname - Added this field
-        const steamNicknameItem = document.createElement('div');
-        steamNicknameItem.className = 'icinfo-item';
-        steamNicknameItem.innerHTML = `
-            <div>Steam Nickname:</div>
-            <div>${icInfo.STEAM_NICKAS || 'Unknown'}</div>
-        `;
-        icStatusContainer.appendChild(steamNicknameItem);
-        
-        // Gang details - Rank
-        const rankItem = document.createElement('div');
-        rankItem.className = 'icinfo-item';
-        rankItem.innerHTML = `
-            <div>Rank:</div>
-            <div>${icInfo.RANKAS || 'None'}</div>
-        `;
-        gangDetailsContainer.appendChild(rankItem);
-        
-        // Join date
+    } catch (err) {
+        console.error('Error formatting last updated date:', err);
+    }
+    
+    // Character name
+    const characterNameItem = document.createElement('div');
+    characterNameItem.className = 'icinfo-item';
+    characterNameItem.innerHTML = `
+        <div>Character Name:</div>
+        <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDĖ || ''}</div>
+    `;
+    icStatusContainer.appendChild(characterNameItem);
+    
+    // Steam Nickname
+    const steamNicknameItem = document.createElement('div');
+    steamNicknameItem.className = 'icinfo-item';
+    steamNicknameItem.innerHTML = `
+        <div>Steam Nickname:</div>
+        <div>${icInfo.STEAM_NICKAS || 'Unknown'}</div>
+    `;
+    icStatusContainer.appendChild(steamNicknameItem);
+    
+    // Gang details - Rank
+    const rankItem = document.createElement('div');
+    rankItem.className = 'icinfo-item';
+    rankItem.innerHTML = `
+        <div>Rank:</div>
+        <div>${icInfo.RANKAS || 'None'}</div>
+    `;
+    gangDetailsContainer.appendChild(rankItem);
+    
+    // Join date - add try/catch for date parsing
+    try {
         const joinDateItem = document.createElement('div');
         joinDateItem.className = 'icinfo-item';
-        const joinDate = new Date(icInfo.PRISIJUNGIMO_DATA);
-        joinDateItem.innerHTML = `
-            <div>Join Date:</div>
-            <div>${joinDate.toLocaleDateString('en-US', {
+        let joinDateText = 'Unknown';
+        
+        if (icInfo.PRISIJUNGIMO_DATA) {
+            const joinDate = new Date(icInfo.PRISIJUNGIMO_DATA);
+            joinDateText = joinDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
-            })}</div>
+            });
+        }
+        
+        joinDateItem.innerHTML = `
+            <div>Join Date:</div>
+            <div>${joinDateText}</div>
         `;
         gangDetailsContainer.appendChild(joinDateItem);
-        
-        // Territory
-        const territoryItem = document.createElement('div');
-        territoryItem.className = 'icinfo-item';
-        territoryItem.innerHTML = `
-            <div>Territory:</div>
-            <div>${icInfo.TERITORIJA || 'Unassigned'}</div>
-        `;
-        gangDetailsContainer.appendChild(territoryItem);
+    } catch (err) {
+        console.error('Error formatting join date:', err);
     }
     
-    function updateIcInfoTabNotFound() {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-        
-        if (!icStatusContainer || !gangDetailsContainer) return;
-        
-        // Clear loading spinners
-        icStatusContainer.innerHTML = '';
-        gangDetailsContainer.innerHTML = '';
-        
-        // Add "not found" message
-        const notFoundItem = document.createElement('div');
-        notFoundItem.className = 'icinfo-item';
-        notFoundItem.innerHTML = `
-            <div>No IC information found for this user.</div>
-        `;
-        icStatusContainer.appendChild(notFoundItem);
-        
-        const noGangItem = document.createElement('div');
-        noGangItem.className = 'icinfo-item';
-        noGangItem.innerHTML = `
-            <div>No gang information available.</div>
-        `;
-        gangDetailsContainer.appendChild(noGangItem);
-    }
+    // Territory
+    const territoryItem = document.createElement('div');
+    territoryItem.className = 'icinfo-item';
+    territoryItem.innerHTML = `
+        <div>Territory:</div>
+        <div>${icInfo.TERITORIJA || 'Unassigned'}</div>
+    `;
+    gangDetailsContainer.appendChild(territoryItem);
+}
     
     function initializeLinksTab() {
         // Get the links container
