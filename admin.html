@@ -621,50 +621,57 @@ async function handleWarningButton() {
     const userId = this.getAttribute('data-user-id');
     const userName = this.getAttribute('data-user-name');
     
-    const reason = prompt(`Įveskite įspėjimo priežastį vartotojui ${userName}:`);
-    
-    if (!reason || reason.trim() === '') {
-        alert('⚠️ Įspėjimas nebuvo sukurtas. Priežastis yra privaloma.');
-        return;
-    }
-    
-    // Get current date in YYYY-MM-DD format
-    const currentDate = new Date().toISOString().split('T')[0];
-    
-    // Create warning object
-    const warningData = {
-        ID: userId,
-        DATA: currentDate,
-        PRIEŽASTIS: reason
-    };
-    
-    try {
-        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai`, {
-            method: "POST",
-            headers: {
-                "apikey": CONFIG.SUPABASE.API_KEY,
-                "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
-                "Content-Type": "application/json",
-                "Prefer": "return=minimal"
-            },
-            body: JSON.stringify(warningData)
-        });
+    // Show custom popup instead of prompt
+    showPopup({
+        title: `Įspėjimo pridėjimas`,
+        message: `Įveskite įspėjimo priežastį vartotojui ${userName}:`,
+        inputField: true,
+        confirmText: "Pridėti įspėjimą",
+        onConfirm: async (reason) => {
+            if (!reason || reason.trim() === '') {
+                showNotification('⚠️ Įspėjimas nebuvo sukurtas. Priežastis yra privaloma.', 'error');
+                return;
+            }
+            
+            // Get current date in YYYY-MM-DD format
+            const currentDate = new Date().toISOString().split('T')[0];
+            
+            // Create warning object
+            const warningData = {
+                ID: userId,
+                DATA: currentDate,
+                PRIEŽASTIS: reason
+            };
+            
+            try {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai`, {
+                    method: "POST",
+                    headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify(warningData)
+                });
 
-        if (!response.ok) throw new Error("⚠️ Failed to create warning");
-        
-        // Show success message
-        alert(`✅ Įspėjimas vartotojui ${userName} sėkmingai sukurtas!`);
-        
-        // Optional: Add visual feedback on the button
-        this.textContent = "✓";
-        setTimeout(() => {
-            this.textContent = "⚠️";
-        }, 2000);
-        
-    } catch (error) {
-        console.error("❌ Error creating warning:", error);
-        alert("⚠️ Nepavyko sukurti įspėjimo.");
-    }
+                if (!response.ok) throw new Error("⚠️ Failed to create warning");
+                
+                // Show success notification
+                showNotification(`✅ Įspėjimas vartotojui ${userName} sėkmingai sukurtas!`, 'success');
+                
+                // Visual feedback on the button
+                this.textContent = "✓";
+                setTimeout(() => {
+                    this.textContent = "⚠️";
+                }, 2000);
+                
+            } catch (error) {
+                console.error("❌ Error creating warning:", error);
+                showNotification("⚠️ Nepavyko sukurti įspėjimo.", 'error');
+            }
+        }
+    });
 }
     // Fetch Event IDs from Supabase
     async function fetchEventIds() {
