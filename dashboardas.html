@@ -702,25 +702,26 @@
 
             <!-- Links Tab -->
             <div class="tab-content" id="links">
-                <h2>Naudingos Nuorodos</h2>
-                <div class="info-section">
-                    <h3>Gaujos resursai</h3>
-                    <a href="#" class="links-item">
-                        <i class="fas fa-book"></i>
-                        <div class="links-name">IC INFO</div>
-                        <i class="fas fa-external-link-alt">https://mielamalonu.com/ic</i>
-                    </a>
-                    <a href="#" class="links-item">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <div class="links-name">IDS</div>
-                        <i class="fas fa-external-link-alt">https://mielamalonu.com/id</i>
-                    </a>
-                    <a href="#" class="links-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <div class="links-name">Pagrindinis Puslapis</div>
-                        <i class="fas fa-external-link-alt">https://mielamalonu.com</i>
-                    </a>
-                </div>
+    <h2>Naudingos Nuorodos</h2>
+    <div class="info-section">
+        <h3>Gaujos resursai</h3>
+        <a href="https://mielamalonu.com/ic" class="links-item" target="_blank">
+            <i class="fas fa-book"></i>
+            <div class="links-name">IC INFO</div>
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://mielamalonu.com/id" class="links-item" target="_blank">
+            <i class="fas fa-map-marked-alt"></i>
+            <div class="links-name">IDS</div>
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://mielamalonu.com" class="links-item" target="_blank">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="links-name">Pagrindinis Puslapis</div>
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+    </div>
+</div>
                
 
         <footer>
@@ -1229,7 +1230,20 @@ document.addEventListener('DOMContentLoaded', function() {
         logoutBtn.style.display = 'none';
         showLoginScreen();
     }
+// Add this to the bottom of your existing JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Ensure links in the "links" tab work properly
+    const linkItems = document.querySelectorAll('.links-item');
+    linkItems.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Prevent any default tab behavior from interfering
+            // Allow the browser to handle the link normally
+            e.stopPropagation();
+            // The link will naturally open in a new tab due to target="_blank"
+        });
+    });
 });
+
     </script>
 </body>
 </html>
