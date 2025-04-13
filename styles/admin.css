@@ -605,3 +605,78 @@ a:hover {
     background-color: #e65100;
     transform: scale(1.1);
 }
+
+    /* Notification animations */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    /* Popup animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+        from { transform: scale(0.9); }
+        to { transform: scale(1); }
+    }
+    
+    /* Copy effect styles */
+    .copy-flash {
+        animation: flashEffect 0.5s;
+    }
+    
+    @keyframes flashEffect {
+        0% { background-color: transparent; }
+        50% { background-color: rgba(79, 146, 255, 0.3); }
+        100% { background-color: transparent; }
+    }
+    
+    /* Event ID tags */
+    .event-id-tag {
+        display: inline-block;
+        background: linear-gradient(135deg, #333, #555);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 14px;
+    }
+    
+    .event-id-tag:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Status indicators */
+    .status-online {
+        background: linear-gradient(135deg, #4CAF50, #2E7D32);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+    
+    .status-offline {
+        background: linear-gradient(135deg, #F44336, #C62828);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+    
+    /* Button hover effects */
+    button:not(.popup-close):hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+    }
