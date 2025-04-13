@@ -208,14 +208,24 @@ function showNotification(message, type = 'info') {
 }
 
 // Show custom popup
+// Show custom popup
 function showPopup({ title, message, inputField = false, confirmText = 'OK', cancelText = 'Cancel', onConfirm, onCancel }) {
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'popup-overlay';
+    // Create container
+    const container = document.createElement('div');
+    container.className = 'popup-container';
     
     // Create popup
     const popup = document.createElement('div');
     popup.className = 'popup';
+    
+    // Create header
+    const header = document.createElement('div');
+    header.className = 'popup-header';
+    
+    // Create title
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = title;
+    header.appendChild(titleEl);
     
     // Create close button
     const closeButton = document.createElement('button');
@@ -226,27 +236,23 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
         if (onCancel) onCancel();
     });
     
-    // Create title
-    const titleEl = document.createElement('h3');
-    titleEl.textContent = title;
-    titleEl.className = 'popup-title';
-    
-    // Create message
-    const messageEl = document.createElement('p');
-    messageEl.textContent = message;
-    messageEl.className = 'popup-content';
-    
-    // Add elements to popup
-    popup.appendChild(closeButton);
-    popup.appendChild(titleEl);
-    popup.appendChild(messageEl);
+    // Create content
+    const content = document.createElement('div');
+    content.className = 'popup-content';
+    content.textContent = message;
     
     // Add input field if needed
     let inputEl;
     if (inputField) {
         inputEl = document.createElement('textarea');
         inputEl.className = 'popup-input';
-        popup.appendChild(inputEl);
+        inputEl.style.width = '100%';
+        inputEl.style.padding = '10px';
+        inputEl.style.borderRadius = '8px';
+        inputEl.style.marginTop = '15px';
+        inputEl.style.background = 'rgba(30, 30, 30, 0.7)';
+        inputEl.style.color = 'white';
+        inputEl.style.border = '1px solid rgba(80, 80, 80, 0.5)';
     }
     
     // Create buttons container
@@ -256,7 +262,7 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Create cancel button
     const cancelBtn = document.createElement('button');
     cancelBtn.textContent = cancelText;
-    cancelBtn.className = 'popup-button cancel';
+    cancelBtn.className = 'cancel';
     cancelBtn.addEventListener('click', () => {
         closePopup();
         if (onCancel) onCancel();
@@ -265,7 +271,7 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Create confirm button
     const confirmBtn = document.createElement('button');
     confirmBtn.textContent = confirmText;
-    confirmBtn.className = 'popup-button confirm';
+    confirmBtn.className = 'confirm';
     confirmBtn.addEventListener('click', () => {
         closePopup();
         if (onConfirm) {
@@ -280,26 +286,34 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Add buttons to container
     buttonsContainer.appendChild(cancelBtn);
     buttonsContainer.appendChild(confirmBtn);
+    
+    // Assemble popup
+    popup.appendChild(closeButton);
+    popup.appendChild(header);
+    popup.appendChild(content);
+    if (inputField) {
+        popup.appendChild(inputEl);
+    }
     popup.appendChild(buttonsContainer);
     
-    // Add popup to overlay
-    overlay.appendChild(popup);
+    // Add popup to container
+    container.appendChild(popup);
     
-    // Add overlay to body
-    document.body.appendChild(overlay);
+    // Add container to body
+    document.body.appendChild(container);
     
-    // Trigger animation by adding active class
+    // Trigger animation by adding active class after a small delay
     setTimeout(() => {
-        overlay.classList.add('active');
+        container.classList.add('active');
         popup.classList.add('active');
     }, 10);
     
     // Function to close popup
     function closePopup() {
-        overlay.classList.remove('active');
+        container.classList.remove('active');
         popup.classList.remove('active');
         setTimeout(() => {
-            overlay.remove();
+            container.remove();
         }, 300);
     }
 }
