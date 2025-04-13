@@ -108,6 +108,292 @@ document.addEventListener("DOMContentLoaded", async function () {
     let idStatus = "uždaryta";
     let currentUser = null;
 
+// Create and add notification container
+function createNotificationContainer() {
+    if (!document.getElementById('notification-container')) {
+        const container = document.createElement('div');
+        container.id = 'notification-container';
+        container.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        `;
+        document.body.appendChild(container);
+    }
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+    createNotificationContainer();
+    const container = document.getElementById('notification-container');
+    
+    const notification = document.createElement('div');
+    notification.classList.add('notification', `notification-${type}`);
+    notification.style.cssText = `
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-width: 280px;
+        max-width: 400px;
+        opacity: 0;
+        transform: translateX(30px);
+        transition: all 0.3s ease;
+        animation: slideIn 0.3s forwards;
+    `;
+    
+    // Set background color based on type
+    switch(type) {
+        case 'success':
+            notification.style.background = 'linear-gradient(135deg, #4CAF50, #2E7D32)';
+            notification.style.color = 'white';
+            break;
+        case 'error':
+            notification.style.background = 'linear-gradient(135deg, #F44336, #C62828)';
+            notification.style.color = 'white';
+            break;
+        case 'warning':
+            notification.style.background = 'linear-gradient(135deg, #FF9800, #EF6C00)';
+            notification.style.color = 'white';
+            break;
+        default:
+            notification.style.background = 'linear-gradient(135deg, #2196F3, #0D47A1)';
+            notification.style.color = 'white';
+    }
+    
+    // Add message and close button
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button style="background: none; border: none; color: white; cursor: pointer; margin-left: 10px; font-size: 18px;">×</button>
+    `;
+    
+    // Add click event to close button
+    notification.querySelector('button').addEventListener('click', () => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(30px)';
+        setTimeout(() => notification.remove(), 300);
+    });
+    
+    // Add to container
+    container.appendChild(notification);
+    
+    // Add CSS animation
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(30px)';
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, 5000);
+}
+
+// Show custom popup
+function showPopup({ title, message, inputField = false, confirmText = 'OK', cancelText = 'Cancel', onConfirm, onCancel }) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'popup-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    
+    // Create popup
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.style.cssText = `
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 500px;
+        padding: 25px;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+        position: relative;
+    `;
+    
+    // Create close button
+    const closeButton = document.createElement('button');
+    closeButton.className = 'popup-close';
+    closeButton.innerHTML = '&times;';
+    closeButton.style.cssText = `
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+    `;
+    closeButton.addEventListener('click', () => {
+        closePopup();
+        if (onCancel) onCancel();
+    });
+    
+    // Create title
+    const titleEl = document.createElement('h2');
+    titleEl.textContent = title;
+    titleEl.style.cssText = `
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 22px;
+    `;
+    
+    // Create message
+    const messageEl = document.createElement('p');
+    messageEl.textContent = message;
+    messageEl.style.cssText = `
+        margin-bottom: 20px;
+        color: #555;
+        font-size: 16px;
+    `;
+    
+    // Add elements to popup
+    popup.appendChild(closeButton);
+    popup.appendChild(titleEl);
+    popup.appendChild(messageEl);
+    
+    // Add input field if needed
+    let inputEl;
+    if (inputField) {
+        inputEl = document.createElement('textarea');
+        inputEl.className = 'popup-input';
+        inputEl.style.cssText = `
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-family: inherit;
+            font-size: 16px;
+            min-height: 100px;
+            resize: vertical;
+        `;
+        popup.appendChild(inputEl);
+    }
+    
+    // Create buttons container
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.style.cssText = `
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    `;
+    
+    // Create cancel button
+    const cancelBtn = document.createElement('button');
+    cancelBtn.textContent = cancelText;
+    cancelBtn.className = 'popup-button cancel';
+    cancelBtn.style.cssText = `
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        background-color: #f1f1f1;
+        color: #333;
+        transition: background-color 0.2s;
+    `;
+    cancelBtn.addEventListener('mouseenter', () => {
+        cancelBtn.style.backgroundColor = '#e4e4e4';
+    });
+    cancelBtn.addEventListener('mouseleave', () => {
+        cancelBtn.style.backgroundColor = '#f1f1f1';
+    });
+    cancelBtn.addEventListener('click', () => {
+        closePopup();
+        if (onCancel) onCancel();
+    });
+    
+    // Create confirm button
+    const confirmBtn = document.createElement('button');
+    confirmBtn.textContent = confirmText;
+    confirmBtn.className = 'popup-button confirm';
+    confirmBtn.style.cssText = `
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        background-color: #4f92ff;
+        color: white;
+        transition: background-color 0.2s;
+    `;
+    confirmBtn.addEventListener('mouseenter', () => {
+        confirmBtn.style.backgroundColor = '#3a7ce0';
+    });
+    confirmBtn.addEventListener('mouseleave', () => {
+        confirmBtn.style.backgroundColor = '#4f92ff';
+    });
+    confirmBtn.addEventListener('click', () => {
+        closePopup();
+        if (onConfirm) {
+            if (inputField) {
+                onConfirm(inputEl.value);
+            } else {
+                onConfirm();
+            }
+        }
+    });
+    
+    // Add buttons to container
+    buttonsContainer.appendChild(cancelBtn);
+    buttonsContainer.appendChild(confirmBtn);
+    popup.appendChild(buttonsContainer);
+    
+    // Add popup to overlay
+    overlay.appendChild(popup);
+    
+    // Add overlay to body
+    document.body.appendChild(overlay);
+    
+    // Trigger animation
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+        popup.style.transform = 'scale(1)';
+    }, 10);
+    
+    // Function to close popup
+    function closePopup() {
+        overlay.style.opacity = '0';
+        popup.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            overlay.remove();
+        }, 300);
+    }
+}
     // Check if we have a Discord auth code in the URL (redirect from Discord OAuth)
     async function handleDiscordCallback() {
         // Check for token in hash (implicit grant)
@@ -355,66 +641,91 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // Add User to Blacklist
-    async function addToBlacklist() {
-        const userId = prompt("Enter the User ID to Blacklist:");
-        if (!userId || blacklist.includes(userId)) {
-            alert("⚠️ Asmuo jau yra blackliste arba neteisingai ivestas ID.");
-            return;
+  // Add User to Blacklist
+async function addToBlacklist() {
+    showPopup({
+        title: "Pridėti į Blacklist",
+        message: "Įveskite vartotojo ID, kurį norite pridėti į blacklist:",
+        inputField: true,
+        confirmText: "Pridėti",
+        onConfirm: async (userId) => {
+            if (!userId || userId.trim() === '') {
+                showNotification("⚠️ Negalima pridėti tuščio ID.", 'error');
+                return;
+            }
+            
+            if (blacklist.includes(userId)) {
+                showNotification("⚠️ Asmuo jau yra blackliste.", 'warning');
+                return;
+            }
+            
+            blacklist.push(userId);
+
+            try {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
+                    method: "PATCH",
+                    headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({ blacklist })
+                });
+
+                if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
+                showNotification("✅ Asmuo pridėtas į Blacklistą!", 'success');
+                console.log("📜 Updated Blacklist:", blacklist);
+
+            } catch (error) {
+                console.error("❌ Error updating blacklist:", error);
+                showNotification("⚠️ Nepavyko atnaujinti blacklisto.", 'error');
+            }
         }
+    });
+}
 
-        blacklist.push(userId);
+   // Remove User from Blacklist
+async function removeFromBlacklist() {
+    showPopup({
+        title: "Pašalinti iš Blacklisto",
+        message: "Įveskite vartotojo ID, kurį norite pašalinti iš blacklisto:",
+        inputField: true,
+        confirmText: "Pašalinti",
+        onConfirm: async (userId) => {
+            if (!userId || userId.trim() === '') {
+                showNotification("⚠️ Negalima pašalinti tuščio ID.", 'error');
+                return;
+            }
+            
+            if (!blacklist.includes(userId)) {
+                showNotification("⚠️ Asmuo nėra Blackliste.", 'warning');
+                return;
+            }
+            
+            blacklist = blacklist.filter(id => id !== userId);
 
-        try {
-            const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
-                method: "PATCH",
-                headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=minimal"
-                },
-                body: JSON.stringify({ blacklist })
-            });
+            try {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
+                    method: "PATCH",
+                    headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({ blacklist })
+                });
 
-            if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
-            alert("✅ Asmuo pridėtas į Blacklista!");
-            console.log("📜 Updated Blacklist:", blacklist);
+                if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
+                showNotification("✅ Asmuo pašalintas iš Blacklisto!", 'success');
+                console.log("📜 Updated Blacklist:", blacklist);
 
-        } catch (error) {
-            console.error("❌ Error updating blacklist:", error);
-            alert("⚠️ Nepavyko atnaujinti blacklisto.");
+            } catch (error) {
+                console.error("❌ Error updating blacklist:", error);
+                showNotification("⚠️ Nepavyko atnaujinti blacklisto.", 'error');
+            }
         }
-    }
-
-    // Remove User from Blacklist
-    async function removeFromBlacklist() {
-        const userId = prompt("Enter the User ID to Remove from Blacklist:");
-        if (!userId || !blacklist.includes(userId)) {
-            alert("⚠️ Asmuo nėra Blackliste.");
-            return;
-        }
-
-        blacklist = blacklist.filter(id => id !== userId);
-
-        try {
-            const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
-                method: "PATCH",
-                headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=minimal"
-                },
-                body: JSON.stringify({ blacklist })
-            });
-
-            if (!response.ok) throw new Error("⚠️ Failed to update blacklist");
-            alert("✅ User removed from blacklist!");
-            console.log("📜 Updated Blacklist:", blacklist);
-
-        } catch (error) {
-            console.error("❌ Error updating blacklist:", error);
-            alert("⚠️ Unable to update blacklist.");
-        }
-    }
+    });
+}
 
     // Fetch Status
     async function fetchStatus() {
@@ -792,32 +1103,36 @@ async function handleWarningButton() {
     }
 
     // Clear Event IDs function
-    async function clearEventIds() {
-        if (!confirm("Ar tikrai norite išvalyti visus Event ID?")) {
-            return;
-        }
-        
-        try {
-            const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
-                method: "PATCH",
-                headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=minimal"
-                },
-                body: JSON.stringify({ IDs: [] })
-            });
+   // Clear Event IDs function
+async function clearEventIds() {
+    showPopup({
+        title: "Išvalyti Event ID",
+        message: "Ar tikrai norite išvalyti visus Event ID?",
+        confirmText: "Išvalyti",
+        onConfirm: async () => {
+            try {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
+                    method: "PATCH",
+                    headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({ IDs: [] })
+                });
 
-            if (!response.ok) throw new Error("⚠️ Failed to clear event IDs");
-            
-            alert("✅ Visi ID sėkmingai išvalyti!");
-            displayEventIds([]); // Update the display
-            
-        } catch (error) {
-            console.error("❌ Error clearing event IDs:", error);
-            alert("⚠️ Nepavyko išvalyti ID.");
+                if (!response.ok) throw new Error("⚠️ Failed to clear event IDs");
+                
+                showNotification("✅ Visi ID sėkmingai išvalyti!", 'success');
+                displayEventIds([]); // Update the display
+                
+            } catch (error) {
+                console.error("❌ Error clearing event IDs:", error);
+                showNotification("⚠️ Nepavyko išvalyti ID.", 'error');
+            }
         }
-    }
+    });
+}
 
     // Add ID Status section to the admin panel
     function addIdStatusSection() {
