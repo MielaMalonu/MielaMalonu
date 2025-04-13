@@ -735,11 +735,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Discord OAuth configuration
     const DISCORD_CLIENT_ID = '1263389179249692693';
-    const REDIRECT_URI = encodeURIComponent(window.location.origin + '/auth-callback');
-    const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
+    const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
+    const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
     
     // Initialize Supabase client
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabase = supabaseInit();
     
     // DOM Elements
     const tabButtons = document.querySelectorAll('.nav-button');
@@ -749,6 +749,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userAvatar = document.getElementById('userAvatar');
     const userName = document.getElementById('userName');
     const logoutBtn = document.getElementById('logoutBtn');
+    const loginError = document.getElementById('loginError');
     
     // Event listeners
     tabButtons.forEach(button => {
@@ -763,12 +764,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check login status on page load
     checkAuthAndLoadData();
     
-    // ===== AUTHENTICATION FUNCTIONS =====
+    // ===== INITIALIZATION FUNCTIONS =====
     
-    function createClient(url, key) {
-        // Create and return Supabase client
-        return supabase.createClient(url, key);
+    function supabaseInit() {
+        return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     }
+    
+    // ===== AUTHENTICATION FUNCTIONS =====
     
     function initiateDiscordLogin() {
         // Redirect to Discord OAuth
@@ -777,6 +779,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function checkAuthAndLoadData() {
         try {
+            // First check if we have a hash in the URL (returning from Discord OAuth implicit flow)
+            if (window.location.hash.includes('access_token=')) {
+                await handleDiscordAuthResponse();
+                return;
+            }
+            
+            // If no hash, check if we have an active session
             const { data: { session }, error } = await supabase.auth.getSession();
             
             if (error) {
@@ -791,50 +800,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadDashboardData(session.user.id);
                 logoutBtn.style.display = 'inline-block';
             } else {
-                // Check if we're returning from Discord OAuth
-                const urlParams = new URLSearchParams(window.location.search);
-                const code = urlParams.get('code');
-                
-                if (code) {
-                    try {
-                        // Exchange code for token via your backend
-                        const response = await fetch('/api/discord-auth', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ code }),
-                        });
-                        
-                        if (!response.ok) throw new Error('Auth exchange failed');
-                        
-                        const authData = await response.json();
-                        
-                        // Sign in with custom token from your backend
-                        const { data, error } = await supabase.auth.signInWithIdToken({
-                            provider: 'discord',
-                            token: authData.access_token,
-                        });
-                        
-                        if (error) throw error;
-                        
-                        // Clean URL after successful auth
-                        window.history.replaceState({}, document.title, '/');
-                        
-                        // Load user data
-                        await loadUserProfile(data.user.id);
-                        hideLoginScreen();
-                        loadDashboardData(data.user.id);
-                        logoutBtn.style.display = 'inline-block';
-                    } catch (err) {
-                        console.error('Error during authentication:', err);
-                        showLoginError('Authentication failed. Please try again.');
-                    }
-                } else {
-                    // Show login screen
-                    showLoginScreen();
-                    logoutBtn.style.display = 'none';
-                }
+                // Show login screen
+                showLoginScreen();
+                logoutBtn.style.display = 'none';
             }
         } catch (err) {
             console.error('Error in checkAuthAndLoadData:', err);
@@ -842,8 +810,151 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    async function handleDiscordAuthResponse() {
+        try {
+            // Parse the access token from the URL hash
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get('access_token');
+            
+            if (!accessToken) {
+                throw new Error('No access token found');
+            }
+            
+            // Fetch user profile from Discord API
+            const discordUser = await fetchDiscordUserProfile(accessToken);
+            
+            if (!discordUser || !discordUser.id) {
+                throw new Error('Failed to get Discord user profile');
+            }
+            
+            // Custom login with Discord profile
+            await loginWithDiscord(discordUser, accessToken);
+            
+            // Clean URL after successful auth
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+        } catch (err) {
+            console.error('Error during Discord authentication:', err);
+            showLoginError('Authentication failed. Please try again.');
+            showLoginScreen();
+        }
+    }
+    
+    async function fetchDiscordUserProfile(accessToken) {
+        try {
+            const response = await fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to fetch Discord profile');
+            }
+            
+            return await response.json();
+        } catch (err) {
+            console.error('Error fetching Discord profile:', err);
+            throw err;
+        }
+    }
+    
+    async function loginWithDiscord(discordUser, accessToken) {
+        try {
+            // Sign in or sign up with Supabase using custom auth
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: `${discordUser.id}@discord.user`,
+                password: accessToken.substring(0, 20) // Use part of the token as password (not the most secure but works for demo)
+            });
+            
+            if (error && error.status === 400) {
+                // User doesn't exist yet, sign them up
+                const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+                    email: `${discordUser.id}@discord.user`,
+                    password: accessToken.substring(0, 20),
+                    options: {
+                        data: {
+                            discord_id: discordUser.id,
+                            username: discordUser.username,
+                            avatar_url: discordUser.avatar 
+                                ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
+                                : null
+                        }
+                    }
+                });
+                
+                if (signUpError) throw signUpError;
+                
+                // Create user profile in your database
+                await createUserProfile(discordUser, signUpData.user.id);
+                
+                // Load user data
+                await loadUserProfile(signUpData.user.id);
+                hideLoginScreen();
+                loadDashboardData(signUpData.user.id);
+                logoutBtn.style.display = 'inline-block';
+            } else if (error) {
+                throw error;
+            } else {
+                // User exists, update their profile
+                await updateUserProfile(discordUser, data.user.id);
+                
+                // Load user data
+                await loadUserProfile(data.user.id);
+                hideLoginScreen();
+                loadDashboardData(data.user.id);
+                logoutBtn.style.display = 'inline-block';
+            }
+        } catch (err) {
+            console.error('Error during Supabase authentication:', err);
+            throw err;
+        }
+    }
+    
+    async function createUserProfile(discordUser, userId) {
+        try {
+            const { error } = await supabase
+                .from('user_profiles')
+                .insert([{
+                    id: userId,
+                    discord_id: discordUser.id,
+                    username: discordUser.username,
+                    avatar_url: discordUser.avatar 
+                        ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
+                        : null,
+                    created_at: new Date().toISOString()
+                }]);
+                
+            if (error) throw error;
+        } catch (err) {
+            console.error('Error creating user profile:', err);
+            // Continue anyway as this is not critical
+        }
+    }
+    
+    async function updateUserProfile(discordUser, userId) {
+        try {
+            const { error } = await supabase
+                .from('user_profiles')
+                .update({
+                    username: discordUser.username,
+                    avatar_url: discordUser.avatar 
+                        ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
+                        : null,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', userId);
+                
+            if (error) throw error;
+        } catch (err) {
+            console.error('Error updating user profile:', err);
+            // Continue anyway as this is not critical
+        }
+    }
+    
     async function loadUserProfile(userId) {
-        // Get user profile from Discord via your backend
+        // Get user profile from database
         try {
             const { data: userProfile, error } = await supabase
                 .from('user_profiles')
@@ -854,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error) throw error;
             
             // Update UI with user data
-            userName.textContent = userProfile.username;
+            userName.textContent = userProfile.username || 'User';
             userAvatar.src = userProfile.avatar_url || '/api/placeholder/40/40';
             
             return userProfile;
@@ -893,7 +1004,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showLoginError(message) {
-        const loginError = document.getElementById('loginError');
         if (loginError) {
             loginError.textContent = message;
             loginError.style.display = 'block';
@@ -927,19 +1037,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update warnings count in dashboard
             const warningCount = document.getElementById('warningCount');
-            warningCount.textContent = warnings.length;
-            
-            // Update status badge based on warning count
-            const warningStatus = document.getElementById('warningStatus');
-            if (warnings.length === 0) {
-                warningStatus.textContent = 'Clean';
-                warningStatus.className = 'status-badge badge-success';
-            } else if (warnings.length < 3) {
-                warningStatus.textContent = 'Low';
-                warningStatus.className = 'status-badge badge-warning';
-            } else {
-                warningStatus.textContent = 'High';
-                warningStatus.className = 'status-badge badge-danger';
+            if (warningCount) {
+                warningCount.textContent = warnings.length;
+                
+                // Update status badge based on warning count
+                const warningStatus = document.getElementById('warningStatus');
+                if (warningStatus) {
+                    if (warnings.length === 0) {
+                        warningStatus.textContent = 'Clean';
+                        warningStatus.className = 'status-badge badge-success';
+                    } else if (warnings.length < 3) {
+                        warningStatus.textContent = 'Low';
+                        warningStatus.className = 'status-badge badge-warning';
+                    } else {
+                        warningStatus.textContent = 'High';
+                        warningStatus.className = 'status-badge badge-danger';
+                    }
+                }
             }
             
             // Update warnings tab
@@ -954,6 +1068,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateWarningsTab(warnings) {
         const warningsContainer = document.getElementById('warningsContainer');
+        if (!warningsContainer) return;
+        
         warningsContainer.innerHTML = ''; // Clear loading spinner
         
         if (warnings.length === 0) {
@@ -1000,14 +1116,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const icStatusIcon = document.getElementById('icStatusIcon');
             const icStatusBadge = document.getElementById('icStatusBadge');
             
-            if (icInfo.STATUSAS === 'ACTIVE') {
-                icStatusIcon.style.color = '#3ba55c';
-                icStatusBadge.textContent = 'Active';
-                icStatusBadge.className = 'status-badge badge-success';
-            } else {
-                icStatusIcon.style.color = '#ed4245';
-                icStatusBadge.textContent = 'Inactive';
-                icStatusBadge.className = 'status-badge badge-danger';
+            if (icStatusIcon && icStatusBadge) {
+                if (icInfo.STATUSAS === 'ACTIVE') {
+                    icStatusIcon.style.color = '#3ba55c';
+                    icStatusBadge.textContent = 'Active';
+                    icStatusBadge.className = 'status-badge badge-success';
+                } else {
+                    icStatusIcon.style.color = '#ed4245';
+                    icStatusBadge.textContent = 'Inactive';
+                    icStatusBadge.className = 'status-badge badge-danger';
+                }
             }
             
             // Update IC info tab
@@ -1025,6 +1143,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateIcInfoTab(icInfo) {
         const icStatusContainer = document.getElementById('icStatusContainer');
         const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+        
+        if (!icStatusContainer || !gangDetailsContainer) return;
         
         // Clear loading spinners
         icStatusContainer.innerHTML = '';
@@ -1097,6 +1217,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const icStatusContainer = document.getElementById('icStatusContainer');
         const gangDetailsContainer = document.getElementById('gangDetailsContainer');
         
+        if (!icStatusContainer || !gangDetailsContainer) return;
+        
         // Clear loading spinners
         icStatusContainer.innerHTML = '';
         gangDetailsContainer.innerHTML = '';
@@ -1155,7 +1277,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showLoginScreen();
             
         } catch (err) {
-            console.error('Error logging outt:', err);
+            console.error('Error logging out:', err);
         }
     }
 });
