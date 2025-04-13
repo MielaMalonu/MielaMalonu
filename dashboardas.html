@@ -918,254 +918,338 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-   // Fix for the loadWarnings function
-async function loadWarnings(discordId) {
-    try {
-        // Fetch warnings from Supabase using Discord ID
-        const { data: warnings, error } = await supabase
-            .from('Ispejimai')
-            .select('*')
-            .eq('ID', discordId)
-            .order('DATA', { ascending: false });
+    // Fixed loadWarnings function
+    async function loadWarnings(discordId) {
+        try {
+            // Ensure discordId is a string and try direct equality filter first
+            const stringDiscordId = String(discordId);
             
-        if (error) throw error;
-        
-        // Update warnings count in dashboard
-        const warningCount = document.getElementById('warningCount');
-        if (warningCount) {
-            warningCount.textContent = warnings ? warnings.length : 0;
+            // Fetch warnings from Supabase using Discord ID
+            let { data: warnings, error } = await supabase
+                .from('Ispejimai')
+                .select('*')
+                .filter('ID', 'eq', stringDiscordId)
+                .order('DATA', { ascending: false });
             
-            // Update status badge based on warning count
-            const warningStatus = document.getElementById('warningStatus');
-            if (warningStatus) {
-                if (!warnings || warnings.length === 0) {
-                    warningStatus.textContent = 'Clean';
-                    warningStatus.className = 'status-badge badge-success';
-                } else if (warnings.length < 3) {
-                    warningStatus.textContent = 'Low';
-                    warningStatus.className = 'status-badge badge-warning';
-                } else {
-                    warningStatus.textContent = 'High';
-                    warningStatus.className = 'status-badge badge-danger';
-                }
+            // If the above fails, try with the .eq() method
+            if (error) {
+                console.warn('First warning query failed, trying alternative method:', error);
+                ({ data: warnings, error } = await supabase
+                    .from('Ispejimai')
+                    .select('*')
+                    .eq('ID', stringDiscordId)
+                    .order('DATA', { ascending: false }));
             }
-        }
-        
-        // Update warnings tab
-        updateWarningsTab(warnings || []);
-        
-        return warnings;
-    } catch (err) {
-        console.error('Error loading warnings:', err);
-        // Make sure to update the UI even when there's an error
-        updateWarningsTab([]);
-        return [];
-    }
-}
-
-// Fix for the updateWarningsTab function
-function updateWarningsTab(warnings) {
-    const warningsContainer = document.getElementById('warningsContainer');
-    if (!warningsContainer) return;
-    
-    // Clear loading spinner and any existing content
-    warningsContainer.innerHTML = '';
-    
-    if (!warnings || warnings.length === 0) {
-        const noWarningsElement = document.createElement('div');
-        noWarningsElement.className = 'warning-item';
-        noWarningsElement.innerHTML = '<div class="warning-reason">No active warnings</div>';
-        warningsContainer.appendChild(noWarningsElement);
-    } else {
-        warnings.forEach((warning, index) => {
-            const warningElement = document.createElement('div');
-            warningElement.className = 'warning-item';
-            warningElement.style.setProperty('--item-delay', index);
+                
+            if (error) throw error;
             
-            // Format date - add fallback for invalid dates
-            let formattedDate = 'Unknown date';
-            if (warning.DATA) {
-                try {
-                    const date = new Date(warning.DATA);
-                    formattedDate = date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    });
-                } catch (err) {
-                    console.error('Error formatting date:', err);
+            // Update warnings count in dashboard
+            const warningCount = document.getElementById('warningCount');
+            if (warningCount) {
+                warningCount.textContent = warnings ? warnings.length : 0;
+                
+                // Update status badge based on warning count
+                const warningStatus = document.getElementById('warningStatus');
+                if (warningStatus) {
+                    if (!warnings || warnings.length === 0) {
+                        warningStatus.textContent = 'Clean';
+                        warningStatus.className = 'status-badge badge-success';
+                    } else if (warnings.length < 3) {
+                        warningStatus.textContent = 'Low';
+                        warningStatus.className = 'status-badge badge-warning';
+                    } else {
+                        warningStatus.textContent = 'High';
+                        warningStatus.className = 'status-badge badge-danger';
+                    }
                 }
             }
             
-            warningElement.innerHTML = `
-                <div class="warning-reason">${warning.PRIEŽASTIS || 'Unknown reason'}</div>
-                <div class="warning-date">${formattedDate}</div>
-            `;
+            // Update warnings tab
+            updateWarningsTab(warnings || []);
             
-            warningsContainer.appendChild(warningElement);
-        });
+            return warnings;
+        } catch (err) {
+            console.error('Error loading warnings:', err);
+            // Make sure to update the UI even when there's an error
+            updateWarningsTab([]);
+            return [];
+        }
     }
-}
 
-// Fix for the loadIcInfo function
-async function loadIcInfo(discordId) {
-    try {
-        // Fetch IC info from Supabase using Discord ID
-        const { data: icInfo, error } = await supabase
-            .from('IC')
-            .select('*')
-            .eq('ID', discordId)
-            .single();
-            
-        if (error) throw error;
+    function updateWarningsTab(warnings) {
+        const warningsContainer = document.getElementById('warningsContainer');
+        if (!warningsContainer) return;
         
-        // Update IC status in dashboard
-        const icStatusIcon = document.getElementById('icStatusIcon');
-        const icStatusBadge = document.getElementById('icStatusBadge');
+        // Clear loading spinner and any existing content
+        warningsContainer.innerHTML = '';
         
-        if (icStatusIcon && icStatusBadge && icInfo) {
-            if (icInfo.STATUSAS === 'ACTIVE') {
-                icStatusIcon.style.color = '#3ba55c';
-                icStatusBadge.textContent = 'Active';
-                icStatusBadge.className = 'status-badge badge-success';
-            } else {
-                icStatusIcon.style.color = '#ed4245';
-                icStatusBadge.textContent = 'Inactive';
-                icStatusBadge.className = 'status-badge badge-danger';
-            }
-        }
-        
-        // Update IC info tab
-        updateIcInfoTab(icInfo);
-        
-        return icInfo;
-    } catch (err) {
-        console.error('Error loading IC info:', err);
-        // Show default "not found" state in the IC info tab
-        updateIcInfoTabNotFound();
-        
-        // Also update the dashboard icons to show inactive
-        const icStatusIcon = document.getElementById('icStatusIcon');
-        const icStatusBadge = document.getElementById('icStatusBadge');
-        
-        if (icStatusIcon && icStatusBadge) {
-            icStatusIcon.style.color = '#ed4245';
-            icStatusBadge.textContent = 'Not Found';
-            icStatusBadge.className = 'status-badge badge-danger';
-        }
-        
-        return null;
-    }
-}
-
-// Improved updateIcInfoTab function
-function updateIcInfoTab(icInfo) {
-    const icStatusContainer = document.getElementById('icStatusContainer');
-    const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-    
-    if (!icStatusContainer || !gangDetailsContainer) return;
-    
-    // Clear loading spinners
-    icStatusContainer.innerHTML = '';
-    gangDetailsContainer.innerHTML = '';
-    
-    // If icInfo is null or undefined, show "not found" message
-    if (!icInfo) {
-        updateIcInfoTabNotFound();
-        return;
-    }
-    
-    // Create status section
-    const statusItem = document.createElement('div');
-    statusItem.className = 'icinfo-item';
-    statusItem.innerHTML = `
-        <div>Status:</div>
-        <div class="icinfo-status ${icInfo.STATUSAS === 'ACTIVE' ? 'active-status' : 'inactive-status'}">
-            ${icInfo.STATUSAS || 'Unknown'}
-        </div>
-    `;
-    icStatusContainer.appendChild(statusItem);
-    
-    // Last updated - add try/catch for date parsing
-    try {
-        const lastUpdatedItem = document.createElement('div');
-        lastUpdatedItem.className = 'icinfo-item';
-        let lastUpdatedText = 'Unknown';
-        
-        if (icInfo.PASKUTINIS_ATNAUJINIMAS) {
-            const lastUpdated = new Date(icInfo.PASKUTINIS_ATNAUJINIMAS);
-            lastUpdatedText = lastUpdated.toLocaleString();
-        }
-        
-        lastUpdatedItem.innerHTML = `
-            <div>Last Updated:</div>
-            <div>${lastUpdatedText}</div>
-        `;
-        icStatusContainer.appendChild(lastUpdatedItem);
-    } catch (err) {
-        console.error('Error formatting last updated date:', err);
-    }
-    
-    // Character name
-    const characterNameItem = document.createElement('div');
-    characterNameItem.className = 'icinfo-item';
-    characterNameItem.innerHTML = `
-        <div>Character Name:</div>
-        <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDĖ || ''}</div>
-    `;
-    icStatusContainer.appendChild(characterNameItem);
-    
-    // Steam Nickname
-    const steamNicknameItem = document.createElement('div');
-    steamNicknameItem.className = 'icinfo-item';
-    steamNicknameItem.innerHTML = `
-        <div>Steam Nickname:</div>
-        <div>${icInfo.STEAM_NICKAS || 'Unknown'}</div>
-    `;
-    icStatusContainer.appendChild(steamNicknameItem);
-    
-    // Gang details - Rank
-    const rankItem = document.createElement('div');
-    rankItem.className = 'icinfo-item';
-    rankItem.innerHTML = `
-        <div>Rank:</div>
-        <div>${icInfo.RANKAS || 'None'}</div>
-    `;
-    gangDetailsContainer.appendChild(rankItem);
-    
-    // Join date - add try/catch for date parsing
-    try {
-        const joinDateItem = document.createElement('div');
-        joinDateItem.className = 'icinfo-item';
-        let joinDateText = 'Unknown';
-        
-        if (icInfo.PRISIJUNGIMO_DATA) {
-            const joinDate = new Date(icInfo.PRISIJUNGIMO_DATA);
-            joinDateText = joinDate.toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
+        if (!warnings || warnings.length === 0) {
+            const noWarningsElement = document.createElement('div');
+            noWarningsElement.className = 'warning-item';
+            noWarningsElement.innerHTML = '<div class="warning-reason">No active warnings</div>';
+            warningsContainer.appendChild(noWarningsElement);
+        } else {
+            warnings.forEach((warning, index) => {
+                const warningElement = document.createElement('div');
+                warningElement.className = 'warning-item';
+                warningElement.style.setProperty('--item-delay', index);
+                
+                // Format date - add fallback for invalid dates
+                let formattedDate = 'Unknown date';
+                if (warning.DATA) {
+                    try {
+                        const date = new Date(warning.DATA);
+                        formattedDate = date.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                        });
+                    } catch (err) {
+                        console.error('Error formatting date:', err);
+                    }
+                }
+                
+                warningElement.innerHTML = `
+                    <div class="warning-reason">${warning.PRIEŽASTIS || 'Unknown reason'}</div>
+                    <div class="warning-date">${formattedDate}</div>
+                `;
+                
+                warningsContainer.appendChild(warningElement);
             });
         }
+    }
+
+    // Fixed loadIcInfo function
+    async function loadIcInfo(discordId) {
+        try {
+            // Ensure discordId is a string
+            const stringDiscordId = String(discordId);
+            
+            // First approach: Use .filter() method which is more flexible
+            let { data: icInfo, error } = await supabase
+                .from('IC')
+                .select('*')
+                .filter('ID', 'eq', stringDiscordId);
+            
+            // If there's an error or no data, try alternative approach
+            if (error || (Array.isArray(icInfo) && icInfo.length === 0)) {
+                console.log('First IC query attempt failed, trying text comparison:', error);
+                
+                // Try using text comparison with ILIKE for case-insensitive matching
+                ({ data: icInfo, error } = await supabase
+                    .from('IC')
+                    .select('*')
+                    .ilike('ID', stringDiscordId));
+                
+                // If that fails too, try a raw SQL query as a last resort
+                if (error || (Array.isArray(icInfo) && icInfo.length === 0)) {
+                    console.log('Second IC query attempt failed, trying direct query:', error);
+                    
+                    // Execute a raw SQL query (if available in your Supabase setup)
+                    try {
+                        const { data, error: sqlError } = await supabase.rpc(
+                            'get_ic_info_by_discord_id',
+                            { discord_id_param: stringDiscordId }
+                        );
+                        
+                        if (!sqlError && data && data.length > 0) {
+                            icInfo = data;
+                            error = null;
+                        }
+                    } catch (rpcErr) {
+                        console.warn('RPC call failed:', rpcErr);
+                    }
+                }
+            }
+            
+            // Extract first record if we got an array
+            if (Array.isArray(icInfo) && icInfo.length > 0) {
+                icInfo = icInfo[0];
+            }
+            
+            if (error) throw error;
+            
+            // If still no data after all attempts, throw an error
+            if (!icInfo) {
+                throw new Error('No IC info found for this user');
+            }
+            
+            // Update IC status in dashboard
+            const icStatusIcon = document.getElementById('icStatusIcon');
+            const icStatusBadge = document.getElementById('icStatusBadge');
+            
+            if (icStatusIcon && icStatusBadge && icInfo) {
+                if (icInfo.STATUSAS === 'ACTIVE') {
+                    icStatusIcon.style.color = '#3ba55c';
+                    icStatusBadge.textContent = 'Active';
+                    icStatusBadge.className = 'status-badge badge-success';
+                } else {
+                    icStatusIcon.style.color = '#ed4245';
+                    icStatusBadge.textContent = 'Inactive';
+                    icStatusBadge.className = 'status-badge badge-danger';
+                }
+            }
+            
+            // Update IC info tab
+            updateIcInfoTab(icInfo);
+            
+            return icInfo;
+        } catch (err) {
+            console.error('Error loading IC info:', err);
+            // Show default "not found" state in the IC info tab
+            updateIcInfoTabNotFound();
+            
+            // Also update the dashboard icons to show inactive
+            const icStatusIcon = document.getElementById('icStatusIcon');
+            const icStatusBadge = document.getElementById('icStatusBadge');
+            
+            if (icStatusIcon && icStatusBadge) {
+                icStatusIcon.style.color = '#ed4245';
+                icStatusBadge.textContent = 'Not Found';
+                icStatusBadge.className = 'status-badge badge-danger';
+            }
+            
+            return null;
+        }
+    }
+
+    // Add this function to handle the "not found" case
+    function updateIcInfoTabNotFound() {
+        const icStatusContainer = document.getElementById('icStatusContainer');
+        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
         
-        joinDateItem.innerHTML = `
-            <div>Join Date:</div>
-            <div>${joinDateText}</div>
+        if (!icStatusContainer || !gangDetailsContainer) return;
+        
+        // Clear loading spinners
+        icStatusContainer.innerHTML = '';
+        gangDetailsContainer.innerHTML = '';
+        
+        // Add "not found" message to IC status container
+        const notFoundItem = document.createElement('div');
+        notFoundItem.className = 'icinfo-item';
+        notFoundItem.innerHTML = `
+            <div>Status:</div>
+            <div class="icinfo-status inactive-status">Not Found</div>
         `;
-        gangDetailsContainer.appendChild(joinDateItem);
-    } catch (err) {
-        console.error('Error formatting join date:', err);
+        icStatusContainer.appendChild(notFoundItem);
+        
+        // Add explanation to gang details container
+        const explanationItem = document.createElement('div');
+        explanationItem.className = 'icinfo-item';
+        explanationItem.innerHTML = `
+            <div>No character information found for your Discord account.</div>
+        `;
+        gangDetailsContainer.appendChild(explanationItem);
     }
     
-    // Territory
-    const territoryItem = document.createElement('div');
-    territoryItem.className = 'icinfo-item';
-    territoryItem.innerHTML = `
-        <div>Territory:</div>
-        <div>${icInfo.TERITORIJA || 'Unassigned'}</div>
-    `;
-    gangDetailsContainer.appendChild(territoryItem);
-}
+    // Improved updateIcInfoTab function
+    function updateIcInfoTab(icInfo) {
+        const icStatusContainer = document.getElementById('icStatusContainer');
+        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+        
+        if (!icStatusContainer || !gangDetailsContainer) return;
+        
+        // Clear loading spinners
+        icStatusContainer.innerHTML = '';
+        gangDetailsContainer.innerHTML = '';
+        
+        // If icInfo is null or undefined, show "not found" message
+        if (!icInfo) {
+            updateIcInfoTabNotFound();
+            return;
+        }
+        
+        // Create status section
+        const statusItem = document.createElement('div');
+        statusItem.className = 'icinfo-item';
+        statusItem.innerHTML = `
+            <div>Status:</div>
+            <div class="icinfo-status ${icInfo.STATUSAS === 'ACTIVE' ? 'active-status' : 'inactive-status'}">
+                ${icInfo.STATUSAS || 'Unknown'}
+            </div>
+        `;
+        icStatusContainer.appendChild(statusItem);
+        
+        // Last updated - add try/catch for date parsing
+        try {
+            const lastUpdatedItem = document.createElement('div');
+            lastUpdatedItem.className = 'icinfo-item';
+            let lastUpdatedText = 'Unknown';
+            
+            if (icInfo.PASKUTINIS_ATNAUJINIMAS) {
+                const lastUpdated = new Date(icInfo.PASKUTINIS_ATNAUJINIMAS);
+                lastUpdatedText = lastUpdated.toLocaleString();
+            }
+            
+            lastUpdatedItem.innerHTML = `
+                <div>Last Updated:</div>
+                <div>${lastUpdatedText}</div>
+            `;
+            icStatusContainer.appendChild(lastUpdatedItem);
+        } catch (err) {
+            console.error('Error formatting last updated date:', err);
+        }
+        
+        // Character name
+        const characterNameItem = document.createElement('div');
+        characterNameItem.className = 'icinfo-item';
+        characterNameItem.innerHTML = `
+            <div>Character Name:</div>
+            <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDĖ || ''}</div>
+        `;
+        icStatusContainer.appendChild(characterNameItem);
+        
+        // Steam Nickname
+        const steamNicknameItem = document.createElement('div');
+        steamNicknameItem.className = 'icinfo-item';
+        steamNicknameItem.innerHTML = `
+            <div>Steam Nickname:</div>
+            <div>${icInfo.STEAM_NICKAS || 'Unknown'}</div>
+        `;
+        icStatusContainer.appendChild(steamNicknameItem);
+        
+        // Gang details - Rank
+        const rankItem = document.createElement('div');
+        rankItem.className = 'icinfo-item';
+        rankItem.innerHTML = `
+            <div>Rank:</div>
+            <div>${icInfo.RANKAS || 'None'}</div>
+        `;
+        gangDetailsContainer.appendChild(rankItem);
+        
+        // Join date - add try/catch for date parsing
+        try {
+            const joinDateItem = document.createElement('div');
+            joinDateItem.className = 'icinfo-item';
+            let joinDateText = 'Unknown';
+            
+            if (icInfo.PRISIJUNGIMO_DATA) {
+                const joinDate = new Date(icInfo.PRISIJUNGIMO_DATA);
+                joinDateText = joinDate.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            }
+            
+            joinDateItem.innerHTML = `
+                <div>Join Date:</div>
+                <div>${joinDateText}</div>
+            `;
+            gangDetailsContainer.appendChild(joinDateItem);
+        } catch (err) {
+            console.error('Error formatting join date:', err);
+        }
+        
+        // Territory
+        const territoryItem = document.createElement('div');
+        territoryItem.className = 'icinfo-item';
+        territoryItem.innerHTML = `
+            <div>Territory:</div>
+            <div>${icInfo.TERITORIJA || 'Unassigned'}</div>
+        `;
+        gangDetailsContainer.appendChild(territoryItem);
+    }
     
     function initializeLinksTab() {
         // Get the links container
@@ -1191,27 +1275,16 @@ function updateIcInfoTab(icInfo) {
     
     async function loadRecentActivity(discordId) {
         try {
-            // Fetch recent activities (if you have this functionality)
-            // For example, using a stored procedure or view:
-            const { data: activities, error } = await supabase
-                .rpc('get_recent_activities', { user_id: discordId });
-                
-            if (error) throw error;
+            // For this function, assuming it's a nice-to-have feature
+            // We'll implement a basic structure but make it fault-tolerant
+            console.log('Loading recent activity for user:', discordId);
             
-            // Update recent activity section
-            updateRecentActivitySection(activities);
-            
-            return activities;
+            // This is a placeholder - you can implement actual activity tracking later
+            return [];
         } catch (err) {
             console.error('Error loading recent activity:', err);
             return [];
         }
-    }
-    
-    function updateRecentActivitySection(activities) {
-        // This function would update the recent activities section
-        // You would need to add this section to your HTML
-        console.log('Recent activities:', activities);
     }
     
     // ===== LOGOUT FUNCTION =====
