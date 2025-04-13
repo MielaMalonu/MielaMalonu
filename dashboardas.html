@@ -952,13 +952,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const warningStatus = document.getElementById('warningStatus');
                 if (warningStatus) {
                     if (!warnings || warnings.length === 0) {
-                        warningStatus.textContent = 'Clean';
+                        warningStatus.textContent = 'Neturi ispėjimų';
                         warningStatus.className = 'status-badge badge-success';
                     } else if (warnings.length < 3) {
-                        warningStatus.textContent = 'Low';
+                        warningStatus.textContent = 'Normaliai ispėjimų';
                         warningStatus.className = 'status-badge badge-warning';
                     } else {
-                        warningStatus.textContent = 'High';
+                        warningStatus.textContent = 'Per Daug ispėjimų';
                         warningStatus.className = 'status-badge badge-danger';
                     }
                 }
@@ -986,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!warnings || warnings.length === 0) {
             const noWarningsElement = document.createElement('div');
             noWarningsElement.className = 'warning-item';
-            noWarningsElement.innerHTML = '<div class="warning-reason">No active warnings</div>';
+            noWarningsElement.innerHTML = '<div class="warning-reason">Neturi Ispėjimų</div>';
             warningsContainer.appendChild(noWarningsElement);
         } else {
             warnings.forEach((warning, index) => {
@@ -1163,8 +1163,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const statusItem = document.createElement('div');
         statusItem.className = 'icinfo-item';
         statusItem.innerHTML = `
-            <div>Status:</div>
-            <div class="icinfo-status ${icInfo.STATUSAS === 'ACTIVE' ? 'active-status' : 'inactive-status'}">
+            <div>Statusas:</div>
+            <div class="icinfo-status ${icInfo.STATUSAS === 'UŽPILDYTA' ? 'active-status' : 'inactive-status'}">
                 ${icInfo.STATUSAS || 'Unknown'}
             </div>
         `;
@@ -1174,7 +1174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const characterNameItem = document.createElement('div');
         characterNameItem.className = 'icinfo-item';
         characterNameItem.innerHTML = `
-            <div>Character Name:</div>
+            <div>Vardas Pavardė:</div>
             <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDĖ || ''}</div>
         `;
         icStatusContainer.appendChild(characterNameItem);
@@ -1183,7 +1183,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const steamNicknameItem = document.createElement('div');
         steamNicknameItem.className = 'icinfo-item';
         steamNicknameItem.innerHTML = `
-            <div>Steam Nickname:</div>
+            <div>Steamo Nickas:</div>
             <div>${icInfo["STEAM NICKAS"] || 'Unknown'}</div>
         `;
         icStatusContainer.appendChild(steamNicknameItem);
@@ -1192,7 +1192,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const rankItem = document.createElement('div');
         rankItem.className = 'icinfo-item';
         rankItem.innerHTML = `
-            <div>Rank:</div>
+            <div>Rankas:</div>
             <div>${icInfo.RANKAS || 'None'}</div>
         `;
         gangDetailsContainer.appendChild(rankItem);
