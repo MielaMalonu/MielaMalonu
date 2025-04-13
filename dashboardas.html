@@ -727,18 +727,16 @@
 
 
     <script>
-// ===== SUPABASE AND DISCORD AUTH INTEGRATION =====
+// ===== SIMPLIFIED DISCORD AUTH INTEGRATION =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Supabase configuration
-    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
-    
     // Discord OAuth configuration
     const DISCORD_CLIENT_ID = '1263389179249692693';
     const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
     
-    // Initialize Supabase client properly
+    // Supabase configuration (just for data access, not auth)
+    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     // DOM Elements
@@ -762,7 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Check login status on page load
-    checkAuthAndLoadData();
+    checkAuthStatus();
     
     // ===== AUTHENTICATION FUNCTIONS =====
     
@@ -771,36 +769,28 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = DISCORD_AUTH_URL;
     }
     
-    async function checkAuthAndLoadData() {
-        try {
-            // First check if we have a hash in the URL (returning from Discord OAuth implicit flow)
-            if (window.location.hash.includes('access_token=')) {
-                await handleDiscordAuthResponse();
-                return;
-            }
-            
-            // If no hash, check if we have an active session
-            const { data: { session }, error } = await supabase.auth.getSession();
-            
-            if (error) {
-                console.error('Error checking auth status:', error);
-                return;
-            }
-            
-            if (session) {
-                // User is logged in
-                await loadUserProfile(session.user.id);
-                hideLoginScreen();
-                loadDashboardData(session.user.id);
-                logoutBtn.style.display = 'inline-block';
-            } else {
-                // Show login screen
-                showLoginScreen();
-                logoutBtn.style.display = 'none';
-            }
-        } catch (err) {
-            console.error('Error in checkAuthAndLoadData:', err);
-            showLoginError('Something went wrong. Please try again later.');
+    function checkAuthStatus() {
+        // First check if we have a hash in the URL (returning from Discord OAuth)
+        if (window.location.hash.includes('access_token=')) {
+            handleDiscordAuthResponse();
+            return;
+        }
+        
+        // Check localStorage for saved Discord info
+        const savedDiscordId = localStorage.getItem('discord_id');
+        const savedDiscordUsername = localStorage.getItem('discord_username');
+        const savedDiscordAvatar = localStorage.getItem('discord_avatar');
+        
+        if (savedDiscordId) {
+            // User has previously authenticated
+            updateUserUI(savedDiscordUsername, savedDiscordAvatar);
+            hideLoginScreen();
+            loadDashboardData(savedDiscordId);
+            logoutBtn.style.display = 'inline-block';
+        } else {
+            // Show login screen
+            showLoginScreen();
+            logoutBtn.style.display = 'none';
         }
     }
     
@@ -822,8 +812,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to get Discord user profile');
             }
             
-            // Custom login with Discord profile
-            await loginWithDiscord(discordUser, accessToken);
+            // Save user details to localStorage
+            localStorage.setItem('discord_id', discordUser.id);
+            localStorage.setItem('discord_username', discordUser.username);
+            
+            // Handle avatar URL
+            const avatarUrl = discordUser.avatar 
+                ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
+                : '/api/placeholder/40/40';
+            localStorage.setItem('discord_avatar', avatarUrl);
+            
+            // Update UI
+            updateUserUI(discordUser.username, avatarUrl);
+            hideLoginScreen();
+            
+            // Load dashboard data using Discord ID
+            loadDashboardData(discordUser.id);
+            logoutBtn.style.display = 'inline-block';
             
             // Clean URL after successful auth
             window.history.replaceState({}, document.title, window.location.pathname);
@@ -854,119 +859,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    async function loginWithDiscord(discordUser, accessToken) {
-        try {
-            // Sign in or sign up with Supabase using custom auth
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: `${discordUser.id}@discord.user`,
-                password: accessToken.substring(0, 20) // Use part of the token as password (not the most secure but works for demo)
-            });
-            
-            if (error && error.status === 400) {
-                // User doesn't exist yet, sign them up
-                const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-                    email: `${discordUser.id}@discord.user`,
-                    password: accessToken.substring(0, 20),
-                    options: {
-                        data: {
-                            discord_id: discordUser.id,
-                            username: discordUser.username,
-                            avatar_url: discordUser.avatar 
-                                ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
-                                : null
-                        }
-                    }
-                });
-                
-                if (signUpError) throw signUpError;
-                
-                // Create user profile in your database
-                await createUserProfile(discordUser, signUpData.user.id);
-                
-                // Load user data
-                await loadUserProfile(signUpData.user.id);
-                hideLoginScreen();
-                loadDashboardData(signUpData.user.id);
-                logoutBtn.style.display = 'inline-block';
-            } else if (error) {
-                throw error;
-            } else {
-                // User exists, update their profile
-                await updateUserProfile(discordUser, data.user.id);
-                
-                // Load user data
-                await loadUserProfile(data.user.id);
-                hideLoginScreen();
-                loadDashboardData(data.user.id);
-                logoutBtn.style.display = 'inline-block';
-            }
-        } catch (err) {
-            console.error('Error during Supabase authentication:', err);
-            throw err;
-        }
-    }
-    
-    async function createUserProfile(discordUser, userId) {
-        try {
-            const { error } = await supabase
-                .from('user_profiles')
-                .insert([{
-                    id: userId,
-                    discord_id: discordUser.id,
-                    username: discordUser.username,
-                    avatar_url: discordUser.avatar 
-                        ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
-                        : null,
-                    created_at: new Date().toISOString()
-                }]);
-                
-            if (error) throw error;
-        } catch (err) {
-            console.error('Error creating user profile:', err);
-            // Continue anyway as this is not critical
-        }
-    }
-    
-    async function updateUserProfile(discordUser, userId) {
-        try {
-            const { error } = await supabase
-                .from('user_profiles')
-                .update({
-                    username: discordUser.username,
-                    avatar_url: discordUser.avatar 
-                        ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
-                        : null,
-                    updated_at: new Date().toISOString()
-                })
-                .eq('id', userId);
-                
-            if (error) throw error;
-        } catch (err) {
-            console.error('Error updating user profile:', err);
-            // Continue anyway as this is not critical
-        }
-    }
-    
-    async function loadUserProfile(userId) {
-        // Get user profile from database
-        try {
-            const { data: userProfile, error } = await supabase
-                .from('user_profiles')
-                .select('*')
-                .eq('id', userId)
-                .single();
-                
-            if (error) throw error;
-            
-            // Update UI with user data
-            userName.textContent = userProfile.username || 'User';
-            userAvatar.src = userProfile.avatar_url || '/api/placeholder/40/40';
-            
-            return userProfile;
-        } catch (err) {
-            console.error('Error loading user profile:', err);
-            return null;
-        }
+    function updateUserUI(username, avatarUrl) {
+        userName.textContent = username || 'User';
+        userAvatar.src = avatarUrl || '/api/placeholder/40/40';
     }
     
     // ===== UI FUNCTIONS =====
@@ -1006,25 +901,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== DATA LOADING FUNCTIONS =====
     
-    async function loadDashboardData(userId) {
+    async function loadDashboardData(discordId) {
         try {
             await Promise.all([
-                loadWarnings(userId),
-                loadIcInfo(userId),
-                loadRecentActivity(userId)
+                loadWarnings(discordId),
+                loadIcInfo(discordId),
+                loadRecentActivity(discordId)
             ]);
         } catch (err) {
             console.error('Error loading dashboard data:', err);
         }
     }
     
-    async function loadWarnings(userId) {
+    async function loadWarnings(discordId) {
         try {
-            // Fetch warnings (ispejimai) from Supabase
+            // Fetch warnings from Supabase using Discord ID
             const { data: warnings, error } = await supabase
                 .from('Ispejimai')
                 .select('*')
-                .eq('ID', userId)
+                .eq('ID', discordId)
                 .order('DATA', { ascending: false });
                 
             if (error) throw error;
@@ -1095,13 +990,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    async function loadIcInfo(userId) {
+    async function loadIcInfo(discordId) {
         try {
-            // Fetch IC info from Supabase
+            // Fetch IC info from Supabase using Discord ID
             const { data: icInfo, error } = await supabase
                 .from('IC')
                 .select('*')
-                .eq('ID', userId)
+                .eq('ID', discordId)
                 .single();
                 
             if (error) throw error;
@@ -1233,11 +1128,12 @@ document.addEventListener('DOMContentLoaded', function() {
         gangDetailsContainer.appendChild(noGangItem);
     }
     
-    async function loadRecentActivity(userId) {
+    async function loadRecentActivity(discordId) {
         try {
-            // Fetch recent activities (combined from different sources)
+            // Fetch recent activities (if you have this functionality)
+            // For example, using a stored procedure or view:
             const { data: activities, error } = await supabase
-                .rpc('get_recent_activities', { user_id: userId });
+                .rpc('get_recent_activities', { user_id: discordId });
                 
             if (error) throw error;
             
@@ -1259,20 +1155,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== LOGOUT FUNCTION =====
     
-    async function logoutUser() {
-        try {
-            const { error } = await supabase.auth.signOut();
-            if (error) throw error;
-            
-            // Reset UI
-            userName.textContent = 'Neprisijungta';
-            userAvatar.src = '/api/placeholder/40/40';
-            logoutBtn.style.display = 'none';
-            showLoginScreen();
-            
-        } catch (err) {
-            console.error('Error logging out:', err);
-        }
+    function logoutUser() {
+        // Clear stored Discord data
+        localStorage.removeItem('discord_id');
+        localStorage.removeItem('discord_username');
+        localStorage.removeItem('discord_avatar');
+        
+        // Reset UI
+        userName.textContent = 'Neprisijungta';
+        userAvatar.src = '/api/placeholder/40/40';
+        logoutBtn.style.display = 'none';
+        showLoginScreen();
     }
 });
     </script>
