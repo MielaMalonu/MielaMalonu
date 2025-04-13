@@ -727,9 +727,10 @@
 
 
     <script>
+// ===== SUPABASE AND DISCORD AUTH INTEGRATION =====
 document.addEventListener('DOMContentLoaded', function() {
     // Supabase configuration
-    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1';
+    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
     
     // Discord OAuth configuration
@@ -737,9 +738,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
     
-    // Initialize Supabase client
-    // FIX: Create the supabase client directly instead of using a function that tries to access supabase
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Initialize Supabase client properly
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     // DOM Elements
     const tabButtons = document.querySelectorAll('.nav-button');
@@ -764,17 +764,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check login status on page load
     checkAuthAndLoadData();
     
-    // ===== INITIALIZATION FUNCTIONS =====
-    
-    // FIX: Remove the supabaseInit function since it causes circular reference
-    // function supabaseInit() {
-    //    return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    // }
-    
-    // Helper function to create Supabase client (replaces supabaseInit)
-    function createClient(url, key) {
-        return supabase.createClient(url, key);
-    }
     // ===== AUTHENTICATION FUNCTIONS =====
     
     function initiateDiscordLogin() {
