@@ -212,73 +212,29 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Create overlay
     const overlay = document.createElement('div');
     overlay.className = 'popup-overlay';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    `;
     
     // Create popup
     const popup = document.createElement('div');
     popup.className = 'popup';
-    popup.style.cssText = `
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        width: 90%;
-        max-width: 500px;
-        padding: 25px;
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
-        position: relative;
-    `;
     
     // Create close button
     const closeButton = document.createElement('button');
     closeButton.className = 'popup-close';
     closeButton.innerHTML = '&times;';
-    closeButton.style.cssText = `
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        color: #666;
-    `;
     closeButton.addEventListener('click', () => {
         closePopup();
         if (onCancel) onCancel();
     });
     
     // Create title
-    const titleEl = document.createElement('h2');
+    const titleEl = document.createElement('h3');
     titleEl.textContent = title;
-    titleEl.style.cssText = `
-        margin-top: 0;
-        margin-bottom: 15px;
-        color: #333;
-        font-size: 22px;
-    `;
+    titleEl.className = 'popup-title';
     
     // Create message
     const messageEl = document.createElement('p');
     messageEl.textContent = message;
-    messageEl.style.cssText = `
-        margin-bottom: 20px;
-        color: #555;
-        font-size: 16px;
-    `;
+    messageEl.className = 'popup-content';
     
     // Add elements to popup
     popup.appendChild(closeButton);
@@ -290,48 +246,17 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     if (inputField) {
         inputEl = document.createElement('textarea');
         inputEl.className = 'popup-input';
-        inputEl.style.cssText = `
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-family: inherit;
-            font-size: 16px;
-            min-height: 100px;
-            resize: vertical;
-        `;
         popup.appendChild(inputEl);
     }
     
     // Create buttons container
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.style.cssText = `
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-    `;
+    buttonsContainer.className = 'popup-actions';
     
     // Create cancel button
     const cancelBtn = document.createElement('button');
     cancelBtn.textContent = cancelText;
     cancelBtn.className = 'popup-button cancel';
-    cancelBtn.style.cssText = `
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 500;
-        background-color: #f1f1f1;
-        color: #333;
-        transition: background-color 0.2s;
-    `;
-    cancelBtn.addEventListener('mouseenter', () => {
-        cancelBtn.style.backgroundColor = '#e4e4e4';
-    });
-    cancelBtn.addEventListener('mouseleave', () => {
-        cancelBtn.style.backgroundColor = '#f1f1f1';
-    });
     cancelBtn.addEventListener('click', () => {
         closePopup();
         if (onCancel) onCancel();
@@ -341,22 +266,6 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     const confirmBtn = document.createElement('button');
     confirmBtn.textContent = confirmText;
     confirmBtn.className = 'popup-button confirm';
-    confirmBtn.style.cssText = `
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 500;
-        background-color: #4f92ff;
-        color: white;
-        transition: background-color 0.2s;
-    `;
-    confirmBtn.addEventListener('mouseenter', () => {
-        confirmBtn.style.backgroundColor = '#3a7ce0';
-    });
-    confirmBtn.addEventListener('mouseleave', () => {
-        confirmBtn.style.backgroundColor = '#4f92ff';
-    });
     confirmBtn.addEventListener('click', () => {
         closePopup();
         if (onConfirm) {
@@ -379,16 +288,16 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Add overlay to body
     document.body.appendChild(overlay);
     
-    // Trigger animation
+    // Trigger animation by adding active class
     setTimeout(() => {
-        overlay.style.opacity = '1';
-        popup.style.transform = 'scale(1)';
+        overlay.classList.add('active');
+        popup.classList.add('active');
     }, 10);
     
     // Function to close popup
     function closePopup() {
-        overlay.style.opacity = '0';
-        popup.style.transform = 'scale(0.9)';
+        overlay.classList.remove('active');
+        popup.classList.remove('active');
         setTimeout(() => {
             overlay.remove();
         }, 300);
