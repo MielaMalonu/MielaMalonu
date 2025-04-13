@@ -1204,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', function() {
         steamNicknameItem.className = 'icinfo-item';
         steamNicknameItem.innerHTML = `
             <div>Steam Nickname:</div>
-            <div>${icInfo.STEAM_NICKAS || 'Unknown'}</div>
+            <div>${icInfo.STEAM NICKAS || 'Unknown'}</div>
         `;
         icStatusContainer.appendChild(steamNicknameItem);
         
@@ -1218,38 +1218,7 @@ document.addEventListener('DOMContentLoaded', function() {
         gangDetailsContainer.appendChild(rankItem);
         
         // Join date - add try/catch for date parsing
-        try {
-            const joinDateItem = document.createElement('div');
-            joinDateItem.className = 'icinfo-item';
-            let joinDateText = 'Unknown';
-            
-            if (icInfo.PRISIJUNGIMO_DATA) {
-                const joinDate = new Date(icInfo.PRISIJUNGIMO_DATA);
-                joinDateText = joinDate.toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                });
-            }
-            
-            joinDateItem.innerHTML = `
-                <div>Join Date:</div>
-                <div>${joinDateText}</div>
-            `;
-            gangDetailsContainer.appendChild(joinDateItem);
-        } catch (err) {
-            console.error('Error formatting join date:', err);
-        }
-        
-        // Territory
-        const territoryItem = document.createElement('div');
-        territoryItem.className = 'icinfo-item';
-        territoryItem.innerHTML = `
-            <div>Territory:</div>
-            <div>${icInfo.TERITORIJA || 'Unassigned'}</div>
-        `;
-        gangDetailsContainer.appendChild(territoryItem);
-    }
+      
     
     function initializeLinksTab() {
         // Get the links container
