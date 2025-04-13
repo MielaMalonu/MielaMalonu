@@ -1142,7 +1142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         gangDetailsContainer.appendChild(explanationItem);
     }
     
-    // Improved updateIcInfoTab function
+    // Fixed updateIcInfoTab function
     function updateIcInfoTab(icInfo) {
         const icStatusContainer = document.getElementById('icStatusContainer');
         const gangDetailsContainer = document.getElementById('gangDetailsContainer');
@@ -1170,26 +1170,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         icStatusContainer.appendChild(statusItem);
         
-        // Last updated - add try/catch for date parsing
-        try {
-            const lastUpdatedItem = document.createElement('div');
-            lastUpdatedItem.className = 'icinfo-item';
-            let lastUpdatedText = 'Unknown';
-            
-            if (icInfo.PASKUTINIS_ATNAUJINIMAS) {
-                const lastUpdated = new Date(icInfo.PASKUTINIS_ATNAUJINIMAS);
-                lastUpdatedText = lastUpdated.toLocaleString();
-            }
-            
-            lastUpdatedItem.innerHTML = `
-                <div>Last Updated:</div>
-                <div>${lastUpdatedText}</div>
-            `;
-            icStatusContainer.appendChild(lastUpdatedItem);
-        } catch (err) {
-            console.error('Error formatting last updated date:', err);
-        }
-        
         // Character name
         const characterNameItem = document.createElement('div');
         characterNameItem.className = 'icinfo-item';
@@ -1199,14 +1179,13 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         icStatusContainer.appendChild(characterNameItem);
         
-        // Steam Nickname
+        // Steam Nickname - Fixed syntax error by using bracket notation
         const steamNicknameItem = document.createElement('div');
         steamNicknameItem.className = 'icinfo-item';
-        steamNicknameItem.innerHTML = 
-steamNicknameItem.innerHTML = `
-    <div>Steam Nickname:</div>
-    <div>${icInfo["STEAM NICKAS"] || 'Unknown'}</div>
-`;
+        steamNicknameItem.innerHTML = `
+            <div>Steam Nickname:</div>
+            <div>${icInfo["STEAM NICKAS"] || 'Unknown'}</div>
+        `;
         icStatusContainer.appendChild(steamNicknameItem);
         
         // Gang details - Rank
@@ -1217,9 +1196,7 @@ steamNicknameItem.innerHTML = `
             <div>${icInfo.RANKAS || 'None'}</div>
         `;
         gangDetailsContainer.appendChild(rankItem);
-        
-        // Join date - add try/catch for date parsing
-      
+    }
     
     function initializeLinksTab() {
         // Get the links container
