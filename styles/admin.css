@@ -585,3 +585,275 @@ a:hover {
         font-size: 14px;
     }
 }
+
+.warning-button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.warning-button:hover {
+    background-color: #e65100;
+    transform: scale(1.1);
+}
+
+/* Notification animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Popup animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); }
+    to { transform: scale(1); }
+}
+
+/* Copy effect styles */
+.copy-flash {
+    animation: flashEffect 0.5s;
+}
+
+@keyframes flashEffect {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(79, 146, 255, 0.3); }
+    100% { background-color: transparent; }
+}
+
+/* Event ID tags */
+.event-id-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #333, #555);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.event-id-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Status indicators */
+.status-online {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.status-offline {
+    background: linear-gradient(135deg, #F44336, #C62828);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Button hover effects */
+button:not(.popup-close):hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+/* Popup Container */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.popup-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Popup Content */
+.popup {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease forwards, scaleIn 0.3s ease forwards;
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.popup.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Popup Header */
+.popup-header {
+    margin-bottom: 20px;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    background: linear-gradient(to right, #777777, #aaaaaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(150, 150, 150, 0.3);
+}
+
+/* Popup Content */
+.popup-content {
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* Popup Close Button */
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #333333, #222222);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.popup-close:hover {
+    background: linear-gradient(135deg, #444444, #333333);
+    transform: rotate(90deg);
+}
+
+/* Popup Action Buttons */
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.popup-actions button {
+    background: linear-gradient(135deg, #222222, #444444);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: auto;
+    min-width: 120px;
+}
+
+.popup-actions button:hover {
+    background: linear-gradient(135deg, #444444, #222222);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.popup-actions button.confirm {
+    background: linear-gradient(135deg, #333333, #555555);
+}
+
+.popup-actions button.cancel {
+    background: linear-gradient(135deg, #222222, #333333);
+}
+
+/* Notification Popup */
+.notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    padding: 15px 20px;
+    color: white;
+    z-index: 2000;
+    animation: slideIn 0.3s forwards;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    max-width: 350px;
+}
+
+.notification.success {
+    border-left: 4px solid #43A047;
+}
+
+.notification.error {
+    border-left: 4px solid #E53935;
+}
+
+.notification.warning {
+    border-left: 4px solid #FB8C00;
+}
+
+.notification.info {
+    border-left: 4px solid #039BE5;
+}
+
+/* Make popups responsive */
+@media (max-width: 768px) {
+    .popup {
+        width: 90%;
+        padding: 25px 20px;
+    }
+    
+    .notification {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
+}
