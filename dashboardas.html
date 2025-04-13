@@ -727,10 +727,10 @@
 
 
     <script>
-       // ===== SUPABASE AND DISCORD AUTH INTEGRATION =====
+// ===== SUPABASE AND DISCORD AUTH INTEGRATION =====
 document.addEventListener('DOMContentLoaded', function() {
     // Supabase configuration
-    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1';
+    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
     
     // Discord OAuth configuration
@@ -739,7 +739,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
     
     // Initialize Supabase client
-    const supabase = supabaseInit(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     // DOM Elements
     const tabButtons = document.querySelectorAll('.nav-button');
@@ -748,6 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('loginButton');
     const userAvatar = document.getElementById('userAvatar');
     const userName = document.getElementById('userName');
+    const logoutBtn = document.getElementById('logoutBtn');
     
     // Event listeners
     tabButtons.forEach(button => {
@@ -755,13 +756,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     loginButton.addEventListener('click', initiateDiscordLogin);
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logoutUser);
+    }
     
     // Check login status on page load
     checkAuthAndLoadData();
     
     // ===== AUTHENTICATION FUNCTIONS =====
     
-    function supabaseInit(url, key) {
+    function createClient(url, key) {
         // Create and return Supabase client
         return supabase.createClient(url, key);
     }
@@ -772,61 +776,69 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function checkAuthAndLoadData() {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error) {
-            console.error('Error checking auth status:', error);
-            return;
-        }
-        
-        if (session) {
-            // User is logged in
-            await loadUserProfile(session.user.id);
-            hideLoginScreen();
-            loadDashboardData(session.user.id);
-        } else {
-            // Check if we're returning from Discord OAuth
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
+        try {
+            const { data: { session }, error } = await supabase.auth.getSession();
             
-            if (code) {
-                try {
-                    // Exchange code for token via your backend
-                    const response = await fetch('/api/discord-auth', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ code }),
-                    });
-                    
-                    if (!response.ok) throw new Error('Auth exchange failed');
-                    
-                    const authData = await response.json();
-                    
-                    // Sign in with custom token from your backend
-                    const { data, error } = await supabase.auth.signInWithIdToken({
-                        provider: 'discord',
-                        token: authData.access_token,
-                    });
-                    
-                    if (error) throw error;
-                    
-                    // Clean URL after successful auth
-                    window.history.replaceState({}, document.title, '/');
-                    
-                    // Load user data
-                    await loadUserProfile(data.user.id);
-                    hideLoginScreen();
-                    loadDashboardData(data.user.id);
-                } catch (err) {
-                    console.error('Error during authentication:', err);
-                    showLoginError('Authentication failed. Please try again.');
-                }
-            } else {
-                // Show login screen
-                showLoginScreen();
+            if (error) {
+                console.error('Error checking auth status:', error);
+                return;
             }
+            
+            if (session) {
+                // User is logged in
+                await loadUserProfile(session.user.id);
+                hideLoginScreen();
+                loadDashboardData(session.user.id);
+                logoutBtn.style.display = 'inline-block';
+            } else {
+                // Check if we're returning from Discord OAuth
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+                
+                if (code) {
+                    try {
+                        // Exchange code for token via your backend
+                        const response = await fetch('/api/discord-auth', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ code }),
+                        });
+                        
+                        if (!response.ok) throw new Error('Auth exchange failed');
+                        
+                        const authData = await response.json();
+                        
+                        // Sign in with custom token from your backend
+                        const { data, error } = await supabase.auth.signInWithIdToken({
+                            provider: 'discord',
+                            token: authData.access_token,
+                        });
+                        
+                        if (error) throw error;
+                        
+                        // Clean URL after successful auth
+                        window.history.replaceState({}, document.title, '/');
+                        
+                        // Load user data
+                        await loadUserProfile(data.user.id);
+                        hideLoginScreen();
+                        loadDashboardData(data.user.id);
+                        logoutBtn.style.display = 'inline-block';
+                    } catch (err) {
+                        console.error('Error during authentication:', err);
+                        showLoginError('Authentication failed. Please try again.');
+                    }
+                } else {
+                    // Show login screen
+                    showLoginScreen();
+                    logoutBtn.style.display = 'none';
+                }
+            }
+        } catch (err) {
+            console.error('Error in checkAuthAndLoadData:', err);
+            showLoginError('Something went wrong. Please try again later.');
         }
     }
     
@@ -881,29 +893,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showLoginError(message) {
-        const errorElement = document.createElement('p');
-        errorElement.style.color = '#ed4245';
-        errorElement.textContent = message;
-        
-        // Remove any existing error messages
-        const existingError = loginScreen.querySelector('.login-error');
-        if (existingError) existingError.remove();
-        
-        // Add error class for easy removal later
-        errorElement.classList.add('login-error');
-        
-        // Insert before login button
-        loginScreen.insertBefore(errorElement, loginButton);
+        const loginError = document.getElementById('loginError');
+        if (loginError) {
+            loginError.textContent = message;
+            loginError.style.display = 'block';
+        }
     }
     
     // ===== DATA LOADING FUNCTIONS =====
     
     async function loadDashboardData(userId) {
-        await Promise.all([
-            loadWarnings(userId),
-            loadIcInfo(userId),
-            loadRecentActivity(userId)
-        ]);
+        try {
+            await Promise.all([
+                loadWarnings(userId),
+                loadIcInfo(userId),
+                loadRecentActivity(userId)
+            ]);
+        } catch (err) {
+            console.error('Error loading dashboard data:', err);
+        }
     }
     
     async function loadWarnings(userId) {
@@ -918,20 +926,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error) throw error;
             
             // Update warnings count in dashboard
-            const warningsCountElement = document.querySelector('#dashboard .stat-cards .stat-value');
-            warningsCountElement.textContent = warnings.length;
+            const warningCount = document.getElementById('warningCount');
+            warningCount.textContent = warnings.length;
             
             // Update status badge based on warning count
-            const warningsStatusElement = document.querySelector('#dashboard .stat-cards .status-badge');
+            const warningStatus = document.getElementById('warningStatus');
             if (warnings.length === 0) {
-                warningsStatusElement.textContent = 'Clean';
-                warningsStatusElement.className = 'status-badge badge-success';
+                warningStatus.textContent = 'Clean';
+                warningStatus.className = 'status-badge badge-success';
             } else if (warnings.length < 3) {
-                warningsStatusElement.textContent = 'Low';
-                warningsStatusElement.className = 'status-badge badge-warning';
+                warningStatus.textContent = 'Low';
+                warningStatus.className = 'status-badge badge-warning';
             } else {
-                warningsStatusElement.textContent = 'High';
-                warningsStatusElement.className = 'status-badge badge-danger';
+                warningStatus.textContent = 'High';
+                warningStatus.className = 'status-badge badge-danger';
             }
             
             // Update warnings tab
@@ -945,23 +953,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateWarningsTab(warnings) {
-        const warningsContainer = document.querySelector('#warnings .info-section');
+        const warningsContainer = document.getElementById('warningsContainer');
+        warningsContainer.innerHTML = ''; // Clear loading spinner
         
-        // Clear existing warnings
-        while (warningsContainer.children.length > 1) {
-            warningsContainer.removeChild(warningsContainer.lastChild);
-        }
-        
-        // Add warnings to the container
         if (warnings.length === 0) {
             const noWarningsElement = document.createElement('div');
             noWarningsElement.className = 'warning-item';
             noWarningsElement.innerHTML = '<div class="warning-reason">No active warnings</div>';
             warningsContainer.appendChild(noWarningsElement);
         } else {
-            warnings.forEach(warning => {
+            warnings.forEach((warning, index) => {
                 const warningElement = document.createElement('div');
                 warningElement.className = 'warning-item';
+                warningElement.style.setProperty('--item-delay', index);
                 
                 // Format date
                 const date = new Date(warning.DATA);
@@ -972,7 +976,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 warningElement.innerHTML = `
-                    <div class="warning-reason">${warning.PRIEŽASTIS}</div>
+                    <div class="warning-reason">${warning.PRIEŽASTIS || 'Unknown reason'}</div>
                     <div class="warning-date">${formattedDate}</div>
                 `;
                 
@@ -993,8 +997,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error) throw error;
             
             // Update IC status in dashboard
-            const icStatusIcon = document.querySelector('#dashboard .stat-cards .fa-circle');
-            const icStatusBadge = document.querySelector('#dashboard .stat-cards .stat-card:nth-child(2) .status-badge');
+            const icStatusIcon = document.getElementById('icStatusIcon');
+            const icStatusBadge = document.getElementById('icStatusBadge');
             
             if (icInfo.STATUSAS === 'ACTIVE') {
                 icStatusIcon.style.color = '#3ba55c';
@@ -1006,52 +1010,111 @@ document.addEventListener('DOMContentLoaded', function() {
                 icStatusBadge.className = 'status-badge badge-danger';
             }
             
-            // Update gang rank
-            document.querySelector('#dashboard .stat-cards:nth-child(3) .stat-value').textContent = icInfo.RANKAS || 'None';
-            
             // Update IC info tab
             updateIcInfoTab(icInfo);
             
             return icInfo;
         } catch (err) {
             console.error('Error loading IC info:', err);
+            // Show default "not found" state in the IC info tab
+            updateIcInfoTabNotFound();
             return null;
         }
     }
     
     function updateIcInfoTab(icInfo) {
-        // Update status section
-        const statusElement = document.querySelector('#icinfo .info-section:nth-child(2) .icinfo-item:nth-child(1) .icinfo-status');
-        statusElement.textContent = icInfo.STATUSAS;
-        if (icInfo.STATUSAS === 'ACTIVE') {
-            statusElement.className = 'icinfo-status active-status';
-        } else {
-            statusElement.className = 'icinfo-status inactive-status';
-        }
+        const icStatusContainer = document.getElementById('icStatusContainer');
+        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
         
-        // Update last updated time
-        const lastUpdatedElement = document.querySelector('#icinfo .info-section:nth-child(2) .icinfo-item:nth-child(2) div:last-child');
+        // Clear loading spinners
+        icStatusContainer.innerHTML = '';
+        gangDetailsContainer.innerHTML = '';
+        
+        // Create status section
+        const statusItem = document.createElement('div');
+        statusItem.className = 'icinfo-item';
+        statusItem.innerHTML = `
+            <div>Status:</div>
+            <div class="icinfo-status ${icInfo.STATUSAS === 'ACTIVE' ? 'active-status' : 'inactive-status'}">
+                ${icInfo.STATUSAS || 'Unknown'}
+            </div>
+        `;
+        icStatusContainer.appendChild(statusItem);
+        
+        // Last updated
+        const lastUpdatedItem = document.createElement('div');
+        lastUpdatedItem.className = 'icinfo-item';
         const lastUpdated = new Date(icInfo.PASKUTINIS_ATNAUJINIMAS);
-        lastUpdatedElement.textContent = lastUpdated.toLocaleString();
+        lastUpdatedItem.innerHTML = `
+            <div>Last Updated:</div>
+            <div>${lastUpdated.toLocaleString()}</div>
+        `;
+        icStatusContainer.appendChild(lastUpdatedItem);
         
-        // Update character name
-        const characterNameElement = document.querySelector('#icinfo .info-section:nth-child(2) .icinfo-item:nth-child(3) div:last-child');
-        characterNameElement.textContent = `${icInfo.VARDAS} ${icInfo.PAVARDE}`;
+        // Character name
+        const characterNameItem = document.createElement('div');
+        characterNameItem.className = 'icinfo-item';
+        characterNameItem.innerHTML = `
+            <div>Character Name:</div>
+            <div>${icInfo.VARDAS || 'Unknown'} ${icInfo.PAVARDE || ''}</div>
+        `;
+        icStatusContainer.appendChild(characterNameItem);
         
-        // Update gang details
-        const rankElement = document.querySelector('#icinfo .info-section:nth-child(3) .icinfo-item:nth-child(1) div:last-child');
-        rankElement.textContent = icInfo.RANKAS || 'None';
+        // Gang details - Rank
+        const rankItem = document.createElement('div');
+        rankItem.className = 'icinfo-item';
+        rankItem.innerHTML = `
+            <div>Rank:</div>
+            <div>${icInfo.RANKAS || 'None'}</div>
+        `;
+        gangDetailsContainer.appendChild(rankItem);
         
-        const joinDateElement = document.querySelector('#icinfo .info-section:nth-child(3) .icinfo-item:nth-child(2) div:last-child');
+        // Join date
+        const joinDateItem = document.createElement('div');
+        joinDateItem.className = 'icinfo-item';
         const joinDate = new Date(icInfo.PRISIJUNGIMO_DATA);
-        joinDateElement.textContent = joinDate.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-        });
+        joinDateItem.innerHTML = `
+            <div>Join Date:</div>
+            <div>${joinDate.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            })}</div>
+        `;
+        gangDetailsContainer.appendChild(joinDateItem);
         
-        const territoryElement = document.querySelector('#icinfo .info-section:nth-child(3) .icinfo-item:nth-child(3) div:last-child');
-        territoryElement.textContent = icInfo.TERITORIJA || 'Unassigned';
+        // Territory
+        const territoryItem = document.createElement('div');
+        territoryItem.className = 'icinfo-item';
+        territoryItem.innerHTML = `
+            <div>Territory:</div>
+            <div>${icInfo.TERITORIJA || 'Unassigned'}</div>
+        `;
+        gangDetailsContainer.appendChild(territoryItem);
+    }
+    
+    function updateIcInfoTabNotFound() {
+        const icStatusContainer = document.getElementById('icStatusContainer');
+        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+        
+        // Clear loading spinners
+        icStatusContainer.innerHTML = '';
+        gangDetailsContainer.innerHTML = '';
+        
+        // Add "not found" message
+        const notFoundItem = document.createElement('div');
+        notFoundItem.className = 'icinfo-item';
+        notFoundItem.innerHTML = `
+            <div>No IC information found for this user.</div>
+        `;
+        icStatusContainer.appendChild(notFoundItem);
+        
+        const noGangItem = document.createElement('div');
+        noGangItem.className = 'icinfo-item';
+        noGangItem.innerHTML = `
+            <div>No gang information available.</div>
+        `;
+        gangDetailsContainer.appendChild(noGangItem);
     }
     
     async function loadRecentActivity(userId) {
@@ -1065,19 +1128,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update recent activity section
             updateRecentActivitySection(activities);
             
-            // Update last login in dashboard
-            const lastLoginElement = document.querySelector('#dashboard .stat-cards .stat-card:nth-child(4) .stat-value');
-            if (activities.length > 0) {
-                const lastLogin = new Date(activities[0].date);
-                lastLoginElement.textContent = lastLogin.toLocaleDateString('en-US', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
-                });
-            } else {
-                lastLoginElement.textContent = 'Never';
-            }
-            
             return activities;
         } catch (err) {
             console.error('Error loading recent activity:', err);
@@ -1086,49 +1136,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateRecentActivitySection(activities) {
-        const activityContainer = document.querySelector('#dashboard .info-section');
-        
-        // Clear existing activities
-        while (activityContainer.children.length > 1) {
-            activityContainer.removeChild(activityContainer.lastChild);
-        }
-        
-        // Add activities to the container
-        if (activities.length === 0) {
-            const noActivityElement = document.createElement('div');
-            noActivityElement.className = 'warning-item';
-            noActivityElement.innerHTML = '<div class="warning-reason">No recent activity</div>';
-            activityContainer.appendChild(noActivityElement);
-        } else {
-            activities.slice(0, 5).forEach(activity => {
-                const activityElement = document.createElement('div');
-                activityElement.className = 'warning-item';
-                
-                // Format date for display
-                const date = new Date(activity.date);
-                const now = new Date();
-                
-                let displayDate;
-                if (date.toDateString() === now.toDateString()) {
-                    displayDate = `Today, ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
-                } else if (date.toDateString() === new Date(now - 86400000).toDateString()) {
-                    displayDate = `Yesterday, ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
-                } else {
-                    displayDate = date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    });
-                }
-                
-                activityElement.innerHTML = `
-                    <div class="warning-reason">${activity.description}</div>
-                    <div class="warning-date">${displayDate}</div>
-                `;
-                
-                activityContainer.appendChild(activityElement);
-            });
-        }
+        // This function would update the recent activities section
+        // You would need to add this section to your HTML
+        console.log('Recent activities:', activities);
     }
     
     // ===== LOGOUT FUNCTION =====
@@ -1139,22 +1149,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error) throw error;
             
             // Reset UI
-            userName.textContent = 'Not Logged In';
+            userName.textContent = 'Neprisijungta';
             userAvatar.src = '/api/placeholder/40/40';
+            logoutBtn.style.display = 'none';
             showLoginScreen();
             
-            // Clear local storage if needed
-            // localStorage.removeItem('discord_user');
         } catch (err) {
             console.error('Error logging out:', err);
         }
     }
-    
-    // You could add a logout button in your HTML and connect it here
-    // const logoutButton = document.getElementById('logoutButton');
-    // if (logoutButton) {
-    //     logoutButton.addEventListener('click', logoutUser);
-    // }
 });
     </script>
 </body>
