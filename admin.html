@@ -821,7 +821,7 @@ document.querySelectorAll('.view-warnings-button').forEach(button => {
     button.addEventListener('click', function() {
         const userId = this.getAttribute('data-user-id');
         const userName = this.getAttribute('data-user-name');
-        viewUserWarnings(userId, userName);
+        (userId, userName);
     });
 });
     // Add event listeners to all copy text elements
@@ -1036,52 +1036,53 @@ async function handleWarningButton() {
 // Function to view user warnings
 async function viewUserWarnings(userId, userName) {
     try {
-        // Fetch warnings for this user from Supabase
-        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=DATA.desc`, {
+        // Fetch warnings for this user
+        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=created_at.asc`, {
             method: "GET",
             headers: {
                 "apikey": CONFIG.SUPABASE.API_KEY,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`
             }
         });
 
-        if (!response.ok) throw new Error("⚠️ Failed to fetch warnings");
+        if (!response.ok) throw new Error("Failed to fetch warnings");
         
         const warnings = await response.json();
         
-        // Prepare content for popup
-        let contentHTML = `<div class="warnings-list">`;
+        // Format the warnings for display
+        let warningsHTML = "";
         
         if (warnings.length === 0) {
-            contentHTML += `<p class="no-warnings">Šis vartotojas neturi įspėjimų.</p>`;
+            warningsHTML = "<p>Vartotojas neturi įspėjimų.</p>";
         } else {
-            contentHTML += `<p class="warning-count">Vartotojas turi ${warnings.length} įspėjimų:</p>`;
+            warningsHTML = `<p class="warning-count">Vartotojas turi ${warnings.length} įspėjimų:</p>`;
             
             warnings.forEach((warning, index) => {
-                contentHTML += `
-                <div class="warning-item">
-                    <div class="warning-header">
-                        <span class="warning-number">#${index + 1}</span>
-                        <span class="warning-date">${warning.DATA}</span>
+                // Format the date properly (YYYY-MM-DD)
+                const warningDate = warning.DATA.split('T')[0];
+                
+                warningsHTML += `
+                    <div class="warning-item">
+                        <div class="warning-header">
+                            <span class="warning-number">#${index + 1}</span>
+                            <span class="warning-date">${warningDate}</span>
+                        </div>
+                        <div class="warning-reason">${warning.PRIEŽASTIS}</div>
                     </div>
-                    <div class="warning-reason">${warning.PRIEŽASTIS}</div>
-                </div>`;
+                `;
             });
         }
         
-        contentHTML += `</div>`;
-        
-        // Show popup with warnings
+        // Show the warnings in a popup
         showPopup({
-            title: `${userName} įspėjimai`,
-            message: contentHTML,
-            confirmText: "Uždaryti",
-            onConfirm: () => {}
+            title: `Įspėjimai: ${userName}`,
+            customContent: `<div class="warnings-list">${warningsHTML}</div>`,
+            confirmText: "Uždaryti"
         });
         
     } catch (error) {
-        console.error("❌ Error fetching warnings:", error);
-        showNotification("⚠️ Nepavyko gauti įspėjimų.", 'error');
+        console.error("Error fetching warnings:", error);
+        showNotification("Nepavyko gauti įspėjimų.", 'error');
     }
 }
     // Clear Event IDs function
