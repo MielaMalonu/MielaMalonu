@@ -924,6 +924,6 @@ button:not(.popup-close):hover {
 /* If you need to specifically target warning text in popups */
 .popup .warning-text,
 .popup .warning-reason {
-    color: #ffdd00;
+    color: #ffffff;
     font-weight: bold;
 }
