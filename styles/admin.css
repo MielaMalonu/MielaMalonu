@@ -906,7 +906,7 @@ button:not(.popup-close):hover {
 .warning-count {
     font-weight: bold;
     margin-bottom: 15px;
-    color: #ff9800;
+    color: #f4ff00;
 }
 
 .no-warnings {
@@ -920,7 +920,7 @@ button:not(.popup-close):hover {
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 10px;
-    border-left: 4px solid #ff9800;
+    border-left: 4px solid #524f4c;
 }
 
 .warning-header {
@@ -950,4 +950,55 @@ button:not(.popup-close):hover {
 .popup .warning-reason {
     color: #ffffff;
     font-weight: bold;
+}
+/* Increase gap between warning buttons */
+.warning-button, .view-warnings-button {
+    margin: 0 5px; /* Increased from 5px to 10px */
+   margin-left: 8px;
+}
+
+/* If they're stacked vertically and you want more vertical spacing */
+.warning-button {
+  margin-left: 5px;
+    margin-bottom: 15px; /* Add bottom margin for vertical stacking */
+}
+
+/* If they're in a container with flex display */
+.warning-buttons-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Increased gap between flex items */
+ gap: 8px;
+}
+
+/* If they're adjacent siblings without a container */
+.warning-button + .view-warnings-button,
+.view-warnings-button + .warning-button {
+ position: relative;
+    right: 5px; /* Pull it slightly to the left */
+    margin-left: 15px; /* Increased from 5px to 15px */
+}
+/* Reset any existing margins or positions */
+.warning-button, .view-warnings-button {
+    margin: 0;
+}
+
+/* Set the view warnings button position explicitly */
+.view-warnings-button {
+    position: relative;
+    right: 10px; /* Adjust this value as needed to move it left */
+    /* or */
+    margin: 5px;
+    margin-left: -10px; /* Negative margin to pull it leftward */
+}
+
+/* Alternative approach using transform */
+.view-warnings-button {
+    transform: translateX(-10px); /* Move it 10px to the left */
+}
+
+/* If the buttons are in a table cell */
+td .view-warnings-button {
+    position: absolute;
+    margin-left: 40px; /* Adjust this to position exactly where needed */
 }
