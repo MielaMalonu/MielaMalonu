@@ -806,6 +806,10 @@ function populateTable(data) {
             <td>
               <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
             </td>
+<td>
+  <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
+  <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+</td>
         `;
         dataTableBody.appendChild(row);
     });
@@ -814,7 +818,15 @@ function populateTable(data) {
     document.querySelectorAll('.warning-button').forEach(button => {
         button.addEventListener('click', handleWarningButton);
     });
-    
+
+    // Add event listeners to all view warnings buttons
+document.querySelectorAll('.view-warnings-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const userId = this.getAttribute('data-user-id');
+        const userName = this.getAttribute('data-user-name');
+        viewUserWarnings(userId, userName);
+    });
+});
     // Add event listeners to all copy text elements
     document.querySelectorAll('.copy-text').forEach(element => {
         element.addEventListener('click', function() {
@@ -1024,7 +1036,57 @@ async function handleWarningButton() {
             });
         });
     }
+// Function to view user warnings
+async function viewUserWarnings(userId, userName) {
+    try {
+        // Fetch warnings for this user from Supabase
+        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=DATA.desc`, {
+            method: "GET",
+            headers: {
+                "apikey": CONFIG.SUPABASE.API_KEY,
+                "Content-Type": "application/json"
+            }
+        });
 
+        if (!response.ok) throw new Error("⚠️ Failed to fetch warnings");
+        
+        const warnings = await response.json();
+        
+        // Prepare content for popup
+        let contentHTML = `<div class="warnings-list">`;
+        
+        if (warnings.length === 0) {
+            contentHTML += `<p class="no-warnings">Šis vartotojas neturi įspėjimų.</p>`;
+        } else {
+            contentHTML += `<p class="warning-count">Vartotojas turi ${warnings.length} įspėjimų:</p>`;
+            
+            warnings.forEach((warning, index) => {
+                contentHTML += `
+                <div class="warning-item">
+                    <div class="warning-header">
+                        <span class="warning-number">#${index + 1}</span>
+                        <span class="warning-date">${warning.DATA}</span>
+                    </div>
+                    <div class="warning-reason">${warning.PRIEŽASTIS}</div>
+                </div>`;
+            });
+        }
+        
+        contentHTML += `</div>`;
+        
+        // Show popup with warnings
+        showPopup({
+            title: `${userName} įspėjimai`,
+            message: contentHTML,
+            confirmText: "Uždaryti",
+            onConfirm: () => {}
+        });
+        
+    } catch (error) {
+        console.error("❌ Error fetching warnings:", error);
+        showNotification("⚠️ Nepavyko gauti įspėjimų.", 'error');
+    }
+}
     // Clear Event IDs function
    // Clear Event IDs function
 async function clearEventIds() {
@@ -1129,10 +1191,21 @@ async function clearEventIds() {
  <td>
                           <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
                         </td>
+<td>
+  <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
+  <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+</td>
                     `;
                     dataTableBody.appendChild(row);
                 });
-                
+                // Add event listeners to all view warnings buttons
+document.querySelectorAll('.view-warnings-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const userId = this.getAttribute('data-user-id');
+        const userName = this.getAttribute('data-user-name');
+        viewUserWarnings(userId, userName);
+    });
+});
                 // Reattach copy functionality to the newly created elements
                 addCopyFunctionality();
 document.querySelectorAll('.warning-button').forEach(button => {
