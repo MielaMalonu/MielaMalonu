@@ -208,8 +208,7 @@ function showNotification(message, type = 'info') {
 }
 
 // Show custom popup
-// Show custom popup
-function showPopup({ title, message, inputField = false, confirmText = 'OK', cancelText = 'Cancel', onConfirm, onCancel }) {
+function showPopup({ title, message, customContent, inputField = false, confirmText = 'Gerai', cancelText = 'Atšaukti', onConfirm, onCancel }) {
     // Create container
     const container = document.createElement('div');
     container.className = 'popup-container';
@@ -239,7 +238,13 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Create content
     const content = document.createElement('div');
     content.className = 'popup-content';
-    content.textContent = message;
+    
+    // Handle custom content or regular message
+    if (customContent) {
+        content.innerHTML = customContent;
+    } else if (message) {
+        content.textContent = message;
+    }
     
     // Add input field if needed
     let inputEl;
@@ -260,13 +265,17 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     buttonsContainer.className = 'popup-actions';
     
     // Create cancel button
-    const cancelBtn = document.createElement('button');
-    cancelBtn.textContent = cancelText;
-    cancelBtn.className = 'cancel';
-    cancelBtn.addEventListener('click', () => {
-        closePopup();
-        if (onCancel) onCancel();
-    });
+    let cancelBtn;
+    if (cancelText && cancelText !== 'none') {
+        cancelBtn = document.createElement('button');
+        cancelBtn.textContent = cancelText;
+        cancelBtn.className = 'cancel';
+        cancelBtn.addEventListener('click', () => {
+            closePopup();
+            if (onCancel) onCancel();
+        });
+        buttonsContainer.appendChild(cancelBtn);
+    }
     
     // Create confirm button
     const confirmBtn = document.createElement('button');
@@ -282,9 +291,6 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
             }
         }
     });
-    
-    // Add buttons to container
-    buttonsContainer.appendChild(cancelBtn);
     buttonsContainer.appendChild(confirmBtn);
     
     // Assemble popup
@@ -803,9 +809,10 @@ function populateTable(data) {
               <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
               <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
             </td>
-            <td>
-              <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
-            </td>
+<td>
+  <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
+  <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+</td>
         `;
         dataTableBody.appendChild(row);
     });
@@ -814,7 +821,15 @@ function populateTable(data) {
     document.querySelectorAll('.warning-button').forEach(button => {
         button.addEventListener('click', handleWarningButton);
     });
-    
+
+    // Add event listeners to all view warnings buttons
+document.querySelectorAll('.view-warnings-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const userId = this.getAttribute('data-user-id');
+        const userName = this.getAttribute('data-user-name');
+  viewUserWarnings(userId, userName); // Fixed: Added function name
+    });
+});
     // Add event listeners to all copy text elements
     document.querySelectorAll('.copy-text').forEach(element => {
         element.addEventListener('click', function() {
@@ -1025,6 +1040,60 @@ async function handleWarningButton() {
         });
     }
 
+// Function to view user warnings
+async function viewUserWarnings(userId, userName) {
+    try {
+        // Fetch warnings for this user
+        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=DATA.asc`, {
+            method: "GET",
+            headers: {
+                "apikey": CONFIG.SUPABASE.API_KEY,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch warnings");
+        
+        const warnings = await response.json();
+        
+        // Format the warnings for display
+        let warningsHTML = "";
+        
+        if (warnings.length === 0) {
+            warningsHTML = "<p>Vartotojas neturi įspėjimų.</p>";
+        } else {
+            // Remove the warning count text
+            // warningsHTML = `<p class="warning-count">Vartotojas turi ${warnings.length} įspėjimų:</p>`;
+            
+            warnings.forEach((warning, index) => {
+                // Format the date properly (YYYY-MM-DD)
+                const warningDate = warning.DATA.split('T')[0];
+                
+                warningsHTML += `
+                    <div class="warning-item">
+                        <div class="warning-header">
+                            <span class="warning-number">#${index + 1}</span>
+                            <span class="warning-date">${warningDate}</span>
+                        </div>
+                        <div class="warning-reason">${warning.PRIEŽASTIS}</div>
+                    </div>
+                `;
+            });
+        }
+        
+        // Show the warnings in a popup with only one confirmation button
+        showPopup({
+            title: `Įspėjimai: ${userName}`,
+            customContent: `<div class="warnings-list">${warningsHTML}</div>`,
+            confirmText: "Uždaryti",
+            cancelText: "none" // This ensures there's only one button
+        });
+        
+    } catch (error) {
+        console.error("Error fetching warnings:", error);
+        showNotification("Nepavyko gauti įspėjimų.", 'error');
+    }
+}
     // Clear Event IDs function
    // Clear Event IDs function
 async function clearEventIds() {
@@ -1126,13 +1195,22 @@ async function clearEventIds() {
                           <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
                           <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
                         </td>
- <td>
-                          <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
-                        </td>
+<td>
+  <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
+  <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+</td>
                     `;
                     dataTableBody.appendChild(row);
                 });
-                
+                // Add event listeners to all view warnings buttons
+document.querySelectorAll('.view-warnings-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const userId = this.getAttribute('data-user-id');
+        const userName = this.getAttribute('data-user-name');
+        viewUserWarnings(userId, userName);
+
+    });
+});
                 // Reattach copy functionality to the newly created elements
                 addCopyFunctionality();
 document.querySelectorAll('.warning-button').forEach(button => {
