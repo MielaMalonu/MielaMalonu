@@ -208,8 +208,7 @@ function showNotification(message, type = 'info') {
 }
 
 // Show custom popup
-// Show custom popup
-function showPopup({ title, message, inputField = false, confirmText = 'OK', cancelText = 'Cancel', onConfirm, onCancel }) {
+function showPopup({ title, message, customContent, inputField = false, confirmText = 'Gerai', cancelText = 'Atšaukti', onConfirm, onCancel }) {
     // Create container
     const container = document.createElement('div');
     container.className = 'popup-container';
@@ -239,7 +238,13 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     // Create content
     const content = document.createElement('div');
     content.className = 'popup-content';
-    content.textContent = message;
+    
+    // Handle custom content or regular message
+    if (customContent) {
+        content.innerHTML = customContent;
+    } else if (message) {
+        content.textContent = message;
+    }
     
     // Add input field if needed
     let inputEl;
@@ -260,13 +265,17 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
     buttonsContainer.className = 'popup-actions';
     
     // Create cancel button
-    const cancelBtn = document.createElement('button');
-    cancelBtn.textContent = cancelText;
-    cancelBtn.className = 'cancel';
-    cancelBtn.addEventListener('click', () => {
-        closePopup();
-        if (onCancel) onCancel();
-    });
+    let cancelBtn;
+    if (cancelText && cancelText !== 'none') {
+        cancelBtn = document.createElement('button');
+        cancelBtn.textContent = cancelText;
+        cancelBtn.className = 'cancel';
+        cancelBtn.addEventListener('click', () => {
+            closePopup();
+            if (onCancel) onCancel();
+        });
+        buttonsContainer.appendChild(cancelBtn);
+    }
     
     // Create confirm button
     const confirmBtn = document.createElement('button');
@@ -282,9 +291,6 @@ function showPopup({ title, message, inputField = false, confirmText = 'OK', can
             }
         }
     });
-    
-    // Add buttons to container
-    buttonsContainer.appendChild(cancelBtn);
     buttonsContainer.appendChild(confirmBtn);
     
     // Assemble popup
@@ -821,7 +827,6 @@ document.querySelectorAll('.view-warnings-button').forEach(button => {
     button.addEventListener('click', function() {
         const userId = this.getAttribute('data-user-id');
         const userName = this.getAttribute('data-user-name');
-        (userId, userName);
   viewUserWarnings(userId, userName); // Fixed: Added function name
     });
 });
