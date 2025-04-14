@@ -787,13 +787,16 @@ button:not(.popup-close):hover {
     color: white;
     padding: 12px 20px;
     border: none;
-    border-radius: 10px;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
     transition: all 0.3s ease;
     width: auto;
     min-width: 120px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .popup-actions button:hover {
@@ -917,4 +920,10 @@ button:not(.popup-close):hover {
 
 .view-warnings-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+/* If you need to specifically target warning text in popups */
+.popup .warning-text,
+.popup .warning-reason {
+    color: #ffdd00;
+    font-weight: bold;
 }
