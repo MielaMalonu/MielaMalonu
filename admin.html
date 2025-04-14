@@ -1077,7 +1077,7 @@ async function viewUserWarnings(userId, userName) {
         // Show the warnings in a popup
         showPopup({
             title: `Įspėjimai: ${userName}`,
-            message: warningsHTML,
+            customContent: `<div class="warnings-list">${warningsHTML}</div>`,
             confirmText: "Uždaryti"
         });
         
