@@ -1041,8 +1041,8 @@ async function viewUserWarnings(userId, userName) {
         const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=created_at.asc`, {
             method: "GET",
             headers: {
-                "apikey": CONFIG.SUPABASE.API_KEY,
-                "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`
+                "apikey": CONFIG.API_KEY,
+                "Authorization": `Bearer ${CONFIG.API_KEY}`
             }
         });
 
