@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Save user details to localStorage
             localStorage.setItem('discord_id', discordUser.id);
-            localStorage.setItem('discord_username', discordUser.username);
+            localStorage.setItem('discord_username', discordUser.global_name);
             
             // Handle avatar URL
             const avatarUrl = discordUser.avatar 
@@ -757,7 +757,7 @@ async function submitICForm() {
     
     const formData = {
         DISCORD_ID: discordId,
-        USERIS: discordGlobal_name,
+        USERIS: discordUsername,
         VARDAS: vardas,
         PAVARDĖ: pavarde,
         "STEAM NICKAS": steamNick,
