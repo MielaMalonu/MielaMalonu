@@ -1039,6 +1039,7 @@ async function handleWarningButton() {
             });
         });
     }
+
 // Function to view user warnings
 async function viewUserWarnings(userId, userName) {
     try {
@@ -1061,7 +1062,8 @@ async function viewUserWarnings(userId, userName) {
         if (warnings.length === 0) {
             warningsHTML = "<p>Vartotojas neturi įspėjimų.</p>";
         } else {
-            warningsHTML = `<p class="warning-count">Vartotojas turi ${warnings.length} įspėjimų:</p>`;
+            // Remove the warning count text
+            // warningsHTML = `<p class="warning-count">Vartotojas turi ${warnings.length} įspėjimų:</p>`;
             
             warnings.forEach((warning, index) => {
                 // Format the date properly (YYYY-MM-DD)
@@ -1079,11 +1081,12 @@ async function viewUserWarnings(userId, userName) {
             });
         }
         
-        // Show the warnings in a popup
+        // Show the warnings in a popup with only one confirmation button
         showPopup({
             title: `Įspėjimai: ${userName}`,
             customContent: `<div class="warnings-list">${warningsHTML}</div>`,
-            confirmText: "Uždaryti"
+            confirmText: "Uždaryti",
+            cancelText: "none" // This ensures there's only one button
         });
         
     } catch (error) {
