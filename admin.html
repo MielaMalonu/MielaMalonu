@@ -1041,7 +1041,8 @@ async function viewUserWarnings(userId, userName) {
         const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=created_at.asc`, {
             method: "GET",
             headers: {
-                "apikey": CONFIG.API_KEY,
+                "apikey": CONFIG.SUPABASE.API_KEY,
+                "Content-Type": "application/json"
             }
         });
 
@@ -1076,7 +1077,7 @@ async function viewUserWarnings(userId, userName) {
         // Show the warnings in a popup
         showPopup({
             title: `Įspėjimai: ${userName}`,
-            customContent: `<div class="warnings-list">${warningsHTML}</div>`,
+            message: warningsHTML,
             confirmText: "Uždaryti"
         });
         
