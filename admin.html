@@ -822,6 +822,7 @@ document.querySelectorAll('.view-warnings-button').forEach(button => {
         const userId = this.getAttribute('data-user-id');
         const userName = this.getAttribute('data-user-name');
         (userId, userName);
+  viewUserWarnings(userId, userName); // Fixed: Added function name
     });
 });
     // Add event listeners to all copy text elements
@@ -1199,6 +1200,7 @@ document.querySelectorAll('.view-warnings-button').forEach(button => {
         const userId = this.getAttribute('data-user-id');
         const userName = this.getAttribute('data-user-name');
         viewUserWarnings(userId, userName);
+
     });
 });
                 // Reattach copy functionality to the newly created elements
