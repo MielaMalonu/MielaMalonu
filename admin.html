@@ -1038,7 +1038,7 @@ async function handleWarningButton() {
 async function viewUserWarnings(userId, userName) {
     try {
         // Fetch warnings for this user
-        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=created_at.asc`, {
+        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=DATA.asc`, {
             method: "GET",
             headers: {
                 "apikey": CONFIG.SUPABASE.API_KEY,
