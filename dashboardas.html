@@ -1143,7 +1143,7 @@ footer:before {
             <button class="nav-button active" data-tab="dashboard">Dashboardas</button>
             <button class="nav-button" data-tab="warnings">Ispėjimai</button>
             <button class="nav-button" data-tab="icinfo">IC Info</button>
-            <button class="nav-button" data-tab="links">Naudingi Linkai</button>
+           
 <button class="nav-button" data-tab="rules">Taisyklės</button>
 <button class="nav-button" data-tab="info">Gaujos Info</button>
         </div>
@@ -1300,28 +1300,7 @@ footer:before {
                 </div>
             </div>
 
-            <!-- Links Tab -->
-            <div class="tab-content" id="links">
-    <h2>Naudingos Nuorodos</h2>
-    <div class="info-section">
-        <h3>Gaujos resursai</h3>
-        <a href="https://mielamalonu.com/ic" class="links-item" target="_blank">
-            <i class="fas fa-book"></i>
-            <div class="links-name">IC INFO</div>
-            <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://mielamalonu.com/id" class="links-item" target="_blank">
-            <i class="fas fa-map-marked-alt"></i>
-            <div class="links-name">IDS</div>
-            <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://mielamalonu.com/info" class="links-item" target="_blank">
-            <i class="fas fa-calendar-alt"></i>
-            <div class="links-name">Informacija</div>
-            <i class="fas fa-external-link-alt"></i>
-        </a>
-    </div>
-</div>
+            
                
 
         <footer>
@@ -2189,15 +2168,7 @@ window.copyToClipboard = copyToClipboard;
     }
     
     // Setup link handling for links tab
-    const linkItems = document.querySelectorAll('.links-item');
-    linkItems.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Prevent any default tab behavior from interfering
-            // Allow the browser to handle the link normally
-            e.stopPropagation();
-            // The link will naturally open in a new tab due to target="_blank"
-        });
-    });
+  
     
 // This is the closing bracket and parenthesis for the DOMContentLoaded event listener
 });
