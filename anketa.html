@@ -251,8 +251,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Configuration
     const CONFIG = {
         SUPABASE: {
-             URL: 'SUPAURL_PLACEHOLDER',  // This will be replaced with the actual value
-        API_KEY: 'KEY_PLACEHOLDER',
+             URL: env.SUPAURL,  // This will be replaced with the actual value
+        API_KEY: env.KEY,
             STATUS_TABLE: "Status",
             BLACKLIST_TABLE: "Blacklist"
         },
