@@ -1,23 +1,33 @@
-// /functions/api/supabase.js
-export async function onRequest(context) {
-  // Access environment variables from context
-  const { SUPABASE_SERVICE_KEY } = context.env;
-  
-  // Parse the request
-  const url = new URL(context.request.url);
-  const path = url.pathname.replace('/api/supabase', '');
-  const supabaseUrl = "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1" + path;
-  
-  // Forward the request to Supabase with your service key
-  const response = await fetch(supabaseUrl, {
-    method: context.request.method,
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_SERVICE_KEY,
-      'Prefer': context.request.headers.get('Prefer') || ''
-    },
-    body: context.request.method !== 'GET' ? await context.request.text() : undefined
+export async function onRequest({ request }) {
+  const SUPABASE_URL = "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1";
+  const API_KEY = process.env.SUPABASE_API_KEY;
+
+  // Use the request URL to extract the sub-path (e.g., /api/supabase/posts?id=eq.1)
+  const url = new URL(request.url);
+  const path = url.pathname.replace("/api/supabase", "");
+  const query = url.search;
+
+  const fullSupabaseUrl = `${SUPABASE_URL}${path}${query}`;
+
+  // Clone headers and add required Supabase headers
+  const newHeaders = new Headers(request.headers);
+  newHeaders.set("apikey", API_KEY);
+  newHeaders.set("Authorization", `Bearer ${API_KEY}`);
+
+  // Forward method and body
+  const proxyRequest = new Request(fullSupabaseUrl, {
+    method: request.method,
+    headers: newHeaders,
+    body: request.method !== "GET" && request.method !== "HEAD" ? await request.text() : undefined,
   });
-  
-  return response;
+
+  const response = await fetch(proxyRequest);
+  const responseBody = await response.text();
+
+  return new Response(responseBody, {
+    status: response.status,
+    headers: {
+      "Content-Type": response.headers.get("Content-Type") || "application/json",
+    },
+  });
 }
