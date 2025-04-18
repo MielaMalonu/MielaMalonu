@@ -1,18 +1,13 @@
+// build.js
 const fs = require('fs');
-const path = require('path');
 
-const SUPAURL = process.env.SUPAURL;
-const KEY = process.env.KEY;
+// Read the HTML file
+let html = fs.readFileSync('index.html', 'utf8');
 
-// Read your JS file
-const jsFilePath = path.join(__dirname, 'public', 'js', 'app.js');  // Adjust to your file location
-let jsFileContent = fs.readFileSync(jsFilePath, 'utf8');
+// Replace placeholders with environment variables
+html = html.replace('REPLACE_SUPAURL', process.env.SUPAURL || '');
+html = html.replace('REPLACE_KEY', process.env.KEY || '');
 
-// Replace the placeholders with the actual environment variables
-jsFileContent = jsFileContent.replace('SUPAURL_PLACEHOLDER', SUPAURL)
-                             .replace('KEY_PLACEHOLDER', KEY);
-
-// Write the updated content back to the file
-fs.writeFileSync(jsFilePath, jsFileContent);
-
-console.log('Replaced environment variables in app.js');
+// Write the processed HTML
+fs.mkdirSync('dist', { recursive: true });
+fs.writeFileSync('dist/index.html', html);
