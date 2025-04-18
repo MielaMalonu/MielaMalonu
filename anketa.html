@@ -251,8 +251,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Configuration
     const CONFIG = {
         SUPABASE: {
-            URL: "process.env.SUPAURL", // FIXED: Removed "/rest/v1"
-            API_KEY: "process.env.KEY",
+             URL: process.env.SUPAURL, // Fixed: Reference to the environment variable
+        API_KEY: process.env.KEY, // Fixed: Reference to the environment variable
             STATUS_TABLE: "Status",
             BLACKLIST_TABLE: "Blacklist"
         },
