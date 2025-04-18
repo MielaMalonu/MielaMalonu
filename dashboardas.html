@@ -236,8 +236,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
     
     // Supabase configuration (just for data access, not auth)
-    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
+    const SUPABASE_URL = 'https://supa.mielamalonu.com/api/supabase/';
+    const SUPABASE_ANON_KEY = 'cbb';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     // DOM Elements
