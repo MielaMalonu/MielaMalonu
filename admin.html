@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const CONFIG = {
         SUPABASE: {
             URL: "https://supa.mielamalonu.com/api/supabase",
-            API_KEY: ""
+            API_KEY: "mielamalonu"
         },
         DISCORD: {
             CLIENT_ID: "1263389179249692693", // Replace with your Discord app's client ID
@@ -526,7 +526,7 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
             const response = await fetch(`${CONFIG.SUPABASE.URL}/IC`, {
                 method: "GET",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -548,7 +548,7 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}&select=blacklist`, {
                 method: "GET",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -594,7 +594,7 @@ async function addToBlacklist() {
                 const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
                     method: "PATCH",
                     headers: {
-                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
                     },
@@ -637,7 +637,7 @@ async function removeFromBlacklist() {
                 const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
                     method: "PATCH",
                     headers: {
-                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
                     },
@@ -662,7 +662,7 @@ async function removeFromBlacklist() {
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Status?id=eq.${BLACKLIST_ID}&select=status`, {
                 method: "GET",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -692,7 +692,7 @@ async function removeFromBlacklist() {
             const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1&select=statusas`, {
                 method: "GET",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -723,7 +723,7 @@ async function removeFromBlacklist() {
             const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1`, {
                 method: "PATCH",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json",
                     "Prefer": "return=minimal"
                 },
@@ -765,7 +765,7 @@ async function removeFromBlacklist() {
             await fetch(`${CONFIG.SUPABASE.URL}/Status?id=eq.${BLACKLIST_ID}`, {
                 method: "PATCH",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json",
                     "Prefer": "return=minimal"
                 },
@@ -896,7 +896,7 @@ async function handleWarningButton() {
                 const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai`, {
                     method: "POST",
                     headers: {
-                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                         "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
@@ -928,7 +928,7 @@ async function handleWarningButton() {
             const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
                 method: "GET",
                 headers: {
-                    "apikey": CONFIG.SUPABASE.API_KEY,
+                    "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -1047,7 +1047,7 @@ async function viewUserWarnings(userId, userName) {
         const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=DATA.asc`, {
             method: "GET",
             headers: {
-                "apikey": CONFIG.SUPABASE.API_KEY,
+                "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                 "Content-Type": "application/json"
             }
         });
@@ -1106,7 +1106,7 @@ async function clearEventIds() {
                 const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
                     method: "PATCH",
                     headers: {
-                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "x-proxy-token": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
                     },
