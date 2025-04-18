@@ -226,7 +226,7 @@ async function deleteApplication(appId) {
         debug("User is admin, proceeding with deletion");
         
         // Get the full application data first
-        const dataFetchUrl = `${API_BASE_URL}/rest/v1/Anketos?ID=eq.${encodeURIComponent(appId.trim())}`;
+        const dataFetchUrl = `${API_BASE_URL}/Anketos?ID=eq.${encodeURIComponent(appId.trim())}`;
         debug("Fetching application details:", dataFetchUrl);
         
         const dataResponse = await fetch(dataFetchUrl, {
@@ -537,7 +537,7 @@ async function fetchApplications(userId = null) {
     
     try {
         // Use direct API endpoint for the Anketos table
-        let url = `${API_BASE_URL}/rest/v1/Anketos?select=ID,METAI,PRIEŽASTIS,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON`;
+        let url = `${API_BASE_URL}/Anketos?select=ID,METAI,PRIEŽASTIS,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON`;
         
         if (userId) {
             url += `&ID=eq.${encodeURIComponent(userId)}`;
