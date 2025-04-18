@@ -326,7 +326,7 @@ async function deleteApplication(appId) {
         debug("Found target application for deletion:", targetApp);
         
         // Build a URL that uniquely identifies this specific record
-        let deleteUrl = `${API_BASE_URL}/rest/v1/Anketos?ID=eq.${encodeURIComponent(appId.trim())}`;
+        let deleteUrl = `${API_BASE_URL}/Anketos?ID=eq.${encodeURIComponent(appId.trim())}`;
         
         // Add all available fields as filters
         if (targetApp.DATA) {
