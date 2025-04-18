@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const CONFIG = {
         SUPABASE: {
-            URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
-            API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
+            URL: "/api/supabase",
+            API_KEY: "null"
         },
         DISCORD: {
             CLIENT_ID: "1263389179249692693", // Replace with your Discord app's client ID
