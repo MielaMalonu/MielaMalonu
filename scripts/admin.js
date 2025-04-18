@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const CONFIG = {
         SUPABASE: {
             URL: "/api/supabase",
-            API_KEY: process.env.SUPABASE_API_KEY
+            API_KEY: "null"
         },
         DISCORD: {
             CLIENT_ID: "1263389179249692693", // Replace with your Discord app's client ID
