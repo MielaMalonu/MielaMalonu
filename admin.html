@@ -589,6 +589,19 @@ async function addToBlacklist() {
             }
             
             blacklist.push(userId);
+ try {
+        // First set the origin
+        await fetch(`${CONFIG.SUPABASE.URL}/rest/v1/rpc/set_origin`, {
+            method: "POST",
+            headers: {
+                "apikey": CONFIG.SUPABASE.API_KEY,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({ 
+                origin: "https://auraxogt.github.io/MielaMalonuTEST/" 
+            })
+        });
 
             try {
                 const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
