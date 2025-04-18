@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const CONFIG = {
         SUPABASE: {
-            URL: "/api/supabase",
+            URL: "https://supa.mielamalonu.com/api/supabase/",
             API_KEY: "cbb"
         },
         DISCORD: {
