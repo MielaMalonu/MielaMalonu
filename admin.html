@@ -82,8 +82,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const CONFIG = {
         SUPABASE: {
-            URL: "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1",
-            API_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI"
+            URL: "https://supa.mielamalonu.com",
+            API_KEY: ""
         },
         DISCORD: {
             CLIENT_ID: "1263389179249692693", // Replace with your Discord app's client ID
@@ -523,7 +523,7 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
     // Fetch Supabase Data
     async function fetchSupabaseData() {
         try {
-            const response = await fetch(`supa.mielamalonu.com/IC`, {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/IC`, {
                 method: "GET",
                 headers: {
                     "apikey": CONFIG.SUPABASE.API_KEY,
@@ -545,10 +545,10 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
     // Fetch Blacklist from Supabase
     async function fetchBlacklist() {
         try {
-            const response = await fetch(`supa.mielamalonu.com/Blacklist?id=eq.${BLACKLIST_ID}&select=blacklist`, {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}&select=blacklist`, {
                 method: "GET",
                 headers: {
-                    
+                    "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -591,9 +591,10 @@ async function addToBlacklist() {
             blacklist.push(userId);
 
             try {
-                const response = await fetch(`supa.mielamalonu.com/Blacklist?id=eq.${BLACKLIST_ID}`, {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Blacklist?id=eq.${BLACKLIST_ID}`, {
                     method: "PATCH",
                     headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
                     },
@@ -688,10 +689,10 @@ async function removeFromBlacklist() {
     // NEW FUNCTION: Fetch ID Status
     async function fetchIdStatus() {
         try {
-            const response = await fetch(`supa.mielamalonu.com/ID?id=eq.1&select=statusas`, {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1&select=statusas`, {
                 method: "GET",
                 headers: {
-                
+                    "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -719,9 +720,10 @@ async function removeFromBlacklist() {
         updateIdStatusDisplay();
 
         try {
-            const response = await fetch(`supa.mielamalonu.com/ID?id=eq.1`, {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/ID?id=eq.1`, {
                 method: "PATCH",
                 headers: {
+                    "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json",
                     "Prefer": "return=minimal"
                 },
@@ -760,10 +762,10 @@ async function removeFromBlacklist() {
         updateStatusDisplay();
 
         try {
-            await fetch(`supa.mielamalonu.com/Status?id=eq.${BLACKLIST_ID}`, {
+            await fetch(`${CONFIG.SUPABASE.URL}/Status?id=eq.${BLACKLIST_ID}`, {
                 method: "PATCH",
                 headers: {
-                 
+                    "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json",
                     "Prefer": "return=minimal"
                 },
@@ -891,9 +893,11 @@ async function handleWarningButton() {
             };
             
             try {
-                const response = await fetch(`supa.mielamalonu.com/Ispejimai`, {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai`, {
                     method: "POST",
                     headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
                     },
@@ -921,10 +925,10 @@ async function handleWarningButton() {
     // Fetch Event IDs from Supabase
     async function fetchEventIds() {
         try {
-            const response = await fetch(`supa.mielamalonu.com/Event?id=eq.1&select=IDs`, {
+            const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1&select=IDs`, {
                 method: "GET",
                 headers: {
-              
+                    "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json"
                 }
             });
@@ -1040,10 +1044,10 @@ async function handleWarningButton() {
 async function viewUserWarnings(userId, userName) {
     try {
         // Fetch warnings for this user
-        const response = await fetch(`supa.mielamalonu.com/Ispejimai?ID=eq.${userId}&order=DATA.asc`, {
+        const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai?ID=eq.${userId}&order=DATA.asc`, {
             method: "GET",
             headers: {
-               
+                "apikey": CONFIG.SUPABASE.API_KEY,
                 "Content-Type": "application/json"
             }
         });
@@ -1099,9 +1103,10 @@ async function clearEventIds() {
         confirmText: "Išvalyti",
         onConfirm: async () => {
             try {
-                const response = await fetch(`supa.mielamalonu.com/Event?id=eq.1`, {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/Event?id=eq.1`, {
                     method: "PATCH",
                     headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
                         "Prefer": "return=minimal"
                     },
