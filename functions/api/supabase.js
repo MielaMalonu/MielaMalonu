@@ -1,7 +1,7 @@
 // functions/api/supabase.js
 export async function onRequest({ request }) {
   const SUPABASE_URL = "https://smodsdsnswwtnbnmzhse.supabase.co/rest/v1";
-  const API_KEY = env.SUPABASE_API_KEY;
+  const API_KEY = env.SUPABASE_KEY;
 
   const url = new URL(request.url);
   const path = url.pathname.replace("/api/supabase", "");
