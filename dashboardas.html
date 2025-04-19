@@ -576,44 +576,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add this function to handle the "not found" case
-    function updateIcInfoTabNotFound() {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-        
-        if (!icStatusContainer || !gangDetailsContainer) return;
-        
-        // Clear loading spinners
-        icStatusContainer.innerHTML = '';
-        gangDetailsContainer.innerHTML = '';
-        
-        // Add "not found" message to IC status container
-        const notFoundItem = document.createElement('div');
-        notFoundItem.className = 'icinfo-item';
-        notFoundItem.innerHTML = `
-            <div>Status:</div>
-            <div class="icinfo-status inactive-status">Not Found</div>
-        `;
-        icStatusContainer.appendChild(notFoundItem);
-        
-        // Add explanation to gang details container
-        const explanationItem = document.createElement('div');
-        explanationItem.className = 'icinfo-item ic-missing-info';
-        explanationItem.innerHTML = `
-            <div>No character information found for your Discord account.</div>
-            <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
-        `;
-        gangDetailsContainer.appendChild(explanationItem);
-        
-        // Add event listener to the button
-        const fillIcInfoBtn = document.getElementById('fill-ic-info-btn');
-        if (fillIcInfoBtn) {
-            fillIcInfoBtn.addEventListener('click', showICFormPopup);
-        }
-        
-        // Initialize form popup
-        initializeICFormPopup();
-        setupICFormValidation();
+   function updateIcInfoTabNotFound() {
+    const icStatusContainer = document.getElementById('icStatusContainer');
+    const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+    
+    if (!icStatusContainer || !gangDetailsContainer) return;
+    
+    // Clear loading spinners
+    icStatusContainer.innerHTML = '';
+    gangDetailsContainer.innerHTML = '';
+    
+    // Add "not found" message to IC status container
+    const notFoundItem = document.createElement('div');
+    notFoundItem.className = 'icinfo-item';
+    notFoundItem.innerHTML = `
+        <div>Status:</div>
+        <div class="icinfo-status inactive-status">Neužpildyta</div>
+    `;
+    icStatusContainer.appendChild(notFoundItem);
+    
+    // Replace gang details with IC info button and explanation
+    gangDetailsContainer.innerHTML = ''; // Clear any previous content
+    
+    // Add explanation and IC info button instead of gang details
+    const icInfoPrompt = document.createElement('div');
+    icInfoPrompt.className = 'ic-info-prompt';
+    icInfoPrompt.innerHTML = `
+        <p>Neturite IC informacijos. Prašome užpildyti savo personažo duomenis.</p>
+        <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
+    `;
+    gangDetailsContainer.appendChild(icInfoPrompt);
+    
+    // Add event listener to the button
+    const fillIcInfoBtn = document.getElementById('fill-ic-info-btn');
+    if (fillIcInfoBtn) {
+        fillIcInfoBtn.addEventListener('click', showICFormPopup);
     }
+    
+    // Initialize form popup
+    initializeICFormPopup();
+    setupICFormValidation();
+}
     
     // Modified updateIcInfoTab function
     function updateIcInfoTab(icInfo) {
