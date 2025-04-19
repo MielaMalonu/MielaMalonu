@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
     
     // API Proxy configuration - replace with your proxy URL
-    const API_PROXY_URL = 'https://your-proxy-api-url.com/api';
+    const API_PROXY_URL = 'https://supa.mielamalonu.com/api/supabase';
     
     // DOM Elements
     const tabButtons = document.querySelectorAll('.nav-button');
@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stringDiscordId = String(discordId);
             
             // Fetch warnings using proxy API
-            const response = await fetch(`${API_PROXY_URL}/warnings/${stringDiscordId}`, {
+            const response = await fetch(`${API_PROXY_URL}/Ispejimai/${stringDiscordId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stringDiscordId = String(discordId);
             
             // Fetch IC info using proxy API
-            const response = await fetch(`${API_PROXY_URL}/ic/${stringDiscordId}`, {
+            const response = await fetch(`${API_PROXY_URL}/IC/${stringDiscordId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
