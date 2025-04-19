@@ -526,19 +526,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`Failed to fetch IC info: ${response.status}`);
             }
             
-            const icInfo = await response.json();
-            
-            // If no data found
-            if (!icInfo) {
-                throw new Error('No IC info found for this user');
-            }
+            const icInfoData = await response.json();
+            const icInfo = icInfoData && icInfoData.length > 0 ? icInfoData[0] : null;
             
             // Update IC status in dashboard
             const icStatusIcon = document.getElementById('icStatusIcon');
             const icStatusBadge = document.getElementById('icStatusBadge');
             
-            if (icStatusIcon && icStatusBadge && icInfo) {
-                if (icInfo.STATUSAS === 'UŽPILDYTA') {
+            if (icStatusIcon && icStatusBadge) {
+                if (icInfo && icInfo.STATUSAS === 'UŽPILDYTA') {
                     icStatusIcon.style.color = '#3ba55c';
                     icStatusBadge.textContent = 'Užpildyta';
                     icStatusBadge.className = 'status-badge badge-success';
@@ -550,7 +546,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Update IC info tab
-            updateIcInfoTab(icInfo);
+            if (icInfo) {
+                updateIcInfoTab(icInfo);
+            } else {
+                updateIcInfoTabNotFound();
+            }
             
             return icInfo;
         } catch (err) {
@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (icStatusIcon && icStatusBadge) {
                 icStatusIcon.style.color = '#ed4245';
-                icStatusBadge.textContent = 'Not Found';
+                icStatusBadge.textContent = 'Neužpildyta';
                 icStatusBadge.className = 'status-badge badge-danger';
             }
             
@@ -573,32 +573,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateIcInfoTabNotFound() {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+        const icInfoContainer = document.getElementById('icInfoContainer');
         
-        if (!icStatusContainer || !gangDetailsContainer) return;
+        if (!icInfoContainer) return;
         
-        // Clear loading spinners
-        icStatusContainer.innerHTML = '';
-        gangDetailsContainer.innerHTML = '';
+        // Clear previous content
+        icInfoContainer.innerHTML = '';
         
-        // Add "not found" message to IC status container
+        // Add "not found" message and button
         const notFoundItem = document.createElement('div');
-        notFoundItem.className = 'icinfo-item';
+        notFoundItem.className = 'icinfo-item ic-missing-info';
         notFoundItem.innerHTML = `
-            <div>Status:</div>
-            <div class="icinfo-status inactive-status">Not Found</div>
+            <div>IC informacija nerasta jūsų Discord paskyrai.</div>
+            <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti</button>
         `;
-        icStatusContainer.appendChild(notFoundItem);
-        
-        // Add explanation and button to gang details container
-        const explanationItem = document.createElement('div');
-        explanationItem.className = 'icinfo-item ic-missing-info';
-        explanationItem.innerHTML = `
-            <div>No character information found for your Discord account.</div>
-            <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
-        `;
-        gangDetailsContainer.appendChild(explanationItem);
+        icInfoContainer.appendChild(notFoundItem);
         
         // Add event listener to the button
         const fillIcInfoBtn = document.getElementById('fill-ic-info-btn');
@@ -612,20 +601,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateIcInfoTab(icInfo) {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+        const icInfoContainer = document.getElementById('icInfoContainer');
         
-        if (!icStatusContainer || !gangDetailsContainer) return;
+        if (!icInfoContainer) return;
         
-        // Clear loading spinners
-        icStatusContainer.innerHTML = '';
-        gangDetailsContainer.innerHTML = '';
+        // Clear previous content
+        icInfoContainer.innerHTML = '';
         
         // If icInfo is null or undefined, show "not found" message
         if (!icInfo) {
             updateIcInfoTabNotFound();
             return;
         }
+        
+        // Create container for IC information
+        const icStatusContainer = document.createElement('div');
+        icStatusContainer.className = 'ic-status-container';
         
         // Create status section
         const statusItem = document.createElement('div');
@@ -656,26 +647,35 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         icStatusContainer.appendChild(steamNicknameItem);
         
-        // Gang details - Rank
-        const rankItem = document.createElement('div');
-        rankItem.className = 'icinfo-item';
-        rankItem.innerHTML = `
-            <div>Rankas:</div>
-            <div>${icInfo.RANKAS || 'None'}</div>
-        `;
-        gangDetailsContainer.appendChild(rankItem);
+        // Add Steam Link if available
+        if (icInfo["STEAM LINKAS"]) {
+            const steamLinkItem = document.createElement('div');
+            steamLinkItem.className = 'icinfo-item';
+            steamLinkItem.innerHTML = `
+                <div>Steam Nuoroda:</div>
+                <div><a href="${icInfo["STEAM LINKAS"]}" target="_blank" class="steam-link">Atidaryti Steam</a></div>
+            `;
+            icStatusContainer.appendChild(steamLinkItem);
+        }
         
-        // Gang Equipment Information
-        const gangEquipmentSection = document.createElement('div');
-        gangEquipmentSection.className = 'info-section mt-4';
-        gangEquipmentSection.innerHTML = `
-            <h3>Apranga</h3>
-            <div class="icinfo-item">
-                <div>Liemenė:</div>
-                <div class="vest-color-value">156</div>
-            </div>
+        // Add edit button
+        const editButtonContainer = document.createElement('div');
+        editButtonContainer.className = 'icinfo-item mt-4';
+        editButtonContainer.innerHTML = `
+            <button id="edit-ic-info-btn" class="fill-ic-btn">Redaguoti</button>
         `;
-        gangDetailsContainer.appendChild(gangEquipmentSection);
+        icStatusContainer.appendChild(editButtonContainer);
+        
+        // Add the container to the main IC info container
+        icInfoContainer.appendChild(icStatusContainer);
+        
+        // Add event listener to the edit button
+        const editIcInfoBtn = document.getElementById('edit-ic-info-btn');
+        if (editIcInfoBtn) {
+            editIcInfoBtn.addEventListener('click', function() {
+                showICFormPopup(icInfo);
+            });
+        }
         
         // Add Binds Information
         const bindsSection = document.createElement('div');
@@ -693,7 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="copy-icon">📋</span>
             </div>
         `;
-        gangDetailsContainer.appendChild(bindsSection);
+        icInfoContainer.appendChild(bindsSection);
     }
     
     async function loadRecentActivity(discordId) {
@@ -809,9 +809,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function showICFormPopup() {
+    function showICFormPopup(existingData = null) {
         initializeICFormPopup();
-        document.getElementById('ic-form-popup').style.display = 'flex';
+        const popup = document.getElementById('ic-form-popup');
+        
+        // If we have existing data, fill the form
+        if (existingData) {
+            document.getElementById('vardas').value = existingData.VARDAS || '';
+            document.getElementById('pavarde').value = existingData.PAVARDĖ || '';
+            document.getElementById('steam-nick').value = existingData["STEAM NICKAS"] || '';
+            document.getElementById('steam-link').value = existingData["STEAM LINKAS"] || '';
+            
+            // Change submit button text for edit mode
+            document.getElementById('submit-text').textContent = 'Atnaujinti';
+        } else {
+            // Clear form for new submission
+            document.getElementById('vardas').value = '';
+            document.getElementById('pavarde').value = '';
+            document.getElementById('steam-nick').value = '';
+            document.getElementById('steam-link').value = '';
+            
+            // Reset submit button text
+            document.getElementById('submit-text').textContent = 'Pateikti';
+        }
+        
+        popup.style.display = 'flex';
     }
     
     function validateICForm() {
@@ -888,14 +910,40 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         try {
-            // Use proxy API to insert data
-            const response = await fetch(`${API_PROXY_URL}/IC`, {
-                method: 'POST',
+            // Check if record already exists
+            const checkResponse = await fetch(`${API_PROXY_URL}/IC?select=id&DISCORD_ID=eq.${discordId}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                }
             });
+            
+            if (!checkResponse.ok) {
+                throw new Error(`Failed to check existing records: ${checkResponse.status}`);
+            }
+            
+            const existingRecords = await checkResponse.json();
+            let response;
+            
+            if (existingRecords && existingRecords.length > 0) {
+                // Update existing record
+                response = await fetch(`${API_PROXY_URL}/IC?id=eq.${existingRecords[0].id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+            } else {
+                // Insert new record
+                response = await fetch(`${API_PROXY_URL}/IC`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+            }
             
             if (!response.ok) {
                 throw new Error(`Failed to submit form: ${response.status}`);
