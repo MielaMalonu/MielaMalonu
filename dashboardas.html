@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stringDiscordId = String(discordId);
             
             // Fetch IC info using proxy API
-            const response = await fetch(`${API_PROXY_URL}/IC?select=*&ID=eq.${stringDiscordId}`, {
+            const response = await fetch(`${API_PROXY_URL}/IC?select=*&DISCORD_ID=eq.${stringDiscordId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
