@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stringDiscordId = String(discordId);
             
             // Fetch warnings from proxy endpoint
-            const response = await fetch(`${PROXY_API_URL}/warnings`, {
+            const response = await fetch(`${PROXY_API_URL}/Ispejimai`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -567,7 +567,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stringDiscordId = String(discordId);
             
             // Fetch IC info from proxy endpoint
-            const response = await fetch(`${PROXY_API_URL}/ic-info`, {
+            const response = await fetch(`${PROXY_API_URL}/IC`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
