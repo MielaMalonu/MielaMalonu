@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add this function to handle the "not found" case
-   function updateIcInfoTabNotFound() {
+  function updateIcInfoTabNotFound() {
     const icStatusContainer = document.getElementById('icStatusContainer');
     const gangDetailsContainer = document.getElementById('gangDetailsContainer');
     
@@ -595,17 +595,14 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     icStatusContainer.appendChild(notFoundItem);
     
-    // Replace gang details with IC info button and explanation
-    gangDetailsContainer.innerHTML = ''; // Clear any previous content
-    
-    // Add explanation and IC info button instead of gang details
-    const icInfoPrompt = document.createElement('div');
-    icInfoPrompt.className = 'ic-info-prompt';
-    icInfoPrompt.innerHTML = `
-        <p>Neturite IC informacijos. Prašome užpildyti savo personažo duomenis.</p>
+    // Add explanation to gang details container
+    const explanationItem = document.createElement('div');
+    explanationItem.className = 'icinfo-item ic-missing-info';
+    explanationItem.innerHTML = `
+        <div>Neturite IC informacijos. Prašome užpildyti savo personažo duomenis.</div>
         <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
     `;
-    gangDetailsContainer.appendChild(icInfoPrompt);
+    gangDetailsContainer.appendChild(explanationItem);
     
     // Add event listener to the button
     const fillIcInfoBtn = document.getElementById('fill-ic-info-btn');
@@ -617,7 +614,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeICFormPopup();
     setupICFormValidation();
 }
-    
     // Modified updateIcInfoTab function
     function updateIcInfoTab(icInfo) {
         const icStatusContainer = document.getElementById('icStatusContainer');
