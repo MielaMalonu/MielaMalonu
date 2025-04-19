@@ -1054,7 +1054,60 @@
 .join-discord-btn:active {
     transform: translateY(1px);
 }
+/* Discord Tag Styling */
+.display-name {
+  color: #fff;
+  font-weight: 600;
+}
 
+.discord-tag {
+  color: #b9bbbe;
+  font-size: 0.85em;
+  font-weight: 400;
+  margin-left: 2px;
+  opacity: 0.6;
+}
+
+/* User info wrapper - add these styles to wherever you style the username container */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Avatar styling enhancements */
+#userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Status styling for logged in/out states */
+.login-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.logged-in {
+  background-color: rgba(59, 165, 92, 0.1);
+  color: #3ba55c;
+}
+
+.logged-out {
+  background-color: rgba(237, 66, 69, 0.1);
+  color: #ed4245;
+}
+.user-badge {
+    vertical-align: middle;
+    display: inline-block;
+    height: 16px;
+    margin-left: 4px;
+}
 footer {
     text-align: center;
     padding: 18px;
@@ -1115,6 +1168,7 @@ footer:before {
     .rule, .vest-color-value, .bind-box {
         padding: 10px;
     }
+
     
     .discord-server-icon {
         width: 50px;
@@ -1257,7 +1311,7 @@ footer:before {
     
     <div class="rule-section">
         <h3>PVP taisyklės</h3>
-        <div class="rule">2.1 Prieš pradedant kovą su kita gauja, būtina suderinti veiksmus su gaujos vadu ar pavaduotoju</div>
+        <div class="rule">2.1 Prieš pradedant kovą su kita gauja, būtina suderinti veiksmus su gaujos vadu ar pavaduotoju arba kapitonu</div>
         <div class="rule">2.2 Draudžiama šaudyti į sąjungininkus ar neutralius žaidėjus be priežasties.</div>
         <div class="rule">2.3 Racijoj. bei Discorde komomunikuoti suprantamai ir tik reikalinga info.</div>
         <div class="rule">2.4 Kiekvienas gaujos narys privalo dalyvauti organizuotose kovose, nebent turi pagrįstą priežastį nedalyvauti.</div>
@@ -1267,7 +1321,7 @@ footer:before {
     <div class="rule-section">
         <h3>Nuobaudos</h3>
         <div class="rule">3.1 Už taisyklių pažeidimą narys gali būti įspėtas arba pašalintas iš gaujos.</div>
-        <div class="rule">3.2 Už tyčini sabotažą (Trolinama ar kitoki trugdymą) taikomos griežtos nuobaudos, įskaitant pašalinimą iš gaujos be įspėjimo.</div>
+        <div class="rule">3.2 Už tyčini sabotažą (Trolinama ar kitoki trugdymą) taikomos griežtos sankcijos, įskaitant pašalinimą iš gaujos be įspėjimo.</div>
     </div>
     
     <div class="rule-section">
@@ -1276,6 +1330,7 @@ footer:before {
         <div class="rule">4.2 Draudžiama leak'inti bet kokio savo informacija (OOC Vardas, Pavardė, IP, Veidas ir t.t.)</div>
         <div class="rule">4.3 Draudžiama dezinformacija</div>
         <div class="rule">4.4 Draudžiama bet kokia nepagarba discord chatuose</div>
+        <div class="rule">4.5 Būtina užsipildyti <a href="https://mielamalonu.com/ic" target="_blank">⁠『📃』𝗜𝗖-𝗜𝗡𝗙𝗢</a> Kitaip bus nuimtas jobas IC</div>
     </div>
 </div>
             <!-- IC Info Tab -->
@@ -1427,50 +1482,59 @@ function copyBindToClipboard(element, text) {
 // Add this as a window function to be callable from HTML
 window.copyBindToClipboard = copyBindToClipboard;
     async function handleDiscordAuthResponse() {
-        try {
-            // Parse the access token from the URL hash
-            const hash = window.location.hash.substring(1);
-            const params = new URLSearchParams(hash);
-            const accessToken = params.get('access_token');
-            
-            if (!accessToken) {
-                throw new Error('No access token found');
-            }
-            
-            // Fetch user profile from Discord API
-            const discordUser = await fetchDiscordUserProfile(accessToken);
-            
-            if (!discordUser || !discordUser.id) {
-                throw new Error('Failed to get Discord user profile');
-            }
-            
-            // Save user details to localStorage
-            localStorage.setItem('discord_id', discordUser.id);
-            localStorage.setItem('discord_username', discordUser.global_name);
-            
-            // Handle avatar URL
-            const avatarUrl = discordUser.avatar 
-                ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
-                : '/api/placeholder/40/40';
-            localStorage.setItem('discord_avatar', avatarUrl);
-            
-            // Update UI
-            updateUserUI(discordUser.username, avatarUrl);
-            hideLoginScreen();
-            
-            // Load dashboard data using Discord ID
-            loadDashboardData(discordUser.id);
-            logoutBtn.style.display = 'inline-block';
-            
-            // Clean URL after successful auth
-            window.history.replaceState({}, document.title, window.location.pathname);
-            
-        } catch (err) {
-            console.error('Error during Discord authentication:', err);
-            showLoginError('Authentication failed. Please try again.');
-            showLoginScreen();
+    try {
+        // Parse the access token from the URL hash
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const accessToken = params.get('access_token');
+        
+        if (!accessToken) {
+            throw new Error('No access token found');
         }
+        
+        // Fetch user profile from Discord API
+        const discordUser = await fetchDiscordUserProfile(accessToken);
+        
+        if (!discordUser || !discordUser.id) {
+            throw new Error('Failed to get Discord user profile');
+        }
+        
+        // Save user details to localStorage - use global_name (display name) if available
+        localStorage.setItem('discord_id', discordUser.id);
+        localStorage.setItem('discord_username', discordUser.global_name || discordUser.username);
+
+        // Store guild tag if available, but not badge
+        if (discordUser.primary_guild && discordUser.primary_guild.tag) {
+            localStorage.setItem('discord_guild_tag', discordUser.primary_guild.tag);
+        } else {
+            localStorage.setItem('discord_guild_tag', discordUser.discriminator || '0000');
+        }
+        
+        // Handle avatar URL
+        const avatarUrl = discordUser.avatar 
+            ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
+            : '/api/placeholder/40/40';
+        localStorage.setItem('discord_avatar', avatarUrl);
+        
+        // Update UI with display name if available
+        updateUserUI(discordUser.global_name || discordUser.username, avatarUrl);
+        hideLoginScreen();
+        
+        // Load dashboard data using Discord ID
+        loadDashboardData(discordUser.id);
+        logoutBtn.style.display = 'inline-block';
+        
+        // Clean URL after successful auth
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+    } catch (err) {
+        console.error('Error during Discord authentication:', err);
+        showLoginError('Authentication failed. Please try again.');
+        showLoginScreen();
     }
+}
+            
+      
     
     async function fetchDiscordUserProfile(accessToken) {
         try {
@@ -1491,11 +1555,24 @@ window.copyBindToClipboard = copyBindToClipboard;
         }
     }
     
-    function updateUserUI(username, avatarUrl) {
+ function updateUserUI(username, avatarUrl) {
+    // Get the guild tag from localStorage
+    const guildTag = localStorage.getItem('discord_guild_tag');
+    
+    // Update display name
+    if (guildTag) {
+        // Format with Discord-style tag
+        userName.innerHTML = `
+            <span class="display-name">${username || 'User'}</span>
+            <span class="discord-tag">#${guildTag}</span>
+        `;
+    } else {
         userName.textContent = username || 'User';
-        userAvatar.src = avatarUrl || '/api/placeholder/40/40';
     }
     
+    // Update user avatar
+    userAvatar.src = avatarUrl || '/api/placeholder/40/40';
+} 
     // ===== UI FUNCTIONS =====
     
     function switchTab(selectedButton) {
@@ -1759,7 +1836,7 @@ window.copyBindToClipboard = copyBindToClipboard;
         notFoundItem.className = 'icinfo-item';
         notFoundItem.innerHTML = `
             <div>Status:</div>
-            <div class="icinfo-status inactive-status">NERASTA</div>
+            <div class="icinfo-status inactive-status">Not Found</div>
         `;
         icStatusContainer.appendChild(notFoundItem);
         
@@ -1767,7 +1844,7 @@ window.copyBindToClipboard = copyBindToClipboard;
         const explanationItem = document.createElement('div');
         explanationItem.className = 'icinfo-item';
         explanationItem.innerHTML = `
-            <div>IC Info su jūsų Discord ID nerasta</div>
+            <div>No character information found for your Discord account.</div>
         `;
         gangDetailsContainer.appendChild(explanationItem);
     }
@@ -2158,18 +2235,20 @@ function loadDashboardData(discordId) {
 window.copyToClipboard = copyToClipboard;
 // ===== LOGOUT FUNCTION =====
     
-    function logoutUser() {
-        // Clear stored Discord data
-        localStorage.removeItem('discord_id');
-        localStorage.removeItem('discord_username');
-        localStorage.removeItem('discord_avatar');
-        
-        // Reset UI
-        userName.textContent = 'Neprisijungta';
-        userAvatar.src = '/api/placeholder/40/40';
-        logoutBtn.style.display = 'none';
-        showLoginScreen();
-    }
+ function logoutUser() {
+    // Clear stored Discord data
+    localStorage.removeItem('discord_id');
+    localStorage.removeItem('discord_username');
+    localStorage.removeItem('discord_avatar');
+    localStorage.removeItem('discord_guild_tag');
+    
+    // Reset UI
+    userName.textContent = 'Neprisijungta';
+    userAvatar.src = '/api/placeholder/40/40';
+    logoutBtn.style.display = 'none';
+    
+    showLoginScreen();
+}
     
     // Setup link handling for links tab
   
