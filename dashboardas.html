@@ -1054,27 +1054,73 @@
 .join-discord-btn:active {
     transform: translateY(1px);
 }
-/* Discord Tag Styling */
-.display-name {
-  color: #fff;
-  font-weight: 600;
-}
-
-.discord-tag {
-  color: #b9bbbe;
-  font-size: 0.85em;
-  font-weight: 400;
-  margin-left: 2px;
-  opacity: 0.6;
-}
-
-/* User info wrapper - add these styles to wherever you style the username container */
-.user-info {
+/* Align username with badge */
+.user-badge {
   display: flex;
   align-items: center;
-  gap: 8px;
+  height: 20px; /* Adjust based on your specific height */
 }
 
+.badge-icon {
+  vertical-align: middle;
+}
+
+.badge-text {
+  vertical-align: middle;
+  line-height: 20px; /* Match the height of the badge container */
+}
+
+.username-text {
+  vertical-align: middle;
+  line-height: 20px; /* Match the height of other elements */
+  display: inline-block;
+  margin-left: 4px; /* Add a small space between the badge and username */
+}
+.primary-user-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 0 8px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.badge-icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.badge-text {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+  line-height: 24px;
+}
+
+.username-text {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Container to ensure everything aligns properly */
+.user-container {
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+/* Ensure entire username component is aligned */
+.display-name, .discord-tag {
+  line-height: 20px;
+  vertical-align: middle;
+}
 /* Avatar styling enhancements */
 #userAvatar {
   width: 32px;
@@ -1330,7 +1376,7 @@ footer:before {
         <div class="rule">4.2 Draudžiama leak'inti bet kokio savo informacija (OOC Vardas, Pavardė, IP, Veidas ir t.t.)</div>
         <div class="rule">4.3 Draudžiama dezinformacija</div>
         <div class="rule">4.4 Draudžiama bet kokia nepagarba discord chatuose</div>
-        <div class="rule">4.5 Būtina užsipildyti <a href="https://mielamalonu.com/ic" target="_blank">⁠『📃』𝗜𝗖-𝗜𝗡𝗙𝗢</a> Kitaip bus nuimtas jobas IC</div>
+        
     </div>
 </div>
             <!-- IC Info Tab -->
@@ -1504,11 +1550,13 @@ window.copyBindToClipboard = copyBindToClipboard;
         localStorage.setItem('discord_username', discordUser.global_name || discordUser.username);
 
         // Store guild tag if available, but not badge
-        if (discordUser.primary_guild && discordUser.primary_guild.tag) {
-            localStorage.setItem('discord_guild_tag', discordUser.primary_guild.tag);
-        } else {
-            localStorage.setItem('discord_guild_tag', discordUser.discriminator || '0000');
-        }
+       // Inside your handleDiscordAuthResponse function, after fetching the Discord profile:
+if (discordUser.primary_guild) {
+    localStorage.setItem('discord_server_id', discordUser.primary_guild.identity_guild_id);
+    localStorage.setItem('discord_badge_hash', discordUser.primary_guild.badge);
+    localStorage.setItem('discord_guild_tag', discordUser.primary_guild.tag);;
+      
+}
         
         // Handle avatar URL
         const avatarUrl = discordUser.avatar 
@@ -1555,24 +1603,44 @@ window.copyBindToClipboard = copyBindToClipboard;
         }
     }
     
- function updateUserUI(username, avatarUrl) {
+function updateUserUI(username, avatarUrl) {
     // Get the guild tag from localStorage
     const guildTag = localStorage.getItem('discord_guild_tag');
     
-    // Update display name
-    if (guildTag) {
-        // Format with Discord-style tag
-        userName.innerHTML = `
-            <span class="display-name">${username || 'User'}</span>
-            <span class="discord-tag">#${guildTag}</span>
-        `;
+    // Get Discord server ID and clan badge hash (you need to store these values)
+    // This would come from your Discord API response
+    const serverID = localStorage.getItem('discord_server_id'); // You need to save this when fetching user data
+    const badgeHash = localStorage.getItem('discord_badge_hash'); // You need to save this when fetching user data
+    
+    // Update display name with badge
+    if (serverID && badgeHash) {
+    // Create badge with clan icon with tag first, then username
+    userName.innerHTML = `
+<div class="user-container">
+        <span class="primary-user-badge">
+            <img class="badge-icon" src="https://cdn.discordapp.com/clan-badges/${serverID}/${badgeHash}.png?size=16" 
+                 onerror="this.onerror=null; this.src='/api/placeholder/16/16';" alt="badge">
+            
+            <span class="badge-text">${guildTag ? `#${guildTag}` : 'Tag'}</span>
+        </span>
+        <span class="username-text">${username || 'User'}</span>
+    `;
+
     } else {
-        userName.textContent = username || 'User';
+        // No badge available, show just the username
+        if (guildTag) {
+            userName.innerHTML = `
+                <span class="display-name">${username || 'User'}</span>
+        
+            `;
+        } else {
+            userName.textContent = username || 'User';
+        }
     }
     
     // Update user avatar
     userAvatar.src = avatarUrl || '/api/placeholder/40/40';
-} 
+}
     // ===== UI FUNCTIONS =====
     
     function switchTab(selectedButton) {
