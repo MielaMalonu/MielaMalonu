@@ -13,11 +13,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         },
         ALLOWED_ADMIN_IDS: [
             "959449311366766622", // Replace with actual admin Discord IDs
+            "792403641519964160",
             "495602170507296778",
-            "1041400598450413688",
-            "898196277534261258",
-            "898196277534261258",
-            "640523849250766868",
+         
+
         ],
         AUTH_KEY: "miela_malonu_auth"  // Key for local storage
     };
