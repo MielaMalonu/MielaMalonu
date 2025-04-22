@@ -516,7 +516,7 @@ async function addToBlacklist() {
                     headers: {
                         "apikey": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
+                     
                     },
                     body: JSON.stringify({ blacklist })
                 });
@@ -559,7 +559,7 @@ async function removeFromBlacklist() {
                     headers: {
                         "apikey": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
+                    
                     },
                     body: JSON.stringify({ blacklist })
                 });
@@ -645,7 +645,7 @@ async function removeFromBlacklist() {
                 headers: {
                     "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json",
-                    "Prefer": "return=minimal"
+                    
                 },
                 body: JSON.stringify({ statusas: idStatus })
             });
@@ -687,7 +687,7 @@ async function removeFromBlacklist() {
                 headers: {
                     "apikey": CONFIG.SUPABASE.API_KEY,
                     "Content-Type": "application/json",
-                    "Prefer": "return=minimal"
+                   
                 },
                 body: JSON.stringify({ status: isOnline }) // Now sending "online" or "offline"
             });
@@ -1027,7 +1027,7 @@ async function clearEventIds() {
                     headers: {
                         "apikey": CONFIG.SUPABASE.API_KEY,
                         "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
+                       
                     },
                     body: JSON.stringify({ IDs: [] })
                 });
