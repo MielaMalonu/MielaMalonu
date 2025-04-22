@@ -813,11 +813,10 @@ async function handleWarningButton() {
             };
             
             try {
-                const response = await fetch(`${CONFIG.SUPABASE.URL}/Ispejimai`, {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}Ispejimai`, {
                     method: "POST",
                     headers: {
-                        "apikey": CONFIG.SUPABASE.API_KEY,
-                        "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
+                     
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(warningData)
