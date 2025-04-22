@@ -819,7 +819,6 @@ async function handleWarningButton() {
                         "apikey": CONFIG.SUPABASE.API_KEY,
                         "Authorization": `Bearer ${CONFIG.SUPABASE.API_KEY}`,
                         "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
                     },
                     body: JSON.stringify(warningData)
                 });
