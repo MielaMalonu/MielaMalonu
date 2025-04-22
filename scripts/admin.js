@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    console.log("✅ Admin panel loaded!");
+    console.log("✅ Admin panel loaded");
 
     const CONFIG = {
         SUPABASE: {
