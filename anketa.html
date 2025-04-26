@@ -361,21 +361,37 @@ async function fetchStatus() {
         }
         
         const statusData = await response.json();
+        console.log("Status data received:", statusData);
         
         // Force status to be "online" or "offline" only
-        let currentStatus = statusData.status;
-        // Default to offline if status is missing or invalid
+        let currentStatus = statusData.status || "offline"; // Default to offline if missing
         if (currentStatus !== "online" && currentStatus !== "offline") {
-            currentStatus = "offline"; 
+            currentStatus = "offline"; // Default to offline if invalid value
         }
         
-        // Rest of the function...
+        // Fetch blacklist from proxy API
+        const blacklistResponse = await fetch(CONFIG.API.BLACKLIST_ENDPOINT);
+        
+        if (!blacklistResponse.ok) {
+            throw new Error("Failed to fetch blacklist from proxy");
+        }
+        
+        const blacklistData = await blacklistResponse.json();
+        
+        // Process blacklist data
+        let blacklistedIds = blacklistData.blacklistedIds || '';
+        
+        // Update application state
+        updateApplicationState({
+            status: currentStatus,
+            blacklist: blacklistedIds
+        });
     } catch (error) {
         console.error("❌ Status fetch error:", error);
         // Default to offline in case of error
         updateApplicationState({
             status: "offline",
-            blacklist: state.blacklist
+            blacklist: state.blacklist || ''
         });
         showNotification("error", "Nepavyko gauti aplikacijos statuso. Bandykite vėliau.");
     }
