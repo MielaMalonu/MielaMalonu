@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         },
         ALLOWED_ADMIN_IDS: [
             "959449311366766622", // Replace with actual admin Discord IDs
-            "792403641519964160",
             "495602170507296778",
+            "1365306133212037213",
          
 
         ],
