@@ -363,23 +363,15 @@ async function fetchStatus() {
         const statusData = await response.json();
         console.log("Status data received:", statusData);
         
-        // Check how the status is actually structured in the response
+        // Handle array response format - NEW CODE HERE
         let currentStatus = "offline"; // Default to offline
         
-        // Try different possibilities for how status might be structured
-        if (typeof statusData === 'string') {
-            // If the API returns just a string
-            currentStatus = statusData.toLowerCase() === 'online' ? 'online' : 'offline';
-        } else if (statusData && typeof statusData === 'object') {
-            // If API returns an object, check common property names
-            if (statusData.status !== undefined) {
-                currentStatus = statusData.status.toLowerCase() === 'online' ? 'online' : 'offline';
-            } else if (statusData.applicationStatus !== undefined) {
-                currentStatus = statusData.applicationStatus.toLowerCase() === 'online' ? 'online' : 'offline';
-            } else if (statusData.data !== undefined && statusData.data.status !== undefined) {
-                currentStatus = statusData.data.status.toLowerCase() === 'online' ? 'online' : 'offline';
+        if (Array.isArray(statusData) && statusData.length > 0) {
+            // Access the first item in the array
+            const statusObject = statusData[0];
+            if (statusObject && statusObject.status) {
+                currentStatus = statusObject.status.toLowerCase() === 'online' ? 'online' : 'offline';
             }
-            // Add more possibilities based on your API structure
         }
         
         // Fetch blacklist from proxy API
