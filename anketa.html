@@ -351,7 +351,35 @@ document.addEventListener("DOMContentLoaded", async function () {
     // ======================
     // CORE FUNCTIONS - MODIFIED TO USE PROXY
     // ======================
-
+async function fetchStatus() {
+    try {
+        // Fetch application status from proxy API
+        const response = await fetch(CONFIG.API.STATUS_ENDPOINT);
+        
+        if (!response.ok) {
+            throw new Error("Failed to fetch status from proxy");
+        }
+        
+        const statusData = await response.json();
+        
+        // Force status to be "online" or "offline" only
+        let currentStatus = statusData.status;
+        // Default to offline if status is missing or invalid
+        if (currentStatus !== "online" && currentStatus !== "offline") {
+            currentStatus = "offline"; 
+        }
+        
+        // Rest of the function...
+    } catch (error) {
+        console.error("❌ Status fetch error:", error);
+        // Default to offline in case of error
+        updateApplicationState({
+            status: "offline",
+            blacklist: state.blacklist
+        });
+        showNotification("error", "Nepavyko gauti aplikacijos statuso. Bandykite vėliau.");
+    }
+}
    
 
     function updateApplicationState(data) {
