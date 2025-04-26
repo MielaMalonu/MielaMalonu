@@ -352,45 +352,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // CORE FUNCTIONS - MODIFIED TO USE PROXY
     // ======================
 
-    async function fetchStatus() {
-        try {
-            // Fetch application status from proxy API
-            const response = await fetch(CONFIG.API.STATUS_ENDPOINT);
-            
-            if (!response.ok) {
-                throw new Error("Failed to fetch status from proxy");
-            }
-            
-            const statusData = await response.json();
-            
-            // Force status to be "online" or "offline" only
-            let currentStatus = statusData.status || "online";
-            if (currentStatus !== "online" && currentStatus !== "offline") {
-                currentStatus = "online"; // Default to online if invalid value
-            }
-            
-            // Fetch blacklist from proxy API
-            const blacklistResponse = await fetch(CONFIG.API.BLACKLIST_ENDPOINT);
-            
-            if (!blacklistResponse.ok) {
-                throw new Error("Failed to fetch blacklist from proxy");
-            }
-            
-            const blacklistData = await blacklistResponse.json();
-            
-            // Process blacklist data
-            let blacklistedIds = blacklistData.blacklistedIds || '';
-            
-            // Update application state
-            updateApplicationState({
-                status: currentStatus,
-                blacklist: blacklistedIds
-            });
-        } catch (error) {
-            console.error("❌ Status fetch error:", error);
-            showNotification("error", "Nepavyko gauti aplikacijos statuso. Bandykite vėliau.");
-        }
-    }
+   
 
     function updateApplicationState(data) {
         const newBlacklist = data.blacklist || '';
