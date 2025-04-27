@@ -1,11 +1,12 @@
 /* General Styles */
 body {
     font-family: 'Poppins', Arial, sans-serif;
-    background: rgba(0, 0, 0, 0.8) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+    background: rgba(0, 0, 0, 0.9) url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-blend-mode: overlay;
     color: white;
     margin: 0;
     padding: 20px;
@@ -29,7 +30,7 @@ body {
 
 /* Glassmorphism Containers */
 .container, .rules-container, .data-container {
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(15px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 35px;
@@ -44,7 +45,7 @@ body {
 
 .container:hover, .rules-container:hover, .data-container:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 15px 35px rgba(200, 0, 0, 0.2);
 }
 
 /* Application Form Container */
@@ -76,11 +77,11 @@ body {
 /* Heading styles */
 h1, h2 {
     margin: 10px 0;
-    background: linear-gradient(to right, #777777, #aaaaaa);
+    background: linear-gradient(to right, #ff3333, #ff6666);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 0 10px rgba(150, 150, 150, 0.3);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
 h1 {
@@ -99,7 +100,7 @@ h2:after {
     position: absolute;
     width: 60%;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #555555, transparent);
+    background: linear-gradient(90deg, transparent, #ff3333, transparent);
     bottom: -8px;
     left: 20%;
 }
@@ -125,13 +126,13 @@ textarea {
 
 input:focus, textarea:focus, select:focus {
     background: rgba(15, 15, 15, 0.9);
-    border-color: #444444;
-    box-shadow: 0 0 15px rgba(50, 50, 50, 0.6);
+    border-color: #ff3333;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 /* Button Styles */
-button {
-    background: linear-gradient(135deg, #222222, #444444);
+button, .nav-button {
+    background: linear-gradient(135deg, #990000, #ff3333);
     color: white;
     padding: 14px;
     border: none;
@@ -142,12 +143,12 @@ button {
     transition: all 0.3s ease-in-out;
     width: 100%;
     margin-top: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
 }
 
-button:hover {
-    background: linear-gradient(135deg, #444444, #222222);
-    box-shadow: 0 0 20px rgba(50, 50, 50, 0.7);
+button:hover, .nav-button:hover {
+    background: linear-gradient(135deg, #ff3333, #cc0000);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
     transform: translateY(-3px) scale(1.03);
 }
 
@@ -165,15 +166,15 @@ button:hover {
     background: rgba(0, 0, 0, 0.85);
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+    border: 1px solid rgba(255, 0, 0, 0.2);
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .admin-panel:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.3);
 }
 
 .admin-panel h2 {
@@ -187,11 +188,11 @@ button:hover {
     padding: 12px;
     font-size: 16px;
     margin: 5px 0;
-    background: linear-gradient(135deg, #222222, #444444);
+    background: linear-gradient(135deg, #990000, #ff3333);
 }
 
 .admin-panel button:hover {
-    background: linear-gradient(135deg, #444444, #222222);
+    background: linear-gradient(135deg, #ff3333, #cc0000);
 }
 
 /* Status Display */
@@ -210,11 +211,13 @@ button:hover {
 .status-online {
     background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
     color: #00ff00;
+    border-left: 3px solid #00ff00;
 }
 
 .status-offline {
     background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
-    color: #ff4545;
+    color: #ff3333;
+    border-left: 3px solid #ff3333;
 }
 
 /* Table styling */
@@ -243,7 +246,7 @@ th, td {
 }
 
 th {
-    background: rgba(20, 20, 20, 0.8);
+    background: rgba(100, 0, 0, 0.6);
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -256,7 +259,7 @@ tr:last-child td {
 }
 
 tr:hover td {
-    background: rgba(40, 40, 40, 0.3);
+    background: rgba(100, 0, 0, 0.2);
 }
 
 td {
@@ -275,19 +278,19 @@ td {
     width: 100%;
     padding: 15px 20px;
     font-size: 16px;
-    border: 1px solid rgba(70, 70, 70, 0.5);
+    border: 1px solid rgba(255, 0, 0, 0.3);
     border-radius: 30px;
     text-align: center;
     outline: none;
     transition: 0.3s ease-in-out;
     background: rgba(10, 10, 10, 0.7);
     color: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.1);
 }
 
 #searchInput:focus {
-    border-color: #444444;
-    box-shadow: 0 0 20px rgba(50, 50, 50, 0.6);
+    border-color: #ff3333;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
     background: rgba(15, 15, 15, 0.8);
 }
 
@@ -296,14 +299,14 @@ td {
 }
 
 a {
-    color: #aaaaaa;
+    color: #ff6666;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
 }
 
 a:hover {
-    color: #ffffff;
+    color: #ff3333;
     text-decoration: underline;
 }
 
@@ -315,11 +318,11 @@ a:hover {
 
 .copy-text:hover {
     text-decoration: underline;
-    color: #aaaaaa;
+    color: #ff6666;
 }
 
 .copy-flash {
-    color: #aaaaaa;
+    color: #ff3333;
     font-weight: bold;
 }
 
@@ -345,14 +348,14 @@ a:hover {
     color: white;
     margin-bottom: 20px;
     font-size: 24px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
 .auth-overlay input {
     width: 250px;
     padding: 15px;
     margin-bottom: 20px;
-    border: 1px solid rgba(70, 70, 70, 0.5);
+    border: 1px solid rgba(255, 0, 0, 0.3);
     border-radius: 30px;
     background: rgba(10, 10, 10, 0.8);
     color: white;
@@ -360,13 +363,13 @@ a:hover {
     text-align: center;
     outline: none;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
 }
 
 .auth-overlay input:focus {
-    box-shadow: 0 0 20px rgba(50, 50, 50, 0.6);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
     background: rgba(15, 15, 15, 0.9);
-    border-color: #444444;
+    border-color: #ff3333;
 }
 
 .auth-overlay button {
@@ -374,7 +377,7 @@ a:hover {
     padding: 15px;
     border: none;
     border-radius: 30px;
-    background: linear-gradient(135deg, #222222, #444444);
+    background: linear-gradient(135deg, #990000, #ff3333);
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -383,15 +386,15 @@ a:hover {
 }
 
 .auth-overlay button:hover {
-    background: linear-gradient(135deg, #444444, #222222);
-    box-shadow: 0 0 20px rgba(50, 50, 50, 0.7);
+    background: linear-gradient(135deg, #ff3333, #cc0000);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
     transform: translateY(-3px) scale(1.03);
 }
 
 .password-error {
     animation: shake 0.5s;
-    border: 1px solid #ff4545 !important;
-    box-shadow: 0 0 15px rgba(255, 69, 69, 0.6) !important;
+    border: 1px solid #ff3333 !important;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;
 }
 
 @keyframes shake {
@@ -400,195 +403,56 @@ a:hover {
     20%, 40%, 60%, 80% { transform: translateX(10px); }
 }
 
-/* Discord Profile Elements */
-.discord-auth-container {
-    margin-bottom: 20px;
-}
-
-#discord-login {
-    background: linear-gradient(135deg, #222222, #333333);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 8px;
+/* Logo glow effect */
+.logo {
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
 }
 
-#discord-login:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(50, 50, 50, 0.4);
+.logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
 }
 
-/* Profile Container - Discord Rich Presence Style */
-#profile-container {
+/* Navigation buttons */
+.nav-buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    margin: 20px auto;
-    padding: 20px;
-    width: 280px;
-    background: linear-gradient(145deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 15, 15, 0.9) 100%);
-    border-radius: 15px;
-    border: 1px solid rgba(50, 50, 50, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(12px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-#profile-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-}
-
-/* Status Animation */
-@keyframes status-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(59, 165, 92, 0.4); }
-    70% { box-shadow: 0 0 0 6px rgba(59, 165, 92, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(59, 165, 92, 0); }
-}
-
-/* Avatar with Status Indicator */
-#profile-container .avatar-wrapper {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin-bottom: 8px;
-}
-
-#profile-container img {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px auto;
     width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid #444444;
-    transition: transform 0.3s ease;
 }
 
-#profile-container:hover img {
-    transform: rotate(-5deg) scale(1.05);
-}
-
-/* Status Dot */
-#profile-container .status-dot {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 3px solid #000000;
-    background: #3ba55c;
-    animation: status-pulse 2s infinite;
-}
-
-/* User Info Section */
-#profile-container .user-info {
+.nav-button {
+    background: linear-gradient(135deg, #990000, #ff3333);
+    color: white;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
     text-align: center;
-    width: 100%;
-}
-
-#profile-container .username {
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#profile-container .activity {
-    color: #b9bbbe;
-    font-size: 12px;
-    font-weight: 400;
-    margin: 0;
+    min-width: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
 }
 
-/* Logout Button */
-#profile-container button {
-    background: linear-gradient(135deg, #333333, #222222);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
+.nav-button:hover {
+    background: linear-gradient(135deg, #ff3333, #cc0000);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.5);
 }
 
-#profile-container button:hover {
-    background: linear-gradient(135deg, #444444, #333333);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .container, .rules-container, .data-container {
-        width: 95%;
-        max-width: 600px;
-        padding: 25px 15px;
-    }
-
-    .admin-panel {
-        position: static;
-        width: 100%;
-        max-width: 400px;
-        margin: 20px auto;
-    }
-
-    .admin-panel button {
-        width: 100%;
-    }
-    
-    th, td {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container, .data-container {
-        padding: 15px;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
-    
-    #searchInput {
-        padding: 12px;
-        font-size: 14px;
-    }
-}
-
-/* Warning Button Styling - Updated to be round */
+/* Warning Button Styling */
 .warning-button {
-    background-color: #ff9800;
+    background-color: #ff3333;
     color: white;
     border: none;
     border-radius: 50%;
@@ -601,23 +465,18 @@ a:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
 .warning-button:hover {
-    background-color: #e65100;
+    background-color: #cc0000;
     transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
 }
 
-
-.warning-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* View Warnings Button - Updated to match warning button style */
+/* View Warnings Button */
 .view-warnings-button {
-   
-    background-color: #ff9800;
+    background-color: #ff3333;
     color: white;
     border: none;
     border-radius: 50%;
@@ -630,103 +489,93 @@ a:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
+    margin-left: 5px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
-
-.warning-button:hover {
-    background-color: #e65100;
-    transform: scale(1.1);
-}
-
 
 .view-warnings-button:hover {
+    background-color: #cc0000;
     transform: scale(1.1);
-    background: linear-gradient(135deg, #666666, #444444);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
 }
 
-/* Container that JS might be creating or appending to */
+/* Warning container */
 .warning-buttons-wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 5px;
-}
-/* Notification animations */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Popup animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-    from { transform: scale(0.9); }
-    to { transform: scale(1); }
-}
-
-/* Copy effect styles */
-.copy-flash {
-    animation: flashEffect 0.5s;
-}
-
-@keyframes flashEffect {
-    0% { background-color: transparent; }
-    50% { background-color: rgba(79, 146, 255, 0.3); }
-    100% { background-color: transparent; }
+    gap: 8px;
 }
 
 /* Event ID tags */
 .event-id-tag {
     display: inline-block;
-    background: linear-gradient(135deg, #333, #555);
+    background: linear-gradient(135deg, #990000, #ff3333);
     color: white;
     padding: 8px 12px;
     border-radius: 6px;
     margin: 5px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     font-size: 14px;
+    box-shadow: 0 3px 10px rgba(255, 0, 0, 0.2);
 }
 
 .event-id-tag:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+    background: linear-gradient(135deg, #ff3333, #cc0000);
 }
 
-/* Status indicators */
-.status-online {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
+/* Warnings styles */
+.warnings-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px 5px;
+}
+
+.warning-count {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ff3333;
+}
+
+.no-warnings {
+    text-align: center;
+    color: #4caf50;
     font-weight: bold;
 }
 
-.status-offline {
-    background: linear-gradient(135deg, #F44336, #C62828);
-    color: white;
-    padding: 10px 15px;
+.warning-item {
+    background: rgba(30, 30, 30, 0.7);
     border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid #ff3333;
+}
+
+.warning-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.warning-number {
     font-weight: bold;
+    color: #ff3333;
 }
 
-/* Button hover effects */
-button:not(.popup-close):hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
+.warning-date {
+    color: #aaa;
 }
 
-/* Popup Container */
+.warning-reason {
+    color: #fff;
+    line-height: 1.4;
+}
+
+/* Popup styling */
 .popup-container {
     position: fixed;
     top: 0;
@@ -749,13 +598,12 @@ button:not(.popup-close):hover {
     visibility: visible;
 }
 
-/* Popup Content */
 .popup {
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(15px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.3);
     border-radius: 20px;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(255, 0, 0, 0.2);
     width: 90%;
     max-width: 500px;
     padding: 30px;
@@ -767,245 +615,76 @@ button:not(.popup-close):hover {
     opacity: 0;
 }
 
-.popup.active {
-    transform: scale(1);
-    opacity: 1;
-}
-
-/* Popup Header */
-.popup-header {
-    margin-bottom: 20px;
-}
-
-.popup-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    background: linear-gradient(to right, #777777, #aaaaaa);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 10px rgba(150, 150, 150, 0.3);
-}
-
-/* Popup Content */
-.popup-content {
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
-
-/* Popup Close Button */
-.popup-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(135deg, #333333, #222222);
+/* Action button */
+.action-button {
+    background: linear-gradient(135deg, #990000, #ff3333);
     color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.popup-close:hover {
-    background: linear-gradient(135deg, #444444, #333333);
-    transform: rotate(90deg);
-}
-
-/* Popup Action Buttons */
-.popup-actions {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.popup-actions button {
-    background: linear-gradient(135deg, #222222, #444444);
-    color: white;
-    padding: 12px 20px;
+    padding: 12px 24px;
     border: none;
     border-radius: 50px;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
     transition: all 0.3s ease;
-    width: auto;
-    min-width: 120px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
 }
 
-.popup-actions button:hover {
-    background: linear-gradient(135deg, #444444, #222222);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+.action-button:hover {
+    background: linear-gradient(135deg, #ff3333, #cc0000);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
 }
 
-.popup-actions button.confirm {
-    background: linear-gradient(135deg, #333333, #555555);
-}
-
-.popup-actions button.cancel {
-    background: linear-gradient(135deg, #222222, #333333);
-}
-
-/* Notification Popup */
-.notification {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    border: 1px solid rgba(50, 50, 50, 0.3);
-    padding: 15px 20px;
-    color: white;
-    z-index: 2000;
-    animation: slideIn 0.3s forwards;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    max-width: 350px;
-}
-
-.notification.success {
-    border-left: 4px solid #43A047;
-}
-
-.notification.error {
-    border-left: 4px solid #E53935;
-}
-
-.notification.warning {
-    border-left: 4px solid #FB8C00;
-}
-
-.notification.info {
-    border-left: 4px solid #039BE5;
-}
-
-/* Make popups responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .popup {
-        width: 90%;
-        padding: 25px 20px;
+    .main-container {
+        flex-direction: column;
+        align-items: center;
     }
     
-    .notification {
-        bottom: 20px;
-        right: 20px;
-        left: 20px;
-        max-width: none;
+    .container, .rules-container, .data-container {
+        width: 95%;
+        max-width: 600px;
+        padding: 25px 15px;
+    }
+
+    .admin-panel {
+        position: static;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+    
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .nav-button {
+        width: 100%;
+        min-width: unset;
     }
 }
-.warnings-list {
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 10px 5px;
-}
 
-.warning-count {
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #f4ff00;
-}
-
-.no-warnings {
-    text-align: center;
-    color: #4caf50;
-    font-weight: bold;
-}
-
-.warning-item {
-    background: rgba(30, 30, 30, 0.7);
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-left: 4px solid #524f4c;
-}
-
-.warning-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.9em;
-}
-
-.warning-number {
-    font-weight: bold;
-    color: #ff9800;
-}
-
-.warning-date {
-    color: #aaa;
-}
-
-.warning-reason {
-    color: #fff;
-    line-height: 1.4;
-}
-
-
-/* If you need to specifically target warning text in popups */
-.popup .warning-text,
-.popup .warning-reason {
-    color: #ffffff;
-    font-weight: bold;
-}
-/* Increase gap between warning buttons */
-.warning-button, .view-warnings-button {
-    margin: 0 5px; /* Increased from 5px to 10px */
-   margin-left: 8px;
-}
-
-/* If they're stacked vertically and you want more vertical spacing */
-.warning-button {
-  margin-left: 5px;
-    margin-bottom: 15px; /* Add bottom margin for vertical stacking */
-}
-
-/* If they're in a container with flex display */
-.warning-buttons-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Increased gap between flex items */
- gap: 8px;
-}
-
-/* If they're adjacent siblings without a container */
-.warning-button + .view-warnings-button,
-.view-warnings-button + .warning-button {
- position: relative;
-    right: 5px; /* Pull it slightly to the left */
-    margin-left: 15px; /* Increased from 5px to 15px */
-}
-/* Reset any existing margins or positions */
-.warning-button, .view-warnings-button {
-    margin: 0;
-}
-
-/* Set the view warnings button position explicitly */
-.view-warnings-button {
-    position: relative;
-    right: 10px; /* Adjust this value as needed to move it left */
-    /* or */
-    margin: 5px;
-    margin-left: -10px; /* Negative margin to pull it leftward */
-}
-
-/* Alternative approach using transform */
-.view-warnings-button {
-    transform: translateX(-10px); /* Move it 10px to the left */
-}
-
-/* If the buttons are in a table cell */
-td .view-warnings-button {
-    position: absolute;
-    margin-left: 40px; /* Adjust this to position exactly where needed */
+@media (max-width: 480px) {
+    .container, .data-container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    #searchInput {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .nav-buttons {
+        flex-direction: column;
+    }
 }
