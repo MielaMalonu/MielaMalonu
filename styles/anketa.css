@@ -1017,15 +1017,6 @@ button:disabled {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-.glow {
-    animation: bannerGlow 6s infinite;
-}
-
-@keyframes bannerGlow {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
-    100% { filter: brightness(1); }
-}
 
 .hover-glow:hover {
     filter: brightness(1.1);
