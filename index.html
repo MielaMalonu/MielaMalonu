@@ -4,16 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/gif" href="https://i.imgur.com/amma0ov.gif">
-<link rel="stylesheet" href="styles/main.css">
-
-<meta name="description" content="Miela Malonu Gauja NORDRP.LT Serveryje">
+    <meta name="description" content="Miela Malonu Gauja NORDRP.LT Serveryje">
     <title>Miela Malonu</title>
 </head>
 <body>
+    <div class="background-container"></div>
+    <div class="background-overlay"></div>
+
     <div class="main-container">
-        <!-- Discord Invite - Positioned at top right -->
-        <div class="discord-invite">
+        <!-- Hero Section -->
+        <div class="hero-section fade-in">
+            <div class="logo-container">
+                <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="Miela Malonu Logo" class="logo">
+                <div class="logo-glow"></div>
+            </div>
+            
+            <div class="title-container">
+                <h1>Miela Malonu</h1>
+                <div class="title-shadow">Miela Malonu</div>
+            </div>
+            
+            <p class="hero-description">Sveiki atvykę į oficialų Miela Malonu puslapį</p>
+        </div>
+
+        <!-- Discord Invite - Positioned at top right on desktop -->
+        <div class="discord-invite fade-in">
             <div class="invite-banner">
                 <img id="serverBanner" src="https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096" alt="Server Banner">
             </div>
@@ -27,132 +44,228 @@
             </div>
         </div>
         
-        <div class="container">
-            <img src="https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024" alt="Miela Malonu Logo" class="logo">
-            <h1>Miela Malonu</h1>
-            <p>Sveiki atvykę į oficialų Miela Malonu puslapį</p>
-            
+        <div class="container fade-in">            
             <div class="nav-buttons">
                 <a href="https://mielamalonu.com/anketa" class="nav-button">
                     <span class="nav-button-icon"><i class="fas fa-clipboard-list"></i></span>Aplikacija
                 </a>
-               
+                <a href="#about" class="nav-button">
+                    <span class="nav-button-icon"><i class="fas fa-info-circle"></i></span>Apie Mus
+                </a>
             </div>
             
-            <div class="about-section">
+            <div id="about" class="about-section">
                 <h2>Apie Mus</h2>
-                <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką.</p>
+                <p>Miela Malonu tai šeima, kurioje visi renkasi gerai praleisti laiką. Prisijunkite prie mūsų bendruomenės ir tapkite dalimi mūsų augančios šeimos, kurioje visada rasite draugų ir nuotykių.</p>
             </div>
             
-            <!-- Discord Profiles Section - Reorganized to 3x2 grid -->
-            <h2>Mūsų Komanda</h2>
-            <div class="discord-profiles">
-                <!-- First row of Team Profiles (3 profiles) -->
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/792403641519964160/b56c090fe85b353f1026b3af4c03a0e0.webp?size=1024&format=webp" alt="Admin Avatar" class="profile-avatar admin-avatar">
-                    <h3 class="profile-name">Šaltis</h3>
-                    <div class="profile-role role-admin">Bosas</div>
-                    <p class="profile-desc"></p>
-                </div>
-                
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/959449311366766622/a_120c20ad5b0528b645c6e1d67a8f0d87.gif?size=4096" alt="Moderator Avatar" class="profile-avatar mod-avatar">
-                    <h3 class="profile-name">AuraxoGT</h3>
-                    <div class="profile-role role-mod">Įkūrėjas / Bosas</div>
-                    <p class="profile-desc"></p>
-                </div>
-                
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/495602170507296778/4991a3194c2fdfc6939deb08acf0936f.webp?size=1024&format=webp" alt="Staff Avatar" class="profile-avatar staff-avatar">
-                    <h3 class="profile-name">Civilis</h3>
-                    <div class="profile-role role-staff">Bosas</div>
-                    <p class="profile-desc"></p>
-                </div>
+            <!-- Team Tabs -->
+            <div class="team-tabs">
+                <button class="team-tab active" data-tab="bosai">Mūsų Komanda</button>
+                <button class="team-tab" data-tab="garbes">Garbės Nariai</button>
             </div>
             
-            <!-- Second row of Team Profiles (3 profiles) -->
-            <div class="discord-profiles">
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/1127247593626423409/a_a4dfe6e833e7a785f87e97c1e09847c1.gif?size=1024" alt="Team Member Avatar" class="profile-avatar staff-avatar">
-                    <h3 class="profile-name">Babiausis</h3>
-                    <div class="profile-role role-staff">Dešinė Ranka</div>
-                    <p class="profile-desc"></p>
+            <!-- Team Profiles Section -->
+            <div id="bosai" class="team-section">
+                <h2>Mūsų Komanda</h2>
+                <!-- First row of Team Profiles -->
+                <div class="discord-profiles fade-in">
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/792403641519964160/b56c090fe85b353f1026b3af4c03a0e0.webp?size=1024&format=webp" alt="Admin Avatar" class="profile-avatar admin-avatar">
+                            <div class="avatar-glow admin-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Šaltis</h3>
+                        <div class="profile-role role-admin">Bosas</div>
+                        <div class="social-icons">
+                            <a href="https://discord.com/users/1365306133212037213" class="social-icon"><i class="fab fa-discord"></i></a>
+                      
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/959449311366766622/a_120c20ad5b0528b645c6e1d67a8f0d87.gif?size=4096" alt="Moderator Avatar" class="profile-avatar mod-avatar">
+                            <div class="avatar-glow mod-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">AuraxoGT</h3>
+                        <div class="profile-role role-mod">Įkūrėjas / Bosas</div>
+                        <div class="social-icons">
+                            <a href="https://discord.com/users/959449311366766622" class="social-icon"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/495602170507296778/4991a3194c2fdfc6939deb08acf0936f.webp?size=1024&format=webp" alt="Staff Avatar" class="profile-avatar staff-avatar">
+                            <div class="avatar-glow staff-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Civilis</h3>
+                        <div class="profile-role role-staff">Bosas</div>
+                        <div class="social-icons">
+                            <a href="https://discord.com/users/495602170507296778" class="social-icon"><i class="fab fa-discord"></i></a>
+                          
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Second row of Team Profiles -->
+                <div class="discord-profiles fade-in">
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/1127247593626423409/a_a4dfe6e833e7a785f87e97c1e09847c1.gif?size=1024" alt="Team Member Avatar" class="profile-avatar staff-avatar">
+                            <div class="avatar-glow staff-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Babiausis</h3>
+                        <div class="profile-role role-staff">Dešinė Ranka</div>
+                        <div class="social-icons">
+                            <a href="https://discord.com/users/1127247593626423409" class="social-icon"><i class="fab fa-discord"></i></a>
+                            
+                        </div>
+                    </div>
 
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/1239451180350832731/80f5147973702246e30358cc963979d1.webp?size=1024&format=webp" alt="Team Member Avatar" class="profile-avatar staff-avatar">
-                    <h3 class="profile-name">Danis</h3>
-                    <div class="profile-role role-staff">Dešinė Ranka</div>
-                    <p class="profile-desc"></p>
-                </div>
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/1239451180350832731/80f5147973702246e30358cc963979d1.webp?size=1024&format=webp" alt="Team Member Avatar" class="profile-avatar staff-avatar">
+                            <div class="avatar-glow staff-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Danis</h3>
+                        <div class="profile-role role-staff">Dešinė Ranka</div>
+                        <div class="social-icons">
+                            <a href="https://discord.com/users/1239451180350832731" class="social-icon"><i class="fab fa-discord"></i></a>
+                  
+                        </div>
+                    </div>
 
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/1207021656913223712/cf413e2897232112cf08bc08e5ebed52.webp?size=1024&format=webp" alt="Team Member Avatar" class="profile-avatar staff-avatar">
-                    <h3 class="profile-name">Slim Shady</h3>
-                    <div class="profile-role role-staff">Dešinė Ranka</div>
-                    <p class="profile-desc"></p>
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/1207021656913223712/cf413e2897232112cf08bc08e5ebed52.webp?size=1024&format=webp" alt="Team Member Avatar" class="profile-avatar staff-avatar">
+                            <div class="avatar-glow staff-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Slim Shady</h3>
+                        <div class="profile-role role-staff">Dešinė Ranka</div>
+                        <div class="social-icons">
+                            <a href="https://discord.com/users/1207021656913223712" class="social-icon"><i class="fab fa-discord"></i></a>
+                    
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Garbės Nariai Section - Already in 3x2 grid format -->
-            <h2>Garbės Nariai</h2>
-            <div class="discord-profiles">
-                <!-- First row of Autoritetas (3 profiles) -->
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/1041400598450413688/62d2750e766b3888ba722e6deb46e297.webp?size=1024&format=webp" alt="Autoritetas Avatar 1" class="profile-avatar autoritetas-avatar">
-                    <h3 class="profile-name">Hex</h3>
-                    <div class="profile-role role-autoritetas">Hexas</div>
-                    <p class="profile-desc"></p>
+            <!-- Honorary Members Section -->
+            <div id="garbes" class="team-section hidden">
+                <h2>Garbės Nariai</h2>
+                <!-- First row of Honorary Members -->
+                <div class="discord-profiles fade-in">
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/1041400598450413688/62d2750e766b3888ba722e6deb46e297.webp?size=1024&format=webp" alt="Autoritetas Avatar 1" class="profile-avatar autoritetas-avatar">
+                            <div class="avatar-glow autoritetas-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Hex</h3>
+                        <div class="profile-role role-autoritetas">Hexas</div>
+                        <div class="social-icons">
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/305216084330545152/f497834f9d4507b3f036dae8740e3aca.webp?size=1024&format=webp" alt="Autoritetas Avatar 2" class="profile-avatar autoritetas-avatar">
+                            <div class="avatar-glow autoritetas-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Smaqknick</h3>
+                        <div class="profile-role role-autoritetas">Smaqas</div>
+                        <div class="social-icons">
+                           
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/724278530581463120/fd8185ca43879bf8b52df8e7c71f01d7.webp?size=1024&format=webp" alt="Autoritetas Avatar 3" class="profile-avatar autoritetas-avatar">
+                            <div class="avatar-glow autoritetas-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Ghosty</h3>
+                        <div class="profile-role role-autoritetas">Ghostis</div>
+                        <div class="social-icons">
+                            
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/305216084330545152/f497834f9d4507b3f036dae8740e3aca.webp?size=1024&format=webp" alt="Autoritetas Avatar 2" class="profile-avatar autoritetas-avatar">
-                    <h3 class="profile-name">Smaqknick</h3>
-                    <div class="profile-role role-autoritetas">Smaqas</div>
-                    <p class="profile-desc"></p>
-                </div>
-                
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/724278530581463120/fd8185ca43879bf8b52df8e7c71f01d7.webp?size=1024&format=webp" alt="Autoritetas Avatar 3" class="profile-avatar autoritetas-avatar">
-                    <h3 class="profile-name">Ghosty</h3>
-                    <div class="profile-role role-autoritetas">Ghostis</div>
-                    <p class="profile-desc"></p>
-                </div>
-            </div>
-            
-            <!-- Second row of Autoritetas (3 profiles) -->
-            <div class="discord-profiles">
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/943814793813458994/c1b1e0792493df4c1ad2b0efeb67fcb3.webp?size=1024&format=webp" alt="Autoritetas Avatar 4" class="profile-avatar autoritetas-avatar">
-                    <h3 class="profile-name">JK-Version</h3>
-                    <div class="profile-role role-autoritetas">Versionas</div>
-                    <p class="profile-desc"></p>
-                </div>
-                
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/640523849250766868/7715a77635bd630dc02190dbdd3c77a4.webp?size=1024&format=webp" alt="Autoritetas Avatar 5" class="profile-avatar autoritetas-avatar">
-                    <h3 class="profile-name">Baubas</h3>
-                    <div class="profile-role role-autoritetas">Skreplis</div>
-                    <p class="profile-desc"></p>
-                </div>
-                
-                <div class="profile-card">
-                    <img src="https://cdn.discordapp.com/avatars/1316475713326551153/496a7b053324a4e5d0f5114860f75423.webp?size=1024&format=webp" alt="Autoritetas Avatar 6" class="profile-avatar autoritetas-avatar">
-                    <h3 class="profile-name">Peek</h3>
-                    <div class="profile-role role-autoritetas">Main Characteris</div>
-                    <p class="profile-desc"></p>
+                <!-- Second row of Honorary Members -->
+                <div class="discord-profiles fade-in">
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/943814793813458994/c1b1e0792493df4c1ad2b0efeb67fcb3.webp?size=1024&format=webp" alt="Autoritetas Avatar 4" class="profile-avatar autoritetas-avatar">
+                            <div class="avatar-glow autoritetas-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">JK-Version</h3>
+                        <div class="profile-role role-autoritetas">Versionas</div>
+                        <div class="social-icons">
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/640523849250766868/7715a77635bd630dc02190dbdd3c77a4.webp?size=1024&format=webp" alt="Autoritetas Avatar 5" class="profile-avatar autoritetas-avatar">
+                            <div class="avatar-glow autoritetas-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Baubas</h3>
+                        <div class="profile-role role-autoritetas">Skreplis</div>
+                        <div class="social-icons">
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-avatar-container">
+                            <img src="https://cdn.discordapp.com/avatars/1316475713326551153/496a7b053324a4e5d0f5114860f75423.webp?size=1024&format=webp" alt="Autoritetas Avatar 6" class="profile-avatar autoritetas-avatar">
+                            <div class="avatar-glow autoritetas-avatar-glow"></div>
+                        </div>
+                        <h3 class="profile-name">Peek</h3>
+                        <div class="profile-role role-autoritetas">Main Characteris</div>
+                        <div class="social-icons">
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Floating Navigation -->
+        <div class="floating-nav">
+            <a href="#" title="To Top"><i class="fas fa-arrow-up"></i></a>
+            <a href="#about" title="About Us"><i class="fas fa-info-circle"></i></a>
+            <a href="https://discord.gg/mielamalonu" target="_blank" title="Join Discord"><i class="fab fa-discord"></i></a>
+        </div>
+
         <div class="footer">
-            &copy; Miela Malonu
+            <div class="footer-content">
+                <img src="https://i.imgur.com/amma0ov.gif" alt="Miela Malonu Logo" class="footer-logo">
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Pagrindinis</a>
+                    <a href="#about" class="footer-link">Apie Mus</a>
+                    <a href="https://mielamalonu.com/anketa" class="footer-link">Aplikacija</a>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://discord.gg/mielamalonu" target="_blank"><i class="fab fa-discord"></i></a>
+                  
+                </div>
+                
+                <div class="copyright">
+                    &copy; 2025 Miela Malonu. Visos teisės saugomos.
+                </div>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", async function() {
-            // Default banner is already set in HTML
-            
+        document.addEventListener("DOMContentLoaded", function() {
             // Fetch Discord invite information
             async function fetchDiscordInvite(inviteCode) {
                 try {
@@ -203,6 +316,79 @@
                     // Keep default values on error - no need to do anything
                 }
             }
+
+            // Team tabs functionality
+            const tabs = document.querySelectorAll('.team-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.team-section').forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    
+                    // Show the selected section
+                    const targetId = tab.getAttribute('data-tab');
+                    document.getElementById(targetId).classList.remove('hidden');
+                });
+            });
+
+            // Floating navigation
+            const floatingNav = document.querySelector('.floating-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    floatingNav.classList.add('visible');
+                } else {
+                    floatingNav.classList.remove('visible');
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        fadeInObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                fadeInObserver.observe(element);
+            });
 
             // Call function to fetch Discord invite
             fetchDiscordInvite("mielamalonu");
