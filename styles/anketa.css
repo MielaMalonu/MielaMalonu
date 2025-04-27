@@ -921,7 +921,6 @@ button:disabled {
 
 .server-banner {
     height: 120px;
-    background: var(--primary-color);
     overflow: hidden;
     position: relative;
 }
