@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-      --primary-color: #5865F2;  /* Changed to Discord-style blue */
-    --primary-dark: #4752C4;
-    --success-color: #1a9b3c;
-    --danger-color: #ED4245;
-    --warning-color: #FAA81A;
-    --text-color: #FFFFFF;
-    --secondary-text: #B9BBBE;
-    --background-dark: #121212;
-    --glass-background: rgba(0, 0, 0, 0.8);
-    --glass-border: rgba(40, 40, 40, 0.4);
-    --glass-shadow: rgba(0, 0, 0, 0.5);
-    --input-background: rgba(20, 20, 20, 0.9);
-    --discord-dark: #0a0a0a;
+--primary-color: #ff4545;  /* Changed from Discord blue to your red */
+--primary-dark: #c13535;   /* Changed from Discord dark blue to your dark red */
+--success-color: #1a9b3c;  /* Kept as is */
+--danger-color: #ED4245;   /* Could be replaced with your red if desired */
+--warning-color: #FAA81A;  /* Kept as is */
+--text-color: #FFFFFF;     /* Kept as is */
+--secondary-text: #B9BBBE; /* Kept as is */
+--background-dark: #333333; /* Updated to your secondary color */
+--glass-background: rgba(0, 0, 0, 0.8); /* Updated to your dark-bg */
+--glass-border: rgba(40, 40, 40, 0.2); /* Updated to your card-border */
+--glass-shadow: rgba(0, 0, 0, 0.5); /* Similar to your glass-effect */
+--input-background: rgba(10, 10, 10, 0.8); /* Updated to your card-bg */
+--discord-dark: #0a0a0a; /* Kept as is, or could be part of card-bg */
 }
 
 * {
