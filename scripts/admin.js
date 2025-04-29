@@ -1244,10 +1244,9 @@ async function clearEventIds() {
     document.getElementById("removeButton").addEventListener("click", removeFromBlacklist);
     document.getElementById("clearEventIdsButton").addEventListener("click", clearEventIds);
 
- document.getElementById("searchInput").addEventListener("input", function() {
+document.getElementById("searchInput").addEventListener("input", function() {
     const searchInput = this.value.toLowerCase();
     
-    // Make sure we're only searching the main data table, not the holidays table
     if (fetchedData && fetchedData.length > 0) {
         try {
             const filteredData = fetchedData.filter(item => {
@@ -1259,6 +1258,16 @@ async function clearEventIds() {
                 });
             });
             
+            // Use the populateTable function to display filtered data
+            // This ensures all columns and functionality are preserved
+            populateTable(filteredData);
+            
+        } catch (error) {
+            console.error("Error filtering data:", error);
+            showNotification("⚠️ Klaida filtruojant duomenis.", 'error');
+        }
+    }
+});
             // Only update the main data table
             const dataTableBody = document.querySelector("#data-table tbody");
             if (dataTableBody) {
