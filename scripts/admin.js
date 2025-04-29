@@ -903,12 +903,51 @@ document.getElementById("searchInput").addEventListener("input", function() {
             // Only update the main data table
             const dataTableBody = document.querySelector("#data-table tbody");
             if (dataTableBody) {
-                // Clear the table and repopulate with filtered data
+                // Clear current table data
                 dataTableBody.innerHTML = "";
-                populateTable(filteredData);
+                
+                // Repopulate with filtered data
+                filteredData.forEach((item, index) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${index + 1}.</td>
+                        <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
+                        <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
+                        <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
+                        <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
+                        <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
+                        <td>
+                            <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
+                            <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
+                        </td>
+                        <td>
+                            <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
+                            <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+                        </td>
+                    `;
+                    dataTableBody.appendChild(row);
+                });
+                
+                // Add event listeners to all warning buttons
+                document.querySelectorAll('.warning-button').forEach(button => {
+                    button.addEventListener('click', handleWarningButton);
+                });
+                
+                // Add event listeners to all view warnings buttons
+                document.querySelectorAll('.view-warnings-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const userId = this.getAttribute('data-user-id');
+                        const userName = this.getAttribute('data-user-name');
+                        viewUserWarnings(userId, userName);
+                    });
+                });
+                
+                // Reattach copy functionality to the newly created elements
+                addCopyFunctionality();
             }
         } catch (error) {
             console.error("Error filtering data:", error);
+            showNotification("⚠️ Klaida filtruojant duomenis.", 'error');
         }
     }
 });
