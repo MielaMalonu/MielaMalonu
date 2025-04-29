@@ -490,7 +490,7 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
     }
 async function checkUserRole(userId) {
     try {
-        const response = await fetch(`https://narys.mielamalonu.com/check-role`, {
+        const response = await fetch(`https://narys.mielamalonu.com/api/check-role`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
