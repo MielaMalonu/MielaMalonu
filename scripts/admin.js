@@ -488,6 +488,25 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
             alert("⚠️ Nepavyko gauti duomenų iš duombazės.");
         }
     }
+async function checkUserRole(userId) {
+    try {
+        const response = await fetch(`https://narys.mielamalonu.com/check-role`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId: userId })
+        });
+
+        if (!response.ok) throw new Error("⚠️ Failed to check user role");
+        
+        const data = await response.json();
+        return data.hasRole || false; // Return whether user has the role
+    } catch (error) {
+        console.error("❌ Error checking user role:", error);
+        return false; // Default to false if there's an error
+    }
+}
 
     // Add User to Blacklist
   // Add User to Blacklist
@@ -716,76 +735,152 @@ function populateTable(data) {
     const dataTableBody = document.querySelector("#data-table tbody");
     dataTableBody.innerHTML = "";
 
-    data.forEach((item, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${index + 1}.</td> <!-- Row number -->
-            <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
-            <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
-            <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
-            <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
-            <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
-            <td>
-              <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
-              <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
-            </td>
-<td>
-  <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
-  <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
-</td>
-        `;
-        dataTableBody.appendChild(row);
-    });
-    
-    // Add event listeners to all warning buttons
-    document.querySelectorAll('.warning-button').forEach(button => {
-        button.addEventListener('click', handleWarningButton);
-    });
+    // First, add the header row if it doesn't exist
+    const headerRow = document.querySelector("#data-table thead tr");
+    if (headerRow && !headerRow.querySelector('th:nth-child(9)')) {
+        const roleHeader = document.createElement("th");
+        roleHeader.textContent = "Rolė";
+        headerRow.appendChild(roleHeader);
+    }
 
-    // Add event listeners to all view warnings buttons
-document.querySelectorAll('.view-warnings-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const userId = this.getAttribute('data-user-id');
-        const userName = this.getAttribute('data-user-name');
-  viewUserWarnings(userId, userName); // Fixed: Added function name
-    });
-});
-    // Add event listeners to all copy text elements
-    document.querySelectorAll('.copy-text').forEach(element => {
-        element.addEventListener('click', function() {
-            const textToCopy = this.getAttribute('data-copy');
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    // Visual feedback
-                    const originalText = this.textContent;
-                    this.classList.add('copy-flash');
-                    
-                    // Only change text content if it's not the clipboard icon
-                    if (this.textContent !== '📋') {
-                        this.setAttribute('data-original-text', originalText);
-                        this.textContent = 'Nukopijuota ✅';
-                    } else {
-                        this.textContent = '✓';
-                    }
-                    
-                    setTimeout(() => {
-                        this.classList.remove('copy-flash');
-                        
-                        // Restore original text if it was changed
-                        if (this.hasAttribute('data-original-text')) {
-                            this.textContent = this.getAttribute('data-original-text');
-                            this.removeAttribute('data-original-text');
-                        } else if (this.textContent === '✓') {
-                            this.textContent = '📋';
-                        }
-                    }, 1000);
-                })
-                .catch(err => {
-                    console.error('Failed to copy: ', err);
+    // Create a loading indicator for the table
+    const loadingRow = document.createElement("tr");
+    loadingRow.id = "loading-indicator";
+    loadingRow.innerHTML = `<td colspan="9" style="text-align: center;">Kraunama vartotojų rolių informacija...</td>`;
+    dataTableBody.appendChild(loadingRow);
+
+    // Process each user and check their role
+    const processUsers = async () => {
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            const hasRole = await checkUserRole(item.DISCORD_ID);
+            
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${i + 1}.</td>
+                <td><span class="copy-text" data-copy="${item.DISCORD_ID}">${item.DISCORD_ID}</span></td>
+                <td><span class="copy-text" data-copy="${item.USERIS}">${item.USERIS}</span></td>
+                <td><span class="copy-text" data-copy="${item.VARDAS}">${item.VARDAS}</span></td>
+                <td><span class="copy-text" data-copy="${item.PAVARDĖ}">${item.PAVARDĖ}</span></td>
+                <td><span class="copy-text" data-copy="${item["STEAM NICKAS"]}">${item["STEAM NICKAS"]}</span></td>
+                <td>
+                    <a href="${item["STEAM LINKAS"]}" target="_blank">🔗 Steam Profilis</a>
+                    <span class="copy-text" data-copy="${item["STEAM LINKAS"]}">📋</span>
+                </td>
+                <td>
+                    <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
+                    <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+                </td>
+                <td class="role-status ${hasRole ? 'has-role' : 'no-role'}">
+                    ${hasRole ? '✓' : '❌'}
+                </td>
+            `;
+            dataTableBody.appendChild(row);
+
+            // Add event listeners to the new row
+            const currentRow = dataTableBody.lastElementChild;
+            
+            // Add event listeners to warning buttons
+            currentRow.querySelector('.warning-button').addEventListener('click', handleWarningButton);
+            
+            // Add event listeners to view warnings buttons
+            currentRow.querySelector('.view-warnings-button').addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                const userName = this.getAttribute('data-user-name');
+                viewUserWarnings(userId, userName);
+            });
+            
+            // Add event listeners to copy text elements
+            currentRow.querySelectorAll('.copy-text').forEach(element => {
+                element.addEventListener('click', function() {
+                    const textToCopy = this.getAttribute('data-copy');
+                    navigator.clipboard.writeText(textToCopy)
+                        .then(() => {
+                            // Visual feedback
+                            const originalText = this.textContent;
+                            this.classList.add('copy-flash');
+                            
+                            // Only change text content if it's not the clipboard icon
+                            if (this.textContent !== '📋') {
+                                this.setAttribute('data-original-text', originalText);
+                                this.textContent = 'Nukopijuota ✅';
+                            } else {
+                                this.textContent = '✓';
+                            }
+                            
+                            setTimeout(() => {
+                                this.classList.remove('copy-flash');
+                                
+                                // Restore original text if it was changed
+                                if (this.hasAttribute('data-original-text')) {
+                                    this.textContent = this.getAttribute('data-original-text');
+                                    this.removeAttribute('data-original-text');
+                                } else if (this.textContent === '✓') {
+                                    this.textContent = '📋';
+                                }
+                            }, 1000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
                 });
-        });
-    });
+            });
+        }
+        
+        // Remove the loading indicator once all users are processed
+        const loadingIndicator = document.getElementById("loading-indicator");
+        if (loadingIndicator) {
+            loadingIndicator.remove();
+        }
+    };
+
+    // Start processing the users
+    processUsers();
 }
+
+// Also update the search function to include the role column
+document.getElementById("searchInput").addEventListener("input", function() {
+    const searchInput = this.value.toLowerCase();
+    
+    if (fetchedData && fetchedData.length > 0) {
+        try {
+            const filteredData = fetchedData.filter(item => {
+                if (!item) return false;
+                
+                return Object.entries(item).some(([key, value]) => {
+                    if (value === null || value === undefined) return false;
+                    return String(value).toLowerCase().includes(searchInput);
+                });
+            });
+            
+            // Only update the main data table
+            const dataTableBody = document.querySelector("#data-table tbody");
+            if (dataTableBody) {
+                // Clear the table and repopulate with filtered data
+                dataTableBody.innerHTML = "";
+                populateTable(filteredData);
+            }
+        } catch (error) {
+            console.error("Error filtering data:", error);
+        }
+    }
+});
+
+// Add some CSS for the role status
+const styleElement = document.createElement('style');
+styleElement.textContent = `
+    .role-status {
+        text-align: center;
+        font-weight: bold;
+    }
+    .has-role {
+        color: #4CAF50;
+    }
+    .no-role {
+        color: #F44336;
+    }
+`;
+document.head.appendChild(styleElement);
 async function handleWarningButton() {
     const userId = this.getAttribute('data-user-id');
     const userName = this.getAttribute('data-user-name');
