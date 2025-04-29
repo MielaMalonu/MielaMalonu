@@ -720,9 +720,9 @@ async function removeFromBlacklist() {
     function updateStatusDisplay() {
         const statusDisplay = document.getElementById("statusDisplay");
         if (isOnline === "online") {
-            statusDisplay.textContent = "✅ Anketos atidarytos ✅"; // Custom text for online
+            statusDisplay.textContent = "✅ Anketos atidarytos. ✅"; // Custom text for online
         } else {
-            statusDisplay.textContent = "❌ Anketos uždarytos ❌"; // Custom text for offline
+            statusDisplay.textContent = "❌ Anketos uždarytos. ❌"; // Custom text for offline
         }
         // Update class logic based on string values
         statusDisplay.classList.toggle("status-online", isOnline === "online");
