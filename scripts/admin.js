@@ -808,12 +808,10 @@ function populateTable(data) {
                 <td>
                     <button class="warning-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">⚠️</button>
                     <button class="view-warnings-button" data-user-id="${item.DISCORD_ID}" data-user-name="${item.USERIS}">📋</button>
+                    <button class="delete-row-button" data-user-id="${item.DISCORD_ID}" title="Ištrinti vartotoją">🗑️</button>
                 </td>
                 <td class="role-status ${hasRole ? 'has-role' : 'no-role'}">
                     ${hasRole ? '✓' : '❌'}
-                </td>
-                <td>
-                    <button class="delete-row-button" data-user-id="${item.DISCORD_ID}" title="Ištrinti vartotoją">🗑️</button>
                 </td>
             `;
             dataTableBody.appendChild(row);
@@ -956,18 +954,26 @@ document.getElementById("searchInput").addEventListener("input", function() {
 const deleteButtonStyle = document.createElement('style');
 deleteButtonStyle.textContent = `
     .delete-row-button {
-        background-color: transparent;
-        border: none;
-        color: #F44336;
-        cursor: pointer;
-        font-size: 18px;
-        padding: 2px 5px;
-        transition: all 0.2s ease;
+          background-color: #ff3333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
     }
     
     .delete-row-button:hover {
-        transform: scale(1.2);
-        color: #D32F2F;
+      background-color: #cc0000;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
     }
     
     .delete-row-button:active {
