@@ -261,6 +261,38 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
         }, 300);
     }
 }
+async function deleteUserRow(userId) {
+    showPopup({
+        title: "Ištrinti vartotoją",
+        message: "Ar tikrai norite ištrinti šį vartotoją iš duomenų bazės?",
+        confirmText: "Ištrinti",
+        onConfirm: async () => {
+            try {
+                const response = await fetch(`${CONFIG.SUPABASE.URL}/IC?DISCORD_ID=eq.${userId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "apikey": CONFIG.SUPABASE.API_KEY,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) throw new Error("⚠️ Failed to delete user");
+                
+                // Remove from local data array
+                fetchedData = fetchedData.filter(item => item.DISCORD_ID !== userId);
+                
+                // Refresh the table
+                populateTable(fetchedData);
+                
+                showNotification("✅ Vartotojas sėkmingai ištrintas!", 'success');
+                
+            } catch (error) {
+                console.error("❌ Error deleting user:", error);
+                showNotification("⚠️ Nepavyko ištrinti vartotojo.", 'error');
+            }
+        }
+    });
+}
     // Check if we have a Discord auth code in the URL (redirect from Discord OAuth)
     async function handleDiscordCallback() {
         // Check for token in hash (implicit grant)
@@ -729,8 +761,7 @@ async function removeFromBlacklist() {
         statusDisplay.classList.toggle("status-offline", isOnline === "offline");
     }
 
-    // Populate Table
-  // Populate Table
+// Modify the populateTable function to add a delete button to each row
 function populateTable(data) {
     const dataTableBody = document.querySelector("#data-table tbody");
     dataTableBody.innerHTML = "";
@@ -743,10 +774,17 @@ function populateTable(data) {
         headerRow.appendChild(roleHeader);
     }
 
+    // Check if the delete header exists, if not add it
+    if (headerRow && !headerRow.querySelector('th:nth-child(10)')) {
+        const deleteHeader = document.createElement("th");
+        deleteHeader.textContent = "Veiksmai";
+        headerRow.appendChild(deleteHeader);
+    }
+
     // Create a loading indicator for the table
     const loadingRow = document.createElement("tr");
     loadingRow.id = "loading-indicator";
-    loadingRow.innerHTML = `<td colspan="9" style="text-align: center;">Kraunama vartotojų rolių informacija...</td>`;
+    loadingRow.innerHTML = `<td colspan="10" style="text-align: center;">Kraunama vartotojų rolių informacija...</td>`;
     dataTableBody.appendChild(loadingRow);
 
     // Process each user and check their role
@@ -774,6 +812,9 @@ function populateTable(data) {
                 <td class="role-status ${hasRole ? 'has-role' : 'no-role'}">
                     ${hasRole ? '✓' : '❌'}
                 </td>
+                <td>
+                    <button class="delete-row-button" data-user-id="${item.DISCORD_ID}" title="Ištrinti vartotoją">🗑️</button>
+                </td>
             `;
             dataTableBody.appendChild(row);
 
@@ -788,6 +829,12 @@ function populateTable(data) {
                 const userId = this.getAttribute('data-user-id');
                 const userName = this.getAttribute('data-user-name');
                 viewUserWarnings(userId, userName);
+            });
+            
+            // Add event listener to delete button
+            currentRow.querySelector('.delete-row-button').addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                deleteUserRow(userId);
             });
             
             // Add event listeners to copy text elements
@@ -838,7 +885,7 @@ function populateTable(data) {
     processUsers();
 }
 
-// Also update the search function to include the role column
+// Update the search function to handle the new delete button
 document.getElementById("searchInput").addEventListener("input", function() {
     const searchInput = this.value.toLowerCase();
     
@@ -865,6 +912,30 @@ document.getElementById("searchInput").addEventListener("input", function() {
         }
     }
 });
+
+// Add some CSS for the delete button
+const deleteButtonStyle = document.createElement('style');
+deleteButtonStyle.textContent = `
+    .delete-row-button {
+        background-color: transparent;
+        border: none;
+        color: #F44336;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 2px 5px;
+        transition: all 0.2s ease;
+    }
+    
+    .delete-row-button:hover {
+        transform: scale(1.2);
+        color: #D32F2F;
+    }
+    
+    .delete-row-button:active {
+        transform: scale(0.95);
+    }
+`;
+document.head.appendChild(deleteButtonStyle)
 
 // Add some CSS for the role status
 const styleElement = document.createElement('style');
