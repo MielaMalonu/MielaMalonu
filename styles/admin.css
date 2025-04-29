@@ -221,12 +221,16 @@ button:hover, .nav-button:hover {
 }
 
 /* Table styling */
+/* Update to data-container to improve overflow handling */
 .data-container {
     margin-top: 20px;
     overflow-x: auto;
     padding: 30px;
+    max-width: 100%;
+    width: 100%;
 }
 
+/* Make table more responsive */
 table {
     width: 100%;
     border-collapse: separate;
@@ -237,35 +241,71 @@ table {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    table-layout: auto; /* This allows the table to adjust to content */
+    min-width: 700px; /* Minimum width to ensure readability */
 }
 
+/* Adjust cell padding and sizing for better responsiveness */
 th, td {
-    padding: 15px;
+    padding: 15px 10px;
     text-align: left;
     border-bottom: 1px solid rgba(50, 50, 50, 0.3);
+    white-space: nowrap; /* Prevents text wrapping in cells */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Shows ellipsis for overflowing text */
+    max-width: 150px; /* Limit the maximum width of cells */
 }
 
-th {
-    background: rgba(100, 0, 0, 0.6);
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
+/* Override for action columns that need more space */
+th:last-child, td:last-child {
+    white-space: normal; /* Allow wrapping in the action column */
+    min-width: 100px; /* Give actions column enough space */
 }
 
-tr:last-child td {
-    border-bottom: none;
+/* Enhanced mobile responsiveness */
+@media (max-width: 1024px) {
+    .data-container {
+        padding: 20px 10px;
+    }
+    
+    th, td {
+        padding: 10px 8px;
+        font-size: 14px;
+        max-width: 120px;
+    }
 }
 
-tr:hover td {
-    background: rgba(100, 0, 0, 0.2);
+@media (max-width: 768px) {
+    th, td {
+        padding: 8px 5px;
+        font-size: 13px;
+        max-width: 100px;
+    }
+    
+    .container, .rules-container, .data-container {
+        padding: 20px 10px;
+    }
 }
 
-td {
-    transition: all 0.3s ease;
+/* Enhance the scrollbar appearance */
+.data-container::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
 }
 
+.data-container::-webkit-scrollbar-track {
+    background: rgba(30, 30, 30, 0.5);
+    border-radius: 10px;
+}
+
+.data-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #990000, #ff3333);
+    border-radius: 10px;
+}
+
+.data-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ff3333, #cc0000);
+}
 /* Search container styling */
 .search-container {
     margin: 20px auto;
