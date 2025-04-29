@@ -774,13 +774,7 @@ function populateTable(data) {
         headerRow.appendChild(roleHeader);
     }
 
-    // Check if the delete header exists, if not add it
-    if (headerRow && !headerRow.querySelector('th:nth-child(10)')) {
-        const deleteHeader = document.createElement("th");
-        deleteHeader.textContent = "Veiksmai";
-        headerRow.appendChild(deleteHeader);
-    }
-
+   
     // Create a loading indicator for the table
     const loadingRow = document.createElement("tr");
     loadingRow.id = "loading-indicator";
