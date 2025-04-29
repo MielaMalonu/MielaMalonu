@@ -488,25 +488,7 @@ function showPopup({ title, message, customContent, inputField = false, confirmT
             alert("⚠️ Nepavyko gauti duomenų iš duombazės.");
         }
     }
-async function checkUserRole(userId) {
-    try {
-        const response = await fetch(`https://mielamalonu-rolecheck1-production.up.railway.app/api/check-role`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ userId: userId })
-        });
 
-        if (!response.ok) throw new Error("⚠️ Failed to check user role");
-        
-        const data = await response.json();
-        return data.hasRole || false; // Return whether user has the role
-    } catch (error) {
-        console.error("❌ Error checking user role:", error);
-        return false; // Default to false if there's an error
-    }
-}
 
     // Add User to Blacklist
   // Add User to Blacklist
