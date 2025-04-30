@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             "959449311366766622", // Replace with actual admin Discord IDs
             "495602170507296778",
             "1365306133212037213",
+            "1239451180350832731",
          
 
         ],
