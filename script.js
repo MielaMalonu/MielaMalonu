@@ -36,7 +36,7 @@ async function loadServers() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td><img src="${server.icon}" alt="" width="24" height="24" style="vertical-align:middle; border-radius:50%; margin-right:5px;"> ${server.tag}</td>
+      <td><img src="${server.icon}" alt="" width="25" height="25" style="vertical-align:middle; border-radius:50%; margin-right:5px;"> ${server.tag}</td>
       <td>${server.memberCount.toLocaleString()}</td>
       <td>${server.name}</td>
       <td><a href="https://discord.gg/${server.invite}" target="_blank">${server.invite}</a></td>
