@@ -107,12 +107,14 @@ td:first-child img {
   border-radius: 0; /* Remove the border-radius from images */
   background-color: transparent; /* Remove background from images */
   vertical-align: middle;
+  horizontal-align: middle;
 }
 
 /* Adjust the display of the tag content */
 td:first-child {
   position: relative;
   vertical-align: middle;
+  horizontal-align: middle;
 }
 
 /* Create the background for the tag */
@@ -123,7 +125,7 @@ td:first-child::before {
   top: 10px;
   background-color: var(--tag-bg);
   border-radius: 4px;
-  height: 25px;
+  height: 27px;
   width: auto;
   min-width: 80px;
   padding-right: 8px;
@@ -136,6 +138,7 @@ td:first-child span {
   position: relative;
   z-index: 1;
   vertical-align: middle;
+  horizontal-align: middle;
 }
 
 /* Style the icon and text inside the tag */
