@@ -13,7 +13,7 @@ async function fetchServerData(invite) {
     
     const server = data.guild;
     return {
-      tag: data.profile.tag // Simple tag logic
+      tag: data.profile.tag, // Simple tag logic
       icon: `https://cdn.discordapp.com/clan-badges/${server.id}/${data.profile.badge_hash}.png?size=16`,
       name: server.name,
       memberCount: data.approximate_member_count,
