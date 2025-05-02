@@ -1,0 +1,154 @@
+/* Global styles */
+:root {
+  --background-color: #0c0c0c;
+  --text-color: #ffffff;
+  --secondary-text: #a0a0a0;
+  --accent-color: #e74c3c;
+  --card-bg: #18181b;
+  --btn-bg: #e74c3c;
+  --btn-secondary-bg: #2a2a2d;
+  --tag-bg: #232323;
+  --header-bg: #202225;
+  --table-border: #2c2c30;
+  --border-radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Header styling */
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+  color: var(--text-color);
+  table-layout: fixed;
+}
+
+thead {
+  background-color: var(--header-bg);
+  text-transform: uppercase;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--table-border);
+  height: 46px; /* Fixed height for all rows */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+th {
+  font-weight: 600;
+  color: var(--secondary-text);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+td {
+  font-size: 15px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--table-border);
+}
+
+tbody tr:hover {
+  background-color: #1e1e25;
+}
+
+/* Links */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Discord Tag styling */
+/* Style the first cell (with the tag) */
+td:first-child {
+  vertical-align: middle;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Style for the tag and icon */
+td:first-child img {
+  margin-right: 8px;
+  border-radius: 0; /* Remove the border-radius from images */
+  background-color: transparent; /* Remove background from images */
+  vertical-align: middle;
+}
+
+/* Adjust the display of the tag content */
+td:first-child {
+  position: relative;
+  vertical-align: middle;
+}
+
+/* Create the background for the tag */
+td:first-child::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  background-color: var(--tag-bg);
+  border-radius: 4px;
+  height: 25px;
+  width: auto;
+  min-width: 80px;
+  padding-right: 8px;
+  z-index: 0;
+}
+
+/* Position the icon and text within the tag */
+td:first-child img,
+td:first-child span {
+  position: relative;
+  z-index: 1;
+  vertical-align: middle;
+}
+
+/* Style the icon and text inside the tag */
+.tag-wrapper img {
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+/* Custom styling for table cells */
+#server-list td:nth-child(2) {
+  text-align: right;
+  color: var(--text-color);
+  font-weight: 500;
+}
