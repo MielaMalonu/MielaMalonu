@@ -23,7 +23,7 @@
     </tbody>
   </table>
 <style>
-/* Discord-inspired dark theme */
+/* Discord-inspired dark theme with authentic tags */
 :root {
   --bg-color: #1e1f22;
   --secondary-bg: #2b2d31;
@@ -35,12 +35,14 @@
   --hover-bg: #36393f;
   --tag-bg: #36393f;
   --button-color: #5865f2;
+  --tag-label-bg: #232428;
+  --tag-badge-bg: #111214;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "gg sans", "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 20px;
   line-height: 1.5;
@@ -95,38 +97,41 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Server tag styling (like in the second image) */
-td:first-child {
+/* Authentic Discord-style tags */
+.discord-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  font-weight: 500;
+  font-size: 13px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--tag-badge-bg);
+  height: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.tag-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: var(--tag-badge-bg);
+  margin-right: 0;
+  border-radius: 0;
+}
+
+.tag-label {
+  background-color: var(--tag-label-bg);
+  padding: 0 8px;
+  height: 100%;
   display: flex;
   align-items: center;
 }
 
-td img {
-  background-color: var(--tag-bg);
-  margin-right: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-/* Server tag style */
-.server-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  background-color: var(--tag-bg);
-  border-radius: 4px;
-  margin-right: 8px;
-  font-weight: 500;
-  font-size: 13px;
-}
-
-.server-tag img {
-  margin-right: 6px;
-}
-
-/* Button style (for potential future use) */
-.button {
+/* Button styling similar to Discord */
+.discord-button {
   background-color: var(--button-color);
   color: white;
   padding: 8px 16px;
@@ -136,10 +141,42 @@ td img {
   border: none;
   font-size: 14px;
   transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button:hover {
+.discord-button:hover {
   background-color: #4752c4;
+}
+
+.discord-button.dark {
+  background-color: #4f545c;
+}
+
+.discord-button.dark:hover {
+  background-color: #686d73;
+}
+
+/* Black tag style similar to the BRUH tag in image 2 */
+.tag-black {
+  background-color: #1f1f1f;
+  border-radius: 4px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid #000000;
+}
+
+.tag-black img {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
 }
 
 /* Responsive design */
@@ -156,6 +193,64 @@ td img {
   h1 {
     font-size: 24px;
   }
+}
+
+/* Server section styling for the main page like in Image 1 */
+.server-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.server-logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-color);
+  margin: 0 auto 1rem;
+  display: block;
+  background-color: #111;
+}
+
+.server-name {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.server-description {
+  color: var(--muted-text);
+  margin-bottom: 2rem;
+}
+
+.server-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  background-color: rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.stats-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+}
+
+.stats-info {
+  text-align: left;
+}
+
+.server-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 2rem 0;
 }
 </style>
   <script>
