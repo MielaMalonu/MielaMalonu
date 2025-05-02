@@ -30,7 +30,26 @@ const invites = [
   "polarguild", "gca", "gamersland", "celestrials", "titsrp", "valcraft",
   "nico-vip", "GBtkSEbzj5"
 ];
-
+async function fetchServerData(invite) {
+  try {
+    const res = await fetch(`https://discord.com/api/v10/invites/${invite}?with_counts=true`);
+    if (!res.ok) throw new Error('Failed to fetch');
+    const data = await res.json();
+    
+    const server = data.guild;
+    return {
+      tag: data.profile.tag, // Simple tag logic
+      icon: `https://cdn.discordapp.com/clan-badges/${server.id}/${data.profile.badge_hash}.png?size=16`,
+      name: server.name,
+      memberCount: data.approximate_member_count,
+      invite,
+      id: server.id
+    };
+  } catch (err) {
+    console.error(`Error fetching invite ${invite}:`, err);
+    return null;
+  }
+}
 async function loadServers() {
   const list = document.getElementById("server-list");
   for (const invite of invites) {
