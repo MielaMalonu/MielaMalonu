@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord Server Tracker</title>
+  <style>
+    :root {
+      --bg-color: #2c2f33;
+      --card-bg: #36393f;
+      --text-color: #dcddde;
+      --header-color: #ffffff;
+      --accent-color: #5865f2;
+      --border-color: #202225;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: var(--header-color);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .input-container {
+      display: flex;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    
+    input, button {
+      padding: 10px 15px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+    
+    input {
+      flex-grow: 1;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+    }
+    
+    button {
+      background-color: var(--accent-color);
+      color: white;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    th {
+      background-color: rgba(0, 0, 0, 0.2);
+      color: var(--header-color);
+      font-weight: 600;
+    }
+    
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+    
+    .emoji {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    
+    .verified {
+      color: #43b581;
+      margin-left: 5px;
+    }
+    
+    .server-invite {
+      color: #5865f2;
+      text-decoration: none;
+    }
+    
+    .server-invite:hover {
+      text-decoration: underline;
+    }
+    
+    #error-message {
+      color: #ed4245;
+      padding: 10px 0;
+      font-weight: bold;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      font-style: italic;
+      color: #72767d;
+    }
+    
+    #saved-servers {
+      margin-top: 20px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #72767d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Discord Server Tracker</h1>
+    
+    <div class="input-container">
+      <input type="text" id="invite-code" placeholder="Enter Discord invite code (e.g. 'discord' or full URL)" />
+      <button id="add-server">Add Server</button>
+    </div>
+    
+    <div id="error-message"></div>
+    
+    <table id="server-table">
+      <thead>
+        <tr>
+          <th>Server Tag</th>
+          <th>Member Count</th>
+          <th>Name</th>
+          <th>Invite</th>
+          <th>Server Id</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="server-list">
+        <!-- Server data will be added here -->
+      </tbody>
+    </table>
+    
+    <div id="empty-state" class="empty-state">
+      <p>No servers added yet. Add a server by entering an invite code above.</p>
+    </div>
+  </div>
+
+  <script>
+    // Store servers in localStorage to persist between sessions
+    let servers = [];
+    const errorMessageEl = document.getElementById('error-message');
+    const serverListEl = document.getElementById('server-list');
+    const emptyStateEl = document.getElementById('empty-state');
+    const inviteInputEl = document.getElementById('invite-code');
+    const serverTable = document.getElementById('server-table');
+    
+    // Load saved servers from localStorage
+    function loadSavedServers() {
+      const savedServers = localStorage.getItem('discord-servers');
+      if (savedServers) {
+        servers = JSON.parse(savedServers);
+        updateServerList();
+      }
+    }
+    
+    // Save servers to localStorage
+    function saveServers() {
+      localStorage.setItem('discord-servers', JSON.stringify(servers));
+    }
+    
+    // Update the server list in the UI
+    function updateServerList() {
+      if (servers.length === 0) {
+        serverTable.style.display = 'none';
+        emptyStateEl.style.display = 'block';
+        return;
+      }
+      
+      serverTable.style.display = 'table';
+      emptyStateEl.style.display = 'none';
+      
+      // Clear current list
+      serverListEl.innerHTML = '';
+      
+      // Sort servers by member count (descending)
+      servers.sort((a, b) => b.approximate_member_count - a.approximate_member_count);
+      
+      // Add each server to the table
+      servers.forEach((server, index) => {
+        const row = document.createElement('tr');
+        
+        // Create a short tag from the server name
+        const tag = server.name.split(' ').map(word => word.charAt(0)).join('').toUpperCase().substring(0, 4);
+        
+        row.innerHTML = `
+          <td>
+            <span class="emoji">📋</span>
+            ${tag}
+          </td>
+          <td>${server.approximate_member_count.toLocaleString()}</td>
+          <td>${server.name} ${server.verified ? '<span class="verified">✓</span>' : ''}</td>
+          <td><a href="https://discord.gg/${server.code}" class="server-invite" target="_blank">${server.code}</a></td>
+          <td>${server.id}</td>
+          <td><button onclick="removeServer(${index})">Remove</button></td>
+        `;
+        
+        serverListEl.appendChild(row);
+      });
+    }
+    
+    // Fetch server info from Discord's API
+    async function fetchServerInfo(inviteCode) {
+      errorMessageEl.textContent = '';
+      
+      // Extract the code from URL if needed
+      let code = inviteCode.trim();
+      if (code.includes('/')) {
+        const parts = code.split('/');
+        code = parts[parts.length - 1];
+      }
+      
+      if (!code) {
+        errorMessageEl.textContent = 'Please enter a valid invite code';
+        return;
+      }
+      
+      try {
+        const response = await fetch(`https://discord.com/api/v10/invites/${code}?with_counts=true`);
+        if (!response.ok) {
+          throw new Error('Could not fetch server info');
+        }
+        
+        const data = await response.json();
+        
+        // Check if we already have this server
+        if (servers.some(server => server.id === data.guild.id)) {
+          errorMessageEl.textContent = 'This server is already in your list';
+          return;
+        }
+        
+        // Add to our server list
+        servers.push({
+          id: data.guild.id,
+          name: data.guild.name,
+          code: code,
+          approximate_member_count: data.approximate_member_count,
+          verified: data.guild.verified
+        });
+        
+        // Save and update UI
+        saveServers();
+        updateServerList();
+        
+        // Clear input
+        inviteInputEl.value = '';
+        
+      } catch (error) {
+        errorMessageEl.textContent = 'Error: ' + error.message + '. Make sure the invite code is valid.';
+      }
+    }
+    
+    // Remove a server from the list
+    function removeServer(index) {
+      servers.splice(index, 1);
+      saveServers();
+      updateServerList();
+    }
+    
+    // Event listeners
+    document.getElementById('add-server').addEventListener('click', () => {
+      fetchServerInfo(inviteInputEl.value);
+    });
+    
+    inviteInputEl.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        fetchServerInfo(inviteInputEl.value);
+      }
+    });
+    
+    // Initialize
+    loadSavedServers();
+  </script>
+</body>
+</html>
