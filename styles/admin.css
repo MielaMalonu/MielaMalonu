@@ -26,6 +26,8 @@ body {
     width: 100%;
     position: relative;
     padding: 20px;
+    /* Add margin to account for the admin panel */
+    margin-right: 250px;
 }
 
 /* Glassmorphism Containers */
@@ -41,6 +43,9 @@ body {
     text-align: center;
     margin-bottom: 40px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Ensure content is above background but below admin panel */
+    position: relative;
+    z-index: 1;
 }
 
 .container:hover, .rules-container:hover, .data-container:hover {
@@ -158,6 +163,7 @@ button:hover, .nav-button:hover {
     top: 20px;
     right: 20px;
     text-align: center;
+    /* Increased z-index to ensure admin panel stays on top */
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -170,6 +176,7 @@ button:hover, .nav-button:hover {
     border: 1px solid rgba(255, 0, 0, 0.2);
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 240px; /* Set maximum width */
 }
 
 .admin-panel:hover {
@@ -228,6 +235,8 @@ button:hover, .nav-button:hover {
     padding: 30px;
     max-width: 100%;
     width: 100%;
+    /* Ensure data container has room to be fully visible */
+    position: relative;
 }
 
 /* Make table more responsive */
@@ -264,6 +273,11 @@ th:last-child, td:last-child {
 
 /* Enhanced mobile responsiveness */
 @media (max-width: 1024px) {
+    .main-container {
+        margin-right: 0;
+        margin-bottom: 300px; /* Add space below for admin panel on mobile */
+    }
+    
     .data-container {
         padding: 20px 10px;
     }
@@ -272,6 +286,21 @@ th:last-child, td:last-child {
         padding: 10px 8px;
         font-size: 14px;
         max-width: 120px;
+    }
+    
+    /* Move admin panel to bottom on smaller screens */
+    .admin-panel {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    .admin-panel:hover {
+        transform: translateY(-5px) translateX(50%);
     }
 }
 
@@ -828,10 +857,13 @@ a:hover {
     }
 
     .admin-panel {
-        position: static;
-        width: 100%;
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 90%;
         max-width: 400px;
-        margin: 20px auto;
     }
     
     th, td {
