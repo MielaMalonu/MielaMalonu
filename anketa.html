@@ -694,7 +694,12 @@ function checkAuthState() {
     // ======================
     // UI MANAGEMENT (MODIFIED)
     // ======================
-
+ function handleLogout() {
+        clearInterval(state.updateInterval);
+        state.currentUser = null;
+        updateUserInterface(null);
+        location.reload();
+    }
     function updateUserInterface(user) {
         if (user) {
             elements.profileContainer.innerHTML = `
