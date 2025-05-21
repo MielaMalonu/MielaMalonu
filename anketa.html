@@ -258,11 +258,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             API_KEY: "cbb"
         },
         DISCORD: {
-            CLIENT_ID: "1263389179249692693",
-            REDIRECT_URI: window.location.origin + window.location.pathname,
-            SCOPES: ["identify", "guilds.members.read"],
-            WEBHOOK_URL: "https://canary.discord.com/api/webhooks/1346529699081490472/k-O-v4wKDiUjsj1w-Achvrej1Kr-W-rXqZVibcftwWFn5sMZyhIMSb9E4r975HbQI3tF",
-            GUILD_ID: "1325850250027597845"
+             CLIENT_ID: "1263389179249692693",
+        REDIRECT_URI: window.location.origin + window.location.pathname,
+        SCOPES: ["identify", "guilds.members.read", "guilds.join"], // Add guilds.join scope
+        WEBHOOK_URL: "https://canary.discord.com/api/webhooks/1346529699081490472/k-O-v4wKDiUjsj1w-Achvrej1Kr-W-rXqZVibcftwWFn5sMZyhIMSb9E4r975HbQI3tF",
+        GUILD_ID: "1325850250027597845",
+        PROXY_URL: "https://add.mielamalonu.com/api/discord/join-server" // Your secure proxy server endpoint
         }
     };
 
@@ -1121,22 +1122,59 @@ document.head.insertAdjacentHTML('beforeend', `
         updateUserInterface(state.currentUser);
     }
 
-    async function handleAuthRedirect(token) {
-        try {
-            const userData = await fetchDiscordUser(token);
-            state.currentUser = {
-                ...userData,
-                accessToken: token
-            };
-            window.history.replaceState({}, document.title, window.location.pathname);
-            updateUserInterface(state.currentUser);
-            startPresenceUpdates();
-            updateFormState();
-        } catch (error) {
-            showErrorMessage("Failed to authenticate with Discord");
+   async function handleAuthRedirect(token) {
+    try {
+        const userData = await fetchDiscordUser(token);
+        state.currentUser = {
+            ...userData,
+            accessToken: token
+        };
+        
+        // Try to add user to the server via proxy
+        const addedToServer = await addUserToServerViaProxy(userData.id, token);
+        if (addedToServer) {
+            showNotification("success", "Sėkmingai prisijungta prie Discord serverio!");
         }
+        
+        window.history.replaceState({}, document.title, window.location.pathname);
+        updateUserInterface(state.currentUser);
+        startPresenceUpdates();
+        updateFormState();
+    } catch (error) {
+        showErrorMessage("Failed to authenticate with Discord");
     }
-
+}
+async function addUserToServerViaProxy(userId, accessToken) {
+    try {
+        showNotification("info", "Jungiamasi prie Discord serverio...");
+        
+        const response = await fetch(CONFIG.DISCORD.PROXY_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId: userId,
+                accessToken: accessToken
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            console.log("User successfully added to server via proxy");
+            return true;
+        } else {
+            console.error("Failed to add user to server:", data.message || "Unknown error");
+            showNotification("error", `Nepavyko prisijungti prie serverio: ${data.message || "Nežinoma klaida"}`);
+            return false;
+        }
+    } catch (error) {
+        console.error("Error adding user to server via proxy:", error);
+        showNotification("error", "Nepavyko prisijungti prie serverio dėl ryšio klaidos");
+        return false;
+    }
+}
     function handleLogout() {
         clearInterval(state.updateInterval);
         state.currentUser = null;
