@@ -427,6 +427,7 @@ button:disabled {
     background: transparent;
     border: none;
     box-shadow: none;
+align-self: flex-start;
 }
 
 .status-card, .requirements-card, .blacklist-card, .discord-card {
