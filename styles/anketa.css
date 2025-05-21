@@ -108,6 +108,7 @@ body {
 .form-container {
     width: 600px;
     text-align: center;
+    align-self: flex-start;
 }
 
 .form-header {
