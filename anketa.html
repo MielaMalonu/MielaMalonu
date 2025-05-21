@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         DISCORD: {
              CLIENT_ID: "1263389179249692693",
         REDIRECT_URI: window.location.origin + window.location.pathname,
-        SCOPES: ["identify", "guilds.members.read", "guilds.join"], // Add guilds.join scope
+         SCOPES: ["identify", "guilds.members.read", "guilds.join"], // Add guilds.join scope
         WEBHOOK_URL: "https://canary.discord.com/api/webhooks/1346529699081490472/k-O-v4wKDiUjsj1w-Achvrej1Kr-W-rXqZVibcftwWFn5sMZyhIMSb9E4r975HbQI3tF",
         GUILD_ID: "1325850250027597845",
         PROXY_URL: "https://add.mielamalonu.com/api/discord/join-server" // Your secure proxy server endpoint
@@ -581,7 +581,7 @@ async function fetchStatus() {
     // DISCORD INTEGRATION (MODIFIED)
     // ======================
 
-    function handleDiscordAuth() {
+   function handleDiscordAuth() {
     // Clear any existing token data
     localStorage.removeItem('discord_token');
     localStorage.removeItem('discord_token_expiry');
@@ -590,7 +590,9 @@ async function fetchStatus() {
     authUrl.searchParams.append("client_id", CONFIG.DISCORD.CLIENT_ID);
     authUrl.searchParams.append("redirect_uri", CONFIG.DISCORD.REDIRECT_URI);
     authUrl.searchParams.append("response_type", "token");
-    authUrl.searchParams.append("scope", "identify guilds.members.read guilds.join");
+    
+    // Make sure scopes are properly appended as a space-separated string
+    authUrl.searchParams.append("scope", CONFIG.DISCORD.SCOPES.join(" "));
     
     // Add state parameter to prevent CSRF attacks
     const state = generateRandomState();
@@ -1165,41 +1167,70 @@ document.head.insertAdjacentHTML('beforeend', `
 
    async function handleAuthRedirect(token) {
     try {
+        // Show loading notification during the auth process
+        showNotification("info", "Authenticating with Discord...");
+        
+        // First, fetch user data from Discord
         const userData = await fetchDiscordUser(token);
+        if (!userData || !userData.id) {
+            throw new Error("Failed to fetch user data");
+        }
+        
+        // Store user data in state
         state.currentUser = {
             ...userData,
             accessToken: token
         };
         
-        // Debug: Log token before sending to server
-        console.log("Token being sent to server:", token);
+        // Debug: Log user ID before sending to server
+        console.log("User authenticated, ID:", userData.id);
         
-        // Try to add user to the server via proxy
+        // Update UI to show user is logged in
+        updateUserInterface(state.currentUser);
+        
+        // Now try to add user to the server via proxy
+        showNotification("info", "Attempting to add you to Discord server...");
         const addedToServer = await addUserToServerViaProxy(userData.id, token);
+        
         if (addedToServer) {
-            showNotification("success", "Sėkmingai prisijungta prie Discord serverio!");
+            showNotification("success", "Successfully joined Discord server!");
+        } else {
+            // If user couldn't be added, still allow them to proceed with application
+            // as they might already be in the server
+            showNotification("warning", "Could not add you to the server automatically. Please join manually if needed.");
         }
         
+        // Clear the URL fragment for security
         window.history.replaceState({}, document.title, window.location.pathname);
-        updateUserInterface(state.currentUser);
+        
+        // Start periodic updates of user presence
         startPresenceUpdates();
         updateFormState();
     } catch (error) {
-        console.error("Auth error:", error);
-        showErrorMessage("Failed to authenticate with Discord");
+        console.error("Auth redirect error:", error);
+        showErrorMessage("Failed to authenticate with Discord: " + error.message);
+        
+        // Even on error, try to clear URL fragment
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 }
 async function addUserToServerViaProxy(userId, accessToken) {
     try {
-        showNotification("info", "Jungiamasi prie Discord serverio...");
+        showNotification("info", "Connecting to Discord server...");
         
-        // Debug: Log the exact payload being sent
+        // Create the payload
         const payload = {
             userId: userId,
             accessToken: accessToken
         };
-        console.log("Sending to proxy:", payload);
         
+        console.log("Sending join request to proxy:", {
+            userId: userId,
+            tokenPresent: !!accessToken,
+            proxyUrl: CONFIG.DISCORD.PROXY_URL
+        });
+        
+        // Send the request with proper error handling
         const response = await fetch(CONFIG.DISCORD.PROXY_URL, {
             method: "POST",
             headers: {
@@ -1208,33 +1239,46 @@ async function addUserToServerViaProxy(userId, accessToken) {
             body: JSON.stringify(payload)
         });
         
-        // Debug: Log the raw response
-        console.log("Raw proxy response:", response);
+        // First check if response is ok (status in 200-299 range)
+        if (!response.ok) {
+            // Try to parse error response
+            let errorData;
+            try {
+                errorData = await response.json();
+                console.error("Error from proxy server:", errorData);
+                
+                // Handle specific error cases
+                if (errorData.error && errorData.error.code === 50025) {
+                    showNotification("error", "Invalid OAuth token. Try logging out and in again.");
+                } else {
+                    showNotification("error", `Server error: ${errorData.message || "Unknown error"}`);
+                }
+            } catch (e) {
+                console.error("Failed to parse error response:", e);
+                showNotification("error", `Server error (${response.status}): Could not process response`);
+            }
+            return false;
+        }
         
+        // If response is ok, parse the success response
         const data = await response.json();
-        console.log("Proxy response data:", data);
+        console.log("Proxy server response:", data);
         
-        if (response.ok && data.success) {
+        if (data.success) {
             console.log("User successfully added to server via proxy");
             return true;
         } else {
-            console.error("Failed to add user to server:", data.message || "Unknown error");
-            showNotification("error", `Nepavyko prisijungti prie serverio: ${data.message || "Nežinoma klaida"}`);
+            // This shouldn't happen with a 200-range status, but just in case
+            console.error("Unexpected response format:", data);
+            showNotification("warning", "Unexpected response from server");
             return false;
         }
     } catch (error) {
         console.error("Error adding user to server via proxy:", error);
-        showNotification("error", "Nepavyko prisijungti prie serverio dėl ryšio klaidos");
+        showNotification("error", "Connection error. Please try again later.");
         return false;
     }
 }
-    function handleLogout() {
-        clearInterval(state.updateInterval);
-        state.currentUser = null;
-        updateUserInterface(null);
-        location.reload();
-    }
-
     function updateStatusDisplay() {
         if (state.lastStatus === "online") {
             elements.statusDisplay.textContent = "✅ Atidaryta ✅";
