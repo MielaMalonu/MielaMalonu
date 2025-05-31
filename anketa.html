@@ -349,6 +349,8 @@ async function fetchStatus() {
         }
         
         const blacklistData = await blacklistResponse.json();
+        console.log("Status data received:", blacklistData);
+      
         
         // Process blacklist data
         let blacklistedIds = blacklistData.blacklistedIds || '';
