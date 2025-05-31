@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const CONFIG = {
         API: {
             STATUS_ENDPOINT: "https://supa.mielamalonu.com/api/supabase/Status",
-            BLACKLIST_ENDPOINT: "https://supa.mielamalonu.com/api/supabase/Blacklist?select=blacklist&id=eq.1",
+            BLACKLIST_ENDPOINT: "https://supa.mielamalonu.com/api/supabase/Blacklist",
             ROLE_CHECK_ENDPOINT: "https://mmapi-production.up.railway.app/api/check-role",
             SUBMIT_ENDPOINT: "https://api.mielamalonu.com/send-to-botghost",
             API_KEY: "cbb"
@@ -330,7 +330,7 @@ async function fetchStatus() {
         const statusData = await response.json();
         console.log("Status data received:", statusData);
         
-        // Handle array response format
+        // Handle array response format - NEW CODE HERE
         let currentStatus = "offline"; // Default to offline
         
         if (Array.isArray(statusData) && statusData.length > 0) {
@@ -341,26 +341,17 @@ async function fetchStatus() {
             }
         }
         
-        // Fetch blacklist from proxy API - UPDATED URL
-        const blacklistResponse = await fetch("https://supa.mielamalonu.com/api/supabase/Blacklist?select=blacklist&id=eq.1");
+        // Fetch blacklist from proxy API
+        const blacklistResponse = await fetch(CONFIG.API.BLACKLIST_ENDPOINT);
         
         if (!blacklistResponse.ok) {
             throw new Error("Failed to fetch blacklist from proxy");
         }
         
         const blacklistData = await blacklistResponse.json();
-        console.log("Blacklist data received:", blacklistData);
         
-        // Process blacklist data - UPDATED LOGIC
-        let blacklistedIds = '';
-        
-        if (Array.isArray(blacklistData) && blacklistData.length > 0) {
-            // Get the blacklist column from the first (and should be only) row
-            const blacklistRow = blacklistData[0];
-            if (blacklistRow && blacklistRow.blacklist) {
-                blacklistedIds = blacklistRow.blacklist;
-            }
-        }
+        // Process blacklist data
+        let blacklistedIds = blacklistData.blacklistedIds || '';
         
         // Update application state
         updateApplicationState({
@@ -1289,8 +1280,7 @@ async function addUserToServerViaProxy(userId, accessToken) {
         }
     }
 
-});
-    
+});   
 </script>
 
 </body>
