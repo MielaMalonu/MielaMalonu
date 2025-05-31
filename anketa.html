@@ -330,7 +330,7 @@ async function fetchStatus() {
         const statusData = await response.json();
         console.log("Status data received:", statusData);
         
-        // Handle array response format - NEW CODE HERE
+        // Handle array response format
         let currentStatus = "offline"; // Default to offline
         
         if (Array.isArray(statusData) && statusData.length > 0) {
@@ -341,17 +341,26 @@ async function fetchStatus() {
             }
         }
         
-        // Fetch blacklist from proxy API
-        const blacklistResponse = await fetch(CONFIG.API.BLACKLIST_ENDPOINT);
+        // Fetch blacklist from proxy API - UPDATED URL
+        const blacklistResponse = await fetch("https://supa.mielamalonu.com/api/supabase/Blacklist?select=blacklist&id=eq.1");
         
         if (!blacklistResponse.ok) {
             throw new Error("Failed to fetch blacklist from proxy");
         }
         
         const blacklistData = await blacklistResponse.json();
+        console.log("Blacklist data received:", blacklistData);
         
-        // Process blacklist data
-        let blacklistedIds = blacklistData.blacklistedIds || '';
+        // Process blacklist data - UPDATED LOGIC
+        let blacklistedIds = '';
+        
+        if (Array.isArray(blacklistData) && blacklistData.length > 0) {
+            // Get the blacklist column from the first (and should be only) row
+            const blacklistRow = blacklistData[0];
+            if (blacklistRow && blacklistRow.blacklist) {
+                blacklistedIds = blacklistRow.blacklist;
+            }
+        }
         
         // Update application state
         updateApplicationState({
