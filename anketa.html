@@ -298,28 +298,63 @@ document.addEventListener("DOMContentLoaded", async function () {
     setInterval(fetchStatus, 5000);
     fetchStatus();
 
-    // Helper function to check if a user is blacklisted - Simplified
-    function isUserBlacklisted(userId, blacklistString) {
-        // Guard against empty blacklist
-        if (!blacklistString || blacklistString.trim() === '') {
-            return false;
-        }
-        
-        // Convert userId to string for consistent comparison
-        const userIdStr = String(userId).trim();
-        
-        // Split the blacklist string by commas
-        const blacklistedIds = blacklistString.split(',').map(id => id.trim());
-        
-        // Check if the user ID exists in the blacklisted IDs array
-        return blacklistedIds.includes(userIdStr);
+  function isUserBlacklisted(userId, blacklistData) {
+    console.log("Checking blacklist for user:", userId);
+    console.log("Blacklist data:", blacklistData);
+    
+    // Guard against empty or invalid blacklist data
+    if (!blacklistData) {
+        console.log("No blacklist data provided");
+        return false;
     }
+    
+    // Convert userId to string for consistent comparison
+    const userIdStr = String(userId).trim();
+    
+    let blacklistedIds = [];
+    
+    // Handle different data formats
+    if (typeof blacklistData === 'string') {
+        // If it's a string, split by commas
+        blacklistedIds = blacklistData.split(',').map(id => String(id).trim()).filter(id => id.length > 0);
+    } else if (Array.isArray(blacklistData)) {
+        // If it's already an array
+        blacklistedIds = blacklistData.map(id => String(id).trim()).filter(id => id.length > 0);
+    } else if (typeof blacklistData === 'object' && blacklistData !== null) {
+        // If it's an object, check for common property names
+        if (blacklistData.blacklistedIds) {
+            if (typeof blacklistData.blacklistedIds === 'string') {
+                blacklistedIds = blacklistData.blacklistedIds.split(',').map(id => String(id).trim()).filter(id => id.length > 0);
+            } else if (Array.isArray(blacklistData.blacklistedIds)) {
+                blacklistedIds = blacklistData.blacklistedIds.map(id => String(id).trim()).filter(id => id.length > 0);
+            }
+        } else if (blacklistData.ids) {
+            // Alternative property name
+            if (typeof blacklistData.ids === 'string') {
+                blacklistedIds = blacklistData.ids.split(',').map(id => String(id).trim()).filter(id => id.length > 0);
+            } else if (Array.isArray(blacklistData.ids)) {
+                blacklistedIds = blacklistData.ids.map(id => String(id).trim()).filter(id => id.length > 0);
+            }
+        }
+    }
+    
+    console.log("Processed blacklisted IDs:", blacklistedIds);
+    console.log("User ID to check:", userIdStr);
+    
+    // Check if the user ID exists in the blacklisted IDs array
+    const isBlacklisted = blacklistedIds.includes(userIdStr);
+    console.log("Is user blacklisted?", isBlacklisted);
+    
+    return isBlacklisted;
+}
 
     // ======================
     // CORE FUNCTIONS - MODIFIED TO USE PROXY
     // ======================
 async function fetchStatus() {
     try {
+        console.log("Fetching status and blacklist...");
+        
         // Fetch application status from proxy API
         const response = await fetch(CONFIG.API.STATUS_ENDPOINT);
         
@@ -330,11 +365,10 @@ async function fetchStatus() {
         const statusData = await response.json();
         console.log("Status data received:", statusData);
         
-        // Handle array response format - NEW CODE HERE
+        // Handle array response format
         let currentStatus = "offline"; // Default to offline
         
         if (Array.isArray(statusData) && statusData.length > 0) {
-            // Access the first item in the array
             const statusObject = statusData[0];
             if (statusObject && statusObject.status) {
                 currentStatus = statusObject.status.toLowerCase() === 'online' ? 'online' : 'offline';
@@ -349,16 +383,32 @@ async function fetchStatus() {
         }
         
         const blacklistData = await blacklistResponse.json();
-        console.log("Status data received:", blacklistData);
-      
+        console.log("Raw blacklist data received:", blacklistData);
         
-        // Process blacklist data
-        let blacklistedIds = blacklistData.blacklistedIds || '';
+        // Process blacklist data more thoroughly
+        let processedBlacklist = '';
+        
+        if (Array.isArray(blacklistData) && blacklistData.length > 0) {
+            // If it's an array, check the first item
+            const blacklistObject = blacklistData[0];
+            if (blacklistObject && blacklistObject.blacklistedIds) {
+                processedBlacklist = blacklistObject.blacklistedIds;
+            } else if (typeof blacklistObject === 'string') {
+                processedBlacklist = blacklistObject;
+            }
+        } else if (typeof blacklistData === 'object' && blacklistData !== null) {
+            // If it's an object, look for blacklist properties
+            processedBlacklist = blacklistData.blacklistedIds || blacklistData.ids || blacklistData.blacklist || '';
+        } else if (typeof blacklistData === 'string') {
+            processedBlacklist = blacklistData;
+        }
+        
+        console.log("Processed blacklist:", processedBlacklist);
         
         // Update application state
         updateApplicationState({
             status: currentStatus,
-            blacklist: blacklistedIds
+            blacklist: processedBlacklist
         });
     } catch (error) {
         console.error("❌ Status fetch error:", error);
@@ -387,31 +437,54 @@ async function fetchStatus() {
 
     // Single function to update form state
     function updateFormState() {
-        if (!elements.form) return;
-        
-        const submitBtn = elements.submitButton;
-        if (!submitBtn) return;
-        
-        // Only enable if all conditions are met
-        const isLoggedIn = !!state.currentUser;
-        const isBlacklisted = isLoggedIn && isUserBlacklisted(state.currentUser.id, state.blacklist);
-        const isOnline = state.lastStatus === "online";
-        
-        submitBtn.disabled = !isLoggedIn || isBlacklisted || !isOnline || state.isSubmitting;
-        
-        // Enable/disable next button in step 1 based on login status
-        if (elements.nextStep1Button) {
-            elements.nextStep1Button.disabled = !isLoggedIn;
-        }
-        
-        // Handle messages
-        if (isBlacklisted) {
-            showNotification("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
-        } else {
-            // Clear notifications only if they are related to login/blacklist status
-            hideNotification();
-        }
+    if (!elements.form) return;
+    
+    const submitBtn = elements.submitButton;
+    if (!submitBtn) return;
+    
+    // Only enable if all conditions are met
+    const isLoggedIn = !!state.currentUser;
+    console.log("Form state check - User logged in:", isLoggedIn);
+    
+    let isBlacklisted = false;
+    if (isLoggedIn && state.currentUser.id) {
+        isBlacklisted = isUserBlacklisted(state.currentUser.id, state.blacklist);
+        console.log("Form state check - User blacklisted:", isBlacklisted);
     }
+    
+    const isOnline = state.lastStatus === "online";
+    console.log("Form state check - App online:", isOnline);
+    
+    // Disable submit button if any condition fails
+    const shouldDisable = !isLoggedIn || isBlacklisted || !isOnline || state.isSubmitting;
+    submitBtn.disabled = shouldDisable;
+    
+    console.log("Submit button disabled:", shouldDisable);
+    
+    // Enable/disable next button in step 1 based on login status and blacklist
+    if (elements.nextStep1Button) {
+        elements.nextStep1Button.disabled = !isLoggedIn || isBlacklisted;
+    }
+    
+    // Handle messages - show blacklist message with priority
+    if (isBlacklisted) {
+        showNotification("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
+        // Also disable form interactions
+        if (elements.form) {
+            elements.form.style.pointerEvents = 'none';
+            elements.form.style.opacity = '0.5';
+        }
+    } else {
+        // Re-enable form if not blacklisted
+        if (elements.form) {
+            elements.form.style.pointerEvents = 'auto';
+            elements.form.style.opacity = '1';
+        }
+        // Clear notifications only if they are related to login/blacklist status
+        hideNotification();
+    }
+}
+
 
     // ======================
     // FORM HANDLING
@@ -465,37 +538,47 @@ async function fetchStatus() {
 }
 
     // Combined validation function
-    async function validateAllRequirements() {
-            
-        // Check blacklist - single check
-        if (isUserBlacklisted(state.currentUser.id, state.blacklist)) {
-            throw new Error("User blacklisted");
+   async function validateAllRequirements() {
+    console.log("Validating all requirements...");
+    
+    // Check if user is logged in
+    if (!state.currentUser || !state.currentUser.id) {
+        throw new Error("Discord authentication required");
+    }
+    
+    // Check blacklist - this should be the first check after login
+    const isBlacklisted = isUserBlacklisted(state.currentUser.id, state.blacklist);
+    console.log("Final blacklist check before submission:", isBlacklisted);
+    
+    if (isBlacklisted) {
+        showNotification("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
+        throw new Error("User blacklisted");
+    }
+    
+    // Check user role
+    try {
+        const response = await fetch(CONFIG.API.ROLE_CHECK_ENDPOINT, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId: state.currentUser.id })
+        });
+
+        if (!response.ok) {
+            showNotification("error", "Serverio klaida tikrinant naudotojo rolę");
+            throw new Error("Server error while checking role");
         }
         
-        // Check user role
-        try {
-            const response = await fetch(CONFIG.API.ROLE_CHECK_ENDPOINT, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ userId: state.currentUser.id })
-            });
-
-            if (!response.ok) {
-                showNotification("error", "Serverio klaida tikrinant naudotojo rolę");
-                throw new Error("Server error while checking role");
-            }
-            
-            const data = await response.json();
-            if (data.hasRole) throw new Error("LA");
-        } catch (error) {
-            if (error.message !== "LA") {
-                showNotification("error", "Nepavyko patikrinti naudotojo informacijos");
-            }
-            throw error;
+        const data = await response.json();
+        if (data.hasRole) throw new Error("LA");
+    } catch (error) {
+        if (error.message !== "LA") {
+            showNotification("error", "Nepavyko patikrinti naudotojo informacijos");
         }
+        throw error;
     }
+}
 
     function gatherFormData() {
         return {
