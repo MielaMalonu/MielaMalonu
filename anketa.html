@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     setInterval(fetchStatus, 5000);
     fetchStatus();
 
-  function isUserBlacklisted(userId, blacklistData) {
+ function isUserBlacklisted(userId, blacklistData) {
     console.log("Checking blacklist for user:", userId);
     console.log("Blacklist data:", blacklistData);
     
@@ -346,6 +346,54 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log("Is user blacklisted?", isBlacklisted);
     
     return isBlacklisted;
+}
+
+) {
+                currentStatus = statusObject.status.toLowerCase() === 'online' ? 'online' : 'offline';
+            }
+        }
+        
+        // Fetch blacklist from proxy API
+        const blacklistResponse = await fetch(CONFIG.API.BLACKLIST_ENDPOINT);
+        
+        if (!blacklistResponse.ok) {
+            throw new Error("Failed to fetch blacklist from proxy");
+        }
+        
+        const blacklistData = await blacklistResponse.json();
+        console.log("Raw blacklist data received:", blacklistData);
+        console.log("Blacklist data type:", typeof blacklistData);
+        console.log("Is array:", Array.isArray(blacklistData));
+        
+        // Extract blacklist based on your API structure
+        let processedBlacklist = '';
+        
+        if (Array.isArray(blacklistData) && blacklistData.length > 0) {
+            // Your API returns an array, get the first item
+            const blacklistObject = blacklistData[0];
+            if (blacklistObject && blacklistObject.blacklist && Array.isArray(blacklistObject.blacklist)) {
+                // Convert the array of IDs to a comma-separated string
+                processedBlacklist = blacklistObject.blacklist.join(',');
+            }
+        }
+        
+        console.log("Processed blacklist:", processedBlacklist);
+        console.log("Blacklist array:", Array.isArray(blacklistData) ? blacklistData[0]?.blacklist : 'Not array');
+        
+        // Update application state
+        updateApplicationState({
+            status: currentStatus,
+            blacklist: processedBlacklist
+        });
+    } catch (error) {
+        console.error("❌ Status fetch error:", error);
+        // Default to offline in case of error
+        updateApplicationState({
+            status: "offline",
+            blacklist: state.blacklist || ''
+        });
+        showNotification("error", "Nepavyko gauti aplikacijos statuso. Bandykite vėliau.");
+    }
 }
 
     // ======================
@@ -435,8 +483,7 @@ async function fetchStatus() {
         }
     }
 
-    // Single function to update form state
-    function updateFormState() {
+   function updateFormState() {
     if (!elements.form) return;
     
     const submitBtn = elements.submitButton;
