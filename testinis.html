@@ -18,9 +18,9 @@
             color: #ffffff;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(0, 150, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(30, 144, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 191, 255, 0.15) 0%, transparent 50%);
         }
 
         .container {
@@ -38,7 +38,7 @@
             backdrop-filter: blur(20px);
             z-index: 1000;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(120, 119, 198, 0.2);
+            border-bottom: 1px solid rgba(0, 150, 255, 0.3);
             transition: all 0.3s ease;
         }
 
@@ -58,14 +58,15 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            border: 2px solid rgba(120, 119, 198, 0.5);
+            border: 2px solid rgba(0, 150, 255, 0.6);
+            box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
         }
 
         .logo-text {
             font-size: 24px;
             font-weight: bold;
-            color: #7877c6;
-            text-shadow: 0 0 10px rgba(120, 119, 198, 0.5);
+            color: #0096ff;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
         }
 
         .nav-links {
@@ -89,13 +90,13 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #7877c6, #ff77c6);
+            background: linear-gradient(90deg, #0096ff, #00bfff);
             transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #7877c6;
-            text-shadow: 0 0 10px rgba(120, 119, 198, 0.5);
+            color: #0096ff;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
         }
 
         .nav-links a:hover::after {
@@ -136,20 +137,20 @@
             width: 120px;
             height: 120px;
             border-radius: 20px;
-            border: 3px solid rgba(120, 119, 198, 0.8);
+            border: 3px solid rgba(0, 150, 255, 0.8);
             margin: 0 auto 30px;
             display: block;
-            box-shadow: 0 0 30px rgba(120, 119, 198, 0.4);
+            box-shadow: 0 0 30px rgba(0, 150, 255, 0.4);
             animation: pulse 2s ease-in-out infinite alternate;
         }
 
         @keyframes pulse {
             from { 
-                box-shadow: 0 0 30px rgba(120, 119, 198, 0.4);
+                box-shadow: 0 0 30px rgba(0, 150, 255, 0.4);
                 transform: scale(1);
             }
             to { 
-                box-shadow: 0 0 50px rgba(120, 119, 198, 0.8);
+                box-shadow: 0 0 50px rgba(0, 150, 255, 0.8);
                 transform: scale(1.02);
             }
         }
@@ -158,7 +159,7 @@
             font-size: 4rem;
             margin-bottom: 20px;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(120, 119, 198, 0.6);
+            text-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
             font-weight: 900;
             letter-spacing: 2px;
         }
@@ -166,8 +167,8 @@
         .hero .subtitle {
             font-size: 1.3rem;
             margin-bottom: 30px;
-            color: #7877c6;
-            text-shadow: 0 0 10px rgba(120, 119, 198, 0.3);
+            color: #0096ff;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
         }
 
         .hero p {
@@ -203,21 +204,21 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            background: linear-gradient(135deg, #0096ff, #00bfff);
             color: white;
-            box-shadow: 0 8px 25px rgba(120, 119, 198, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 150, 255, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
             color: #ffffff;
-            border: 2px solid #7877c6;
+            border: 2px solid #0096ff;
             backdrop-filter: blur(10px);
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(120, 119, 198, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 150, 255, 0.4);
         }
 
         .btn::before {
@@ -246,7 +247,7 @@
             font-size: 3rem;
             margin-bottom: 20px;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(120, 119, 198, 0.6);
+            text-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
             font-weight: 900;
         }
 
@@ -254,7 +255,7 @@
             text-align: center;
             font-size: 1.2rem;
             margin-bottom: 60px;
-            color: #7877c6;
+            color: #0096ff;
             opacity: 0.9;
         }
 
@@ -272,7 +273,7 @@
             padding: 40px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(120, 119, 198, 0.2);
+            border: 1px solid rgba(0, 150, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -284,7 +285,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #7877c6, #ff77c6);
+            background: linear-gradient(90deg, #0096ff, #00bfff);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -296,15 +297,16 @@
         .feature-card:hover {
             transform: translateY(-10px);
             background: rgba(25, 25, 25, 0.9);
-            border-color: rgba(120, 119, 198, 0.5);
-            box-shadow: 0 20px 40px rgba(120, 119, 198, 0.2);
+            border-color: rgba(0, 150, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 150, 255, 0.2);
         }
 
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 25px;
-            color: #7877c6;
-            text-shadow: 0 0 15px rgba(120, 119, 198, 0.5);
+            color: #0096ff;
+            text-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+            filter: drop-shadow(0 0 10px rgba(0, 150, 255, 0.3));
         }
 
         .feature-card h3 {
@@ -332,7 +334,7 @@
             border-radius: 20px;
             padding: 50px;
             margin: 40px 0;
-            border: 2px solid rgba(120, 119, 198, 0.3);
+            border: 2px solid rgba(0, 150, 255, 0.3);
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -347,7 +349,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #7877c6, #ff77c6);
+            background: linear-gradient(90deg, #0096ff, #00bfff);
         }
 
         .server-ip h3 {
@@ -360,14 +362,14 @@
         .ip-address {
             font-family: 'Courier New', monospace;
             font-size: 1.5rem;
-            color: #7877c6;
+            color: #0096ff;
             font-weight: bold;
-            background: rgba(120, 119, 198, 0.1);
+            background: rgba(0, 150, 255, 0.1);
             padding: 15px 25px;
             border-radius: 10px;
-            border: 1px solid rgba(120, 119, 198, 0.3);
+            border: 1px solid rgba(0, 150, 255, 0.3);
             margin: 20px 0;
-            text-shadow: 0 0 10px rgba(120, 119, 198, 0.3);
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
         }
 
         /* Footer */
@@ -375,7 +377,7 @@
             background: rgba(5, 5, 5, 0.95);
             padding: 80px 0 40px;
             text-align: center;
-            border-top: 1px solid rgba(120, 119, 198, 0.2);
+            border-top: 1px solid rgba(0, 150, 255, 0.2);
         }
 
         .footer-content {
@@ -387,10 +389,10 @@
 
         .footer-section h4 {
             margin-bottom: 25px;
-            color: #7877c6;
+            color: #0096ff;
             font-size: 1.3rem;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(120, 119, 198, 0.3);
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
         }
 
         .footer-section p, .footer-section a {
@@ -401,8 +403,8 @@
         }
 
         .footer-section a:hover {
-            color: #7877c6;
-            text-shadow: 0 0 5px rgba(120, 119, 198, 0.5);
+            color: #0096ff;
+            text-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
         }
 
         .footer-logo {
@@ -410,8 +412,9 @@
             height: 60px;
             border-radius: 12px;
             margin: 0 auto 20px;
-            border: 2px solid rgba(120, 119, 198, 0.5);
+            border: 2px solid rgba(0, 150, 255, 0.5);
             display: block;
+            box-shadow: 0 0 15px rgba(0, 150, 255, 0.3);
         }
 
         .social-links {
@@ -424,8 +427,8 @@
         .social-links a {
             width: 60px;
             height: 60px;
-            background: rgba(120, 119, 198, 0.1);
-            border: 2px solid rgba(120, 119, 198, 0.3);
+            background: rgba(0, 150, 255, 0.1);
+            border: 2px solid rgba(0, 150, 255, 0.3);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -435,10 +438,10 @@
         }
 
         .social-links a:hover {
-            background: rgba(120, 119, 198, 0.2);
-            border-color: rgba(120, 119, 198, 0.6);
+            background: rgba(0, 150, 255, 0.2);
+            border-color: rgba(0, 150, 255, 0.6);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(120, 119, 198, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 150, 255, 0.2);
         }
 
         /* Responsive Design */
@@ -497,12 +500,41 @@
         }
 
         @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(120, 119, 198, 0.6); }
-            to { text-shadow: 0 0 30px rgba(120, 119, 198, 0.9), 0 0 40px rgba(120, 119, 198, 0.6); }
+            from { text-shadow: 0 0 20px rgba(0, 150, 255, 0.6); }
+            to { text-shadow: 0 0 30px rgba(0, 150, 255, 0.9), 0 0 40px rgba(0, 150, 255, 0.6); }
+        }
+
+        /* Starry background effect to match logo */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #0096ff;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
+    <!-- Starry background -->
+    <div class="stars" id="stars"></div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
@@ -612,6 +644,24 @@
     </footer>
 
     <script>
+        // Create starry background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 50;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize stars
+        createStars();
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
@@ -656,17 +706,18 @@
             observer.observe(el);
         });
 
-        // Add floating elements animation
+        // Add floating elements animation with blue theme
         const createFloatingElement = () => {
             const element = document.createElement('div');
             element.style.position = 'fixed';
             element.style.width = '6px';
             element.style.height = '6px';
-            element.style.background = 'linear-gradient(45deg, #7877c6, #ff77c6)';
+            element.style.background = 'linear-gradient(45deg, #0096ff, #00bfff)';
             element.style.borderRadius = '50%';
             element.style.pointerEvents = 'none';
             element.style.zIndex = '1';
             element.style.opacity = '0.7';
+            element.style.boxShadow = '0 0 10px rgba(0, 150, 255, 0.5)';
             
             const startX = Math.random() * window.innerWidth;
             const startY = window.innerHeight + 10;
@@ -692,7 +743,7 @@
         };
 
         // Create floating elements periodically
-        setInterval(createFloatingElement, 500);
+        setInterval(createFloatingElement, 800);
     </script>
 </body>
 </html>
