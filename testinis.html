@@ -1026,7 +1026,7 @@ function getPlayerWord(count) {
     const lastTwoDigits = count % 100;
     
     // Check if it's 2, 3, or 4 (but not 12, 13, 14)
-    if ((lastDigit === 2 || lastDigit === 3 || lastDigit === 8 || lastDigit === 4) && 
+    if ((lastDigit === 2 || lastDigit === 3 || lastDigit === 8 || lastDigit === 6 || lastDigit === 7 || lastDigit === 9 || lastDigit === 4) && 
         (lastTwoDigits !== 12 && lastTwoDigits !== 13 && lastTwoDigits !== 14)) {
         return 'žaidėjai';
     }
