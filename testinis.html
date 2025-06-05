@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -324,25 +325,48 @@
         /* Server Connection Info */
         .server-info {
             padding: 120px 0;
-            text-align: center;
             background: rgba(10, 10, 10, 0.9);
         }
 
-        .server-ip {
+        /* Server info grid layout - FIXED ALIGNMENT */
+        .server-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+            align-items: stretch; /* This ensures both containers stretch to match height */
+        }
+
+        .server-info-combined {
             background: rgba(20, 20, 20, 0.8);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 50px;
-            margin: 40px 0;
+            padding: 40px;
             border: 2px solid rgba(0, 150, 255, 0.3);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute content evenly */
+            min-height: 400px; /* Ensure minimum height matches players container */
         }
 
-        .server-ip::before {
+        .players-list-container {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 400px; /* Fixed height for consistent alignment */
+        }
+
+        /* Blue gradient top border for both containers */
+        .server-info-combined::before,
+        .players-list-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -352,11 +376,83 @@
             background: linear-gradient(90deg, #0096ff, #00bfff);
         }
 
-        .server-ip h3 {
-            margin-bottom: 20px;
+        /* Headers styling - same for both */
+        .server-info-combined h3,
+        .players-list-container h3 {
+            margin-bottom: 25px;
             font-size: 1.8rem;
             color: #ffffff;
             font-weight: 700;
+            text-align: left;
+        }
+
+        /* Server info specific spacing */
+        .server-info-combined h3:first-child {
+            margin-bottom: 25px;
+        }
+
+        .server-info-combined h3:not(:first-child) {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Server status styling */
+        .server-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding: 15px 25px;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse-status 2s ease-in-out infinite;
+        }
+
+        .status-online {
+            background: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        .status-offline {
+            background: #ff4444;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
+        }
+
+        .status-loading {
+            background: #ffaa00;
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+        }
+
+        @keyframes pulse-status {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .server-players {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .status-text {
+            color: #ffffff;
+        }
+
+        /* Server IP section */
+        .server-ip-section {
+            flex-grow: 1; /* This makes the IP section take up remaining space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .ip-address {
@@ -370,6 +466,96 @@
             border: 1px solid rgba(0, 150, 255, 0.3);
             margin: 20px 0;
             text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+            text-align: left;
+        }
+
+        /* Players list with proper scrolling */
+        .players-list {
+            flex-grow: 1; /* Take up remaining space */
+            overflow-y: auto;
+            padding-right: 10px;
+            min-height: 280px; /* Minimum height for scrolling area */
+        }
+
+        /* Scrollbar styling */
+        .players-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .players-list::-webkit-scrollbar-track {
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 4px;
+        }
+
+        .players-list::-webkit-scrollbar-thumb {
+            background: rgba(0, 150, 255, 0.5);
+            border-radius: 4px;
+        }
+
+        .players-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 150, 255, 0.7);
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            margin-bottom: 8px;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .player-item:hover {
+            background: rgba(35, 35, 35, 0.8);
+            border-color: rgba(0, 150, 255, 0.4);
+            transform: translateX(5px);
+        }
+
+        .player-name {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .player-ping {
+            color: #0096ff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .ping-good {
+            color: #00ff88;
+        }
+
+        .ping-medium {
+            color: #ffaa00;
+        }
+
+        .ping-bad {
+            color: #ff4444;
+        }
+
+        .no-players {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            padding: 40px 20px;
+        }
+
+        .loading-players {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 20px;
+        }
+
+        /* Update CTA buttons container */
+        .server-info .cta-buttons {
+            justify-content: flex-start;
+            margin-top: 30px;
         }
 
         /* Footer */
@@ -471,6 +657,19 @@
                 width: 80px;
                 height: 80px;
             }
+
+            .server-info-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .players-list-container {
+                min-height: 350px;
+            }
+            
+            .players-list {
+                min-height: 230px;
+            }
         }
 
         /* Animations */
@@ -529,335 +728,6 @@
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.2); }
         }
-.server-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin: 25px 0;
-    padding: 15px 25px;
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    font-size: 1rem;
-    font-weight: 600;
- max-width: 600px;
-}
-
-.status-indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    animation: pulse-status 2s ease-in-out infinite;
-}
-
-.status-online {
-    background: #00ff88;
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
-}
-
-.status-offline {
-    background: #ff4444;
-    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
-}
-
-.status-loading {
-    background: #ffaa00;
-    box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
-}
-
-@keyframes pulse-status {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.1); }
-}
-
-.server-players {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.95rem;
-}
-
-.status-text {
-    color: #ffffff;
-}
-/* Server Connection Info - Updated */
-.server-info {
-    padding: 120px 0;
-    background: rgba(10, 10, 10, 0.9);
-}
-
-.server-info .container {
-    text-align: left; /* Changed from center to left */
-}
-
-.server-info h2 {
-    text-align: left; /* Keep title left-aligned */
-    margin-bottom: 40px;
-}
-
-/* Combined server info container */
-.server-info-combined {
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 40px;
-    margin: 40px 0;
-    border: 2px solid rgba(0, 150, 255, 0.3);
-    max-width: 600px;
-    position: relative;
-    overflow: hidden;
-}
-
-.server-info-combined::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0096ff, #00bfff);
-}
-
-.server-status {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 30px; /* Add spacing between status and IP */
-    padding: 15px 25px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.server-ip-section h3 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: left;
-}
-
-.ip-address {
-    font-family: 'Courier New', monospace;
-    font-size: 1.5rem;
-    color: #0096ff;
-    font-weight: bold;
-    background: rgba(0, 150, 255, 0.1);
-    padding: 15px 25px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    margin: 20px 0;
-    text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
-    text-align: left;
-}
-
-/* Update CTA buttons container */
-.server-info .cta-buttons {
-    justify-content: flex-start; /* Align buttons to the left */
-    margin-top: 30px;
-}
-/* Add this CSS to your existing styles */
-
-/* Server info grid layout */
-.server-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin: 40px 0;
-}
-
-.server-info-combined {
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 40px;
-    border: 2px solid rgba(0, 150, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-    height: 400px; /* Fixed height to match players container */
-}
-
-.players-list-container {
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 40px;
-    border: 2px solid rgba(0, 150, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-    height: 400px; /* Fixed height */
-}
-
-/* Headers styling - same for both */
-.server-info-combined h3,
-.players-list-container h3 {
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: left;
-}
-
-/* Server info specific spacing */
-.server-info-combined h3:not(:first-child) {
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-/* Server status styling */
-.server-status {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 30px;
-    padding: 15px 25px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-/* Players list with proper scrolling */
-.players-list {
-    max-height: 280px; /* Restore scrolling height */
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-/* Blue gradient top border */
-.server-info-combined::before,
-.players-list-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0096ff, #00bfff);
-}
-
-/* Scrollbar styling */
-.players-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.players-list::-webkit-scrollbar-track {
-    background: rgba(30, 30, 30, 0.5);
-    border-radius: 4px;
-}
-
-.players-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 150, 255, 0.5);
-    border-radius: 4px;
-}
-
-.players-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 150, 255, 0.7);
-}
-/* Blue gradient top border for both containers */
-.server-info-combined::before,
-.players-list-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0096ff, #00bfff);
-}
-
-.player-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    margin-bottom: 8px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.player-item:hover {
-    background: rgba(35, 35, 35, 0.8);
-    border-color: rgba(0, 150, 255, 0.4);
-    transform: translateX(5px);
-}
-
-.player-name {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-.player-ping {
-    color: #0096ff;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.ping-good {
-    color: #00ff88;
-}
-
-.ping-medium {
-    color: #ffaa00;
-}
-
-.ping-bad {
-    color: #ff4444;
-}
-
-.no-players {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
-    padding: 40px 20px;
-}
-
-.loading-players {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 40px 20px;
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-    .server-info-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .players-list-container {
-        height: 350px;
-    }
-    
-    .players-list {
-        max-height: 230px;
-    }
-}
-.server-info-combined h3 {
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: left;
-}
-
-.server-info-combined h3:first-child {
-    margin-bottom: 25px;
-}
-
-.server-info-combined h3:not(:first-child) {
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
     </style>
 </head>
 <body>
@@ -938,46 +808,47 @@
     </section>
 
     <!-- Server Connection Info -->
- <!-- Server Connection Info - Updated Section -->
-<section class="server-info" id="connect">
-    <div class="container">
-        <h2 class="section-title glow">Serverio Informacija</h2>
-        
-        <!-- Grid container for both status and players -->
-        <div class="server-info-grid">
-            <!-- Server Status Container -->
-            <div class="server-info-combined">
-                <!-- Status Section -->
-                <h3>Statusas</h3>
-                <div class="server-status" id="serverStatus">
-                    <div class="status-indicator status-loading" id="statusIndicator"></div>
-                    <span class="status-text" id="statusText">Kraunama...</span>
-                    <span class="server-players" id="serverPlayers"></span>
+    <section class="server-info" id="connect">
+        <div class="container">
+            <h2 class="section-title glow">Serverio Informacija</h2>
+            
+            <!-- Grid container for both status and players -->
+            <div class="server-info-grid">
+                <!-- Server Status Container -->
+                <div class="server-info-combined">
+                    <!-- Status Section -->
+                    <div>
+                        <h3>Statusas</h3>
+                        <div class="server-status" id="serverStatus">
+                            <div class="status-indicator status-loading" id="statusIndicator"></div>
+                            <span class="status-text" id="statusText">Kraunama...</span>
+                            <span class="server-players" id="serverPlayers"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Server IP Section -->
+                    <div class="server-ip-section">
+                        <h3>Serverio IP</h3>
+                        <div class="ip-address">connect cfx.re/join/baykml</div>
+                    </div>
                 </div>
                 
-                <!-- Server IP Section -->
-                <div class="server-ip-section">
-                    <h3>Serverio IP</h3>
-                    <div class="ip-address">connect cfx.re/join/baykml</div>
+                <!-- Players List Container -->
+                <div class="players-list-container">
+                    <h3>Žaidėjai</h3>
+                    <div class="players-list" id="playersList">
+                        <div class="loading-players">Kraunama žaidėjų sąrašas...</div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Players List Container -->
-            <div class="players-list-container">
-                <h3>Žaidėjai</h3>
-                <div class="players-list" id="playersList">
-                    <div class="loading-players">Kraunama žaidėjų sąrašas...</div>
-                </div>
+            <!-- Action buttons -->
+            <div class="cta-buttons">
+                <a href="fivem://connect/cfx.re/join/baykml" class="btn btn-primary">Prisijungti</a>
+                <a href="https://fivem.net/" class="btn btn-secondary" target="_blank">Atsisiūsti FiveM</a>
             </div>
         </div>
-        
-        <!-- Action buttons -->
-        <div class="cta-buttons">
-            <a href="fivem://connect/cfx.re/join/baykml" class="btn btn-primary">Prisijungti</a>
-            <a href="https://fivem.net/" class="btn btn-secondary" target="_blank">Atsisiūsti FiveM</a>
-        </div>
-    </div>
-</section>
+    </section>
     <!-- Footer -->
     <footer>
         <div class="container">
