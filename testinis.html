@@ -658,19 +658,93 @@
                 height: 80px;
             }
 
-            .server-info-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .players-list-container {
-                min-height: 350px;
-            }
-            
-            .players-list {
-                min-height: 230px;
-            }
-        }
+           /* Server info grid layout - FIXED ALIGNMENT */
+.server-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 40px 0;
+    align-items: stretch; /* This ensures both containers stretch to match height */
+}
+
+.server-info-combined {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 2px solid rgba(0, 150, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute content evenly */
+    height: 500px; /* Fixed height instead of min-height */
+}
+
+.players-list-container {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 2px solid rgba(0, 150, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* Fixed height to match server-info-combined */
+}
+
+/* Players list with proper scrolling */
+.players-list {
+    flex-grow: 1; /* Take up remaining space */
+    overflow-y: auto;
+    padding-right: 10px;
+    max-height: 380px; /* Maximum height for scrolling area - leaves room for header */
+}
+
+/* Mobile responsive updates */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .server-info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Mobile height adjustments */
+    .players-list-container,
+    .server-info-combined {
+        height: 450px; /* Slightly smaller on mobile */
+    }
+    
+    .players-list {
+        max-height: 330px; /* Adjust for mobile */
+    }
+}
 
         /* Animations */
         .fade-in {
