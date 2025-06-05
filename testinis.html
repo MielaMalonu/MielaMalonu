@@ -934,68 +934,84 @@
     </footer>
 
     <script>
-        // Create starry background
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numberOfStars = 50;
-            
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
+       // Page Visibility API for tab activity detection
+let isTabActive = true;
+let updateInterval = null;
+let lastUpdateTime = 0;
+
+// Configuration
+const UPDATE_INTERVAL_ACTIVE = 30000; // 30 seconds when tab is active
+const UPDATE_INTERVAL_INACTIVE = 120000; // 2 minutes when tab is inactive (for when user returns)
+const MIN_UPDATE_DELAY = 5000; // Minimum 5 seconds between updates to prevent spam
+
+// =================================================================
+// COMPLETE JAVASCRIPT FOR NORDRP.LT WEBSITE
+// This replaces ALL JavaScript in your HTML file
+// =================================================================
+
+// Create starry background
+function createStars() {
+    const starsContainer = document.getElementById('stars');
+    const numberOfStars = 50;
+    
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+    }
+}
+
+// Initialize stars
+createStars();
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+    } else {
+        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+    }
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
+    });
+});
 
-        // Initialize stars
-        createStars();
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-            }
-        });
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+        }
+    });
+}, observerOptions);
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+// Observe all fade-in elements
+document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+});
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.style.animationPlayState = 'paused';
-            observer.observe(el);
-        });
-/// Lithuanian grammar helper function
+// Lithuanian grammar helper function
 function getPlayerWord(count) {
     if (count === 1) {
         return 'žaidėjas';
@@ -1007,22 +1023,63 @@ function getPlayerWord(count) {
     return 'žaidėjų';
 }
 
-// Updated Server Status Function
+// Ping color class helper
+function getPingColorClass(ping) {
+    if (ping <= 50) return 'ping-good';
+    if (ping <= 100) return 'ping-medium';
+    return 'ping-bad';
+}
+
+// Optimized debounce function to prevent too frequent updates
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Server Status Function with error handling and caching
 async function fetchServerStatus() {
+    const now = Date.now();
+    
+    // Prevent too frequent updates
+    if (now - lastUpdateTime < MIN_UPDATE_DELAY) {
+        return;
+    }
+    
     const statusIndicator = document.getElementById('statusIndicator');
     const statusText = document.getElementById('statusText');
     const serverPlayers = document.getElementById('serverPlayers');
     
+    // Don't update if tab is not active
+    if (!isTabActive) {
+        return;
+    }
+    
     try {
-        const response = await fetch('https://nordrpsite-production.up.railway.app/api/server-status');
+        // Add timeout to prevent hanging requests
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        
+        const response = await fetch('https://nordrpsite-production.up.railway.app/api/server-status', {
+            signal: controller.signal,
+            cache: 'no-cache' // Ensure fresh data
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
         
-        // Check if we have valid data (clients and sv_maxclients exist)
+        // Check if we have valid data
         if (data.clients !== undefined && data.sv_maxclients !== undefined) {
             statusIndicator.className = 'status-indicator status-online';
             statusText.textContent = 'Serveris veikia';
@@ -1033,130 +1090,256 @@ async function fetchServerStatus() {
             
             serverPlayers.textContent = `👥 ${currentPlayers}/${maxPlayers} ${playerWord}`;
         } else {
-            // If no valid data, assume server is offline
             statusIndicator.className = 'status-indicator status-offline';
             statusText.textContent = 'Serveris neveikia';
             serverPlayers.textContent = '';
         }
         
+        lastUpdateTime = now;
+        
     } catch (error) {
         console.error('Error fetching server status:', error);
-        statusIndicator.className = 'status-indicator status-offline';
-        statusText.textContent = 'Nepavyko gauti duomenų';
+        
+        // Different error messages based on error type
+        if (error.name === 'AbortError') {
+            statusIndicator.className = 'status-indicator status-offline';
+            statusText.textContent = 'Timeout - serveris gali neveikti';
+        } else {
+            statusIndicator.className = 'status-indicator status-offline';
+            statusText.textContent = 'Nepavyko gauti duomenų';
+        }
+        
         serverPlayers.textContent = '';
+        lastUpdateTime = now;
     }
 }
 
-// Call the function when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    fetchServerStatus();
-    
-    // Update status every 30 seconds
-    setInterval(fetchServerStatus, 30000);
-});
-
-// Also call it immediately if DOM is already loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fetchServerStatus);
-} else {
-    fetchServerStatus();
-}
-function getPingColorClass(ping) {
-    if (ping <= 50) return 'ping-good';
-    if (ping <= 100) return 'ping-medium';
-    return 'ping-bad';
-}
-
-// Function to fetch and display players list
+// Players list function with optimization
 async function fetchPlayersList() {
     const playersListElement = document.getElementById('playersList');
     
+    // Don't update if tab is not active
+    if (!isTabActive) {
+        return;
+    }
+    
     try {
-        const response = await fetch('https://nordrpsite-production.up.railway.app/api/players');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        
+        const response = await fetch('https://nordrpsite-production.up.railway.app/api/players', {
+            signal: controller.signal,
+            cache: 'no-cache'
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
         
         if (data.players && data.players.length > 0) {
-            playersListElement.innerHTML = data.players.map(player => `
-                <div class="player-item">
+            // Use DocumentFragment for better performance when adding multiple elements
+            const fragment = document.createDocumentFragment();
+            
+            data.players.forEach(player => {
+                const playerDiv = document.createElement('div');
+                playerDiv.className = 'player-item';
+                playerDiv.innerHTML = `
                     <span class="player-name">${player.name}</span>
                     <span class="player-ping ${getPingColorClass(player.ping)}">${player.ping}ms</span>
-                </div>
-            `).join('');
+                `;
+                fragment.appendChild(playerDiv);
+            });
+            
+            playersListElement.innerHTML = '';
+            playersListElement.appendChild(fragment);
         } else {
             playersListElement.innerHTML = '<div class="no-players">Šiuo metu žaidėjų nėra</div>';
         }
         
     } catch (error) {
         console.error('Error fetching players list:', error);
-        playersListElement.innerHTML = '<div class="no-players">Nepavyko įkrauti žaidėjų sąrašo</div>';
+        
+        if (error.name === 'AbortError') {
+            playersListElement.innerHTML = '<div class="no-players">Timeout - nepavyko įkrauti žaidėjų</div>';
+        } else {
+            playersListElement.innerHTML = '<div class="no-players">Nepavyko įkrauti žaidėjų sąrašo</div>';
+        }
     }
 }
 
-// Update the existing DOMContentLoaded event listener
-document.addEventListener('DOMContentLoaded', function() {
-    fetchServerStatus();
-    fetchPlayersList(); // Add this line
+// Combined update function
+async function updateServerData() {
+    if (!isTabActive) return;
     
-    // Update both status and players list every 30 seconds
-    setInterval(() => {
-        fetchServerStatus();
-        fetchPlayersList(); // Add this line
-    }, 30000);
+    try {
+        // Run both updates concurrently for better performance
+        await Promise.allSettled([
+            fetchServerStatus(),
+            fetchPlayersList()
+        ]);
+    } catch (error) {
+        console.error('Error updating server data:', error);
+    }
+}
+
+// Debounced version of update function
+const debouncedUpdate = debounce(updateServerData, 1000);
+
+// Page Visibility API event listeners
+document.addEventListener('visibilitychange', () => {
+    const wasActive = isTabActive;
+    isTabActive = !document.hidden;
+    
+    if (isTabActive && !wasActive) {
+        // Tab became active - update immediately and restart interval
+        console.log('Tab became active - updating server data');
+        updateServerData();
+        startUpdateInterval();
+    } else if (!isTabActive && wasActive) {
+        // Tab became inactive - stop frequent updates
+        console.log('Tab became inactive - reducing update frequency');
+        stopUpdateInterval();
+    }
 });
 
-// Also call immediately if DOM is already loaded (update this part)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchServerStatus();
-        fetchPlayersList(); // Add this line
-    });
-} else {
-    fetchServerStatus();
-    fetchPlayersList(); // Add this line
-}  
-      // Add floating elements animation with blue theme
-        const createFloatingElement = () => {
-            const element = document.createElement('div');
-            element.style.position = 'fixed';
-            element.style.width = '6px';
-            element.style.height = '6px';
-            element.style.background = 'linear-gradient(45deg, #0096ff, #00bfff)';
-            element.style.borderRadius = '50%';
-            element.style.pointerEvents = 'none';
-            element.style.zIndex = '1';
-            element.style.opacity = '0.7';
-            element.style.boxShadow = '0 0 10px rgba(0, 150, 255, 0.5)';
-            
-            const startX = Math.random() * window.innerWidth;
-            const startY = window.innerHeight + 10;
-            const endY = -10;
-            const duration = Math.random() * 3000 + 2000;
-            
-            element.style.left = startX + 'px';
-            element.style.top = startY + 'px';
-            
-            document.body.appendChild(element);
-            
-            const animation = element.animate([
-                { transform: 'translateY(0px)', opacity: 0.7 },
-                { transform: `translateY(${endY - startY}px)`, opacity: 0 }
-            ], {
-                duration: duration,
-                easing: 'linear'
-            });
-            
-            animation.addEventListener('finish', () => {
-                element.remove();
-            });
-        };
+// Window focus/blur events as fallback
+window.addEventListener('focus', () => {
+    if (!isTabActive) {
+        isTabActive = true;
+        updateServerData();
+        startUpdateInterval();
+    }
+});
 
-        // Create floating elements periodically
-        setInterval(createFloatingElement, 800);
+window.addEventListener('blur', () => {
+    if (isTabActive) {
+        isTabActive = false;
+        stopUpdateInterval();
+    }
+});
+
+// Interval management functions
+function startUpdateInterval() {
+    stopUpdateInterval(); // Clear any existing interval
+    
+    if (isTabActive) {
+        updateInterval = setInterval(() => {
+            if (isTabActive) {
+                debouncedUpdate();
+            }
+        }, UPDATE_INTERVAL_ACTIVE);
+    }
+}
+
+function stopUpdateInterval() {
+    if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+    }
+}
+
+// Initialize when DOM is ready
+function initializeApp() {
+    // Set initial tab state
+    isTabActive = !document.hidden;
+    
+    // Initial data fetch
+    updateServerData();
+    
+    // Start update interval if tab is active
+    if (isTabActive) {
+        startUpdateInterval();
+    }
+    
+    console.log('NORDRP.LT site initialized - tab active:', isTabActive);
+}
+
+// DOM Content Loaded event
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
+
+// Optimized floating elements with performance considerations
+let floatingElementsEnabled = true;
+let floatingInterval = null;
+
+// Create floating elements animation with blue theme
+const createFloatingElement = () => {
+    // Don't create floating elements if tab is not active or if there are too many
+    if (!isTabActive || !floatingElementsEnabled) return;
+    
+    // Limit number of floating elements
+    const existingElements = document.querySelectorAll('[data-floating]').length;
+    if (existingElements > 10) return;
+    
+    const element = document.createElement('div');
+    element.setAttribute('data-floating', 'true');
+    element.style.position = 'fixed';
+    element.style.width = '6px';
+    element.style.height = '6px';
+    element.style.background = 'linear-gradient(45deg, #0096ff, #00bfff)';
+    element.style.borderRadius = '50%';
+    element.style.pointerEvents = 'none';
+    element.style.zIndex = '1';
+    element.style.opacity = '0.7';
+    element.style.boxShadow = '0 0 10px rgba(0, 150, 255, 0.5)';
+    
+    const startX = Math.random() * window.innerWidth;
+    const startY = window.innerHeight + 10;
+    const endY = -10;
+    const duration = Math.random() * 3000 + 2000;
+    
+    element.style.left = startX + 'px';
+    element.style.top = startY + 'px';
+    
+    document.body.appendChild(element);
+    
+    const animation = element.animate([
+        { transform: 'translateY(0px)', opacity: 0.7 },
+        { transform: `translateY(${endY - startY}px)`, opacity: 0 }
+    ], {
+        duration: duration,
+        easing: 'linear'
+    });
+    
+    animation.addEventListener('finish', () => {
+        if (element.parentNode) {
+            element.remove();
+        }
+    });
+};
+
+// Start/stop floating elements based on tab visibility
+function toggleFloatingElements() {
+    if (isTabActive && !floatingInterval) {
+        floatingInterval = setInterval(createFloatingElement, 800);
+    } else if (!isTabActive && floatingInterval) {
+        clearInterval(floatingInterval);
+        floatingInterval = null;
+        // Remove existing floating elements to save memory
+        document.querySelectorAll('[data-floating]').forEach(el => el.remove());
+    }
+}
+
+// Initialize floating elements
+toggleFloatingElements();
+
+// Update floating elements when tab visibility changes
+document.addEventListener('visibilitychange', toggleFloatingElements);
+window.addEventListener('focus', toggleFloatingElements);
+window.addEventListener('blur', toggleFloatingElements);
+
+// Cleanup function for page unload
+window.addEventListener('beforeunload', () => {
+    stopUpdateInterval();
+    clearInterval(floatingInterval);
+});
     </script>
 </body>
 </html>
