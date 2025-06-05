@@ -1013,13 +1013,22 @@ document.querySelectorAll('.fade-in').forEach(el => {
 
 // Lithuanian grammar helper function
 function getPlayerWord(count) {
+    // Handle special case for 1
     if (count === 1) {
         return 'žaidėjas';
-    } else if (count % 10 === 2 || count % 10 === 3 || count % 10 === 4) {
-        if (count % 100 !== 12 && count % 100 !== 13 && count % 100 !== 14) {
-            return 'žaidėjai';
-        }
     }
+    
+    // Get the last digit and last two digits
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+    
+    // Check if it's 2, 3, or 4 (but not 12, 13, 14)
+    if ((lastDigit === 2 || lastDigit === 3 || lastDigit === 4) && 
+        (lastTwoDigits !== 12 && lastTwoDigits !== 13 && lastTwoDigits !== 14)) {
+        return 'žaidėjai';
+    }
+    
+    // All other cases use genitive plural
     return 'žaidėjų';
 }
 
