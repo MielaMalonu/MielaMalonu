@@ -848,7 +848,19 @@
             el.style.animationPlayState = 'paused';
             observer.observe(el);
         });
-// Server Status Function - Add to existing JavaScript
+/// Lithuanian grammar helper function
+function getPlayerWord(count) {
+    if (count === 1) {
+        return 'žaidėjas';
+    } else if (count % 10 === 2 || count % 10 === 3 || count % 10 === 4) {
+        if (count % 100 !== 12 && count % 100 !== 13 && count % 100 !== 14) {
+            return 'žaidėjai';
+        }
+    }
+    return 'žaidėjų';
+}
+
+// Updated Server Status Function
 async function fetchServerStatus() {
     const statusIndicator = document.getElementById('statusIndicator');
     const statusText = document.getElementById('statusText');
@@ -870,7 +882,9 @@ async function fetchServerStatus() {
             
             const currentPlayers = data.clients;
             const maxPlayers = parseInt(data.sv_maxclients);
-            serverPlayers.textContent = `👥 ${currentPlayers}/${maxPlayers} žaidėjų`;
+            const playerWord = getPlayerWord(currentPlayers);
+            
+            serverPlayers.textContent = `👥 ${currentPlayers}/${maxPlayers} ${playerWord}`;
         } else {
             // If no valid data, assume server is offline
             statusIndicator.className = 'status-indicator status-offline';
