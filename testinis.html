@@ -795,6 +795,22 @@
         max-height: 230px;
     }
 }
+.server-info-combined h3 {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+}
+
+.server-info-combined h3:first-child {
+    margin-bottom: 25px;
+}
+
+.server-info-combined h3:not(:first-child) {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
     </style>
 </head>
 <body>
@@ -875,7 +891,8 @@
     </section>
 
     <!-- Server Connection Info -->
-   <section class="server-info" id="connect">
+ <!-- Server Connection Info - Updated Section -->
+<section class="server-info" id="connect">
     <div class="container">
         <h2 class="section-title glow">Serverio Informacija</h2>
         
@@ -883,9 +900,10 @@
         <div class="server-info-grid">
             <!-- Server Status Container -->
             <div class="server-info-combined">
-                <!-- Server Status -->
+                <!-- Add Status header -->
+                <h3>Statusas</h3>
+                
                 <div class="server-status" id="serverStatus">
-<h3>Statusas</h3>
                     <div class="status-indicator status-loading" id="statusIndicator"></div>
                     <span class="status-text" id="statusText">Kraunama...</span>
                     <span class="server-players" id="serverPlayers"></span>
