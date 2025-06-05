@@ -667,9 +667,22 @@
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin: 40px 0;
+    align-items: start; /* Align containers to top */
 }
 
-/* Players list container */
+.server-info-combined {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 2px solid rgba(0, 150, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    height: 100%; /* Match height of players container */
+    display: flex;
+    flex-direction: column;
+}
+
 .players-list-container {
     background: rgba(20, 20, 20, 0.8);
     backdrop-filter: blur(20px);
@@ -678,9 +691,58 @@
     border: 2px solid rgba(0, 150, 255, 0.3);
     position: relative;
     overflow: hidden;
-    height: 400px; /* Match server info container */
+    display: flex;
+    flex-direction: column;
 }
 
+/* Ensure both containers have the same header styling */
+.server-info-combined h3,
+.players-list-container h3 {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+/* Specific spacing for server info headers */
+.server-info-combined h3:not(:first-child) {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* Content areas should fill remaining space */
+.server-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding: 15px 25px;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 150, 255, 0.3);
+    font-size: 1rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.server-ip-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.players-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    min-height: 200px; /* Ensure minimum height */
+}
+
+/* Blue gradient top border for both containers */
+.server-info-combined::before,
 .players-list-container::before {
     content: '';
     position: absolute;
@@ -689,39 +751,6 @@
     right: 0;
     height: 4px;
     background: linear-gradient(90deg, #0096ff, #00bfff);
-}
-
-.players-list-container h3 {
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: left;
-}
-
-.players-list {
-    max-height: 280px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-/* Custom scrollbar */
-.players-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.players-list::-webkit-scrollbar-track {
-    background: rgba(30, 30, 30, 0.5);
-    border-radius: 4px;
-}
-
-.players-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 150, 255, 0.5);
-    border-radius: 4px;
-}
-
-.players-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 150, 255, 0.7);
 }
 
 .player-item {
@@ -900,9 +929,8 @@
         <div class="server-info-grid">
             <!-- Server Status Container -->
             <div class="server-info-combined">
-                <!-- Add Status header -->
+                <!-- Status Section -->
                 <h3>Statusas</h3>
-                
                 <div class="server-status" id="serverStatus">
                     <div class="status-indicator status-loading" id="statusIndicator"></div>
                     <span class="status-text" id="statusText">Kraunama...</span>
