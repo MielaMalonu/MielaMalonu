@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024">
     <title>NORDRP.LT</title>
      <style>
-        * {
+      * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -329,21 +329,32 @@
             background: rgba(10, 10, 10, 0.9);
         }
 
-        .server-ip {
+        .server-info .container {
+            text-align: center;
+        }
+
+        .server-info h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* UPDATED: Centered server info container */
+        .server-info-combined {
             background: rgba(20, 20, 20, 0.8);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 50px;
-            margin: 40px 0;
+            padding: 40px;
+            margin: 40px auto;
             border: 2px solid rgba(0, 150, 255, 0.3);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 800px; /* Increased max-width to accommodate both sections */
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .server-ip::before {
+        .server-info-combined::before {
             content: '';
             position: absolute;
             top: 0;
@@ -353,11 +364,78 @@
             background: linear-gradient(90deg, #0096ff, #00bfff);
         }
 
-        .server-ip h3 {
+        /* UPDATED: Server info content wrapper */
+        .server-info-content {
+            display: flex;
+            width: 100%;
+            gap: 40px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        /* UPDATED: Status section */
+        .server-status-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .server-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding: 15px 25px;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse-status 2s ease-in-out infinite;
+        }
+
+        .status-online {
+            background: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        .status-offline {
+            background: #ff4444;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
+        }
+
+        .status-loading {
+            background: #ffaa00;
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+        }
+
+        @keyframes pulse-status {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .server-players {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .status-text {
+            color: #ffffff;
+        }
+
+        .server-ip-section h3 {
             margin-bottom: 20px;
             font-size: 1.8rem;
             color: #ffffff;
             font-weight: 700;
+            text-align: center;
         }
 
         .ip-address {
@@ -371,6 +449,114 @@
             border: 1px solid rgba(0, 150, 255, 0.3);
             margin: 20px 0;
             text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+            text-align: center;
+        }
+
+        /* UPDATED: Players list container */
+        .players-list-container {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            height: 400px;
+        }
+
+        .players-list-container h3 {
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .players-list {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Custom scrollbar */
+        .players-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .players-list::-webkit-scrollbar-track {
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 4px;
+        }
+
+        .players-list::-webkit-scrollbar-thumb {
+            background: rgba(0, 150, 255, 0.5);
+            border-radius: 4px;
+        }
+
+        .players-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 150, 255, 0.7);
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            margin-bottom: 8px;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .player-item:hover {
+            background: rgba(35, 35, 35, 0.8);
+            border-color: rgba(0, 150, 255, 0.4);
+            transform: translateX(5px);
+        }
+
+        .player-name {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .player-ping {
+            color: #0096ff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .ping-good {
+            color: #00ff88;
+        }
+
+        .ping-medium {
+            color: #ffaa00;
+        }
+
+        .ping-bad {
+            color: #ff4444;
+        }
+
+        .no-players {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            padding: 40px 20px;
+        }
+
+        .loading-players {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 20px;
+        }
+
+        /* Update CTA buttons container */
+        .server-info .cta-buttons {
+            justify-content: center;
+            margin-top: 30px;
         }
 
         /* Footer */
@@ -472,6 +658,25 @@
                 width: 80px;
                 height: 80px;
             }
+
+            /* UPDATED: Mobile responsive for server info */
+            .server-info-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .players-list-container {
+                height: 350px;
+            }
+            
+            .players-list {
+                max-height: 230px;
+            }
+
+            .server-status-section,
+            .players-list-container {
+                min-width: auto;
+            }
         }
 
         /* Animations */
@@ -530,272 +735,6 @@
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.2); }
         }
-.server-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin: 25px 0;
-    padding: 15px 25px;
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    font-size: 1rem;
-    font-weight: 600;
- max-width: 600px;
-}
-
-.status-indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    animation: pulse-status 2s ease-in-out infinite;
-}
-
-.status-online {
-    background: #00ff88;
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
-}
-
-.status-offline {
-    background: #ff4444;
-    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
-}
-
-.status-loading {
-    background: #ffaa00;
-    box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
-}
-
-@keyframes pulse-status {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.1); }
-}
-
-.server-players {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.95rem;
-}
-
-.status-text {
-    color: #ffffff;
-}
-/* Server Connection Info - Updated */
-.server-info {
-    padding: 120px 0;
-    background: rgba(10, 10, 10, 0.9);
-}
-
-.server-info .container {
-    text-align: left; /* Changed from center to left */
-}
-
-.server-info h2 {
-    text-align: left; /* Keep title left-aligned */
-    margin-bottom: 40px;
-}
-
-/* Combined server info container */
-.server-info-combined {
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 40px;
-    margin: 40px 0;
-    border: 2px solid rgba(0, 150, 255, 0.3);
-    max-width: 600px;
-    position: relative;
-    overflow: hidden;
-}
-
-.server-info-combined::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0096ff, #00bfff);
-}
-
-.server-status {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 30px; /* Add spacing between status and IP */
-    padding: 15px 25px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.server-ip-section h3 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: left;
-}
-
-.ip-address {
-    font-family: 'Courier New', monospace;
-    font-size: 1.5rem;
-    color: #0096ff;
-    font-weight: bold;
-    background: rgba(0, 150, 255, 0.1);
-    padding: 15px 25px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 150, 255, 0.3);
-    margin: 20px 0;
-    text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
-    text-align: left;
-}
-
-/* Update CTA buttons container */
-.server-info .cta-buttons {
-    justify-content: flex-start; /* Align buttons to the left */
-    margin-top: 30px;
-}
-/* Add this CSS to your existing styles */
-
-/* Server info grid layout */
-.server-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin: 40px 0;
-}
-
-/* Players list container */
-.players-list-container {
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 40px;
-    border: 2px solid rgba(0, 150, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-    height: 400px; /* Match server info container */
-}
-
-.players-list-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0096ff, #00bfff);
-}
-
-.players-list-container h3 {
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    text-align: left;
-}
-
-.players-list {
-    max-height: 280px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-/* Custom scrollbar */
-.players-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.players-list::-webkit-scrollbar-track {
-    background: rgba(30, 30, 30, 0.5);
-    border-radius: 4px;
-}
-
-.players-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 150, 255, 0.5);
-    border-radius: 4px;
-}
-
-.players-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 150, 255, 0.7);
-}
-
-.player-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    margin-bottom: 8px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 150, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.player-item:hover {
-    background: rgba(35, 35, 35, 0.8);
-    border-color: rgba(0, 150, 255, 0.4);
-    transform: translateX(5px);
-}
-
-.player-name {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-.player-ping {
-    color: #0096ff;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.ping-good {
-    color: #00ff88;
-}
-
-.ping-medium {
-    color: #ffaa00;
-}
-
-.ping-bad {
-    color: #ff4444;
-}
-
-.no-players {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
-    padding: 40px 20px;
-}
-
-.loading-players {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 40px 20px;
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-    .server-info-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .players-list-container {
-        height: 350px;
-    }
-    
-    .players-list {
-        max-height: 230px;
-    }
-}
     </style>
 </head>
 <body>
@@ -875,10 +814,11 @@
         </div>
     </section>
 
+    
     <!-- Server Connection Info -->
     <section class="server-info" id="connect">
         <div class="container">
-            <h2 class="section-title glow">Serverio Informacija</h2>
+            <h2 class="section-title glow">Serverio Statusas</h2>
             
             <!-- Grid container for both status and players -->
             <div class="server-info-grid">
@@ -886,7 +826,7 @@
                 <div class="server-info-combined">
                     <!-- Status Section -->
                     <div>
-                        <h3>Statusas</h3>
+                      
                         <div class="server-status" id="serverStatus">
                             <div class="status-indicator status-loading" id="statusIndicator"></div>
                             <span class="status-text" id="statusText">Kraunama...</span>
@@ -894,12 +834,6 @@
                         </div>
                     </div>
                     
-                    <!-- Server IP Section -->
-                    <div class="server-ip-section">
-                        <h3>Serverio IP</h3>
-                        <div class="ip-address">connect cfx.re/join/baykml</div>
-                    </div>
-                </div>
                 
                 <!-- Players List Container -->
                 <div class="players-list-container">
@@ -908,8 +842,6 @@
                         <div class="loading-players">Kraunama žaidėjų sąrašas...</div>
                     </div>
                 </div>
-            </div>
-            
             <!-- Action buttons -->
             <div class="cta-buttons">
                 <a href="fivem://connect/cfx.re/join/baykml" class="btn btn-primary">Prisijungti</a>
