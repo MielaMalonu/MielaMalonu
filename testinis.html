@@ -947,25 +947,6 @@ document.querySelectorAll('.fade-in').forEach(el => {
 });
 
 // Lithuanian grammar helper function
-function getPlayerWord(count) {
-    // Handle special case for 1
-    if (count === 1) {
-        return 'žaidėjas';
-    }
-    
-    // Get the last digit and last two digits
-    const lastDigit = count % 10;
-    const lastTwoDigits = count % 100;
-    
-    // Check if it's 2, 3, or 4 (but not 12, 13, 14)
-    if ((lastDigit === 2 || lastDigit === 3 || lastDigit === 8 || lastDigit === 6 || lastDigit === 7 || lastDigit === 9 || lastDigit === 4) && 
-        (lastTwoDigits !== 12 && lastTwoDigits !== 13 && lastTwoDigits !== 14)) {
-        return 'žaidėjai';
-    }
-    
-    // All other cases use genitive plural
-    return 'žaidėjų';
-}
 
 // Ping color class helper
 function getPingColorClass(ping) {
@@ -1032,7 +1013,7 @@ async function fetchServerStatus() {
             const maxPlayers = parseInt(data.sv_maxclients);
             const playerWord = getPlayerWord(currentPlayers);
             
-            serverPlayers.textContent = `👥 ${currentPlayers}/${maxPlayers} ${playerWord}`;
+            serverPlayers.textContent = `👥Žaidėjų Skaičius : ${currentPlayers}/${maxPlayers}`;
         } else {
             statusIndicator.className = 'status-indicator status-offline';
             statusText.textContent = 'Serveris neveikia';
