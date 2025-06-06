@@ -1011,7 +1011,7 @@ async function fetchServerStatus() {
             
             const currentPlayers = data.clients;
             const maxPlayers = parseInt(data.sv_maxclients);
-            const playerWord = getPlayerWord(currentPlayers);
+            
             
             serverPlayers.textContent = `👥Žaidėjų Skaičius : ${currentPlayers}/${maxPlayers}`;
         } else {
