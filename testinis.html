@@ -1,1270 +1,687 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024">
-    <title>NORDRP.LT</title>
-     <style>
-      * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+    <meta name="description" content="NORDRP.LT - Užeik pasišaudyti ir gerai praleisti laiką. Serverio statusas, žaidėjų sąrašas, ir informacija kaip prisijungti.">
+    
+    <title>NORDRP.LT - FiveM Serveris</title>
+    
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ALL CSS IS NOW INSIDE THIS STYLE TAG --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', 'Arial', sans-serif;
             background: #0a0a0a;
             color: #ffffff;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(0, 150, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(30, 144, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(0, 191, 255, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(0, 150, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(30, 144, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 40% 40%, rgba(0, 191, 255, 0.1) 0%, transparent 50%);
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* Navigation */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 15px 0;
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
+            z-index: 1001; padding: 15px 0;
             border-bottom: 1px solid rgba(0, 150, 255, 0.3);
             transition: all 0.3s ease;
         }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 15px; }
         .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 40px; height: 40px; border-radius: 8px;
             border: 2px solid rgba(0, 150, 255, 0.6);
             box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
         }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0096ff;
-            text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
+        .logo-text { font-size: 24px; font-weight: bold; color: #0096ff; text-shadow: 0 0 10px rgba(0, 150, 255, 0.5); }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
         .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            font-weight: 500;
+            color: #ffffff; text-decoration: none; transition: all 0.3s ease;
+            position: relative; font-weight: 500;
         }
-
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px;
             background: linear-gradient(90deg, #0096ff, #00bfff);
             transition: width 0.3s ease;
         }
-
-        .nav-links a:hover {
-            color: #0096ff;
-            text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+        .nav-links a:hover { color: #0096ff; }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* Hamburger Menu Styles */
+        .hamburger { display: none; background: transparent; border: none; cursor: pointer; padding: 10px; z-index: 1002; }
+        .hamburger span { display: block; width: 25px; height: 3px; background-color: #ffffff; margin: 5px 0; transition: all 0.3s ease-in-out; }
+        .mobile-nav {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(15px); z-index: 1000;
+            flex-direction: column; justify-content: center; align-items: center;
+            gap: 20px; transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .mobile-nav.active { transform: translateX(0); }
+        .mobile-nav a {
+            color: #ffffff; text-decoration: none; font-size: 2rem; font-weight: 600;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
+        .mobile-nav.active a { opacity: 1; transform: translateY(0); }
+        .mobile-nav.active a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav.active a:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-nav.active a:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-nav.active a:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-nav.active a:nth-child(5) { transition-delay: 0.5s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
             position: relative;
             background-image: url('https://cdn.discordapp.com/banners/1231304996902146141/71ea1f3c5512de070aa72cf7894012e9.webp?size=1024');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-size: cover; background-position: center; background-attachment: fixed;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(2px);
-        }
-
-        .hero-content {
-            z-index: 2;
-            position: relative;
-        }
-
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(2px); }
+        .hero-content { z-index: 2; position: relative; }
         .hero-logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
+            width: 120px; height: 120px; border-radius: 20px;
             border: 3px solid rgba(0, 150, 255, 0.8);
-            margin: 0 auto 30px;
-            display: block;
+            margin: 0 auto 30px; display: block;
             box-shadow: 0 0 30px rgba(0, 150, 255, 0.4);
             animation: pulse 2s ease-in-out infinite alternate;
         }
-
-        @keyframes pulse {
-            from { 
-                box-shadow: 0 0 30px rgba(0, 150, 255, 0.4);
-                transform: scale(1);
-            }
-            to { 
-                box-shadow: 0 0 50px rgba(0, 150, 255, 0.8);
-                transform: scale(1.02);
-            }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            color: #0096ff;
-            text-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
+        @keyframes pulse { from { box-shadow: 0 0 30px rgba(0, 150, 255, 0.4); transform: scale(1); } to { box-shadow: 0 0 50px rgba(0, 150, 255, 0.8); transform: scale(1.02); } }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; color: #ffffff; text-shadow: 0 0 20px rgba(0, 150, 255, 0.6); font-weight: 900; letter-spacing: 2px; }
+        .hero .subtitle { font-size: 1.3rem; margin-bottom: 30px; color: #0096ff; text-shadow: 0 0 10px rgba(0, 150, 255, 0.4); }
+        .hero p { font-size: 1.1rem; margin-bottom: 40px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         .btn {
-            padding: 18px 35px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 18px 35px; border: none; border-radius: 8px;
+            font-size: 16px; font-weight: bold; cursor: pointer;
+            transition: all 0.3s ease; text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 10px; position: relative; overflow: hidden;
+            text-transform: uppercase; letter-spacing: 1px;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #0096ff, #00bfff);
-            color: white;
-            box-shadow: 0 8px 25px rgba(0, 150, 255, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid #0096ff;
-            backdrop-filter: blur(10px);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 150, 255, 0.4);
-        }
-
+        .btn-primary { background: linear-gradient(135deg, #0096ff, #00bfff); color: white; box-shadow: 0 8px 25px rgba(0, 150, 255, 0.3); }
+        .btn-secondary { background: transparent; color: #ffffff; border: 2px solid #0096ff; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 150, 255, 0.4); }
         .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
+        .btn:hover::before { left: 100%; }
 
-        .btn:hover::before {
-            left: 100%;
+        /* General Section Header */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.8rem; font-weight: 900; color: #ffffff; margin-bottom: 15px; }
+        .section-header p { font-size: 1.1rem; color: rgba(255, 255, 255, 0.7); max-width: 600px; margin: 0 auto; }
+        
+        /* "How to Connect" Section */
+        .how-to-connect { padding: 120px 0; background-color: #121212; border-top: 1px solid rgba(0, 150, 255, 0.2); }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .step-card {
+            background-color: #1c1c1c; border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px; padding: 40px 30px; text-align: center;
+            position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        /* Features Section */
-        .features {
-            padding: 120px 0;
-            background: rgba(10, 10, 10, 0.8);
+        .step-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 150, 255, 0.1); }
+        .step-number {
+            position: absolute; top: -15px; left: -15px;
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, #0096ff, #00bfff);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; font-weight: 700; color: white; border: 3px solid #121212;
         }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
-            font-weight: 900;
+        .step-icon {
+            width: 80px; height: 80px; margin: 0 auto 25px auto;
+            border-radius: 50%; background: rgba(0, 150, 255, 0.1);
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 60px;
-            color: #0096ff;
-            opacity: 0.9;
+        .step-icon svg { width: 40px; height: 40px; color: #0096ff; }
+        .step-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: #ffffff; }
+        .step-card p { color: rgba(255, 255, 255, 0.7); line-height: 1.6; }
+        .step-card .btn { margin-top: 25px; }
+        
+        /* Simplified Image Slider Gallery */
+        .gallery { padding: 120px 0; background: #0a0a0a; border-top: 1px solid rgba(0, 150, 255, 0.2); }
+        .image-slider-container {
+            max-width: 1000px; margin: 0 auto; position: relative;
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #000;
+            aspect-ratio: 16 / 9;
         }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
+        #slider-image {
+            width: 100%; height: 100%;
+            display: block; object-fit: cover;
+            transition: opacity 0.4s ease-in-out;
         }
-
-        .feature-card {
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.3s ease;
+        .slider-title {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 30px 20px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #ffffff; font-size: 1.5rem; font-weight: 600;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+            transition: opacity 0.4s ease-in-out;
+            z-index: 3;
+        }
+        .slider-btn {
+            position: absolute; top: 50%; z-index: 5;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff; width: 45px; height: 45px;
+            border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        .slider-btn:hover { background-color: rgba(0, 0, 0, 0.8); }
+        #prev-btn { left: 15px; }
+        #next-btn { right: 15px; }
+        .slider-dots {
+            position: absolute; bottom: 20px; left: 50%; z-index: 5;
+            transform: translateX(-50%); display: flex; gap: 10px;
+        }
+        .dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer; transition: background-color 0.3s ease;
+        }
+        .dot.active { background-color: #0096ff; }
+        .gallery-cta {
+            text-align: center; margin-top: 60px; padding: 20px;
+            background-color: #1c1c1c; border-radius: 12px;
             border: 1px solid rgba(0, 150, 255, 0.2);
-            position: relative;
-            overflow: hidden;
+            max-width: 1000px; margin-left: auto; margin-right: auto;
         }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #0096ff, #00bfff);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(25, 25, 25, 0.9);
-            border-color: rgba(0, 150, 255, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 150, 255, 0.2);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 25px;
-            color: #0096ff;
-            text-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
-            filter: drop-shadow(0 0 10px rgba(0, 150, 255, 0.3));
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-
+        .gallery-cta p { font-size: 1.2rem; font-weight: 500; color: #ffffff; }
+        
         /* Server Connection Info */
-        .server-info {
-            padding: 120px 0;
-            text-align: center;
-            background: rgba(10, 10, 10, 0.9);
-        }
-
-        .server-info .container {
-            text-align: center;
-        }
-
-        .server-info h2 {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        /* UPDATED: Centered server info container */
+        .server-info { padding: 120px 0; background: #121212; border-top: 1px solid rgba(0, 150, 255, 0.2); }
         .server-info-combined {
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px auto;
-            border: 2px solid rgba(0, 150, 255, 0.3);
-            max-width: 800px; /* Increased max-width to accommodate both sections */
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: #1c1c1c; backdrop-filter: none;
+            border-radius: 16px; padding: 40px; margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 700px; position: relative; overflow: visible;
         }
-
-        .server-info-combined::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #0096ff, #00bfff);
-        }
-
-        /* UPDATED: Server info content wrapper */
-        .server-info-content {
-            display: flex;
-            width: 100%;
-            gap: 40px;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        /* UPDATED: Status section */
-        .server-status-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
+        .server-info-combined::before { display: none; }
+        .server-status-section h3 { margin-bottom: 20px; font-size: 1.8rem; color: #ffffff; font-weight: 700; text-align: left; }
+        .status-line { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
         .server-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            padding: 15px 25px;
-            background: rgba(30, 30, 30, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 150, 255, 0.3);
-            font-size: 1rem;
-            font-weight: 600;
+            display: flex; align-items: center; gap: 12px; padding: 15px 25px;
+            background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(10px);
+            border-radius: 12px; border: 1px solid rgba(0, 150, 255, 0.3);
+            font-size: 1.1rem; font-weight: 600;
         }
-
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: pulse-status 2s ease-in-out infinite;
-        }
-
-        .status-online {
-            background: #00ff88;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
-        }
-
-        .status-offline {
-            background: #ff4444;
-            box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
-        }
-
-        .status-loading {
-            background: #ffaa00;
-            box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
-        }
-
-        @keyframes pulse-status {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.1); }
-        }
-
-        .server-players {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-        }
-
-        .status-text {
-            color: #ffffff;
-        }
-
-        .server-ip-section h3 {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            color: #ffffff;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .ip-address {
-            font-family: 'Courier New', monospace;
-            font-size: 1.5rem;
-            color: #0096ff;
-            font-weight: bold;
-            background: rgba(0, 150, 255, 0.1);
-            padding: 15px 25px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 150, 255, 0.3);
-            margin: 20px 0;
-            text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
-            text-align: center;
-        }
-
-        /* UPDATED: Players list container */
-        .players-list-container {
-            flex: 1;
-            min-width: 300px;
-            background: rgba(30, 30, 30, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(0, 150, 255, 0.2);
-            height: 400px;
-        }
-
-        .players-list-container h3 {
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            color: #ffffff;
-            font-weight: 700;
-            text-align: left;
-        }
-
-        .players-list {
-            max-height: 280px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        /* Custom scrollbar */
-        .players-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .players-list::-webkit-scrollbar-track {
-            background: rgba(30, 30, 30, 0.5);
-            border-radius: 4px;
-        }
-
-        .players-list::-webkit-scrollbar-thumb {
-            background: rgba(0, 150, 255, 0.5);
-            border-radius: 4px;
-        }
-
-        .players-list::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 150, 255, 0.7);
-        }
-
+        .server-players { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; font-weight: 600; padding: 15px 0; }
+        .status-indicator { width: 12px; height: 12px; border-radius: 50%; animation: pulse-status 2s ease-in-out infinite; }
+        .status-online { background: #00ff88; box-shadow: 0 0 15px rgba(0, 255, 136, 0.5); }
+        .status-offline { background: #ff4444; box-shadow: 0 0 15px rgba(255, 68, 68, 0.5); }
+        .status-loading { background: #ffaa00; box-shadow: 0 0 15px rgba(255, 170, 0, 0.5); }
+        @keyframes pulse-status { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.1); } }
+        .players-list-container h3 { margin-bottom: 20px; font-size: 1.8rem; color: #ffffff; font-weight: 700; text-align: left; }
+        .players-list { max-height: 350px; overflow-y: auto; padding-right: 10px; }
+        .players-list::-webkit-scrollbar { width: 8px; }
+        .players-list::-webkit-scrollbar-track { background: rgba(30, 30, 30, 0.5); border-radius: 4px; }
+        .players-list::-webkit-scrollbar-thumb { background: rgba(0, 150, 255, 0.5); border-radius: 4px; }
+        .players-list::-webkit-scrollbar-thumb:hover { background: rgba(0, 150, 255, 0.7); }
+        .players-list { scrollbar-width: thin; scrollbar-color: rgba(0, 150, 255, 0.5) rgba(30, 30, 30, 0.5); }
         .player-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            margin-bottom: 8px;
-            background: rgba(30, 30, 30, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 150, 255, 0.2);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 20px; margin-bottom: 8px;
+            background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(10px);
+            border-radius: 12px; border: 1px solid rgba(0, 150, 255, 0.2);
             transition: all 0.3s ease;
         }
-
-        .player-item:hover {
-            background: rgba(35, 35, 35, 0.8);
-            border-color: rgba(0, 150, 255, 0.4);
-            transform: translateX(5px);
-        }
-
-        .player-name {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .player-ping {
-            color: #0096ff;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .ping-good {
-            color: #00ff88;
-        }
-
-        .ping-medium {
-            color: #ffaa00;
-        }
-
-        .ping-bad {
-            color: #ff4444;
-        }
-
-        .no-players {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            font-style: italic;
-            padding: 40px 20px;
-        }
-
-        .loading-players {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            padding: 40px 20px;
-        }
-
-        /* Update CTA buttons container */
-        .server-info .cta-buttons {
-            justify-content: center;
-            margin-top: 30px;
-        }
-
+        .player-item:hover { background: rgba(35, 35, 35, 1); border-color: rgba(0, 150, 255, 0.4); transform: translateX(5px); }
+        .player-name { color: #ffffff; font-weight: 600; font-size: 1rem; }
+        .player-ping { font-size: 0.9rem; font-weight: 500; }
+        .ping-good { color: #00ff88; }
+        .ping-medium { color: #ffaa00; }
+        .ping-bad { color: #ff4444; }
+        .no-players, .loading-players { text-align: center; color: rgba(255, 255, 255, 0.6); font-style: italic; padding: 40px 20px; }
+        
         /* Footer */
-        footer {
-            background: rgba(5, 5, 5, 0.95);
-            padding: 80px 0 40px;
-            text-align: center;
-            border-top: 1px solid rgba(0, 150, 255, 0.2);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-
-        .footer-section h4 {
-            margin-bottom: 25px;
-            color: #0096ff;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
-        }
-
-        .footer-section p, .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            line-height: 2;
-            transition: all 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #0096ff;
-            text-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
-        }
-
+        footer { background: #0a0a0a; padding: 80px 0 40px; text-align: center; border-top: 1px solid rgba(0, 150, 255, 0.2); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; text-align: left; }
+        .footer-section h4 { margin-bottom: 25px; color: #0096ff; font-size: 1.3rem; font-weight: 700; }
+        .footer-section p, .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; line-height: 2; transition: all 0.3s ease; }
+        .footer-section a:hover { color: #0096ff; }
         .footer-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            margin: 0 auto 20px;
-            border: 2px solid rgba(0, 150, 255, 0.5);
-            display: block;
-            box-shadow: 0 0 15px rgba(0, 150, 255, 0.3);
+            width: 60px; height: 60px; border-radius: 12px; margin: 0 auto 20px;
+            border: 2px solid rgba(0, 150, 255, 0.4); display: block;
+            box-shadow: 0 0 15px rgba(0, 150, 255, 0.2);
         }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .social-links a {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 150, 255, 0.1);
-            border: 2px solid rgba(0, 150, 255, 0.3);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
-        }
-
-        .social-links a:hover {
-            background: rgba(0, 150, 255, 0.2);
-            border-color: rgba(0, 150, 255, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 150, 255, 0.2);
-        }
+        .copyright { margin-top: 40px; opacity: 0.6; font-size: 0.9rem; }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-logo {
-                width: 80px;
-                height: 80px;
-            }
-
-            /* UPDATED: Mobile responsive for server info */
-            .server-info-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .players-list-container {
-                height: 350px;
-            }
-            
-            .players-list {
-                max-height: 230px;
-            }
-
-            .server-status-section,
-            .players-list-container {
-                min-width: auto;
-            }
+            .nav-links { display: none; }
+            .hamburger, .mobile-nav { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-logo { width: 80px; height: 80px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .section-header h2 { font-size: 2.2rem; }
+            .footer-content { text-align: center; }
+            .footer-section h4 { text-align: center; }
         }
 
         /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        .feature-card:nth-child(4) { animation-delay: 0.4s; }
-        .feature-card:nth-child(5) { animation-delay: 0.5s; }
-        .feature-card:nth-child(6) { animation-delay: 0.6s; }
-
-        /* Glowing effects */
-        .glow {
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 150, 255, 0.6); }
-            to { text-shadow: 0 0 30px rgba(0, 150, 255, 0.9), 0 0 40px rgba(0, 150, 255, 0.6); }
-        }
-
-        /* Starry background effect to match logo */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .glow { animation: glow 2s ease-in-out infinite alternate; }
+        @keyframes glow { from { text-shadow: 0 0 20px rgba(0, 150, 255, 0.6); } to { text-shadow: 0 0 30px rgba(0, 150, 255, 0.9), 0 0 40px rgba(0, 150, 255, 0.6); } }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #0096ff;
-            border-radius: 50%;
-            opacity: 0.7;
+            position: absolute; width: 2px; height: 2px;
+            background: #0096ff; border-radius: 50%; opacity: 0.7;
             animation: twinkle 3s infinite;
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
     </style>
 </head>
 <body>
-    <!-- Starry background -->
     <div class="stars" id="stars"></div>
-
-    <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <img src="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024" alt="Server Logo">
+                    <img src="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024" alt="Serverio Logotipas">
                     <div class="logo-text">NORDRP.LT</div>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#home">Pradžia</a></li>
-                    <li><a href="#features">Ką Rasi</a></li>
-                    <li><a href="#connect">Prisijungti</a></li>
+                    <li><a href="#connect-guide">Kaip Prisijungti</a></li>
+                    <li><a href="#gallery">Galerija</a></li>
+                    <li><a href="#connect">Serverio Būsena</a></li>
                 </ul>
+                <button class="hamburger" id="hamburger-menu" aria-label="Meniu"><span></span><span></span><span></span></button>
             </div>
         </div>
     </nav>
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#home">Pradžia</a>
+        <a href="#connect-guide">Kaip Prisijungti</a>
+        <a href="#gallery">Galerija</a>
+        <a href="#connect">Serverio Būsena</a>
+        <a href="https://discord.gg/nordrp" target="_blank" rel="noopener noreferrer">Discord</a>
+    </div>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content fade-in">
-                <img src="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024" alt="Server Logo" class="hero-logo">
+                <img src="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024" alt="Serverio Logotipas" class="hero-logo">
                 <h1 class="glow">NORDRP.LT</h1>
                 <div class="subtitle">OG NORDRP.LT</div>
-                <p>Neturi ka veikti? Užeik pasišaudyti ir gerai praleisti laiką</p>
+                <p>Neturi ka veikti? Užeik pasišaudyti ir gerai praleisti laiką.</p>
                 <div class="cta-buttons">
-                    <a href="#connect" class="btn btn-primary">Prisijungti</a>
-                    <a href="#features" class="btn btn-secondary">Sužinoti daugiau</a>
+                    <a href="#connect-guide" class="btn btn-primary">Pradėti Žaisti</a>
+                    <a href="#connect" class="btn btn-secondary">Serverio Būsena</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
+    <section class="how-to-connect" id="connect-guide">
         <div class="container">
-            <h2 class="section-title glow">Ką pas mus rasi?</h2>
-            <p class="section-subtitle"></p>
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🔫</div>
-                    <h3>Gaujos</h3>
-                    <p>Daug įvairių gaujų iš kurių daug nemokamų ir jei turi pakankamai žmonių gali ją gauti ir tu!</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">⚔️</div>
-                    <h3>Gaujų Zonos</h3>
-                    <p>Daug gaujų zonų todėl gaujoms veiksmo netruks</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🏆</div>
-                    <h3>Leaderboard Prizai</h3>
-                    <p>Prizai stipriausiems žaidėjams</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Parduotuvių Plėšimai ir PD</h3>
-                    <p>Nenori judėti ten kur juda visi? Kodėl gi neapiplėšus parduotuves taip galėsi pasišaudyti prieš PD, o jei nepatinka šaudytis prieš PD gali prisijungti prie PD!</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Aktyvi bei draugiška Administracija</h3>
-                    <p>Ištiko bėda? Rašyk reporta ir tau bus padėta</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">🌐</div>
-                    <h3>Ir daug daugiau</h3>
-                    <p>Pas mus rasi daug daugiau nei pateikta šiame saraše tad užeik ir pamatyk pats</p>
-                </div>
+            <div class="section-header fade-in">
+                <h2>Kaip Prisijungti</h2>
+                <p>Prisijungti prie mūsų FiveM serverio yra paprasta. Sekite šiuos žingsnius ir greitai galėsite prisijungti.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card fade-in"><div class="step-number">1</div><div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m15.5 8.5-3.14 1.25a.5.5 0 0 1-.62 0L8.5 8.5"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M15.5 15.5 12 14l-3.5 1.5"/><path d="M8.5 15.5 12 17l3.5-1.5"/></svg></div><h3>Įsigykite GTA V</h3><p>Žaidimas turi būti įsigytas per Steam, Epic Games arba Rockstar platformą.</p></div>
+                <div class="step-card fade-in" style="animation-delay: 0.2s;"><div class="step-number">2</div><div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><h3>Atsisiųskite FiveM</h3><p>Jums reikės FiveM kliento, kad galėtumėte prisijungti prie serverio.</p><a href="https://fivem.net/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Atsisiųsti FiveM</a></div>
+                <div class="step-card fade-in" style="animation-delay: 0.4s;"><div class="step-number">3</div><div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Prisijunkite</h3><p>Spauskite žemiau esantį mygtuką kad automatiškai prisijungtumėte.</p><a href="fivem://connect/cfx.re/join/baykml" class="btn btn-primary">Jungtis Automatiškai</a></div>
             </div>
         </div>
     </section>
 
-    
-    <!-- Server Connection Info -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Importų Galerija</h2>
+                <p>Apžiūrėkite naujausius importus kuriuos galite isigyti mūsų serveryje. Svarbu paminėti kad tai nėra visi importai.</p>
+            </div>
+            <div class="image-slider-container fade-in">
+                <img src="" alt="Importuotas automobilis" id="slider-image">
+                <div class="slider-title" id="slider-title"></div>
+                <button class="slider-btn" id="prev-btn" aria-label="Ankstesnė nuotrauka"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                <button class="slider-btn" id="next-btn" aria-label="Sekanti nuotrauka"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                <div class="slider-dots" id="slider-dots"></div>
+            </div>
+            <div class="gallery-cta fade-in">
+                <p>Norint nusipirkti importą, susisiekite per Discord sukurdami ticket'ą.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="server-info" id="connect">
         <div class="container">
-            <h2 class="section-title glow">Serverio Statusas</h2>
-            
-            <!-- Grid container for both status and players -->
-            <div class="server-info-grid">
-                <!-- Server Status Container -->
-                <div class="server-info-combined">
-                    <!-- Status Section -->
-                    <div>
-                      
-                        <div class="server-status" id="serverStatus">
-                            <div class="status-indicator status-loading" id="statusIndicator"></div>
-                            <span class="status-text" id="statusText">Kraunama...</span>
-                            <span class="server-players" id="serverPlayers"></span>
-                        </div>
-                    </div>
-                    
-                
-                <!-- Players List Container -->
-                <div class="players-list-container">
-                    <h3>Žaidėjai</h3>
-                    <div class="players-list" id="playersList">
-                        <div class="loading-players">Kraunama žaidėjų sąrašas...</div>
+            <div class="section-header fade-in"><h2 class="section-title">Serverio Būsena</h2></div>
+            <div class="server-info-combined fade-in">
+                <div class="server-status-section">
+                    <h3>Statusas</h3>
+                    <div class="status-line"><div class="server-status" id="serverStatus" aria-live="polite"><div class="status-indicator status-loading" id="statusIndicator"></div><span class="status-text" id="statusText">Kraunama...</span></div><div class="server-players" id="serverPlayers" aria-live="polite"></div></div>
+                    <div class="players-list-container">
+                        <h3>Prisijungę Žaidėjai</h3>
+                        <div class="players-list" id="playersList"><div class="loading-players">Kraunamas žaidėjų sąrašas...</div></div>
                     </div>
                 </div>
-            <!-- Action buttons -->
-            <div class="cta-buttons">
-                <a href="fivem://connect/cfx.re/join/baykml" class="btn btn-primary">Prisijungti</a>
-                <a href="https://fivem.net/" class="btn btn-secondary" target="_blank">Atsisiūsti FiveM</a>
             </div>
         </div>
     </section>
-    <!-- Footer -->
-    <footer>
+
+    <footer id="footer">
         <div class="container">
-            <img src="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024" alt="Server Logo" class="footer-logo">
+            <img src="https://cdn.discordapp.com/icons/1231304996902146141/3d988c5a0854b7d4185324086fd96fbf.webp?size=1024" alt="Serverio Logotipas" class="footer-logo">
             <div class="footer-content">
-                <div class="footer-section">
-                </div>
-                <div class="footer-section">
-                    <h4>Nuorodos</h4>
-                    <p><a href="https://discord.gg/nordrp">Discord Serveris</a></p>
-                    <p><a href="https://contribee.com/nordrp">Contribee</a></p>
-                </div>
-                <div class="footer-section">
-                </div>
+                <div class="footer-section"><h4>Apie Projektą</h4><p>NORDRP.LT - tai vieta, kur gali linksmai praleisti laiką su draugais.</p></div>
+                <div class="footer-section"><h4>Naudingos Nuorodos</h4><p><a href="https://discord.gg/nordrp" target="_blank" rel="noopener noreferrer">Discord Serveris</a></p><p><a href="https://contribee.com/nordrp" target="_blank" rel="noopener noreferrer">Contribee</a></p></div>
+                <div class="footer-section"><h4>Kontaktai</h4><p>Kilus klausimams, susisiekite per mūsų Discord serverį.</p></div>
             </div>
-            <p style="margin-top: 40px; opacity: 0.6; font-size: 0.9rem;">&copy; NORDRP.LT</p>
+            <p class="copyright">&copy; <span id="currentYear"></span> NORDRP.LT Visos teisės saugomos.</p>
         </div>
     </footer>
 
     <script>
-       // Page Visibility API for tab activity detection
-let isTabActive = true;
-let updateInterval = null;
-let lastUpdateTime = 0;
+        document.addEventListener('DOMContentLoaded', () => {
 
-// Configuration
-const UPDATE_INTERVAL_ACTIVE = 30000; // 30 seconds when tab is active
-const UPDATE_INTERVAL_INACTIVE = 120000; // 2 minutes when tab is inactive (for when user returns)
-const MIN_UPDATE_DELAY = 5000; // Minimum 5 seconds between updates to prevent spam
+            // --- GALLERY CONFIGURATION ---
+            // To add, remove, or change gallery images, edit this list.
+            const galleryImages = [
+{ src: 'https://cdn.discordapp.com/attachments/1231305481692119041/1379920246739308554/image.png?ex=6845f2e0&is=6844a160&hm=c2bb2af90511a57906213467ad797da22985845b7d106bb11c4aaf692ac17e06&', title: 'PornStar Mercedes' },
+{ src: 'https://cdn.discordapp.com/attachments/1231305481692119041/1379920247053746277/image.png?ex=6845f2e0&is=6844a160&hm=dbcfa211200a37f3df79abe251e2cbb1d32f331d370a8cde580046359779b4b9&', title: 'PornStar Mercedes' },
+{ src: 'https://cdn.discordapp.com/attachments/1231305481692119041/1379920044896682164/image.png?ex=6845f2b0&is=6844a130&hm=6e81311d2a33600442e0545768685deeafb0bb0fa6e80eb160cb945c2dc87b76&', title: 'Durango' },
+{ src: 'https://cdn.discordapp.com/attachments/1231305481692119041/1379920045194608730/image.png?ex=6845f2b0&is=6844a130&hm=2836b63bbb8e8c30a2d72f99dcd81de781ff9d5804aeb7ebc9dfedb6cde6e0a5&', title: 'Durango' },
+{ src: 'https://cdn.discordapp.com/attachments/1231305481692119041/1379919986142875668/image.png?ex=6845f2a2&is=6844a122&hm=8d02d41a5f1065b8cfffdf3f33459a7dbf31f3da74ec5751717034b56ae06126&', title: 'BMW Motociklas' },
+{ src: 'https://cdn.discordapp.com/attachments/1331005086511530088/1367141057548255242/unknown.png?ex=684599d4&is=68444854&hm=137fd40ad2123ae3d40676fe3f3795ee17140e3d2b5671fc2af2763c01cf91fc&', title: 'Vienetinis Policijos BMW' },
+{ src: 'https://cdn.discordapp.com/attachments/1231305481692119041/1379920190170464367/image.png?ex=6845f2d3&is=6844a153&hm=961c863497c8f8d79fbb2b498b78dc76eb0566d92f05957cbcfac9f3e3485aa6&', title: 'Audi RS6' }
+];
 
-// =================================================================
-// COMPLETE JAVASCRIPT FOR NORDRP.LT WEBSITE
-// This replaces ALL JavaScript in your HTML file
-// =================================================================
+            const API_URL_STATUS = 'https://nordrpsite-production.up.railway.app/api/server-status';
+            const API_URL_PLAYERS = 'https://nordrpsite-production.up.railway.app/api/players';
+            const UPDATE_INTERVAL_ACTIVE = 30000;
+            const IMAGE_DISPLAY_DURATION = 10000; // 10 seconds for images
 
-// Create starry background
-function createStars() {
-    const starsContainer = document.getElementById('stars');
-    const numberOfStars = 50;
-    
-    for (let i = 0; i < numberOfStars; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDelay = Math.random() * 3 + 's';
-        starsContainer.appendChild(star);
-    }
-}
+            let isTabActive = !document.hidden;
+            let serverUpdateInterval = null;
+            let galleryAutoPlayTimeout = null;
 
-// Initialize stars
-createStars();
-
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(10, 10, 10, 0.98)';
-    } else {
-        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-    }
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = 'running';
-        }
-    });
-}, observerOptions);
-
-// Observe all fade-in elements
-document.querySelectorAll('.fade-in').forEach(el => {
-    el.style.animationPlayState = 'paused';
-    observer.observe(el);
-});
-
-// Lithuanian grammar helper function
-
-// Ping color class helper
-function getPingColorClass(ping) {
-    if (ping <= 50) return 'ping-good';
-    if (ping <= 100) return 'ping-medium';
-    return 'ping-bad';
-}
-
-// Optimized debounce function to prevent too frequent updates
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Server Status Function with error handling and caching
-async function fetchServerStatus() {
-    const now = Date.now();
-    
-    // Prevent too frequent updates
-    if (now - lastUpdateTime < MIN_UPDATE_DELAY) {
-        return;
-    }
-    
-    const statusIndicator = document.getElementById('statusIndicator');
-    const statusText = document.getElementById('statusText');
-    const serverPlayers = document.getElementById('serverPlayers');
-    
-    // Don't update if tab is not active
-    if (!isTabActive) {
-        return;
-    }
-    
-    try {
-        // Add timeout to prevent hanging requests
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-        
-        const response = await fetch('https://nordrpsite-production.up.railway.app/api/server-status', {
-            signal: controller.signal,
-            cache: 'no-cache' // Ensure fresh data
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Check if we have valid data
-        if (data.clients !== undefined && data.sv_maxclients !== undefined) {
-            statusIndicator.className = 'status-indicator status-online';
-            statusText.textContent = 'Serveris veikia';
-            
-            const currentPlayers = data.clients;
-            const maxPlayers = parseInt(data.sv_maxclients);
-            
-            
-            serverPlayers.textContent = `👥Žaidėjų Skaičius : ${currentPlayers}/${maxPlayers}`;
-        } else {
-            statusIndicator.className = 'status-indicator status-offline';
-            statusText.textContent = 'Serveris neveikia';
-            serverPlayers.textContent = '';
-        }
-        
-        lastUpdateTime = now;
-        
-    } catch (error) {
-        console.error('Error fetching server status:', error);
-        
-        // Different error messages based on error type
-        if (error.name === 'AbortError') {
-            statusIndicator.className = 'status-indicator status-offline';
-            statusText.textContent = 'Timeout - serveris gali neveikti';
-        } else {
-            statusIndicator.className = 'status-indicator status-offline';
-            statusText.textContent = 'Nepavyko gauti duomenų';
-        }
-        
-        serverPlayers.textContent = '';
-        lastUpdateTime = now;
-    }
-}
-
-// Players list function with optimization
-async function fetchPlayersList() {
-    const playersListElement = document.getElementById('playersList');
-    
-    // Don't update if tab is not active
-    if (!isTabActive) {
-        return;
-    }
-    
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
-        
-        const response = await fetch('https://nordrpsite-production.up.railway.app/api/players', {
-            signal: controller.signal,
-            cache: 'no-cache'
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.players && data.players.length > 0) {
-            // Use DocumentFragment for better performance when adding multiple elements
-            const fragment = document.createDocumentFragment();
-            
-            data.players.forEach(player => {
-                const playerDiv = document.createElement('div');
-                playerDiv.className = 'player-item';
-                playerDiv.innerHTML = `
-                    <span class="player-name">${player.name}</span>
-                    <span class="player-ping ${getPingColorClass(player.ping)}">${player.ping}ms</span>
-                `;
-                fragment.appendChild(playerDiv);
-            });
-            
-            playersListElement.innerHTML = '';
-            playersListElement.appendChild(fragment);
-        } else {
-            playersListElement.innerHTML = '<div class="no-players">Šiuo metu žaidėjų nėra</div>';
-        }
-        
-    } catch (error) {
-        console.error('Error fetching players list:', error);
-        
-        if (error.name === 'AbortError') {
-            playersListElement.innerHTML = '<div class="no-players">Timeout - nepavyko įkrauti žaidėjų</div>';
-        } else {
-            playersListElement.innerHTML = '<div class="no-players">Nepavyko įkrauti žaidėjų sąrašo</div>';
-        }
-    }
-}
-
-// Combined update function
-async function updateServerData() {
-    if (!isTabActive) return;
-    
-    try {
-        // Run both updates concurrently for better performance
-        await Promise.allSettled([
-            fetchServerStatus(),
-            fetchPlayersList()
-        ]);
-    } catch (error) {
-        console.error('Error updating server data:', error);
-    }
-}
-
-// Debounced version of update function
-const debouncedUpdate = debounce(updateServerData, 1000);
-
-// Page Visibility API event listeners
-document.addEventListener('visibilitychange', () => {
-    const wasActive = isTabActive;
-    isTabActive = !document.hidden;
-    
-    if (isTabActive && !wasActive) {
-        // Tab became active - update immediately and restart interval
-        console.log('Tab became active - updating server data');
-        updateServerData();
-        startUpdateInterval();
-    } else if (!isTabActive && wasActive) {
-        // Tab became inactive - stop frequent updates
-        console.log('Tab became inactive - reducing update frequency');
-        stopUpdateInterval();
-    }
-});
-
-// Window focus/blur events as fallback
-window.addEventListener('focus', () => {
-    if (!isTabActive) {
-        isTabActive = true;
-        updateServerData();
-        startUpdateInterval();
-    }
-});
-
-window.addEventListener('blur', () => {
-    if (isTabActive) {
-        isTabActive = false;
-        stopUpdateInterval();
-    }
-});
-
-// Interval management functions
-function startUpdateInterval() {
-    stopUpdateInterval(); // Clear any existing interval
-    
-    if (isTabActive) {
-        updateInterval = setInterval(() => {
-            if (isTabActive) {
-                debouncedUpdate();
+            // Main function to start all other functions
+            function initializeApp() {
+                createStars();
+                setupEventListeners();
+                initImageSlider();
+                updateServerData();
+                startUpdateInterval();
+                updateCopyrightYear();
+                console.log('NORDRP.LT site initialized.');
             }
-        }, UPDATE_INTERVAL_ACTIVE);
-    }
-}
 
-function stopUpdateInterval() {
-    if (updateInterval) {
-        clearInterval(updateInterval);
-        updateInterval = null;
-    }
-}
+            // RESTORED: Creates the animated stars in the background
+            function createStars() {
+                const starsContainer = document.getElementById('stars');
+                if (!starsContainer) return;
+                const numberOfStars = 50;
+                const fragment = document.createDocumentFragment();
+                for (let i = 0; i < numberOfStars; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 3}s`;
+                    fragment.appendChild(star);
+                }
+                starsContainer.appendChild(fragment);
+            }
+            
+            // RESTORED: Handles the navigation bar style change on scroll
+            function handleScroll() {
+                const navbar = document.getElementById('navbar');
+                if (!navbar) return;
+                navbar.style.background = window.scrollY > 100 ? 'rgba(10, 10, 10, 0.98)' : 'rgba(10, 10, 10, 0.95)';
+            }
 
-// Initialize when DOM is ready
-function initializeApp() {
-    // Set initial tab state
-    isTabActive = !document.hidden;
-    
-    // Initial data fetch
-    updateServerData();
-    
-    // Start update interval if tab is active
-    if (isTabActive) {
-        startUpdateInterval();
-    }
-    
-    console.log('NORDRP.LT site initialized - tab active:', isTabActive);
-}
+            // RESTORED: Toggles the mobile (hamburger) menu
+            function toggleMobileMenu() {
+                const hamburgerMenu = document.getElementById('hamburger-menu');
+                const mobileNav = document.getElementById('mobile-nav');
+                hamburgerMenu.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+            }
+            
+            // RESTORED: Sets up the IntersectionObserver for fade-in animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // RESTORED: Updates the copyright year in the footer
+            function updateCopyrightYear() {
+                const currentYearSpan = document.getElementById('currentYear');
+                if(currentYearSpan) {
+                    currentYearSpan.textContent = new Date().getFullYear();
+                }
+            }
 
-// DOM Content Loaded event
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
-} else {
-    initializeApp();
-}
+            // SIMPLIFIED Image Slider Logic (No Video)
+            function initImageSlider() {
+                const sliderImage = document.getElementById('slider-image');
+                const sliderTitle = document.getElementById('slider-title');
+                const prevBtn = document.getElementById('prev-btn');
+                const nextBtn = document.getElementById('next-btn');
+                const dotsContainer = document.getElementById('slider-dots');
 
-// Optimized floating elements with performance considerations
-let floatingElementsEnabled = true;
-let floatingInterval = null;
+                if (!sliderImage || galleryImages.length === 0) {
+                    const gallerySection = document.getElementById('gallery');
+                    if(gallerySection) gallerySection.style.display = 'none';
+                    return;
+                }
 
-// Create floating elements animation with blue theme
-const createFloatingElement = () => {
-    // Don't create floating elements if tab is not active or if there are too many
-    if (!isTabActive || !floatingElementsEnabled) return;
-    
-    // Limit number of floating elements
-    const existingElements = document.querySelectorAll('[data-floating]').length;
-    if (existingElements > 10) return;
-    
-    const element = document.createElement('div');
-    element.setAttribute('data-floating', 'true');
-    element.style.position = 'fixed';
-    element.style.width = '6px';
-    element.style.height = '6px';
-    element.style.background = 'linear-gradient(45deg, #0096ff, #00bfff)';
-    element.style.borderRadius = '50%';
-    element.style.pointerEvents = 'none';
-    element.style.zIndex = '1';
-    element.style.opacity = '0.7';
-    element.style.boxShadow = '0 0 10px rgba(0, 150, 255, 0.5)';
-    
-    const startX = Math.random() * window.innerWidth;
-    const startY = window.innerHeight + 10;
-    const endY = -10;
-    const duration = Math.random() * 3000 + 2000;
-    
-    element.style.left = startX + 'px';
-    element.style.top = startY + 'px';
-    
-    document.body.appendChild(element);
-    
-    const animation = element.animate([
-        { transform: 'translateY(0px)', opacity: 0.7 },
-        { transform: `translateY(${endY - startY}px)`, opacity: 0 }
-    ], {
-        duration: duration,
-        easing: 'linear'
-    });
-    
-    animation.addEventListener('finish', () => {
-        if (element.parentNode) {
-            element.remove();
-        }
-    });
-};
+                let currentIndex = 0;
 
-// Start/stop floating elements based on tab visibility
-function toggleFloatingElements() {
-    if (isTabActive && !floatingInterval) {
-        floatingInterval = setInterval(createFloatingElement, 800);
-    } else if (!isTabActive && floatingInterval) {
-        clearInterval(floatingInterval);
-        floatingInterval = null;
-        // Remove existing floating elements to save memory
-        document.querySelectorAll('[data-floating]').forEach(el => el.remove());
-    }
-}
+                function showImage(index) {
+                    sliderImage.style.opacity = 0;
+                    sliderTitle.style.opacity = 0;
+                    
+                    setTimeout(() => {
+                        sliderImage.src = galleryImages[index].src;
+                        sliderTitle.textContent = galleryImages[index].title;
+                        sliderImage.style.opacity = 1;
+                        sliderTitle.style.opacity = 1;
+                    }, 400);
 
-// Initialize floating elements
-toggleFloatingElements();
+                    const dots = dotsContainer.querySelectorAll('.dot');
+                    dots.forEach((dot, dotIndex) => {
+                        dot.classList.toggle('active', dotIndex === index);
+                    });
+                }
 
-// Update floating elements when tab visibility changes
-document.addEventListener('visibilitychange', toggleFloatingElements);
-window.addEventListener('focus', toggleFloatingElements);
-window.addEventListener('blur', toggleFloatingElements);
+                function nextImage() {
+                    currentIndex = (currentIndex + 1) % galleryImages.length;
+                    showImage(currentIndex);
+                }
 
-// Cleanup function for page unload
-window.addEventListener('beforeunload', () => {
-    stopUpdateInterval();
-    clearInterval(floatingInterval);
-});
+                function prevImage() {
+                    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+                    showImage(currentIndex);
+                }
+                
+                function startAutoPlay() {
+                    stopAutoPlay();
+                    galleryAutoPlayTimeout = setInterval(nextImage, IMAGE_DISPLAY_DURATION);
+                }
+
+                function stopAutoPlay() {
+                    clearInterval(galleryAutoPlayTimeout);
+                }
+
+                function resetAutoPlay() {
+                    stopAutoPlay();
+                    startAutoPlay();
+                }
+
+                dotsContainer.innerHTML = '';
+                galleryImages.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        showImage(index);
+                        resetAutoPlay();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+
+                nextBtn.addEventListener('click', () => { nextImage(); resetAutoPlay(); });
+                prevBtn.addEventListener('click', () => { prevImage(); resetAutoPlay(); });
+                
+                showImage(currentIndex);
+                startAutoPlay();
+            }
+
+            // RESTORED: Central function to set up all event listeners
+            function setupEventListeners() {
+                const hamburgerMenu = document.getElementById('hamburger-menu');
+                window.addEventListener('scroll', handleScroll);
+                if(hamburgerMenu) hamburgerMenu.addEventListener('click', toggleMobileMenu);
+
+                document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        const mobileNav = document.getElementById('mobile-nav');
+                         if (mobileNav && mobileNav.classList.contains('active')) {
+                           e.preventDefault();
+                           toggleMobileMenu();
+                           setTimeout(() => {
+                               const targetElement = document.querySelector(this.getAttribute('href'));
+                               if (targetElement) targetElement.scrollIntoView();
+                           }, 400);
+                        }
+                    });
+                });
+
+                document.addEventListener('visibilitychange', () => {
+                    isTabActive = !document.hidden;
+                    if (isTabActive) {
+                        updateServerData();
+                        startUpdateInterval();
+                    } else {
+                        stopUpdateInterval();
+                    }
+                });
+            }
+
+            function getPlayerWord(count) {
+                if (typeof count !== 'number') return 'žaidėjų';
+                const lastDigit = count % 10;
+                const lastTwoDigits = count % 100;
+                if (lastDigit === 1 && lastTwoDigits !== 11) return 'žaidėjas';
+                if (lastDigit >= 2 && lastDigit <= 9 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'žaidėjai';
+                return 'žaidėjų';
+            }
+            function getPingColorClass(ping) {
+                if (ping <= 60) return 'ping-good';
+                if (ping <= 120) return 'ping-medium';
+                return 'ping-bad';
+            }
+            async function fetchData(url) {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
+                try {
+                    const response = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
+                    clearTimeout(timeoutId);
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    clearTimeout(timeoutId);
+                    console.error(`Error fetching from ${url}:`, error);
+                    throw error;
+                }
+            }
+            async function updateServerStatus() {
+                const statusIndicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                const serverPlayers = document.getElementById('serverPlayers');
+                try {
+                    const data = await fetchData(API_URL_STATUS);
+                    if (data && data.clients !== undefined) {
+                        statusIndicator.className = 'status-indicator status-online';
+                        statusText.textContent = 'Serveris veikia';
+                        const playerCount = data.clients;
+                        const maxPlayers = data.sv_maxclients || 220;
+                        serverPlayers.textContent = `👥 ${playerCount}/${maxPlayers} ${getPlayerWord(playerCount)}`;
+                    } else { throw new Error("Invalid status data"); }
+                } catch (error) {
+                    statusIndicator.className = 'status-indicator status-offline';
+                    statusText.textContent = 'Serveris nepasiekiamas';
+                    serverPlayers.textContent = '';
+                }
+            }
+            async function updatePlayersList() {
+                const playersListElement = document.getElementById('playersList');
+                try {
+                    const data = await fetchData(API_URL_PLAYERS);
+                    if (data && Array.isArray(data.players)) {
+                        if (data.players.length > 0) {
+                            const fragment = document.createDocumentFragment();
+                            data.players.sort((a, b) => a.name.localeCompare(b.name)).forEach(player => {
+                                const playerDiv = document.createElement('div');
+                                playerDiv.className = 'player-item';
+                                playerDiv.innerHTML = `<span class="player-name">${player.name}</span><span class="player-ping ${getPingColorClass(player.ping)}">${player.ping}ms</span>`;
+                                fragment.appendChild(playerDiv);
+                            });
+                            playersListElement.innerHTML = '';
+                            playersListElement.appendChild(fragment);
+                        } else {
+                            playersListElement.innerHTML = '<div class="no-players">Šiuo metu žaidėjų nėra</div>';
+                        }
+                    } else { throw new Error("Invalid players data"); }
+                } catch (error) {
+                    playersListElement.innerHTML = '<div class="no-players">Nepavyko įkrauti žaidėjų sąrašo</div>';
+                }
+            }
+            async function updateServerData() {
+                if (!isTabActive) return;
+                await Promise.allSettled([updateServerStatus(), updatePlayersList()]);
+            }
+            function startUpdateInterval() {
+                stopUpdateInterval();
+                if (isTabActive) {
+                    serverUpdateInterval = setInterval(updateServerData, UPDATE_INTERVAL_ACTIVE);
+                }
+            }
+            function stopUpdateInterval() {
+                clearInterval(serverUpdateInterval);
+                serverUpdateInterval = null;
+            }
+
+            // Start the application
+            initializeApp();
+        });
     </script>
 </body>
 </html>
