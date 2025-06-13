@@ -531,37 +531,41 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     async function submitApplication(data) {
-        try {
-            const appId = `${state.currentUser.id.slice(0, 16)}-${Date.now()}`;
-            const payload = {
-                variables: [
-                    { name: "userId", value: `${data.userId}` },
-                    { name: "age", value: `${data.age}` },
-                    { name: "reason", value: `${data.reason}` },
-                    { name: "pl", value: `${data.pl}/10` },
-                    { name: "kl", value: `${data.kl}/10` },
-                    { name: "pc", value: `${data.pc}` },
-                    { name: "isp", value: `${data.isp}` },
-                    { name: "applicationId", value: `${appId}` }
-                ]
-            };
-            const response = await fetch(CONFIG.API.SUBMIT_ENDPOINT, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": CONFIG.API.API_KEY
-                },
-                body: JSON.stringify(payload)
-            });
-            if (!response.ok) {
-                showNotification("error", "API klaida pateikiant anketą");
-                throw new Error("API error");
-            }
-        } catch (error) {
-            console.error("Submission error:", error);
-            throw error;
+    try {
+        const appId = `${state.currentUser.id.slice(0, 16)}-${Date.now()}`;
+
+        // CORRECTED: Restored the 'variable' property for each item in the payload.
+        const payload = {
+            variables: [
+                { name: "userId", variable: "{event_userId}", value: `${data.userId}` },
+                { name: "age", variable: "{event_age}", value: `${data.age}` },
+                { name: "reason", variable: "{event_reason}", value: `${data.reason}` },
+                { name: "pl", variable: "{event_pl}", value: `${data.pl}/10` },
+                { name: "kl", variable: "{event_kl}", value: `${data.kl}/10` },
+                { name: "pc", variable: "{event_pc}", value: `${data.pc}` },
+                { name: "isp", variable: "{event_isp}", value: `${data.isp}` },
+                { name: "applicationId", variable: "{event_appId}", value: `${appId}` }
+            ]
+        };
+
+        const response = await fetch(CONFIG.API.SUBMIT_ENDPOINT, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": CONFIG.API.API_KEY
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            showNotification("error", "API klaida pateikiant anketą");
+            throw new Error("API error");
         }
+    } catch (error) {
+        console.error("Submission error:", error);
+        throw error;
     }
+}
     
     // ======================
     // DISCORD INTEGRATION (No changes needed here)
