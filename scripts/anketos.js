@@ -1,5 +1,3 @@
- <script>
-        // Debug mode
 const DEBUG = true;
 function debug(...args) {
     if (DEBUG) console.log("DEBUG:", ...args);
