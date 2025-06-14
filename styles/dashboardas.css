@@ -1,4 +1,4 @@
-:root {
+  :root {
             --primary-color: #0f0f0f;
             --secondary-color: #1e1e1e;
             --tertiary-color: #111111;
@@ -29,7 +29,7 @@
         body {
             font-family: 'Poppins', 'Whitney', 'Helvetica Neue', Arial, sans-serif;
             background: rgba(0, 0, 0, 0.8);
-            background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_43970ce0bb676e58d0c4e04043a9d31b.gif?size=4096');
+            background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_6df970c6d59df34472e38760c6cf418b.gif?size=4096');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -1017,7 +1017,106 @@
 .join-discord-btn:active {
     transform: translateY(1px);
 }
+/* Align username with badge */
+.user-badge {
+  display: flex;
+  align-items: center;
+  height: 20px; /* Adjust based on your specific height */
+}
 
+.badge-icon {
+  vertical-align: middle;
+}
+
+.badge-text {
+  vertical-align: middle;
+  line-height: 20px; /* Match the height of the badge container */
+}
+
+.username-text {
+  vertical-align: middle;
+  line-height: 20px; /* Match the height of other elements */
+  display: inline-block;
+  margin-left: 4px; /* Add a small space between the badge and username */
+}
+.primary-user-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 0 8px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.badge-icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.badge-text {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+  line-height: 24px;
+}
+
+.username-text {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Container to ensure everything aligns properly */
+.user-container {
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+/* Ensure entire username component is aligned */
+.display-name, .discord-tag {
+  line-height: 20px;
+  vertical-align: middle;
+}
+/* Avatar styling enhancements */
+#userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Status styling for logged in/out states */
+.login-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.logged-in {
+  background-color: rgba(59, 165, 92, 0.1);
+  color: #3ba55c;
+}
+
+.logged-out {
+  background-color: rgba(237, 66, 69, 0.1);
+  color: #ed4245;
+}
+.user-badge {
+    vertical-align: middle;
+    display: inline-block;
+    height: 16px;
+    margin-left: 4px;
+}
 footer {
     text-align: center;
     padding: 18px;
@@ -1078,6 +1177,7 @@ footer:before {
     .rule, .vest-color-value, .bind-box {
         padding: 10px;
     }
+
     
     .discord-server-icon {
         width: 50px;
