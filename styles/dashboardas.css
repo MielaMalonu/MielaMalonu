@@ -1,994 +1,292 @@
-  :root {
-            --primary-color: #0f0f0f;
-            --secondary-color: #1e1e1e;
-            --tertiary-color: #111111;
-            --accent-color: #ffffff;
-            --text-primary: #ffffff;
-            --text-secondary: #b9bbbe;
-            --text-muted: #72767d;
-            --embed-bg: rgba(15, 15, 15, 0.95);
-            --separator: rgba(60, 60, 60, 0.5);
-            --border-radius: 10px;
-            --transition: all 0.3s ease;
-            --embed-border: 5px;
-            --discord-color: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        @keyframes gradientBg {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body {
-            font-family: 'Poppins', 'Whitney', 'Helvetica Neue', Arial, sans-serif;
-            background: rgba(0, 0, 0, 0.8);
-            background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_6df970c6d59df34472e38760c6cf418b.gif?size=4096');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-blend-mode: darken;
-            color: var(--text-primary);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            line-height: 1.5;
-        }
-
-        .container {
-            background-color: var(--primary-color);
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-            width: 100%;
-            max-width: 900px;
-            padding: 0;
-            overflow: hidden;
-            border: 1px solid var(--separator);
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        header {
-            background-color: var(--tertiary-color);
-            color: var(--text-primary);
-            padding: 18px 20px;
-            margin: 0;
-            font-size: 20px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--separator);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header:after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.1) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(30deg);
-            animation: headerGlow 8s infinite linear;
-        }
-
-        @keyframes headerGlow {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) rotate(30deg); }
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            z-index: 1;
-        }
-
-        .logo-img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            margin-right: 12px;
-            border: 2px solid var(--accent-color);
-            transition: transform 0.5s ease;
-            animation: pulse 3s infinite alternate;
-        }
-
-        .logo-img:hover {
-            transform: rotate(360deg) scale(1.1);
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-color);
-        }
-
-        .user-name {
-            font-weight: 600;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px;
-            background-color: var(--secondary-color);
-            border-bottom: 1px solid var(--separator);
-            flex-wrap: wrap;
-        }
-
-        .nav-button {
-            background-color: var(--tertiary-color);
-            color: var(--text-primary);
-            border: 1px solid var(--separator);
-            padding: 10px 25px;
-            cursor: pointer;
-            transition: var(--transition);
-            border-radius: 6px;
-            font-weight: 500;
-            min-width: 130px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .nav-button:hover:before {
-            left: 100%;
-        }
-
-        .nav-button.active {
-            background-color: #333333;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-button:hover:not(.active) {
-            background-color: #2a2a2a;
-            border-color: #3a3a3a;
-            transform: translateY(-2px);
-        }
-
-        .content-container {
-            padding: 25px;
-        }
-
-        .tab-content {
-            display: none;
-            animation: slideIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .welcome-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .welcome-section h2 {
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 8px;
-            margin-top: 0;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .welcome-section p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 30px;
-        }
-
-        .login-btn {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .login-btn:hover:before {
-            left: 100%;
-        }
-
-        .login-btn:hover {
-            background-color: #1a1a1a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        h2 {
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 8px;
-            margin-top: 0;
-            margin-bottom: 25px;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-color), transparent);
-            animation: expandWidth 3s infinite alternate;
-        }
-
-        @keyframes expandWidth {
-            from { width: 30px; }
-            to { width: 100%; }
-        }
-
-        .info-section {
-            margin-bottom: 28px;
-            background-color: var(--embed-bg);
-            border-radius: var(--border-radius);
-            padding: 18px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border-left: var(--embed-border) solid #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeIn 0.6s ease-out forwards;
-            opacity: 0;
-            animation-delay: calc(var(--delay, 0) * 0.2s);
-        }
-
-        .info-section:nth-child(1) { --delay: 1; }
-        .info-section:nth-child(2) { --delay: 2; }
-        .info-section:nth-child(3) { --delay: 3; }
-
-        .info-section:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border-left: var(--embed-border) solid var(--accent-color);
-        }
-
-        .info-section h3 {
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
-        }
-
-        .info-section h3:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        .info-section:hover h3:after {
-            width: 100%;
-        }
-
-        .warning-item, .icinfo-item, .links-item {
-            margin-bottom: 12px;
-            padding: 12px 16px;
-            background-color: rgba(30, 30, 30, 0.5);
-            border-radius: 6px;
-            border: 1px solid rgba(60, 60, 60, 0.3);
-            transition: all 0.3s ease;
-            transform: translateX(-10px);
-            opacity: 0;
-            animation: slideRight 0.5s forwards;
-            animation-delay: calc(var(--item-delay, 0) * 0.1s);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .warning-item:nth-child(2) { --item-delay: 1; }
-        .warning-item:nth-child(3) { --item-delay: 2; }
-        .warning-item:nth-child(4) { --item-delay: 3; }
-
-        @keyframes slideRight {
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .warning-item:hover, .icinfo-item:hover, .links-item:hover {
-            background-color: rgba(40, 40, 40, 0.9);
-            border-color: var(--accent-color);
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .warning-reason {
-            flex: 1;
-        }
-
-        .warning-date {
-            color: var(--text-muted);
-            font-size: 14px;
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-        .icinfo-status {
-            font-weight: 600;
-        }
-
-        .active-status {
-            color: #3ba55c;
-        }
-
-        .inactive-status {
-            color: #ed4245;
-        }
-
-        .links-item {
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .links-item i {
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .links-name {
-            flex: 1;
-        }
-
-        footer {
-            text-align: center;
-            padding: 18px;
-            background-color: var(--tertiary-color);
-            border-top: 1px solid var(--separator);
-            font-size: 14px;
-            color: var(--text-muted);
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer:before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--accent-color),
-                transparent
-            );
-            animation: glow 4s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .loading-spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #ffffff;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .logout-btn {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            color: var(--text-primary);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-            }
-            
-            .navigation {
-                padding: 10px;
-                gap: 10px;
-            }
-            
-            .nav-button {
-                width: 110px;
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-            
-            .content-container {
-                padding: 15px;
-            }
-            
-            .info-section {
-                padding: 15px;
-                margin-bottom: 20px;
-            }
-            
-            .warning-item, .icinfo-item, .links-item {
-                padding: 10px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .warning-date {
-                margin-left: 0;
-                margin-top: 5px;
-            }
-        }
-
-        /* Additional custom classes for the dashboard */
-        .stat-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 28px;
-        }
-
-        .stat-card {
-            background-color: var(--embed-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border-left: var(--embed-border) solid #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border-left: var(--embed-border) solid var(--accent-color);
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .badge-success {
-            background-color: rgba(59, 165, 92, 0.2);
-            color: #3ba55c;
-            border: 1px solid rgba(59, 165, 92, 0.3);
-        }
-
-        .badge-danger {
-            background-color: rgba(237, 66, 69, 0.2);
-            color: #ed4245;
-            border: 1px solid rgba(237, 66, 69, 0.3);
-        }
-
-        .badge-warning {
-            background-color: rgba(250, 166, 26, 0.2);
-            color: #faa61a;
-            border: 1px solid rgba(250, 166, 26, 0.3);
-        }
-
-        .error-message {
-            background-color: rgba(237, 66, 69, 0.1);
-            border: 1px solid rgba(237, 66, 69, 0.3);
-            color: #ed4245;
-            padding: 10px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-/* Add these styles to your dashboardas.css file */
-
-/* IC Form Popup */
-.popup-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px);
+:root {
+    --primary-color: #0d0d0d; /* Slightly darker base */
+    --secondary-color: #1a1a1a; /* Darker navigation/background for sections */
+    --tertiary-color: #151515; /* Header/footer background */
+    --accent-color: #00e676; /* Vibrant green for highlights - was white */
+    --text-primary: #e0e0e0; /* Lighter text for readability */
+    --text-secondary: #a0a0a0; /* Secondary text */
+    --text-muted: #606060; /* Muted text */
+    --embed-bg: rgba(20, 20, 20, 0.9); /* Card background with slight transparency */
+    --separator: rgba(80, 80, 80, 0.4); /* Subtle separators */
+    --border-radius: 12px; /* Slightly more rounded corners */
+    --transition: all 0.3s ease-out; /* Smoother transitions */
+    --embed-border: 4px; /* Thinner accent border for cards */
+    --discord-color: #7289da; /* Discord blue */
+
+    /* New colors for status badges */
+    --badge-success-bg: rgba(0, 230, 118, 0.1);
+    --badge-success-text: #00e676;
+    --badge-danger-bg: rgba(255, 82, 82, 0.1);
+    --badge-danger-text: #ff5252;
+    --badge-warning-bg: rgba(255, 179, 0, 0.1);
+    --badge-warning-text: #ffb300;
 }
 
-.popup-content {
-    background-color: #131516;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease-out;
-    border: 1px solid #2a2e30;
-    overflow: hidden;
-}
-
-.popup-header {
-    background-color: #1e2122;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #2a2e30;
-}
-
-.popup-header h3 {
+* {
+    box-sizing: border-box;
     margin: 0;
-    color: #ffffff;
-    font-weight: 600;
+    padding: 0;
 }
 
-.close-btn {
-    font-size: 24px;
-    cursor: pointer;
-    color: #8e9297;
-    transition: color 0.2s;
+@keyframes gradientBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.close-btn:hover {
-    color: #ffffff;
-}
-
-.popup-body {
+body {
+    font-family: 'Poppins', sans-serif; /* Keep Poppins */
+    background: rgba(0, 0, 0, 0.9); /* Darker overlay for background */
+    background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_6df970c6d59df34472e38760c6cf418b.gif?size=4096');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken; /* Darken the background image */
+    color: var(--text-primary);
+    margin: 0;
     padding: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #dcddde;
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    background-color: #2a2e30;
-    border: 1px solid #40454a;
-    border-radius: 5px;
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.2s;
-}
-
-.form-group input:focus {
-    border-color: #5865f2;
-    box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.3);
-    outline: none;
-}
-
-.form-group input::placeholder {
-    color: #72767d;
-}
-
-.submit-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #5865f2;
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    min-height: 100vh;
+    line-height: 1.6; /* Slightly increased line height for readability */
 }
 
-.submit-button:hover {
-    background-color: #4752c4;
-}
-
-.submit-button:disabled {
-    background-color: #3b4069;
-    cursor: not-allowed;
-}
-
-.spinner {
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #ffffff;
-    animation: spin 1s ease-in-out infinite;
-    margin-left: 10px;
-}
-
-.hidden {
-    display: none;
-}
-
-.form-status {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.form-status.error {
-    background-color: rgba(237, 66, 69, 0.1);
-    color: #ed4245;
-    border: 1px solid rgba(237, 66, 69, 0.3);
-}
-
-.form-status.success {
-    background-color: rgba(59, 165, 92, 0.1);
-    color: #3ba55c;
-    border: 1px solid rgba(59, 165, 92, 0.3);
-}
-
-/* "Fill IC Info" button styling */
-.ic-missing-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.fill-ic-btn {
-    background-color: #5865f2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.fill-ic-btn:hover {
-    background-color: #4752c4;
+.container {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9); /* Stronger shadow */
+    width: 100%;
+    max-width: 950px; /* Slightly wider container */
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--separator);
+    animation: fadeIn 0.8s ease-out forwards; /* Ensures element stays visible after animation */
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-/* Rules Tab Styles */
-.rule-section {
-    margin-bottom: 25px;
-    animation: fadeIn 0.5s ease-in-out;
-    transition: all 0.3s ease;
-}
-
-.rule-section h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #f0f0f0;
-}
-
-.rule {
-    background-color: rgba(30, 30, 30, 0.7);
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 3px solid #3ba55c;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}
-
-.rule:hover {
-    background-color: rgba(35, 35, 35, 0.9);
-    transform: translateX(3px);
-}
-
-/* Bind Box Styles */
-.bind-box {
-    background-color: rgba(30, 30, 30, 0.7);
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 3px solid #5865f2;
-    font-size: 13px;
-    font-family: 'Consolas', monospace;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    user-select: all;
-}
-
-.bind-box:hover {
-    background-color: rgba(35, 35, 35, 0.9);
-    transform: translateX(3px);
-}
-
-.copy-icon {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    opacity: 0.7;
-}
-
-.bind-box:hover .copy-icon {
-    opacity: 1;
-}
-
-.copy-message {
-    display: none;
-    position: absolute;
-    top: -30px;
-    right: 10px;
-    background-color: #3ba55c;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    animation: fadeIn 0.3s ease;
-}
-
-.vest-color-value {
-    display: inline-block;
-    background-color: rgba(30, 30, 30, 0.7);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: 600;
-    color: #f0f0f0;
-}
-
-.mt-4 {
-    margin-top: 1.5rem;
-}
-/* Discord invite styling - matching real Discord invites */
-.discord-invite-container {
-    padding: 18px;
-    background-color: rgba(30, 30, 30, 0.5);
-    border-radius: 8px;
-    border: 1px solid rgba(60, 60, 60, 0.3);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    transition: all 0.3s ease;
-}
-
-.discord-invite-container:hover {
-    background-color: rgba(40, 40, 40, 0.7);
-    border-color: var(--accent-color);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    transform: translateY(-3px);
-}
-
-.discord-server-info {
+header {
+    background-color: var(--tertiary-color);
+    color: var(--text-primary);
+    padding: 20px 25px; /* Increased padding */
+    font-size: 22px; /* Larger font size */
+    font-weight: 700; /* Bolder */
+    border-bottom: 1px solid var(--separator);
     display: flex;
     align-items: center;
-    gap: 16px;
-}
-
-.discord-server-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
-    object-fit: cover;
-    transition: all 0.5s ease;
-}
-
-.discord-server-icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-}
-
-.discord-server-name {
-    font-weight: 600;
-    font-size: 18px;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.discord-server-name:after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.discord-invite-container:hover .discord-server-name:after {
-    width: 100%;
-}
-
-.server-members {
-    color: var(--text-secondary);
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 4px;
-}
-
-.online-indicator {
-    width: 9px;
-    height: 9px;
-    background-color: #3ba55c;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-}
-
-.online-indicator:after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: rgba(59, 165, 92, 0.3);
-    animation: pulse-green 1.5s infinite;
-}
-
-@keyframes pulse-green {
-    0% { transform: scale(0.8); opacity: 1; }
-    70% { transform: scale(1.5); opacity: 0; }
-    100% { transform: scale(0.8); opacity: 0; }
-}
-
-.join-discord-btn {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
     position: relative;
     overflow: hidden;
 }
 
-.join-discord-btn:before {
+header:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 50%, /* Less intense glow */
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: headerGlow 8s infinite linear;
+}
+
+@keyframes headerGlow {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.logo-img {
+    width: 42px; /* Larger logo */
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 15px; /* More space */
+    border: 2px solid var(--accent-color);
+    transition: transform 0.5s ease;
+    animation: pulse 3s infinite alternate;
+}
+
+.logo-img:hover {
+    transform: rotate(360deg) scale(1.1);
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); } /* Green pulse */
+    70% { box-shadow: 0 0 0 10px rgba(0, 230, 118, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* More space */
+    z-index: 1;
+}
+
+.user-avatar {
+    width: 45px; /* Larger avatar */
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color); /* Thicker border */
+    transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 18px; /* More space between buttons */
+    padding: 18px; /* Increased padding */
+    background-color: var(--secondary-color);
+    border-bottom: 1px solid var(--separator);
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1; /* Ensure navigation is above content */
+}
+
+.nav-button {
+    background-color: var(--tertiary-color);
+    color: var(--text-primary);
+    border: 1px solid var(--separator);
+    padding: 12px 30px; /* More padding */
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 8px; /* Slightly more rounded */
+    font-weight: 600; /* Bolder text */
+    min-width: 140px; /* Slightly wider buttons */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1), /* Softer shine */
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.nav-button:hover:before {
+    left: 100%;
+}
+
+.nav-button.active {
+    background-color: var(--accent-color); /* Accent color for active button */
+    color: var(--primary-color); /* Dark text on active button */
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6); /* Vibrant glow */
+    transform: translateY(-3px); /* Lift active button */
+}
+
+.nav-button:hover:not(.active) {
+    background-color: #2b2b2b;
+    border-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.content-container {
+    padding: 30px; /* Increased padding */
+    position: relative; /* For z-index context */
+    z-index: 0; /* Below navigation */
+}
+
+.tab-content {
+    display: none;
+    animation: slideIn 0.6s ease forwards; /* Added forwards to keep final state */
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px; /* More space */
+    padding: 30px;
+    background-color: var(--embed-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-left: var(--embed-border) solid var(--accent-color);
+}
+
+.welcome-section h2 {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    font-size: 28px; /* Larger heading */
+    font-weight: 800; /* Even bolder */
+}
+
+.welcome-section p {
+    color: var(--text-secondary);
+    font-size: 17px; /* Larger text */
+    margin-bottom: 35px;
+}
+
+.login-btn {
+    background-color: var(--discord-color); /* Discord brand color */
+    color: white;
+    border: none;
+    padding: 15px 30px; /* More padding */
+    border-radius: 8px; /* More rounded */
+    font-weight: 700; /* Bolder */
+    font-size: 18px; /* Larger font */
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px; /* More space */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn:before {
     content: '';
     position: absolute;
     top: 0;
@@ -1004,125 +302,181 @@
     transition: 0.5s;
 }
 
-.join-discord-btn:hover:before {
+.login-btn:hover:before {
     left: 100%;
 }
 
-.join-discord-btn:hover {
-    background-color: #1a1a1a;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.login-btn:hover {
+    background-color: #677bcc; /* Darker Discord blue */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
-.join-discord-btn:active {
-    transform: translateY(1px);
-}
-/* Align username with badge */
-.user-badge {
-  display: flex;
-  align-items: center;
-  height: 20px; /* Adjust based on your specific height */
-}
-
-.badge-icon {
-  vertical-align: middle;
-}
-
-.badge-text {
-  vertical-align: middle;
-  line-height: 20px; /* Match the height of the badge container */
-}
-
-.username-text {
-  vertical-align: middle;
-  line-height: 20px; /* Match the height of other elements */
-  display: inline-block;
-  margin-left: 4px; /* Add a small space between the badge and username */
-}
-.primary-user-badge {
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  background-color: #2a2a2a;
-  border-radius: 4px;
-  padding: 0 8px;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-
-.badge-icon {
-  height: 16px;
-  width: 16px;
-  margin-right: 4px;
-  vertical-align: middle;
-}
-
-.badge-text {
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 600;
-  vertical-align: middle;
-  line-height: 24px;
-}
-
-.username-text {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  vertical-align: middle;
-  display: inline-block;
-}
-
-/* Container to ensure everything aligns properly */
-.user-container {
-  display: flex;
-  align-items: center;
-  height: 24px;
-}
-/* Ensure entire username component is aligned */
-.display-name, .discord-tag {
-  line-height: 20px;
-  vertical-align: middle;
-}
-/* Avatar styling enhancements */
-#userAvatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Status styling for logged in/out states */
-.login-status {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.logged-in {
-  background-color: rgba(59, 165, 92, 0.1);
-  color: #3ba55c;
-}
-
-.logged-out {
-  background-color: rgba(237, 66, 69, 0.1);
-  color: #ed4245;
-}
-.user-badge {
-    vertical-align: middle;
+h2 {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 30px; /* More space */
+    position: relative;
     display: inline-block;
-    height: 16px;
-    margin-left: 4px;
+    font-size: 26px; /* Larger heading */
+    font-weight: 700;
 }
+
+h2:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%; /* Full width for the animated underline */
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+    animation: expandWidth 3s infinite alternate;
+}
+
+@keyframes expandWidth {
+    from { width: 40px; }
+    to { width: 100%; }
+}
+
+.info-section {
+    margin-bottom: 30px; /* More space */
+    background-color: var(--embed-bg);
+    border-radius: var(--border-radius);
+    padding: 22px; /* Increased padding */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border-left: var(--embed-border) solid var(--accent-color); /* Use accent for border */
+    transition: var(--transition);
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    animation-delay: calc(var(--delay, 0) * 0.1s); /* Faster staggered animation */
+}
+
+.info-section:nth-child(1) { --delay: 0; } /* Adjusted delays */
+.info-section:nth-child(2) { --delay: 0.5; }
+.info-section:nth-child(3) { --delay: 1; }
+
+.info-section:hover {
+    transform: translateY(-5px); /* More pronounced lift */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-left: var(--embed-border) solid var(--accent-color);
+}
+
+.info-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 18px; /* More space */
+    font-size: 20px; /* Larger heading */
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.info-section h3:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.info-section:hover h3:after {
+    width: 100%;
+}
+
+.warning-item, .icinfo-item, .links-item {
+    margin-bottom: 15px; /* More space */
+    padding: 15px 20px; /* More padding */
+    background-color: rgba(30, 30, 30, 0.6); /* Darker background */
+    border-radius: 8px; /* More rounded */
+    border: 1px solid rgba(80, 80, 80, 0.4); /* Stronger border */
+    transition: var(--transition);
+    transform: translateX(-15px); /* More pronounced slide */
+    opacity: 0;
+    animation: slideRight 0.5s forwards;
+    animation-delay: calc(var(--item-delay, 0) * 0.1s);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px; /* Slightly larger text */
+}
+
+.warning-item:last-child, .icinfo-item:last-child, .links-item:last-child {
+    margin-bottom: 0; /* Remove bottom margin for last item */
+}
+
+.warning-item:nth-child(2) { --item-delay: 0; } /* Adjusted delays for items */
+.warning-item:nth-child(3) { --item-delay: 0.1; }
+.warning-item:nth-child(4) { --item-delay: 0.2; }
+
+@keyframes slideRight {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.warning-item:hover, .icinfo-item:hover, .links-item:hover {
+    background-color: rgba(45, 45, 45, 0.9); /* More prominent hover */
+    border-color: var(--accent-color);
+    transform: scale(1.01); /* Subtle grow */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.warning-reason {
+    flex: 1;
+    font-weight: 500;
+}
+
+.warning-date {
+    color: var(--text-muted);
+    font-size: 13px; /* Slightly smaller date */
+    white-space: nowrap;
+    margin-left: 20px; /* More space */
+}
+
+.icinfo-status {
+    font-weight: 700; /* Bolder status */
+}
+
+.active-status {
+    color: var(--badge-success-text); /* Use badge color */
+}
+
+.inactive-status {
+    color: var(--badge-danger-text); /* Use badge color */
+}
+
+.links-item {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* More space */
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.links-item i {
+    min-width: 24px; /* Larger icons */
+    text-align: center;
+    color: var(--accent-color); /* Accent color for icons */
+}
+
+.links-name {
+    flex: 1;
+}
+
 footer {
     text-align: center;
-    padding: 18px;
+    padding: 20px; /* More padding */
     background-color: var(--tertiary-color);
     border-top: 1px solid var(--separator);
-    font-size: 14px;
+    font-size: 13px; /* Slightly smaller footer text */
     color: var(--text-muted);
     position: relative;
     overflow: hidden;
@@ -1149,38 +503,745 @@ footer:before {
     100% { opacity: 1; }
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px; /* More padding */
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.15); /* More visible spinner border */
+    border-left: 4px solid var(--accent-color); /* Accent colored spinner */
+    border-radius: 50%;
+    width: 35px; /* Larger spinner */
+    height: 35px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.logout-btn {
+    color: var(--text-secondary);
+    font-size: 15px; /* Slightly larger logout icon */
+    margin-left: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    color: var(--accent-color); /* Accent color on hover */
+    transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
     .container {
-        margin: 10px;
-    }
-    
-    .navigation {
-        padding: 10px;
-        gap: 10px;
-    }
-    
-    .nav-button {
-        width: 110px;
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-    
-    .content-container {
-        padding: 15px;
-    }
-    
-    .rule-section, .info-section {
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .rule, .vest-color-value, .bind-box {
-        padding: 10px;
+        margin: 15px;
+        border-radius: 8px; /* Smaller border radius on mobile */
     }
 
-    
-    .discord-server-icon {
-        width: 50px;
-        height: 50px;
+    header {
+        padding: 15px 20px;
+        font-size: 18px;
     }
+
+    .logo-img {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+    }
+
+    .navigation {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .nav-button {
+        min-width: 100px;
+        padding: 10px 15px;
+        font-size: 13px;
+        border-radius: 6px;
+    }
+
+    .content-container {
+        padding: 20px;
+    }
+
+    .info-section {
+        padding: 18px;
+        margin-bottom: 25px;
+    }
+
+    .warning-item, .icinfo-item, .links-item {
+        padding: 12px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 14px;
+    }
+
+    .warning-date {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .welcome-section h2 {
+        font-size: 24px;
+    }
+
+    .welcome-section p {
+        font-size: 15px;
+    }
+
+    .login-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .info-section h3 {
+        font-size: 17px;
+    }
+}
+
+/* Additional custom classes for the dashboard */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted min-width for cards */
+    gap: 25px; /* More space between cards */
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: var(--embed-bg);
+    border-radius: var(--border-radius);
+    padding: 25px; /* Increased padding */
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25); /* Slightly stronger shadow */
+    border-left: var(--embed-border) solid var(--accent-color); /* Use accent for border */
+    transition: var(--transition);
+    text-align: center;
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    animation-delay: calc(var(--delay, 0) * 0.15s); /* Staggered reveal */
+}
+
+.stat-card:nth-child(1) { --delay: 0; }
+.stat-card:nth-child(2) { --delay: 0.5; }
+
+.stat-card:hover {
+    transform: translateY(-5px); /* More pronounced lift */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border-left: var(--embed-border) solid var(--accent-color);
+}
+
+.stat-value {
+    font-size: 32px; /* Larger value */
+    font-weight: 800; /* Bolder */
+    margin: 12px 0; /* More space */
+    color: var(--text-primary);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 15px; /* Slightly larger label */
+    font-weight: 500;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px; /* More padding */
+    border-radius: 25px; /* More rounded */
+    font-size: 13px; /* Slightly larger badge text */
+    font-weight: 700; /* Bolder badge text */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.badge-success {
+    background-color: var(--badge-success-bg);
+    color: var(--badge-success-text);
+    border: 1px solid var(--badge-success-text);
+}
+
+.badge-danger {
+    background-color: var(--badge-danger-bg);
+    color: var(--badge-danger-text);
+    border: 1px solid var(--badge-danger-text);
+}
+
+.badge-warning {
+    background-color: var(--badge-warning-bg);
+    color: var(--badge-warning-text);
+    border: 1px solid var(--badge-warning-text);
+}
+
+.error-message {
+    background-color: rgba(237, 66, 69, 0.15); /* More prominent error background */
+    border: 1px solid rgba(237, 66, 69, 0.4);
+    color: var(--badge-danger-text);
+    padding: 12px; /* More padding */
+    border-radius: var(--border-radius);
+    margin-top: 20px; /* More space above */
+    text-align: center;
+    font-weight: 600;
+}
+
+/* IC Form Popup */
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px); /* Stronger blur */
+}
+
+.popup-content {
+    background-color: #181818; /* Darker popup background */
+    border-radius: 15px; /* More rounded */
+    width: 100%;
+    max-width: 550px; /* Wider popup */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+    animation: popIn 0.4s ease-out; /* New animation for popup */
+    border: 1px solid var(--separator);
+    overflow: hidden;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.popup-header {
+    background-color: #222; /* Darker header */
+    padding: 18px 25px; /* More padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3a3a3a; /* Darker border */
+}
+
+.popup-header h3 {
+    margin: 0;
+    color: var(--accent-color); /* Accent color for popup title */
+    font-weight: 700;
+    font-size: 22px; /* Larger title */
+}
+
+.close-btn {
+    font-size: 28px; /* Larger close icon */
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s, transform 0.2s;
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+    transform: rotate(90deg); /* Rotate on hover */
+}
+
+.popup-body {
+    padding: 25px; /* More padding */
+}
+
+.form-group {
+    margin-bottom: 22px; /* More space */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px; /* More space */
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px; /* More padding */
+    background-color: #2b2b2b; /* Darker input background */
+    border: 1px solid #555; /* More visible border */
+    border-radius: 8px; /* More rounded */
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s;
+    font-size: 15px;
+}
+
+.form-group input:focus {
+    border-color: var(--accent-color); /* Accent color on focus */
+    box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.3); /* Stronger glow */
+    outline: none;
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px; /* More padding */
+    background-color: var(--accent-color); /* Accent color for submit */
+    border: none;
+    border-radius: 8px;
+    color: var(--primary-color); /* Dark text on button */
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; /* More space */
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 230, 118, 0.4);
+}
+
+.submit-button:hover {
+    background-color: #00c768; /* Slightly darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 230, 118, 0.6);
+}
+
+.submit-button:disabled {
+    background-color: #3b4069;
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+.spinner {
+    width: 22px; /* Larger spinner */
+    height: 22px;
+    border: 3px solid rgba(255, 255, 255, 0.4); /* More visible spinner */
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 12px; /* More space */
+}
+
+.hidden {
+    display: none;
+}
+
+.form-status {
+    padding: 12px; /* More padding */
+    margin: 15px 0; /* More space */
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.form-status.error {
+    background-color: var(--badge-danger-bg);
+    color: var(--badge-danger-text);
+    border: 1px solid var(--badge-danger-text);
+}
+
+.form-status.success {
+    background-color: var(--badge-success-bg);
+    color: var(--badge-success-text);
+    border: 1px solid var(--badge-success-text);
+}
+
+/* "Fill IC Info" button styling */
+.ic-missing-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the message and button */
+    gap: 15px; /* More space */
+    padding: 25px;
+    text-align: center;
+}
+
+.fill-ic-btn {
+    background-color: var(--discord-color); /* Discord blue for fill button */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px; /* More padding */
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.fill-ic-btn:hover {
+    background-color: #677bcc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Rules Tab Styles */
+.rule-section {
+    margin-bottom: 30px; /* More space */
+    animation: fadeIn 0.6s ease-in-out forwards;
+    transition: var(--transition);
+}
+
+.rule-section h3 {
+    font-size: 20px; /* Larger heading */
+    font-weight: 700;
+    margin-bottom: 15px; /* More space */
+    color: var(--accent-color); /* Accent color for rule headings */
+}
+
+.rule {
+    background-color: rgba(30, 30, 30, 0.7);
+    padding: 15px 20px; /* More padding */
+    border-radius: 10px; /* More rounded */
+    margin-bottom: 12px; /* More space */
+    border-left: 4px solid var(--badge-success-text); /* Green accent for rules */
+    font-size: 15px; /* Slightly larger text */
+    transition: var(--transition);
+}
+
+.rule:hover {
+    background-color: rgba(40, 40, 40, 0.9);
+    transform: translateX(5px); /* More pronounced slide */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Bind Box Styles */
+.info-grid {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Label and value */
+    gap: 10px 20px; /* Row and column gap */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.info-item-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.info-item-value {
+    background-color: rgba(40, 40, 40, 0.7);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    color: var(--accent-color);
+    display: inline-block;
+}
+
+.bind-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bind-box {
+    background-color: rgba(30, 30, 30, 0.7);
+    padding: 15px 20px; /* More padding */
+    border-radius: 10px; /* More rounded */
+    border-left: 4px solid var(--discord-color); /* Discord blue accent for binds */
+    font-size: 14px; /* Slightly larger text */
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; /* More modern monospace font */
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none; /* Prevent accidental selection of text */
+    overflow: hidden; /* For inner elements */
+}
+
+.bind-box pre {
+    white-space: pre-wrap; /* Ensure text wraps */
+    word-break: break-all;
+    margin: 0;
+    padding-right: 30px; /* Space for copy icon */
+    color: var(--text-primary);
+}
+
+.bind-box:hover {
+    background-color: rgba(40, 40, 40, 0.9);
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.copy-icon {
+    position: absolute;
+    right: 15px; /* More space */
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5; /* More subtle */
+    transition: opacity 0.2s;
+    font-size: 18px; /* Larger icon */
+    color: var(--text-secondary);
+}
+
+.bind-box:hover .copy-icon {
+    opacity: 1;
+    color: var(--accent-color); /* Accent color on hover */
+}
+
+.copy-message {
+    display: none;
+    position: absolute;
+    bottom: 8px; /* Position at bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--badge-success-text); /* Green for success */
+    color: var(--primary-color); /* Dark text */
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 10;
+    animation: fadeInOut 2.5s forwards; /* Animated fade in/out */
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Discord invite styling - matching real Discord invites */
+.discord-invite-container {
+    padding: 20px; /* More padding */
+    background-color: rgba(30, 30, 30, 0.6); /* Slightly darker */
+    border-radius: 12px; /* More rounded */
+    border: 1px solid rgba(80, 80, 80, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* More space */
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.discord-invite-container:hover {
+    background-color: rgba(45, 45, 45, 0.8);
+    border-color: var(--accent-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transform: translateY(-4px);
+}
+
+.discord-server-info {
+    display: flex;
+    align-items: center;
+    gap: 18px; /* More space */
+}
+
+.discord-server-icon {
+    width: 65px; /* Larger icon */
+    height: 65px;
+    border-radius: 18px; /* More rounded */
+    object-fit: cover;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother animation curve */
+}
+
+.discord-server-icon:hover {
+    transform: scale(1.08) rotate(5deg); /* Subtle rotate and scale */
+    box-shadow: 0 0 25px rgba(0, 230, 118, 0.2); /* Green glow */
+    border-radius: 50%; /* Make it round on hover */
+}
+
+.discord-server-name {
+    font-weight: 700;
+    font-size: 20px; /* Larger name */
+    position: relative;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.discord-server-name:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.discord-invite-container:hover .discord-server-name:after {
+    width: 100%;
+}
+
+.server-members {
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* More space */
+    margin-top: 6px;
+}
+
+.online-indicator {
+    width: 10px; /* Larger indicator */
+    height: 10px;
+    background-color: #3ba55c;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+
+.online-indicator:after {
+    content: '';
+    position: absolute;
+    top: -4px; /* Adjust for larger pulse */
+    left: -4px;
+    width: 18px; /* Larger pulse */
+    height: 18px;
+    border-radius: 50%;
+    background-color: rgba(59, 165, 92, 0.3);
+    animation: pulse-green 1.8s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(0.8); opacity: 1; }
+    70% { transform: scale(1.6); opacity: 0; }
+    100% { transform: scale(0.8); opacity: 0; }
+}
+
+.join-discord-btn {
+    background-color: var(--discord-color);
+    color: white;
+    border: none;
+    padding: 16px; /* More padding */
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 17px; /* Larger text */
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px; /* More space */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.join-discord-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.join-discord-btn:hover:before {
+    left: 100%;
+}
+
+.join-discord-btn:hover {
+    background-color: #677bcc;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.join-discord-btn:active {
+    transform: translateY(1px);
+}
+
+/* User Badge and Username Alignment */
+.user-container {
+    display: flex;
+    align-items: center;
+    height: 28px; /* Adjusted height for better alignment */
+}
+
+.primary-user-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 28px; /* Match container height */
+    background-color: #333; /* Darker badge background */
+    border-radius: 6px; /* Slightly more rounded */
+    padding: 0 10px; /* More padding */
+    margin-right: 8px; /* More space */
+    vertical-align: middle;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.badge-icon {
+    height: 18px; /* Slightly larger icon */
+    width: 18px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.badge-text {
+    color: #ffffff;
+    font-size: 13px; /* Slightly larger text */
+    font-weight: 700; /* Bolder */
+    vertical-align: middle;
+    line-height: 28px; /* Match badge height */
+}
+
+.username-text {
+    color: var(--text-primary);
+    font-size: 15px; /* Slightly larger text */
+    font-weight: 500;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.display-name, .discord-tag {
+    line-height: 22px; /* Adjusted line height */
+    vertical-align: middle;
+}
+
+/* Avatar styling enhancements */
+#userAvatar {
+    width: 38px; /* Larger avatar */
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-color);
+}
+
+/* Status styling for logged in/out states */
+.login-status {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.logged-in {
+    background-color: var(--badge-success-bg);
+    color: var(--badge-success-text);
+}
+
+.logged-out {
+    background-color: var(--badge-danger-bg);
+    color: var(--badge-danger-text);
 }
