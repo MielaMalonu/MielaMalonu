@@ -1,10 +1,9 @@
-
 // ===== SIMPLIFIED DISCORD AUTH INTEGRATION =====
 document.addEventListener('DOMContentLoaded', function() {
     // Discord OAuth configuration
     const DISCORD_CLIENT_ID = '1263389179249692693';
     const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
-    const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
+    const DISCORD_AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify guilds.members.read`; // Added guilds.members.read scope
     
     // Supabase configuration (just for data access, not auth)
     const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
@@ -20,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const userName = document.getElementById('userName');
     const logoutBtn = document.getElementById('logoutBtn');
     const loginError = document.getElementById('loginError');
+    const warningsContainer = document.getElementById('warningsContainer');
+    const icStatusContainer = document.getElementById('icStatusContainer');
+    const gangDetailsContainer = document.getElementById('gangDetailsContainer');
     
     // Event listeners
     tabButtons.forEach(button => {
@@ -52,10 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedDiscordId = localStorage.getItem('discord_id');
         const savedDiscordUsername = localStorage.getItem('discord_username');
         const savedDiscordAvatar = localStorage.getItem('discord_avatar');
+        const savedDiscordGuildTag = localStorage.getItem('discord_guild_tag');
+        const savedDiscordServerId = localStorage.getItem('discord_server_id');
+        const savedDiscordBadgeHash = localStorage.getItem('discord_badge_hash');
         
         if (savedDiscordId) {
             // User has previously authenticated
-            updateUserUI(savedDiscordUsername, savedDiscordAvatar);
+            updateUserUI(savedDiscordUsername, savedDiscordAvatar, savedDiscordGuildTag, savedDiscordServerId, savedDiscordBadgeHash);
             hideLoginScreen();
             loadDashboardData(savedDiscordId);
             logoutBtn.style.display = 'inline-block';
@@ -65,114 +70,80 @@ document.addEventListener('DOMContentLoaded', function() {
             logoutBtn.style.display = 'none';
         }
     }
-    // Add Gang Equipment Information
-const gangEquipmentSection = document.createElement('div');
-gangEquipmentSection.className = 'info-section mt-4';
-gangEquipmentSection.innerHTML = `
-     <div class="info-section">
-        <h3>Informacija</h3>
-        <div class="info-item">
-            <div class="info-label">Liemenė</div>
-            <div class="vest-color-value">156</div>
-            <div class="info-label">GPS</div>
-            <div class="vest-color-value">113</div>
-            <div class="info-label">Hata</div>
-            <div class="vest-color-value">917</div>
-        </div>
-    </div>
-`;
-gangDetailsContainer.appendChild(gangEquipmentSection);
-
-// Add Binds Information
-const bindsSection = document.createElement('div');
-bindsSection.className = 'info-section mt-4';
-bindsSection.innerHTML = `
-    <h3>Bindai (spustelėkite, kad nukopijuoti)</h3>
-    <div class="bind-box" onclick="copyBindToClipboard(this, 'bind keyboard 0 &quot;s ~ws~ ~b~ ~l~STOJI ~w~/ ~l~PAKELI ~w~RANKAS ~l~ARBA ~w~SAUDYSIM ~ws&quot;')">
-        bind keyboard 0 "s ~ws~ ~b~ ~l~STOJI ~w~/ ~l~PAKELI ~w~RANKAS ~l~ARBA ~w~SAUDYSIM ~ws"
-        <div class="copy-message">Nukopijuota!</div>
-        <span class="copy-icon">📋</span>
-    </div>
-    <div class="bind-box" onclick="copyBindToClipboard(this, 'bind keyboard 9 &quot;s ~ws ~l~MIELA MALONU ~ws~&quot;')">
-        bind keyboard 9 "s ~ws ~l~MIELA MALONU ~ws~"
-        <div class="copy-message">Nukopijuota!</div>
-        <span class="copy-icon">📋</span>
-    </div>
-`;
-gangDetailsContainer.appendChild(bindsSection);
-
-// Function to copy binds to clipboard
-function copyBindToClipboard(element, text) {
-    navigator.clipboard.writeText(text).then(() => {
-        // Show copy message
-        const copyMessage = element.querySelector('.copy-message');
-        copyMessage.style.display = 'block';
-        
-        // Hide copy message after 2 seconds
-        setTimeout(() => {
-            copyMessage.style.display = 'none';
-        }, 2000);
-    });
-}
-
-// Add this as a window function to be callable from HTML
-window.copyBindToClipboard = copyBindToClipboard;
+    
     async function handleDiscordAuthResponse() {
-    try {
-        // Parse the access token from the URL hash
-        const hash = window.location.hash.substring(1);
-        const params = new URLSearchParams(hash);
-        const accessToken = params.get('access_token');
-        
-        if (!accessToken) {
-            throw new Error('No access token found');
-        }
-        
-        // Fetch user profile from Discord API
-        const discordUser = await fetchDiscordUserProfile(accessToken);
-        
-        if (!discordUser || !discordUser.id) {
-            throw new Error('Failed to get Discord user profile');
-        }
-        
-        // Save user details to localStorage - use global_name (display name) if available
-        localStorage.setItem('discord_id', discordUser.id);
-        localStorage.setItem('discord_username', discordUser.global_name || discordUser.username);
-
-        // Store guild tag if available, but not badge
-       // Inside your handleDiscordAuthResponse function, after fetching the Discord profile:
-if (discordUser.primary_guild) {
-    localStorage.setItem('discord_server_id', discordUser.primary_guild.identity_guild_id);
-    localStorage.setItem('discord_badge_hash', discordUser.primary_guild.badge);
-    localStorage.setItem('discord_guild_tag', discordUser.primary_guild.tag);;
-      
-}
-        
-        // Handle avatar URL
-        const avatarUrl = discordUser.avatar 
-            ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
-            : '/api/placeholder/40/40';
-        localStorage.setItem('discord_avatar', avatarUrl);
-        
-        // Update UI with display name if available
-        updateUserUI(discordUser.global_name || discordUser.username, avatarUrl);
-        hideLoginScreen();
-        
-        // Load dashboard data using Discord ID
-        loadDashboardData(discordUser.id);
-        logoutBtn.style.display = 'inline-block';
-        
-        // Clean URL after successful auth
-        window.history.replaceState({}, document.title, window.location.pathname);
-        
-    } catch (err) {
-        console.error('Error during Discord authentication:', err);
-        showLoginError('Authentication failed. Please try again.');
-        showLoginScreen();
-    }
-}
+        try {
+            // Parse the access token from the URL hash
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get('access_token');
             
-      
+            if (!accessToken) {
+                throw new Error('No access token found');
+            }
+            
+            // Fetch user profile from Discord API
+            const discordUser = await fetchDiscordUserProfile(accessToken);
+            
+            if (!discordUser || !discordUser.id) {
+                throw new Error('Failed to get Discord user profile');
+            }
+            
+            // Fetch user's guild member info to get guild tag and badge
+            const guildMemberInfo = await fetchDiscordGuildMember(accessToken, discordUser.id, '1325850250027597845'); // Replace with your actual guild ID
+            
+            let guildTag = null;
+            let serverId = null;
+            let badgeHash = null;
+
+            if (guildMemberInfo && guildMemberInfo.guild_id === '1325850250027597845') { // Check if they are a member of your specific guild
+                guildTag = guildMemberInfo.guild_member_flags ? 'Member' : null; // Example: Set a generic 'Member' tag if part of the guild
+                // Discord API does not directly expose 'primary_guild.badge' or 'primary_guild.tag' like this.
+                // You would typically get clan badge data from a bot or another API if available.
+                // For demonstration, let's simulate a guild tag/badge if they are a member.
+                // Replace with actual logic if you have specific clan badge data.
+                serverId = '1325850250027597845'; // Your guild ID
+                // This badge hash would need to come from your specific Discord setup if you have clan badges.
+                // For now, let's use a placeholder if you don't have one:
+                badgeHash = 'a_390be3fdaab65e28c28d150ca21d93bb'; // Placeholder from your current logo
+                if (guildMemberInfo.nick) { // Use nick if available
+                    guildTag = guildMemberInfo.nick.split(' ')[0]; // Example: First word of nick as tag
+                } else if (guildMemberInfo.roles && guildMemberInfo.roles.length > 0) {
+                    // You might fetch role names and use one as a tag
+                    guildTag = 'Rank'; // Placeholder
+                }
+            }
+            
+            // Save user details to localStorage - use global_name (display name) if available
+            localStorage.setItem('discord_id', discordUser.id);
+            localStorage.setItem('discord_username', discordUser.global_name || discordUser.username);
+            localStorage.setItem('discord_guild_tag', guildTag);
+            localStorage.setItem('discord_server_id', serverId);
+            localStorage.setItem('discord_badge_hash', badgeHash);
+            
+            // Handle avatar URL
+            const avatarUrl = discordUser.avatar 
+                ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` 
+                : '/api/placeholder/40/40';
+            localStorage.setItem('discord_avatar', avatarUrl);
+            
+            // Update UI with display name and potential badge
+            updateUserUI(discordUser.global_name || discordUser.username, avatarUrl, guildTag, serverId, badgeHash);
+            hideLoginScreen();
+            
+            // Load dashboard data using Discord ID
+            loadDashboardData(discordUser.id);
+            logoutBtn.style.display = 'inline-block';
+            
+            // Clean URL after successful auth
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+        } catch (err) {
+            console.error('Error during Discord authentication:', err);
+            showLoginError('Authentication failed. Please try again.');
+            showLoginScreen();
+        }
+    }
     
     async function fetchDiscordUserProfile(accessToken) {
         try {
@@ -183,7 +154,7 @@ if (discordUser.primary_guild) {
             });
             
             if (!response.ok) {
-                throw new Error('Failed to fetch Discord profile');
+                throw new Error(`Failed to fetch Discord profile: ${response.statusText}`);
             }
             
             return await response.json();
@@ -192,45 +163,50 @@ if (discordUser.primary_guild) {
             throw err;
         }
     }
-    
-function updateUserUI(username, avatarUrl) {
-    // Get the guild tag from localStorage
-    const guildTag = localStorage.getItem('discord_guild_tag');
-    
-    // Get Discord server ID and clan badge hash (you need to store these values)
-    // This would come from your Discord API response
-    const serverID = localStorage.getItem('discord_server_id'); // You need to save this when fetching user data
-    const badgeHash = localStorage.getItem('discord_badge_hash'); // You need to save this when fetching user data
-    
-    // Update display name with badge
-    if (serverID && badgeHash) {
-    // Create badge with clan icon with tag first, then username
-    userName.innerHTML = `
-<div class="user-container">
-        <span class="primary-user-badge">
-            <img class="badge-icon" src="https://cdn.discordapp.com/clan-badges/${serverID}/${badgeHash}.png?size=16" 
-                 onerror="this.onerror=null; this.src='/api/placeholder/16/16';" alt="badge">
-            
-            <span class="badge-text">${guildTag ? `#${guildTag}` : 'Tag'}</span>
-        </span>
-        <span class="username-text">${username || 'User'}</span>
-    `;
 
-    } else {
-        // No badge available, show just the username
-        if (guildTag) {
-            userName.innerHTML = `
-                <span class="display-name">${username || 'User'}</span>
-        
-            `;
-        } else {
-            userName.textContent = username || 'User';
+    // New function to fetch guild member info (requires 'guilds.members.read' scope)
+    async function fetchDiscordGuildMember(accessToken, userId, guildId) {
+        try {
+            const response = await fetch(`https://discord.com/api/users/@me/guilds/${guildId}/member`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) {
+                // If user is not in the guild or scope is not granted, this will likely return 403
+                console.warn(`Could not fetch guild member info for guild ${guildId}: ${response.statusText}`);
+                return null;
+            }
+            return await response.json();
+        } catch (err) {
+            console.error('Error fetching Discord guild member info:', err);
+            return null;
         }
     }
     
-    // Update user avatar
-    userAvatar.src = avatarUrl || '/api/placeholder/40/40';
-}
+    function updateUserUI(username, avatarUrl, guildTag, serverID, badgeHash) {
+        // Update display name with badge if available
+        if (serverID && badgeHash && guildTag) { // Ensure all components are present for the badge
+            userName.innerHTML = `
+                <div class="user-container">
+                    <span class="primary-user-badge">
+                        <img class="badge-icon" src="https://cdn.discordapp.com/clan-badges/${serverID}/${badgeHash}.png?size=16" 
+                             onerror="this.onerror=null; this.src='/api/placeholder/16/16';" alt="badge">
+                        <span class="badge-text">${guildTag}</span>
+                    </span>
+                    <span class="username-text">${username || 'User'}</span>
+                </div>
+            `;
+        } else {
+            // No badge or incomplete badge info, show just the username
+            userName.textContent = username || 'User';
+        }
+        
+        // Update user avatar
+        userAvatar.src = avatarUrl || '/api/placeholder/40/40';
+    }
+    
     // ===== UI FUNCTIONS =====
     
     function switchTab(selectedButton) {
@@ -275,9 +251,7 @@ function updateUserUI(username, avatarUrl) {
                 loadIcInfo(discordId),
                 loadRecentActivity(discordId)
             ]);
-            
-            // Remove the links tab initialization that was causing problems
-            // This will make the links work with their default behavior
+            updateDiscordInvite(); // Call Discord invite update after data load
         } catch (err) {
             console.error('Error loading dashboard data:', err);
         }
@@ -342,7 +316,6 @@ function updateUserUI(username, avatarUrl) {
     }
 
     function updateWarningsTab(warnings) {
-        const warningsContainer = document.getElementById('warningsContainer');
         if (!warningsContainer) return;
         
         // Clear loading spinner and any existing content
@@ -480,9 +453,6 @@ function updateUserUI(username, avatarUrl) {
 
     // Add this function to handle the "not found" case
     function updateIcInfoTabNotFound() {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-        
         if (!icStatusContainer || !gangDetailsContainer) return;
         
         // Clear loading spinners
@@ -493,25 +463,33 @@ function updateUserUI(username, avatarUrl) {
         const notFoundItem = document.createElement('div');
         notFoundItem.className = 'icinfo-item';
         notFoundItem.innerHTML = `
-            <div>Status:</div>
+            <div>Statusas:</div>
             <div class="icinfo-status inactive-status">Not Found</div>
         `;
         icStatusContainer.appendChild(notFoundItem);
         
-        // Add explanation to gang details container
+        // Add explanation and button to gang details container
         const explanationItem = document.createElement('div');
-        explanationItem.className = 'icinfo-item';
+        explanationItem.className = 'icinfo-item ic-missing-info';
         explanationItem.innerHTML = `
             <div>No character information found for your Discord account.</div>
+            <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
         `;
         gangDetailsContainer.appendChild(explanationItem);
+        
+        // Add event listener to the button
+        const fillIcInfoBtn = document.getElementById('fill-ic-info-btn');
+        if (fillIcInfoBtn) {
+            fillIcInfoBtn.addEventListener('click', showICFormPopup);
+        }
+        
+        // Initialize form popup
+        initializeICFormPopup();
+        setupICFormValidation();
     }
     
     // Fixed updateIcInfoTab function
     function updateIcInfoTab(icInfo) {
-        const icStatusContainer = document.getElementById('icStatusContainer');
-        const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-        
         if (!icStatusContainer || !gangDetailsContainer) return;
         
         // Clear loading spinners
@@ -563,250 +541,205 @@ function updateUserUI(username, avatarUrl) {
         gangDetailsContainer.appendChild(rankItem);
     }
     
-    // Removed the initializeLinksTab function that was preventing links from working normally
     // Create the modal/popup markup first (add this inside the container div before the footer)
-function initializeICFormPopup() {
-    // Create popup container if it doesn't exist
-    if (!document.getElementById('ic-form-popup')) {
-        const popupHTML = `
-        <div id="ic-form-popup" class="popup-container">
-            <div class="popup-content">
-                <div class="popup-header">
-                    <h3>IC Info anketa</h3>
-                    <span class="close-btn">&times;</span>
+    function initializeICFormPopup() {
+        // Create popup container if it doesn't exist
+        if (!document.getElementById('ic-form-popup')) {
+            const popupHTML = `
+            <div id="ic-form-popup" class="popup-container">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h3>IC Info anketa</h3>
+                        <span class="close-btn">&times;</span>
+                    </div>
+                    <div class="popup-body">
+                        <div class="form-group">
+                            <label for="vardas">Vardas</label>
+                            <input type="text" id="vardas" placeholder="Įveskite vardą" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pavarde">Pavardė</label>
+                            <input type="text" id="pavarde" placeholder="Įveskite pavardę" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="steam-nick">Steam Nickas</label>
+                            <input type="text" id="steam-nick" placeholder="Įveskite Steam slapyvardį" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="steam-link">Steam Nuoroda</label>
+                            <input type="url" id="steam-link" placeholder="https://steamcommunity.com/id/..." required>
+                        </div>
+                        <div id="ic-form-status" class="form-status"></div>
+                        <button id="ic-submit-button" class="submit-button">
+                            <span id="submit-text">Pateikti</span>
+                            <span id="loading-spinner" class="spinner hidden"></span>
+                        </button>
+                    </div>
                 </div>
-                <div class="popup-body">
-                    <div class="form-group">
-                        <label for="vardas">Vardas</label>
-                        <input type="text" id="vardas" placeholder="Įveskite vardą" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pavarde">Pavardė</label>
-                        <input type="text" id="pavarde" placeholder="Įveskite pavardę" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="steam-nick">Steam Nickas</label>
-                        <input type="text" id="steam-nick" placeholder="Įveskite Steam slapyvardį" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="steam-link">Steam Nuoroda</label>
-                        <input type="url" id="steam-link" placeholder="https://steamcommunity.com/id/..." required>
-                    </div>
-                    <div id="ic-form-status" class="form-status"></div>
-                    <button id="ic-submit-button" class="submit-button">
-                        <span id="submit-text">Pateikti</span>
-                        <span id="loading-spinner" class="spinner hidden"></span>
-                    </button>
-                </div>
-            </div>
-        </div>`;
-        
-        // Append the popup HTML to the body
-        document.body.insertAdjacentHTML('beforeend', popupHTML);
-        
-        // Set up event listeners for the popup
-        const popup = document.getElementById('ic-form-popup');
-        const closeBtn = popup.querySelector('.close-btn');
-        const submitBtn = document.getElementById('ic-submit-button');
-        
-        // Close popup when clicking X
-        closeBtn.addEventListener('click', () => {
-            popup.style.display = 'none';
-        });
-        
-        // Close popup when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === popup) {
-                popup.style.display = 'none';
-            }
-        });
-        
-        // Handle form submission
-        submitBtn.addEventListener('click', submitICForm);
-    }
-}
-
-// Function to show the IC form popup
-function showICFormPopup() {
-    initializeICFormPopup();
-    document.getElementById('ic-form-popup').style.display = 'flex';
-}
-
-// Form validation
-function validateICForm() {
-    const inputs = document.querySelectorAll('#ic-form-popup input[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            input.style.borderColor = 'rgba(237, 66, 69, 0.6)';
-            input.style.boxShadow = '0 0 0 2px rgba(237, 66, 69, 0.2)';
-            isValid = false;
-        } else {
-            input.style.borderColor = '';
-            input.style.boxShadow = '';
-        }
-    });
-    
-    const steamLink = document.getElementById('steam-link');
-    if (steamLink.value && !steamLink.value.includes('steamcommunity.com')) {
-        steamLink.style.borderColor = 'rgba(237, 66, 69, 0.6)';
-        steamLink.style.boxShadow = '0 0 0 2px rgba(237, 66, 69, 0.2)';
-        isValid = false;
-    }
-    
-    return isValid;
-}
-
-// Reset validation styles on input
-function setupICFormValidation() {
-    document.querySelectorAll('#ic-form-popup input').forEach(input => {
-        input.addEventListener('input', function() {
-            this.style.borderColor = '';
-            this.style.boxShadow = '';
-        });
-    });
-}
-
-// Submit IC form data to Supabase
-async function submitICForm() {
-    // Validate inputs
-    if (!validateICForm()) {
-        showICFormStatus("Užpildykite visus laukelius teisingai", "error");
-        return;
-    }
-    
-    const vardas = document.getElementById("vardas").value.trim();
-    const pavarde = document.getElementById("pavarde").value.trim();
-    const steamNick = document.getElementById("steam-nick").value.trim();
-    const steamLink = document.getElementById("steam-link").value.trim();
-    
-    // Get Discord ID and username from localStorage
-    const discordId = localStorage.getItem('discord_id');
-    const discordUsername = localStorage.getItem('discord_username');
-    
-    if (!discordId || !discordUsername) {
-        showICFormStatus("Nepavyko gauti Discord informacijos", "error");
-        return;
-    }
-    
-    // Show loading state
-    const submitButton = document.getElementById("ic-submit-button");
-    const loadingSpinner = document.getElementById("loading-spinner");
-    
-    submitButton.disabled = true;
-    submitButton.classList.add("loading");
-    loadingSpinner.classList.remove("hidden");
-    
-    const formData = {
-        DISCORD_ID: discordId,
-        USERIS: discordUsername,
-        VARDAS: vardas,
-        PAVARDĖ: pavarde,
-        "STEAM NICKAS": steamNick,
-        "STEAM LINKAS": steamLink,
-        STATUSAS: "UŽPILDYTA" // Set status to filled out
-    };
-    
-    // Supabase configuration
-    const SUPABASE_URL = 'https://smodsdsnswwtnbnmzhse.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    try {
-        // Insert data into IC table
-        const { data, error } = await supabase
-            .from('IC')
-            .insert([formData]);
-        
-        if (error) throw error;
-        
-        showICFormStatus("IC Info pateikta sėkmingai ✅", "success");
-        
-        // Reset form with smooth effect
-        document.querySelectorAll('#ic-form-popup input').forEach(input => {
-            input.value = "";
-            input.style.borderColor = "";
-            input.style.boxShadow = "";
-        });
-        
-        // Close popup after successful submission
-        setTimeout(() => {
-            document.getElementById('ic-form-popup').style.display = 'none';
+            </div>`;
             
-            // Refresh IC Info data
-            const discordId = localStorage.getItem('discord_id');
-            if (discordId) {
-                loadIcInfo(discordId);
-            }
-        }, 2000);
+            // Append the popup HTML to the body
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
+            
+            // Set up event listeners for the popup
+            const popup = document.getElementById('ic-form-popup');
+            const closeBtn = popup.querySelector('.close-btn');
+            const submitBtn = document.getElementById('ic-submit-button');
+            
+            // Close popup when clicking X
+            closeBtn.addEventListener('click', () => {
+                popup.style.display = 'none';
+            });
+            
+            // Close popup when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.style.display = 'none';
+                }
+            });
+            
+            // Handle form submission
+            submitBtn.addEventListener('click', submitICForm);
+        }
+    }
+
+    // Function to show the IC form popup
+    function showICFormPopup() {
+        initializeICFormPopup();
+        document.getElementById('ic-form-popup').style.display = 'flex';
+    }
+
+    // Form validation
+    function validateICForm() {
+        const inputs = document.querySelectorAll('#ic-form-popup input[required]');
+        let isValid = true;
         
-    } catch (error) {
-        console.error("Error submitting form:", error);
-        showICFormStatus("Nepavyko išsiųsti duomenų. Bandykite vėliau.", "error");
-    } finally {
-        // Reset button state
-        setTimeout(() => {
-            submitButton.disabled = false;
-            submitButton.classList.remove("loading");
-            loadingSpinner.classList.add("hidden");
-        }, 500);
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.style.borderColor = 'rgba(237, 66, 69, 0.6)';
+                input.style.boxShadow = '0 0 0 2px rgba(237, 66, 69, 0.2)';
+                isValid = false;
+            } else {
+                input.style.borderColor = '';
+                input.style.boxShadow = '';
+            }
+        });
+        
+        const steamLink = document.getElementById('steam-link');
+        if (steamLink.value && !steamLink.value.includes('steamcommunity.com')) {
+            steamLink.style.borderColor = 'rgba(237, 66, 69, 0.6)';
+            steamLink.style.boxShadow = '0 0 0 2px rgba(237, 66, 69, 0.2)';
+            isValid = false;
+        }
+        
+        return isValid;
     }
-}
 
-// Show status message in IC form
-function showICFormStatus(message, type) {
-    const statusElement = document.getElementById('ic-form-status');
-    statusElement.textContent = message;
-    statusElement.className = 'form-status';
-    statusElement.classList.add(type);
-    
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-        statusElement.textContent = '';
+    // Reset validation styles on input
+    function setupICFormValidation() {
+        document.querySelectorAll('#ic-form-popup input').forEach(input => {
+            input.addEventListener('input', function() {
+                this.style.borderColor = '';
+                this.style.boxShadow = '';
+            });
+        });
+    }
+
+    // Submit IC form data to Supabase
+    async function submitICForm() {
+        // Validate inputs
+        if (!validateICForm()) {
+            showICFormStatus("Užpildykite visus laukelius teisingai", "error");
+            return;
+        }
+        
+        const vardas = document.getElementById("vardas").value.trim();
+        const pavarde = document.getElementById("pavarde").value.trim();
+        const steamNick = document.getElementById("steam-nick").value.trim();
+        const steamLink = document.getElementById("steam-link").value.trim();
+        
+        // Get Discord ID and username from localStorage
+        const discordId = localStorage.getItem('discord_id');
+        const discordUsername = localStorage.getItem('discord_username');
+        
+        if (!discordId || !discordUsername) {
+            showICFormStatus("Nepavyko gauti Discord informacijos", "error");
+            return;
+        }
+        
+        // Show loading state
+        const submitButton = document.getElementById("ic-submit-button");
+        const loadingSpinner = document.getElementById("loading-spinner");
+        
+        submitButton.disabled = true;
+        submitButton.classList.add("loading");
+        loadingSpinner.classList.remove("hidden");
+        
+        const formData = {
+            DISCORD_ID: discordId,
+            USERIS: discordUsername,
+            VARDAS: vardas,
+            PAVARDĖ: pavarde,
+            "STEAM NICKAS": steamNick,
+            "STEAM LINKAS": steamLink,
+            STATUSAS: "UŽPILDYTA" // Set status to filled out
+        };
+        
+        try {
+            // Insert data into IC table
+            const { data, error } = await supabase
+                .from('IC')
+                .insert([formData]);
+            
+            if (error) throw error;
+            
+            showICFormStatus("IC Info pateikta sėkmingai ✅", "success");
+            
+            // Reset form with smooth effect
+            document.querySelectorAll('#ic-form-popup input').forEach(input => {
+                input.value = "";
+                input.style.borderColor = "";
+                input.style.boxShadow = "";
+            });
+            
+            // Close popup after successful submission
+            setTimeout(() => {
+                document.getElementById('ic-form-popup').style.display = 'none';
+                
+                // Refresh IC Info data
+                const discordId = localStorage.getItem('discord_id');
+                if (discordId) {
+                    loadIcInfo(discordId);
+                }
+            }, 2000);
+            
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            showICFormStatus("Nepavyko išsiųsti duomenų. Bandykite vėliau.", "error");
+        } finally {
+            // Reset button state
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.classList.remove("loading");
+                loadingSpinner.classList.add("hidden");
+            }, 500);
+        }
+    }
+
+    // Show status message in IC form
+    function showICFormStatus(message, type) {
+        const statusElement = document.getElementById('ic-form-status');
+        statusElement.textContent = message;
         statusElement.className = 'form-status';
-    }, 5000);
-}
-
-// Modify the updateIcInfoTabNotFound function to include a button for the IC form
-function updateIcInfoTabNotFound() {
-    const icStatusContainer = document.getElementById('icStatusContainer');
-    const gangDetailsContainer = document.getElementById('gangDetailsContainer');
-    
-    if (!icStatusContainer || !gangDetailsContainer) return;
-    
-    // Clear loading spinners
-    icStatusContainer.innerHTML = '';
-    gangDetailsContainer.innerHTML = '';
-    
-    // Add "not found" message to IC status container
-    const notFoundItem = document.createElement('div');
-    notFoundItem.className = 'icinfo-item';
-    notFoundItem.innerHTML = `
-        <div>Status:</div>
-        <div class="icinfo-status inactive-status">Not Found</div>
-    `;
-    icStatusContainer.appendChild(notFoundItem);
-    
-    // Add explanation and button to gang details container
-    const explanationItem = document.createElement('div');
-    explanationItem.className = 'icinfo-item ic-missing-info';
-    explanationItem.innerHTML = `
-        <div>No character information found for your Discord account.</div>
-        <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
-    `;
-    gangDetailsContainer.appendChild(explanationItem);
-    
-    // Add event listener to the button
-    const fillIcInfoBtn = document.getElementById('fill-ic-info-btn');
-    if (fillIcInfoBtn) {
-        fillIcInfoBtn.addEventListener('click', showICFormPopup);
+        statusElement.classList.add(type);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            statusElement.textContent = '';
+            statusElement.className = 'form-status';
+        }, 5000);
     }
     
-    // Initialize form popup
-    initializeICFormPopup();
-    setupICFormValidation();
-}
     async function loadRecentActivity(discordId) {
         try {
             // For this function, assuming it's a nice-to-have feature
@@ -820,96 +753,78 @@ function updateIcInfoTabNotFound() {
             return [];
         }
     }
+
     // Add Discord server information update function
-function updateDiscordInvite() {
-  const inviteCode = "VfC3Ay86cW"; // Your invite code
-  
-  // Using Discord's invite widget endpoint (which sometimes allows CORS)
-  fetch(`https://discordapp.com/api/invites/${inviteCode}?with_counts=true`)
-    .then(response => response.json())
-    .then(data => {
-      // Update member counts with real data
-      const serverMembers = document.querySelector('.server-members');
-      if (serverMembers) {
-        serverMembers.innerHTML = `
-          <span class="online-indicator"></span>
-          <span>${data.approximate_presence_count} Online</span>
-          <span style="margin: 0 4px;">•</span>
-          <span>${data.approximate_member_count} Members</span>
-        `;
-      }
-      
-      // Update server name if needed
-      const serverName = document.querySelector('.discord-server-name');
-      if (serverName && data.guild && data.guild.name) {
-        serverName.textContent = data.guild.name;
-      }
-      
-      // Update server icon if needed
-      const serverIcon = document.querySelector('.discord-server-icon');
-      if (serverIcon && data.guild && data.guild.icon) {
-        const serverIconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.${data.guild.icon.startsWith('a_') ? 'gif' : 'png'}?size=1024`;
-        serverIcon.src = serverIconUrl;
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching Discord invite data:', error);
-    });
-}
-
-// Add Copy to Clipboard function for binds
-function copyToClipboard(text) {
-    const el = event.currentTarget;
-    const copyMessage = el.querySelector('.copy-message');
-    
-    navigator.clipboard.writeText(text).then(() => {
-        // Show copy message
-        copyMessage.style.display = 'block';
+    function updateDiscordInvite() {
+        const inviteCode = "VfC3Ay86cW"; // Your invite code
         
-        // Hide copy message after 2 seconds
-        setTimeout(() => {
-            copyMessage.style.display = 'none';
-        }, 2000);
-    });
-}
-
-// Call the updateDiscordInvite function after authentication
-function loadDashboardData(discordId) {
-    try {
-        Promise.all([
-            loadWarnings(discordId),
-            loadIcInfo(discordId),
-            loadRecentActivity(discordId)
-        ]).then(() => {
-            // Update Discord server information after other data is loaded
-            updateDiscordInvite();
-        });
-    } catch (err) {
-        console.error('Error loading dashboard data:', err);
+        // Using Discord's invite widget endpoint (which sometimes allows CORS)
+        fetch(`https://discordapp.com/api/invites/${inviteCode}?with_counts=true`)
+            .then(response => response.json())
+            .then(data => {
+                // Update member counts with real data
+                const serverMembers = document.querySelector('.server-members');
+                if (serverMembers) {
+                    serverMembers.innerHTML = `
+                        <span class="online-indicator"></span>
+                        <span>${data.approximate_presence_count} Online</span>
+                        <span style="margin: 0 4px;">•</span>
+                        <span>${data.approximate_member_count} Members</span>
+                    `;
+                }
+                
+                // Update server name if needed
+                const serverName = document.querySelector('.discord-server-name');
+                if (serverName && data.guild && data.guild.name) {
+                    serverName.textContent = data.guild.name;
+                }
+                
+                // Update server icon if needed
+                const serverIcon = document.querySelector('.discord-server-icon');
+                if (serverIcon && data.guild && data.guild.icon) {
+                    const serverIconUrl = `https://cdn.discordapp.com/icons/${data.guild.id}/${data.guild.icon}.${data.guild.icon.startsWith('a_') ? 'gif' : 'png'}?size=1024`;
+                    serverIcon.src = serverIconUrl;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching Discord invite data:', error);
+            });
     }
-}
 
-// Make copyToClipboard accessible globally
-window.copyToClipboard = copyToClipboard;
-// ===== LOGOUT FUNCTION =====
-    
- function logoutUser() {
-    // Clear stored Discord data
-    localStorage.removeItem('discord_id');
-    localStorage.removeItem('discord_username');
-    localStorage.removeItem('discord_avatar');
-    localStorage.removeItem('discord_guild_tag');
-    
-    // Reset UI
-    userName.textContent = 'Neprisijungta';
-    userAvatar.src = '/api/placeholder/40/40';
-    logoutBtn.style.display = 'none';
-    
-    showLoginScreen();
-}
-    
-    // Setup link handling for links tab
-  
-    
-// This is the closing bracket and parenthesis for the DOMContentLoaded event listener
+    // Add Copy to Clipboard function for binds
+    function copyToClipboard(text) {
+        const el = event.currentTarget;
+        const copyMessage = el.querySelector('.copy-message');
+        
+        navigator.clipboard.writeText(text).then(() => {
+            // Show copy message
+            copyMessage.style.display = 'block';
+            
+            // Hide copy message after 2 seconds
+            setTimeout(() => {
+                copyMessage.style.display = 'none';
+            }, 2000);
+        });
+    }
+
+    // Make copyToClipboard accessible globally
+    window.copyToClipboard = copyToClipboard;
+
+    // ===== LOGOUT FUNCTION =====
+    function logoutUser() {
+        // Clear stored Discord data
+        localStorage.removeItem('discord_id');
+        localStorage.removeItem('discord_username');
+        localStorage.removeItem('discord_avatar');
+        localStorage.removeItem('discord_guild_tag');
+        localStorage.removeItem('discord_server_id');
+        localStorage.removeItem('discord_badge_hash');
+        
+        // Reset UI
+        userName.textContent = 'Neprisijungta';
+        userAvatar.src = '/api/placeholder/40/40';
+        logoutBtn.style.display = 'none';
+        
+        showLoginScreen();
+    }
 });
