@@ -51,14 +51,14 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif; /* Keep Poppins */
-    background: rgba(0, 0, 0, 0.9); /* Darker overlay for background */
+    font-family: 'Poppins', sans-serif;
+    background: var(--dark-bg); /* Use new dark-bg variable */
     background-image: url('https://cdn.discordapp.com/banners/1325850250027597845/a_6df970c6d59df34472e38760c6cf418b.gif?size=4096');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-blend-mode: darken; /* Darken the background image */
+    background-blend-mode: darken;
     color: var(--text-primary);
     margin: 0;
     padding: 20px;
@@ -66,19 +66,19 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    line-height: 1.6; /* Slightly increased line height for readability */
+    line-height: 1.6;
 }
 
 .container {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color); /* Changed to secondary for outer container */
     border-radius: var(--border-radius);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9); /* Stronger shadow */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
     width: 100%;
-    max-width: 950px; /* Slightly wider container */
+    max-width: 950px;
     padding: 0;
     overflow: hidden;
     border: 1px solid var(--separator);
-    animation: fadeIn 0.8s ease-out forwards; /* Ensures element stays visible after animation */
+    animation: fadeIn 0.8s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -87,11 +87,11 @@ body {
 }
 
 header {
-    background-color: var(--tertiary-color);
+    background-color: var(--primary-dark); /* Darker primary for header */
     color: var(--text-primary);
-    padding: 20px 25px; /* Increased padding */
-    font-size: 22px; /* Larger font size */
-    font-weight: 700; /* Bolder */
+    padding: 20px 25px;
+    font-size: 22px;
+    font-weight: 700;
     border-bottom: 1px solid var(--separator);
     display: flex;
     align-items: center;
@@ -110,7 +110,7 @@ header:after {
     background: linear-gradient(
         to right,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.05) 50%, /* Less intense glow */
+        rgba(255, 255, 255, 0.05) 50%,
         rgba(255, 255, 255, 0) 100%
     );
     transform: rotate(30deg);
@@ -129,11 +129,11 @@ header:after {
 }
 
 .logo-img {
-    width: 42px; /* Larger logo */
+    width: 42px;
     height: 42px;
     border-radius: 50%;
-    margin-right: 15px; /* More space */
-    border: 2px solid var(--accent-color);
+    margin-right: 15px;
+    border: 2px solid var(--text-primary); /* Changed to text-primary for border */
     transition: transform 0.5s ease;
     animation: pulse 3s infinite alternate;
 }
@@ -143,23 +143,23 @@ header:after {
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); } /* Green pulse */
-    70% { box-shadow: 0 0 0 10px rgba(0, 230, 118, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 69, 0.4); } /* Red pulse based on primary */
+    70% { box-shadow: 0 0 0 10px rgba(255, 69, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 69, 0); }
 }
 
 .user-profile {
     display: flex;
     align-items: center;
-    gap: 12px; /* More space */
+    gap: 12px;
     z-index: 1;
 }
 
 .user-avatar {
-    width: 45px; /* Larger avatar */
+    width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: 3px solid var(--accent-color); /* Thicker border */
+    border: 3px solid var(--text-primary); /* Changed to text-primary for border */
     transition: transform 0.3s ease;
 }
 
@@ -176,25 +176,25 @@ header:after {
 .navigation {
     display: flex;
     justify-content: center;
-    gap: 18px; /* More space between buttons */
-    padding: 18px; /* Increased padding */
+    gap: 18px;
+    padding: 18px;
     background-color: var(--secondary-color);
     border-bottom: 1px solid var(--separator);
     flex-wrap: wrap;
     position: relative;
-    z-index: 1; /* Ensure navigation is above content */
+    z-index: 1;
 }
 
 .nav-button {
     background-color: var(--tertiary-color);
     color: var(--text-primary);
-    border: 1px solid var(--separator);
-    padding: 12px 30px; /* More padding */
+    border: 1px solid var(--card-border); /* Use card-border for normal state */
+    padding: 12px 30px;
     cursor: pointer;
     transition: var(--transition);
-    border-radius: 8px; /* Slightly more rounded */
-    font-weight: 600; /* Bolder text */
-    min-width: 140px; /* Slightly wider buttons */
+    border-radius: 8px;
+    font-weight: 600;
+    min-width: 140px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -211,7 +211,7 @@ header:after {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.1), /* Softer shine */
+        rgba(255, 255, 255, 0.1),
         transparent
     );
     transition: 0.5s;
@@ -222,29 +222,29 @@ header:after {
 }
 
 .nav-button.active {
-    background-color: var(--accent-color); /* Accent color for active button */
-    color: var(--primary-color); /* Dark text on active button */
-    border-color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6); /* Vibrant glow */
-    transform: translateY(-3px); /* Lift active button */
+    background-color: var(--primary-color); /* Primary red for active */
+    color: var(--text-primary); /* Text on active button */
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 69, 69, 0.6); /* Red glow */
+    transform: translateY(-3px);
 }
 
 .nav-button:hover:not(.active) {
-    background-color: #2b2b2b;
-    border-color: #555;
+    background-color: #444444; /* Slightly lighter secondary on hover */
+    border-color: rgba(60, 60, 60, 0.4); /* Darker border on hover */
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .content-container {
-    padding: 30px; /* Increased padding */
-    position: relative; /* For z-index context */
-    z-index: 0; /* Below navigation */
+    padding: 30px;
+    position: relative;
+    z-index: 0;
 }
 
 .tab-content {
     display: none;
-    animation: slideIn 0.6s ease forwards; /* Added forwards to keep final state */
+    animation: slideIn 0.6s ease forwards;
 }
 
 .tab-content.active {
@@ -258,45 +258,45 @@ header:after {
 
 .welcome-section {
     text-align: center;
-    margin-bottom: 40px; /* More space */
+    margin-bottom: 40px;
     padding: 30px;
-    background-color: var(--embed-bg);
+    background-color: var(--card-bg); /* Use card-bg */
     border-radius: var(--border-radius);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-left: var(--embed-border) solid var(--accent-color);
+    border-left: var(--embed-border) solid var(--primary-color); /* Primary red border */
 }
 
 .welcome-section h2 {
-    color: var(--accent-color);
-    border-bottom: 2px solid var(--accent-color);
+    color: var(--primary-color); /* Primary red for heading */
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
     margin-top: 0;
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
-    font-size: 28px; /* Larger heading */
-    font-weight: 800; /* Even bolder */
+    font-size: 28px;
+    font-weight: 800;
 }
 
 .welcome-section p {
     color: var(--text-secondary);
-    font-size: 17px; /* Larger text */
+    font-size: 17px;
     margin-bottom: 35px;
 }
 
 .login-btn {
-    background-color: var(--discord-color); /* Discord brand color */
+    background-color: var(--discord-color);
     color: white;
     border: none;
-    padding: 15px 30px; /* More padding */
-    border-radius: 8px; /* More rounded */
-    font-weight: 700; /* Bolder */
-    font-size: 18px; /* Larger font */
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 18px;
     cursor: pointer;
     transition: var(--transition);
     display: inline-flex;
     align-items: center;
-    gap: 12px; /* More space */
+    gap: 12px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -323,20 +323,20 @@ header:after {
 }
 
 .login-btn:hover {
-    background-color: #677bcc; /* Darker Discord blue */
+    background-color: #677bcc;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
-    color: var(--accent-color);
-    border-bottom: 2px solid var(--accent-color);
+    color: var(--primary-color); /* Primary red for headings */
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
     margin-top: 0;
-    margin-bottom: 30px; /* More space */
+    margin-bottom: 30px;
     position: relative;
     display: inline-block;
-    font-size: 26px; /* Larger heading */
+    font-size: 26px;
     font-weight: 700;
 }
 
@@ -345,9 +345,9 @@ h2:after {
     position: absolute;
     bottom: -2px;
     left: 0;
-    width: 100%; /* Full width for the animated underline */
+    width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-color), transparent);
+    background: linear-gradient(90deg, var(--primary-color), transparent); /* Primary red gradient */
     animation: expandWidth 3s infinite alternate;
 }
 
@@ -357,32 +357,32 @@ h2:after {
 }
 
 .info-section {
-    margin-bottom: 30px; /* More space */
-    background-color: var(--embed-bg);
+    margin-bottom: 30px;
+    background-color: var(--card-bg); /* Use card-bg */
     border-radius: var(--border-radius);
-    padding: 22px; /* Increased padding */
+    padding: 22px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    border-left: var(--embed-border) solid var(--accent-color); /* Use accent for border */
+    border-left: var(--embed-border) solid var(--primary-color); /* Primary red border */
     transition: var(--transition);
     animation: fadeIn 0.6s ease-out forwards;
     opacity: 0;
-    animation-delay: calc(var(--delay, 0) * 0.1s); /* Faster staggered animation */
+    animation-delay: calc(var(--delay, 0) * 0.1s);
 }
 
-.info-section:nth-child(1) { --delay: 0; } /* Adjusted delays */
+.info-section:nth-child(1) { --delay: 0; }
 .info-section:nth-child(2) { --delay: 0.5; }
 .info-section:nth-child(3) { --delay: 1; }
 
 .info-section:hover {
-    transform: translateY(-5px); /* More pronounced lift */
+    transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-left: var(--embed-border) solid var(--accent-color);
+    border-left: var(--embed-border) solid var(--primary-color); /* Primary red border on hover */
 }
 
 .info-section h3 {
     color: var(--text-primary);
-    margin-bottom: 18px; /* More space */
-    font-size: 20px; /* Larger heading */
+    margin-bottom: 18px;
+    font-size: 20px;
     font-weight: 700;
     position: relative;
     display: inline-block;
@@ -395,7 +395,7 @@ h2:after {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color); /* Primary red for underline */
     transition: width 0.3s ease;
 }
 
@@ -404,27 +404,27 @@ h2:after {
 }
 
 .warning-item, .icinfo-item, .links-item {
-    margin-bottom: 15px; /* More space */
-    padding: 15px 20px; /* More padding */
-    background-color: rgba(30, 30, 30, 0.6); /* Darker background */
-    border-radius: 8px; /* More rounded */
-    border: 1px solid rgba(80, 80, 80, 0.4); /* Stronger border */
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    background-color: var(--tertiary-color); /* Using tertiary for item background */
+    border-radius: 8px;
+    border: 1px solid var(--card-border); /* Using card border */
     transition: var(--transition);
-    transform: translateX(-15px); /* More pronounced slide */
+    transform: translateX(-15px);
     opacity: 0;
     animation: slideRight 0.5s forwards;
     animation-delay: calc(var(--item-delay, 0) * 0.1s);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 15px; /* Slightly larger text */
+    font-size: 15px;
 }
 
 .warning-item:last-child, .icinfo-item:last-child, .links-item:last-child {
-    margin-bottom: 0; /* Remove bottom margin for last item */
+    margin-bottom: 0;
 }
 
-.warning-item:nth-child(2) { --item-delay: 0; } /* Adjusted delays for items */
+.warning-item:nth-child(2) { --item-delay: 0; }
 .warning-item:nth-child(3) { --item-delay: 0.1; }
 .warning-item:nth-child(4) { --item-delay: 0.2; }
 
@@ -436,9 +436,9 @@ h2:after {
 }
 
 .warning-item:hover, .icinfo-item:hover, .links-item:hover {
-    background-color: rgba(45, 45, 45, 0.9); /* More prominent hover */
-    border-color: var(--accent-color);
-    transform: scale(1.01); /* Subtle grow */
+    background-color: #2a2a2a; /* Slightly lighter tertiary on hover */
+    border-color: var(--primary-color); /* Primary red border on hover */
+    transform: scale(1.01);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
@@ -449,21 +449,21 @@ h2:after {
 
 .warning-date {
     color: var(--text-muted);
-    font-size: 13px; /* Slightly smaller date */
+    font-size: 13px;
     white-space: nowrap;
-    margin-left: 20px; /* More space */
+    margin-left: 20px;
 }
 
 .icinfo-status {
-    font-weight: 700; /* Bolder status */
+    font-weight: 700;
 }
 
 .active-status {
-    color: var(--badge-success-text); /* Use badge color */
+    color: #00c853; /* Keep distinct green for success, or change if preferred */
 }
 
 .inactive-status {
-    color: var(--badge-danger-text); /* Use badge color */
+    color: var(--primary-color); /* Primary red for inactive status */
 }
 
 .links-item {
@@ -472,15 +472,15 @@ h2:after {
     color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 15px; /* More space */
+    gap: 15px;
     font-size: 16px;
     font-weight: 500;
 }
 
 .links-item i {
-    min-width: 24px; /* Larger icons */
+    min-width: 24px;
     text-align: center;
-    color: var(--accent-color); /* Accent color for icons */
+    color: var(--primary-color); /* Primary red for icons */
 }
 
 .links-name {
@@ -489,10 +489,10 @@ h2:after {
 
 footer {
     text-align: center;
-    padding: 20px; /* More padding */
-    background-color: var(--tertiary-color);
+    padding: 20px;
+    background-color: var(--primary-dark); /* Darker primary for footer */
     border-top: 1px solid var(--separator);
-    font-size: 13px; /* Slightly smaller footer text */
+    font-size: 13px;
     color: var(--text-muted);
     position: relative;
     overflow: hidden;
@@ -508,7 +508,7 @@ footer:before {
     background: linear-gradient(
         90deg,
         transparent,
-        var(--accent-color),
+        var(--primary-color), /* Primary red glow */
         transparent
     );
     animation: glow 4s infinite alternate;
@@ -523,14 +523,14 @@ footer:before {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px; /* More padding */
+    padding: 30px;
 }
 
 .loading-spinner {
-    border: 4px solid rgba(255, 255, 255, 0.15); /* More visible spinner border */
-    border-left: 4px solid var(--accent-color); /* Accent colored spinner */
+    border: 4px solid rgba(255, 255, 255, 0.15);
+    border-left: 4px solid var(--primary-color); /* Primary red spinner */
     border-radius: 50%;
-    width: 35px; /* Larger spinner */
+    width: 35px;
     height: 35px;
     animation: spin 1s linear infinite;
 }
@@ -542,21 +542,21 @@ footer:before {
 
 .logout-btn {
     color: var(--text-secondary);
-    font-size: 15px; /* Slightly larger logout icon */
+    font-size: 15px;
     margin-left: 15px;
     cursor: pointer;
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .logout-btn:hover {
-    color: var(--accent-color); /* Accent color on hover */
+    color: var(--primary-color); /* Primary red on hover */
     transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
     .container {
         margin: 15px;
-        border-radius: 8px; /* Smaller border radius on mobile */
+        border-radius: 8px;
     }
 
     header {
@@ -633,53 +633,53 @@ footer:before {
 /* Additional custom classes for the dashboard */
 .stat-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted min-width for cards */
-    gap: 25px; /* More space between cards */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
     margin-bottom: 30px;
 }
 
 .stat-card {
-    background-color: var(--embed-bg);
+    background-color: var(--card-bg); /* Use card-bg */
     border-radius: var(--border-radius);
-    padding: 25px; /* Increased padding */
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25); /* Slightly stronger shadow */
-    border-left: var(--embed-border) solid var(--accent-color); /* Use accent for border */
+    padding: 25px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+    border-left: var(--embed-border) solid var(--primary-color); /* Primary red border */
     transition: var(--transition);
     text-align: center;
     animation: fadeIn 0.6s ease-out forwards;
     opacity: 0;
-    animation-delay: calc(var(--delay, 0) * 0.15s); /* Staggered reveal */
+    animation-delay: calc(var(--delay, 0) * 0.15s);
 }
 
 .stat-card:nth-child(1) { --delay: 0; }
 .stat-card:nth-child(2) { --delay: 0.5; }
 
 .stat-card:hover {
-    transform: translateY(-5px); /* More pronounced lift */
+    transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    border-left: var(--embed-border) solid var(--accent-color);
+    border-left: var(--embed-border) solid var(--primary-color); /* Primary red border on hover */
 }
 
 .stat-value {
-    font-size: 32px; /* Larger value */
-    font-weight: 800; /* Bolder */
-    margin: 12px 0; /* More space */
+    font-size: 32px;
+    font-weight: 800;
+    margin: 12px 0;
     color: var(--text-primary);
 }
 
 .stat-label {
     color: var(--text-secondary);
-    font-size: 15px; /* Slightly larger label */
+    font-size: 15px;
     font-weight: 500;
 }
 
 .status-badge {
     display: inline-block;
-    padding: 6px 12px; /* More padding */
-    border-radius: 25px; /* More rounded */
-    font-size: 13px; /* Slightly larger badge text */
-    font-weight: 700; /* Bolder badge text */
-    text-transform: uppercase; /* Uppercase text */
+    padding: 6px 12px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 10px;
 }
@@ -703,12 +703,12 @@ footer:before {
 }
 
 .error-message {
-    background-color: rgba(237, 66, 69, 0.15); /* More prominent error background */
-    border: 1px solid rgba(237, 66, 69, 0.4);
+    background-color: rgba(255, 69, 69, 0.15); /* Red error background */
+    border: 1px solid rgba(255, 69, 69, 0.4);
     color: var(--badge-danger-text);
-    padding: 12px; /* More padding */
+    padding: 12px;
     border-radius: var(--border-radius);
-    margin-top: 20px; /* More space above */
+    margin-top: 20px;
     text-align: center;
     font-weight: 600;
 }
@@ -721,20 +721,20 @@ footer:before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+    background-color: var(--glass-effect); /* Use glass effect variable */
     z-index: 1000;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(8px); /* Stronger blur */
+    backdrop-filter: blur(8px);
 }
 
 .popup-content {
-    background-color: #181818; /* Darker popup background */
-    border-radius: 15px; /* More rounded */
+    background-color: var(--secondary-color); /* Use secondary for popup background */
+    border-radius: 15px;
     width: 100%;
-    max-width: 550px; /* Wider popup */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
-    animation: popIn 0.4s ease-out; /* New animation for popup */
+    max-width: 550px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.4s ease-out;
     border: 1px solid var(--separator);
     overflow: hidden;
 }
@@ -745,23 +745,23 @@ footer:before {
 }
 
 .popup-header {
-    background-color: #222; /* Darker header */
-    padding: 18px 25px; /* More padding */
+    background-color: var(--tertiary-color); /* Tertiary for popup header */
+    padding: 18px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #3a3a3a; /* Darker border */
+    border-bottom: 1px solid var(--card-border); /* Card border for popup header */
 }
 
 .popup-header h3 {
     margin: 0;
-    color: var(--accent-color); /* Accent color for popup title */
+    color: var(--primary-color); /* Primary red for popup title */
     font-weight: 700;
-    font-size: 22px; /* Larger title */
+    font-size: 22px;
 }
 
 .close-btn {
-    font-size: 28px; /* Larger close icon */
+    font-size: 28px;
     cursor: pointer;
     color: var(--text-muted);
     transition: color 0.2s, transform 0.2s;
@@ -769,20 +769,20 @@ footer:before {
 
 .close-btn:hover {
     color: var(--text-primary);
-    transform: rotate(90deg); /* Rotate on hover */
+    transform: rotate(90deg);
 }
 
 .popup-body {
-    padding: 25px; /* More padding */
+    padding: 25px;
 }
 
 .form-group {
-    margin-bottom: 22px; /* More space */
+    margin-bottom: 22px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 10px; /* More space */
+    margin-bottom: 10px;
     color: var(--text-primary);
     font-weight: 600;
     font-size: 15px;
@@ -790,10 +790,10 @@ footer:before {
 
 .form-group input {
     width: 100%;
-    padding: 14px; /* More padding */
-    background-color: #2b2b2b; /* Darker input background */
-    border: 1px solid #555; /* More visible border */
-    border-radius: 8px; /* More rounded */
+    padding: 14px;
+    background-color: var(--tertiary-color); /* Tertiary for input background */
+    border: 1px solid var(--separator); /* Separator for input border */
+    border-radius: 8px;
     color: var(--text-primary);
     font-family: 'Poppins', sans-serif;
     transition: all 0.2s;
@@ -801,8 +801,8 @@ footer:before {
 }
 
 .form-group input:focus {
-    border-color: var(--accent-color); /* Accent color on focus */
-    box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.3); /* Stronger glow */
+    border-color: var(--primary-color); /* Primary red on focus */
+    box-shadow: 0 0 0 3px rgba(255, 69, 69, 0.3); /* Red glow */
     outline: none;
 }
 
@@ -812,11 +812,11 @@ footer:before {
 
 .submit-button {
     width: 100%;
-    padding: 15px; /* More padding */
-    background-color: var(--accent-color); /* Accent color for submit */
+    padding: 15px;
+    background-color: var(--primary-color); /* Primary red for submit */
     border: none;
     border-radius: 8px;
-    color: var(--primary-color); /* Dark text on button */
+    color: var(--text-primary); /* Text on submit button */
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -824,15 +824,15 @@ footer:before {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px; /* More space */
+    margin-top: 15px;
     font-size: 16px;
-    box-shadow: 0 4px 12px rgba(0, 230, 118, 0.4);
+    box-shadow: 0 4px 12px rgba(255, 69, 69, 0.4); /* Red shadow */
 }
 
 .submit-button:hover {
-    background-color: #00c768; /* Slightly darker green on hover */
+    background-color: var(--primary-dark); /* Darker primary on hover */
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 230, 118, 0.6);
+    box-shadow: 0 6px 15px rgba(255, 69, 69, 0.6);
 }
 
 .submit-button:disabled {
@@ -843,13 +843,13 @@ footer:before {
 }
 
 .spinner {
-    width: 22px; /* Larger spinner */
+    width: 22px;
     height: 22px;
-    border: 3px solid rgba(255, 255, 255, 0.4); /* More visible spinner */
+    border: 3px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     border-top-color: #ffffff;
     animation: spin 1s ease-in-out infinite;
-    margin-left: 12px; /* More space */
+    margin-left: 12px;
 }
 
 .hidden {
@@ -857,8 +857,8 @@ footer:before {
 }
 
 .form-status {
-    padding: 12px; /* More padding */
-    margin: 15px 0; /* More space */
+    padding: 12px;
+    margin: 15px 0;
     border-radius: 8px;
     text-align: center;
     display: flex;
@@ -884,18 +884,18 @@ footer:before {
 .ic-missing-info {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the message and button */
-    gap: 15px; /* More space */
+    align-items: center;
+    gap: 15px;
     padding: 25px;
     text-align: center;
 }
 
 .fill-ic-btn {
-    background-color: var(--discord-color); /* Discord blue for fill button */
-    color: white;
+    background-color: var(--primary-color); /* Primary red for fill button */
+    color: var(--text-primary);
     border: none;
     border-radius: 6px;
-    padding: 10px 20px; /* More padding */
+    padding: 10px 20px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -904,38 +904,38 @@ footer:before {
 }
 
 .fill-ic-btn:hover {
-    background-color: #677bcc;
+    background-color: var(--primary-dark); /* Darker primary on hover */
     transform: translateY(-2px);
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Rules Tab Styles */
 .rule-section {
-    margin-bottom: 30px; /* More space */
+    margin-bottom: 30px;
     animation: fadeIn 0.6s ease-in-out forwards;
     transition: var(--transition);
 }
 
 .rule-section h3 {
-    font-size: 20px; /* Larger heading */
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 15px; /* More space */
-    color: var(--accent-color); /* Accent color for rule headings */
+    margin-bottom: 15px;
+    color: var(--primary-color); /* Primary red for rule headings */
 }
 
 .rule {
-    background-color: rgba(30, 30, 30, 0.7);
-    padding: 15px 20px; /* More padding */
-    border-radius: 10px; /* More rounded */
-    margin-bottom: 12px; /* More space */
-    border-left: 4px solid var(--badge-success-text); /* Green accent for rules */
-    font-size: 15px; /* Slightly larger text */
+    background-color: var(--tertiary-color); /* Tertiary for rule background */
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--badge-success-text); /* Green accent for rules (can be changed to red if rules are warnings) */
+    font-size: 15px;
     transition: var(--transition);
 }
 
 .rule:hover {
-    background-color: rgba(40, 40, 40, 0.9);
-    transform: translateX(5px); /* More pronounced slide */
+    background-color: #2a2a2a; /* Slightly lighter tertiary on hover */
+    transform: translateX(5px);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -954,11 +954,11 @@ footer:before {
 }
 
 .info-item-value {
-    background-color: rgba(40, 40, 40, 0.7);
+    background-color: var(--tertiary-color); /* Tertiary for value background */
     padding: 6px 12px;
     border-radius: 6px;
     font-weight: 700;
-    color: var(--accent-color);
+    color: var(--primary-color); /* Primary red for value text */
     display: inline-block;
 }
 
@@ -969,64 +969,64 @@ footer:before {
 }
 
 .bind-box {
-    background-color: rgba(30, 30, 30, 0.7);
-    padding: 15px 20px; /* More padding */
-    border-radius: 10px; /* More rounded */
-    border-left: 4px solid var(--discord-color); /* Discord blue accent for binds */
-    font-size: 14px; /* Slightly larger text */
-    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; /* More modern monospace font */
+    background-color: var(--tertiary-color); /* Tertiary for bind box background */
+    padding: 15px 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color); /* Primary red accent for binds */
+    font-size: 14px;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
     position: relative;
     cursor: pointer;
     transition: var(--transition);
-    user-select: none; /* Prevent accidental selection of text */
-    overflow: hidden; /* For inner elements */
+    user-select: none;
+    overflow: hidden;
 }
 
 .bind-box pre {
-    white-space: pre-wrap; /* Ensure text wraps */
+    white-space: pre-wrap;
     word-break: break-all;
     margin: 0;
-    padding-right: 30px; /* Space for copy icon */
+    padding-right: 30px;
     color: var(--text-primary);
 }
 
 .bind-box:hover {
-    background-color: rgba(40, 40, 40, 0.9);
+    background-color: #2a2a2a; /* Slightly lighter tertiary on hover */
     transform: translateX(5px);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .copy-icon {
     position: absolute;
-    right: 15px; /* More space */
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0.5; /* More subtle */
+    opacity: 0.5;
     transition: opacity 0.2s;
-    font-size: 18px; /* Larger icon */
+    font-size: 18px;
     color: var(--text-secondary);
 }
 
 .bind-box:hover .copy-icon {
     opacity: 1;
-    color: var(--accent-color); /* Accent color on hover */
+    color: var(--primary-color); /* Primary red on hover */
 }
 
 .copy-message {
     display: none;
     position: absolute;
-    bottom: 8px; /* Position at bottom */
+    bottom: 8px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--badge-success-text); /* Green for success */
-    color: var(--primary-color); /* Dark text */
+    color: var(--primary-dark); /* Darker primary for text */
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
     z-index: 10;
-    animation: fadeInOut 2.5s forwards; /* Animated fade in/out */
+    animation: fadeInOut 2.5s forwards;
 }
 
 @keyframes fadeInOut {
@@ -1038,20 +1038,20 @@ footer:before {
 
 /* Discord invite styling - matching real Discord invites */
 .discord-invite-container {
-    padding: 20px; /* More padding */
-    background-color: rgba(30, 30, 30, 0.6); /* Slightly darker */
-    border-radius: 12px; /* More rounded */
-    border: 1px solid rgba(80, 80, 80, 0.4);
+    padding: 20px;
+    background-color: var(--card-bg); /* Use card-bg */
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
     display: flex;
     flex-direction: column;
-    gap: 20px; /* More space */
+    gap: 20px;
     transition: var(--transition);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .discord-invite-container:hover {
-    background-color: rgba(45, 45, 45, 0.8);
-    border-color: var(--accent-color);
+    background-color: #1a1a1a; /* Slightly lighter card-bg on hover */
+    border-color: var(--primary-color); /* Primary red border on hover */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     transform: translateY(-4px);
 }
@@ -1059,26 +1059,26 @@ footer:before {
 .discord-server-info {
     display: flex;
     align-items: center;
-    gap: 18px; /* More space */
+    gap: 18px;
 }
 
 .discord-server-icon {
-    width: 65px; /* Larger icon */
+    width: 65px;
     height: 65px;
-    border-radius: 18px; /* More rounded */
+    border-radius: 18px;
     object-fit: cover;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother animation curve */
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .discord-server-icon:hover {
-    transform: scale(1.08) rotate(5deg); /* Subtle rotate and scale */
-    box-shadow: 0 0 25px rgba(0, 230, 118, 0.2); /* Green glow */
-    border-radius: 50%; /* Make it round on hover */
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 0 25px rgba(255, 69, 69, 0.2); /* Red glow */
+    border-radius: 50%;
 }
 
 .discord-server-name {
     font-weight: 700;
-    font-size: 20px; /* Larger name */
+    font-size: 20px;
     position: relative;
     transition: all 0.3s ease;
     color: var(--text-primary);
@@ -1091,7 +1091,7 @@ footer:before {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color); /* Primary red underline */
     transition: width 0.3s ease;
 }
 
@@ -1104,14 +1104,14 @@ footer:before {
     font-size: 14px;
     display: flex;
     align-items: center;
-    gap: 8px; /* More space */
+    gap: 8px;
     margin-top: 6px;
 }
 
 .online-indicator {
-    width: 10px; /* Larger indicator */
+    width: 10px;
     height: 10px;
-    background-color: #3ba55c;
+    background-color: #3ba55c; /* Green for online */
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -1120,12 +1120,12 @@ footer:before {
 .online-indicator:after {
     content: '';
     position: absolute;
-    top: -4px; /* Adjust for larger pulse */
+    top: -4px;
     left: -4px;
-    width: 18px; /* Larger pulse */
+    width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: rgba(59, 165, 92, 0.3);
+    background-color: rgba(59, 165, 92, 0.3); /* Green pulse */
     animation: pulse-green 1.8s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -1139,10 +1139,10 @@ footer:before {
     background-color: var(--discord-color);
     color: white;
     border: none;
-    padding: 16px; /* More padding */
+    padding: 16px;
     border-radius: 8px;
     font-weight: 700;
-    font-size: 17px; /* Larger text */
+    font-size: 17px;
     cursor: pointer;
     transition: var(--transition);
     text-align: center;
@@ -1150,7 +1150,7 @@ footer:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px; /* More space */
+    gap: 12px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -1190,56 +1190,56 @@ footer:before {
 .user-container {
     display: flex;
     align-items: center;
-    height: 28px; /* Adjusted height for better alignment */
+    height: 28px;
 }
 
 .primary-user-badge {
     display: inline-flex;
     align-items: center;
-    height: 28px; /* Match container height */
-    background-color: #333; /* Darker badge background */
-    border-radius: 6px; /* Slightly more rounded */
-    padding: 0 10px; /* More padding */
-    margin-right: 8px; /* More space */
+    height: 28px;
+    background-color: var(--tertiary-color); /* Tertiary for badge background */
+    border-radius: 6px;
+    padding: 0 10px;
+    margin-right: 8px;
     vertical-align: middle;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .badge-icon {
-    height: 18px; /* Slightly larger icon */
+    height: 18px;
     width: 18px;
     margin-right: 6px;
     vertical-align: middle;
 }
 
 .badge-text {
-    color: #ffffff;
-    font-size: 13px; /* Slightly larger text */
-    font-weight: 700; /* Bolder */
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 700;
     vertical-align: middle;
-    line-height: 28px; /* Match badge height */
+    line-height: 28px;
 }
 
 .username-text {
     color: var(--text-primary);
-    font-size: 15px; /* Slightly larger text */
+    font-size: 15px;
     font-weight: 500;
     vertical-align: middle;
     display: inline-block;
 }
 
 .display-name, .discord-tag {
-    line-height: 22px; /* Adjusted line height */
+    line-height: 22px;
     vertical-align: middle;
 }
 
 /* Avatar styling enhancements */
 #userAvatar {
-    width: 38px; /* Larger avatar */
+    width: 38px;
     height: 38px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--primary-color); /* Primary red border */
 }
 
 /* Status styling for logged in/out states */
