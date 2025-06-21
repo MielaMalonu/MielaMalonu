@@ -1,25 +1,41 @@
 :root {
-    --primary-color: #0d0d0d; /* Slightly darker base */
-    --secondary-color: #1a1a1a; /* Darker navigation/background for sections */
-    --tertiary-color: #151515; /* Header/footer background */
-    --accent-color: #00e676; /* Vibrant green for highlights - was white */
+    /* New Primary Colors */
+    --primary-color: #ff4545; /* Vibrant Red - Main accent */
+    --primary-dark: #c13535; /* Darker Red - For headers, active states */
+
+    /* Existing Dark/Neutral Tones */
+    --secondary-color: #333333; /* Darker background for sections/navigation */
+    --tertiary-color: #1e1e1e; /* Slightly lighter dark for elements like header/footer background */
+    --dark-bg: rgba(0, 0, 0, 0.8); /* Used for body background overlay */
+    --card-bg: rgba(10, 10, 10, 0.8); /* Background for cards/sections */
+    --card-border: rgba(40, 40, 40, 0.2); /* Subtle border for cards */
+    --glass-effect: rgba(0, 0, 0, 0.75); /* For blurred backgrounds */
+
+    /* Text Colors */
     --text-primary: #e0e0e0; /* Lighter text for readability */
     --text-secondary: #a0a0a0; /* Secondary text */
     --text-muted: #606060; /* Muted text */
-    --embed-bg: rgba(20, 20, 20, 0.9); /* Card background with slight transparency */
-    --separator: rgba(80, 80, 80, 0.4); /* Subtle separators */
-    --border-radius: 12px; /* Slightly more rounded corners */
-    --transition: all 0.3s ease-out; /* Smoother transitions */
-    --embed-border: 4px; /* Thinner accent border for cards */
-    --discord-color: #7289da; /* Discord blue */
 
-    /* New colors for status badges */
-    --badge-success-bg: rgba(0, 230, 118, 0.1);
-    --badge-success-text: #00e676;
-    --badge-danger-bg: rgba(255, 82, 82, 0.1);
-    --badge-danger-text: #ff5252;
-    --badge-warning-bg: rgba(255, 179, 0, 0.1);
+    /* Component-specific colors */
+    --embed-bg: var(--card-bg); /* Renamed for clarity, using card-bg */
+    --separator: rgba(80, 80, 80, 0.4); /* Subtle separators */
+    --embed-border: 4px; /* Accent border for cards */
+    --discord-color: #7289da; /* Discord blue - kept standard for brand consistency */
+
+    /* Status Badge Colors (adapted to new primary) */
+    --badge-success-bg: rgba(0, 200, 83, 0.1); /* Green remains for success */
+    --badge-success-text: #00c853;
+    --badge-danger-bg: rgba(255, 69, 69, 0.1); /* Red derived from primary for danger */
+    --badge-danger-text: #ff4545; /* Primary red for danger */
+    --badge-warning-bg: rgba(255, 179, 0, 0.1); /* Yellow/Orange remains for warning */
     --badge-warning-text: #ffb300;
+
+    /* Transition Speed (for consistency) */
+    --transition-speed: 0.4s;
+    --transition: all var(--transition-speed) ease-out;
+
+    /* Other constants */
+    --border-radius: 12px;
 }
 
 * {
