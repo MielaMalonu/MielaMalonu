@@ -2,7 +2,7 @@
     --primary-color: #0d0d0d; /* Slightly darker base */
     --secondary-color: #1a1a1a; /* Darker navigation/background for sections */
     --tertiary-color: #151515; /* Header/footer background */
-    --accent-color: #00e676; /* Vibrant green for highlights - was white */
+    --accent-color: #ff4545; /* Vibrant green for highlights - was white */
     --text-primary: #e0e0e0; /* Lighter text for readability */
     --text-secondary: #a0a0a0; /* Secondary text */
     --text-muted: #606060; /* Muted text */
@@ -209,7 +209,7 @@ header:after {
     background-color: var(--accent-color); /* Accent color for active button */
     color: var(--primary-color); /* Dark text on active button */
     border-color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6); /* Vibrant glow */
+    box-shadow: 0 0 20px #ff4545; /* Vibrant glow */
     transform: translateY(-3px); /* Lift active button */
 }
 
