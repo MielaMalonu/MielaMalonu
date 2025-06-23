@@ -1,1 +1,739 @@
-function _0x4aa4(){var _0xa36e2a=['statusDisplay','length','):\x20Could\x20not\x20process\x20response','formLoader','Taip','addEventListener','far','avatar','string','all','501282FSeKns','❌\x20Jūs\x20jau\x20esate\x20mūsų\x20gaujos\x20narys\x20arba\x20jūsų\x20anketa\x20yra\x20peržiūrima!','block','{event_appId}','Redirecting\x20to\x20Discord\x20OAuth:','https://add.mielamalonu.com/api/discord/join-server','review-whyJoin','removeItem','warning','Auth\x20redirect\x20error:','append','access_token','✅\x20Aplikacija\x20sėkmingai\x20pateikta!','setItem','❌\x20Amžius\x20privalo\x20būti\x20bent\x2013\x20metų','Connection\x20error.\x20Please\x20try\x20again\x20later.','pc-toggle','querySelectorAll','Form\x20state\x20check\x20-\x20User\x20logged\x20in:','application/json','mouseover','ids','currentUser','change','Failed\x20to\x20parse\x20error\x20response:','#pl-stars\x20i','body','value','log','substring','ispToggle','Fetching\x20status\x20and\x20blacklist...','Applications\x20closed','none','nextStep2Button','warn','offline','active','Sėkmingai\x20prisijungta\x20prie\x20Discord!','Bandykite\x20dar\x20kartą','click','reviewAge','global_name','remove','Nepavyko\x20prisijungti\x20prie\x20Discord.\x20Bandykite\x20vėliau.','discord_token_expiry','discordButton','discord_token','emoji','Processed\x20blacklist\x20into\x20array:','https://supa.mielamalonu.com/api/supabase/Blacklist','lastStatus','notification','Nepavyko\x20gauti\x20aplikacijos\x20statuso.\x20Bandykite\x20vėliau.','POST','status','Server\x20error:\x20','❌\x20Prašome\x20išsamiau\x20aprašyti\x20kodėl\x20norite\x20prisijungti','State\x20validation\x20failed,\x20potential\x20CSRF\x20attack','Server\x20error\x20while\x20checking\x20role','reviewIsp','createElement','</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','\x20blacklisted?','includes','get','❌\x20Prašome\x20įvertinti\x20savo\x20pašaudimo\x20lygį','API','userId','pathname','toLowerCase','responseMessage','klStars','discord-login','isSubmitting','Pasiektas\x20maksimalus\x20simbolių\x20skaičius\x20(200)','2MKSOob','message','plStars','Submit\x20button\x20disabled:','applicationForm','guilds.members.read','🚫\x20Jūs\x20esate\x20įtrauktas\x20į\x20juodąjį\x20sąrašą\x20ir\x20negalite\x20teikti\x20anketos!','presence','Sending\x20join\x20request\x20to\x20proxy:','❌\x20Prieš\x20pateikiant\x20anketą,\x20reikia\x20prisijungti\x20per\x20Discord!','Blacklist\x20array:','.notification-icon','nextStep1Button','ROLE_CHECK_ENDPOINT','online','CLIENT_ID','Discord\x20API\x20error:','prev-step-2','discord_auth_state','.form-step','\x22></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22user-info\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p\x20class=\x22username\x22>','stringify','innerHTML','object','44051238jUkeUL','form','pcToggle','success','GUILD_ID','{event_reason}','step-','notification-','age','dnd','review-kl','{event_age}','map','ispInput','checked','fas','currentStep','2096395xHvFaa','data-value','guilds.join','reload','style','9700720fLFvbS','type','Invalid\x20user\x20data','notification-icon\x20fas\x20fa-exclamation-triangle','PROXY_URL','error','trim','Invalid\x20OAuth\x20token.\x20Try\x20logging\x20out\x20and\x20in\x20again.','notificationIcon','review-isp','reviewDiscord','2235426XBZhsp','Discord\x20authentication\x20required','client_id','DISCORD','forEach','.notification-message','Submission\x20error:','🚫\x20Jūs\x20esate\x20užblokuotas\x20ir\x20negalite\x20pateikti\x20anketos!','Authentication\x20failed:\x20security\x20check\x20failed','6rsPBZF','review-age','isp-toggle','completed','username','\x22\x20alt=\x22Avatar\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22status-dot\x20','find','history','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22avatar-wrapper\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22','https://discord.com/api/users/@me','info','display','Form\x20state\x20check\x20-\x20User\x20blacklisted:','reviewWhyJoin','status-offline','BLACKLIST_ENDPOINT','Attempting\x20to\x20add\x20you\x20to\x20Discord\x20server...','char-limit-exceeded','.png?size=256','applicationId','https://supa.mielamalonu.com/api/supabase/Status','/member','whyJoinInput','Failed\x20to\x20fetch\x20blacklist','random','pointerEvents','review-pl','Pateikiama...','✅\x20Visi\x20laukai\x20užpildyti\x20teisingai!','blacklist','STATUS_ENDPOINT','Failed\x20to\x20authenticate\x20with\x20Discord:\x20','✅\x20DOM\x20fully\x20loaded!','plInput','flex','location','next-step-1','prev-step-3','classList','21nNFRVX','textContent','getElementById','notification-icon\x20fas\x20fa-info-circle','/10','searchParams','scope','Bearer\x20','identify','Serverio\x20klaida\x20tikrinant\x20naudotojo\x20rolę','join','preventDefault','.char-count','review-discord','hasRole','❌\x20Uždaryta\x20❌','isp','REDIRECT_URI','auto','input','now','review-pc','/200','❌\x20Status\x20fetch\x20error:','className','title','next-step-2','Server\x20error\x20(','filter','User\x20blacklisted','User\x20authenticated,\x20ID:','details','error-message','updateInterval','overflow','Presence\x20update\x20error:','Could\x20not\x20add\x20you\x20to\x20the\x20server\x20automatically.\x20Please\x20join\x20manually\x20if\x20needed.','pcInput','isArray','https://canary.discord.com/api/webhooks/1346529699081490472/k-O-v4wKDiUjsj1w-Achvrej1Kr-W-rXqZVibcftwWFn5sMZyhIMSb9E4r975HbQI3tF','<div\x20class=\x22dnd-banner\x22>Do\x20Not\x20Disturb</div>','1325850250027597845','querySelector','Raw\x20blacklist\x20data\x20received:','Authenticating\x20with\x20Discord...','token','reset','toString','hash','{event_pc}','2388356CxjsCb','activities','SUBMIT_ENDPOINT','show','6902240PXqGZc','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20id=\x22logout\x22>Atsijungti</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','whyJoin','Validating\x20all\x20requirements...','https://discord.com/api/v10/users/@me/guilds/','Successfully\x20joined\x20Discord\x20server!','{event_userId}','blacklistedIds','reviewPl','submitButton','name','hidden','DOMContentLoaded','disabled','reason','Successfully\x20obtained\x20token\x20from\x20URL\x20fragment','steps','ageInput','formSteps','accessToken','notification-icon\x20fas\x20fa-check-circle','klInput','prevStep3Button','Connecting\x20to\x20Discord\x20server...','N/A','json','state','API\x20error','9vBeSxx','notificationMessage','reviewPc','{event_isp}','Final\x20blacklist\x20check\x20before\x20submission:','add','getAttribute','API_KEY','Proxy\x20server\x20response:','opacity'];_0x4aa4=function(){return _0xa36e2a;};return _0x4aa4();}function _0x59a4(_0x3c5466,_0x10616f){var _0x4aa415=_0x4aa4();return _0x59a4=function(_0x59a4fd,_0x564a96){_0x59a4fd=_0x59a4fd-0x76;var _0x5dd922=_0x4aa415[_0x59a4fd];return _0x5dd922;},_0x59a4(_0x3c5466,_0x10616f);}var _0x1aa995=_0x59a4;(function(_0x28eb21,_0x59920d){var _0x474189=_0x59a4,_0x400160=_0x28eb21();while(!![]){try{var _0x746981=parseInt(_0x474189(0x7b))/0x1*(-parseInt(_0x474189(0x14a))/0x2)+parseInt(_0x474189(0xbd))/0x3*(-parseInt(_0x474189(0x116))/0x4)+-parseInt(_0x474189(0xa4))/0x5+-parseInt(_0x474189(0xb4))/0x6*(parseInt(_0x474189(0xe4))/0x7)+parseInt(_0x474189(0x11a))/0x8+parseInt(_0x474189(0x136))/0x9*(-parseInt(_0x474189(0xa9))/0xa)+parseInt(_0x474189(0x93))/0xb;if(_0x746981===_0x59920d)break;else _0x400160['push'](_0x400160['shift']());}catch(_0x392339){_0x400160['push'](_0x400160['shift']());}}}(_0x4aa4,0xa2552),document['addEventListener'](_0x1aa995(0x126),async function(){var _0x40f041=_0x1aa995;console['log'](_0x40f041(0xdd));const _0x47cff5={'API':{'STATUS_ENDPOINT':_0x40f041(0xd1),'BLACKLIST_ENDPOINT':_0x40f041(0x17c),'ROLE_CHECK_ENDPOINT':'https://mmapi-production.up.railway.app/api/check-role','SUBMIT_ENDPOINT':'https://botas-production.up.railway.app/webhook','API_KEY':'cbb'},'DISCORD':{'CLIENT_ID':'1263389179249692693','REDIRECT_URI':window[_0x40f041(0xe0)]['origin']+window[_0x40f041(0xe0)][_0x40f041(0x18f)],'SCOPES':[_0x40f041(0xec),_0x40f041(0x80),_0x40f041(0xa6)],'WEBHOOK_URL':_0x40f041(0x10b),'GUILD_ID':_0x40f041(0x10d),'PROXY_URL':_0x40f041(0x14f)}},_0x435259={'form':document['getElementById'](_0x40f041(0x7f)),'statusDisplay':document[_0x40f041(0xe6)](_0x40f041(0x140)),'discordButton':document['getElementById'](_0x40f041(0x78)),'profileContainer':document[_0x40f041(0xe6)]('profile-container'),'responseMessage':document[_0x40f041(0x187)]('p'),'notification':document['getElementById'](_0x40f041(0x17e)),'notificationMessage':document[_0x40f041(0x10e)](_0x40f041(0xb9)),'notificationIcon':document[_0x40f041(0x10e)](_0x40f041(0x86)),'steps':document['querySelectorAll']('.step'),'formSteps':document[_0x40f041(0x15b)](_0x40f041(0x8e)),'nextStep1Button':document[_0x40f041(0xe6)](_0x40f041(0xe1)),'nextStep2Button':document[_0x40f041(0xe6)](_0x40f041(0xfe)),'prevStep2Button':document['getElementById'](_0x40f041(0x8c)),'prevStep3Button':document[_0x40f041(0xe6)](_0x40f041(0xe2)),'submitButton':document[_0x40f041(0xe6)](_0x40f041(0x123)),'plStars':document['querySelectorAll'](_0x40f041(0x163)),'klStars':document['querySelectorAll']('#kl-stars\x20i'),'pcToggle':document[_0x40f041(0xe6)](_0x40f041(0x15a)),'ispToggle':document[_0x40f041(0xe6)](_0x40f041(0xbf)),'ageInput':document['getElementById']('age'),'plInput':document['getElementById']('pl'),'klInput':document[_0x40f041(0xe6)]('kl'),'whyJoinInput':document[_0x40f041(0xe6)](_0x40f041(0x11c)),'pcInput':document[_0x40f041(0xe6)]('pc'),'ispInput':document[_0x40f041(0xe6)](_0x40f041(0xf4)),'reviewDiscord':document[_0x40f041(0xe6)](_0x40f041(0xf1)),'reviewAge':document[_0x40f041(0xe6)](_0x40f041(0xbe)),'reviewPl':document[_0x40f041(0xe6)](_0x40f041(0xd7)),'reviewKl':document[_0x40f041(0xe6)](_0x40f041(0x9d)),'reviewWhyJoin':document[_0x40f041(0xe6)](_0x40f041(0x150)),'reviewPc':document[_0x40f041(0xe6)](_0x40f041(0xf9)),'reviewIsp':document[_0x40f041(0xe6)](_0x40f041(0xb2))};let _0x207dc0={'blacklist':[],'lastStatus':null,'currentUser':null,'updateInterval':null,'isSubmitting':![],'currentStep':0x1,'formData':{'pl':0x0,'kl':0x0}};_0x435259['form']['appendChild'](_0x435259['responseMessage']),_0x435259[_0x40f041(0x94)][_0x40f041(0x145)]('submit',_0x13f7d2),_0x435259[_0x40f041(0x178)][_0x40f041(0x145)](_0x40f041(0x172),_0x5e3b9a),_0x435259['nextStep1Button']['addEventListener'](_0x40f041(0x172),()=>{_0x271f61(0x2);}),_0x435259[_0x40f041(0x16c)][_0x40f041(0x145)](_0x40f041(0x172),()=>{var _0x47e3df=_0x40f041;!!(function(){var _0x19e41c=_0x59a4;if(!_0x435259[_0x19e41c(0x12b)][_0x19e41c(0x165)]||_0x435259[_0x19e41c(0x12b)][_0x19e41c(0x165)]<0xd)return void _0x27bff2(_0x19e41c(0x158));if(!_0x435259[_0x19e41c(0xde)][_0x19e41c(0x165)]||'0'===_0x435259[_0x19e41c(0xde)][_0x19e41c(0x165)])return void _0x27bff2(_0x19e41c(0x18c));if(!_0x435259[_0x19e41c(0x12f)][_0x19e41c(0x165)]||'0'===_0x435259[_0x19e41c(0x12f)]['value'])return void _0x27bff2('❌\x20Prašome\x20įvertinti\x20savo\x20komunikacijos\x20lygį');if(!_0x435259[_0x19e41c(0xd3)]['value']||_0x435259['whyJoinInput']['value']['trim']()[_0x19e41c(0x141)]<0xa)return void _0x27bff2(_0x19e41c(0x183));return!_0x435259['pcInput'][_0x19e41c(0x165)][_0x19e41c(0xaf)]()&&(_0x435259[_0x19e41c(0x109)][_0x19e41c(0x165)]='Ne'),!_0x435259[_0x19e41c(0xa0)]['value'][_0x19e41c(0xaf)]()&&(_0x435259[_0x19e41c(0xa0)][_0x19e41c(0x165)]='Ne'),_0x49cb29(_0x19e41c(0x96),_0x19e41c(0xd9)),_0x3b81ca(),0x1;}())&&(_0x435259[_0x47e3df(0x173)]&&(_0x435259[_0x47e3df(0x173)][_0x47e3df(0xe5)]=_0x435259['ageInput']['value']||_0x47e3df(0x132)),_0x435259['reviewPl']&&(_0x435259[_0x47e3df(0x122)][_0x47e3df(0xe5)]=(_0x435259[_0x47e3df(0xde)]['value']||'0')+_0x47e3df(0xe8)),_0x435259['reviewKl']&&(_0x435259['reviewKl'][_0x47e3df(0xe5)]=(_0x435259[_0x47e3df(0x12f)][_0x47e3df(0x165)]||'0')+_0x47e3df(0xe8)),_0x435259['reviewWhyJoin']&&(_0x435259[_0x47e3df(0xca)][_0x47e3df(0xe5)]=_0x435259['whyJoinInput'][_0x47e3df(0x165)]||_0x47e3df(0x132)),_0x435259['reviewPc']&&(_0x435259[_0x47e3df(0x138)]['textContent']=_0x435259[_0x47e3df(0x109)][_0x47e3df(0x165)]||'N/A'),_0x435259[_0x47e3df(0x186)]&&(_0x435259['reviewIsp'][_0x47e3df(0xe5)]=_0x435259[_0x47e3df(0xa0)]['value']||'N/A'),_0x271f61(0x3));}),_0x435259['prevStep2Button']['addEventListener'](_0x40f041(0x172),()=>_0x271f61(0x1)),_0x435259[_0x40f041(0x130)][_0x40f041(0x145)](_0x40f041(0x172),()=>_0x271f61(0x2)),_0x435259['submitButton']['addEventListener']('click',_0x57394=>{var _0x59bbdf=_0x40f041;_0x57394[_0x59bbdf(0xef)](),_0x435259['form']['dispatchEvent'](new Event('submit',{'cancelable':!![]}));}),(_0x1b21e8=(_0x11aaca,_0x54e733)=>{_0x11aaca['forEach'](_0x448d99=>{var _0x68cc89=_0x59a4;_0x448d99[_0x68cc89(0x145)](_0x68cc89(0x172),function(){var _0x42693f=_0x68cc89,_0x198555=parseInt(this[_0x42693f(0x13c)]('data-value'));_0x182593(_0x11aaca,_0x198555),_0x54e733[_0x42693f(0x165)]=_0x198555;}),_0x448d99['addEventListener'](_0x68cc89(0x15e),function(){var _0x391079=_0x68cc89,_0x16d792=parseInt(this[_0x391079(0x13c)](_0x391079(0xa5)));_0x167740(_0x11aaca,_0x16d792);}),_0x448d99['addEventListener']('mouseout',function(){var _0x2e6939=_0x68cc89,_0x25509b=parseInt(_0x54e733[_0x2e6939(0x165)])||0x0;_0x167740(_0x11aaca,_0x25509b);});});})(_0x435259[_0x40f041(0x7d)],_0x435259[_0x40f041(0xde)]),_0x1b21e8(_0x435259[_0x40f041(0x77)],_0x435259[_0x40f041(0x12f)]),_0x435259[_0x40f041(0x95)][_0x40f041(0x145)](_0x40f041(0x161),function(){var _0x4328ff=_0x40f041;_0x435259[_0x4328ff(0x109)]['value']=this['checked']?_0x4328ff(0x144):'Ne';}),_0x435259[_0x40f041(0x168)][_0x40f041(0x145)](_0x40f041(0x161),function(){var _0x29e537=_0x40f041;_0x435259[_0x29e537(0xa0)][_0x29e537(0x165)]=this['checked']?_0x29e537(0x144):'Ne';}),_0x435259[_0x40f041(0xd3)][_0x40f041(0x145)](_0x40f041(0xf7),function(){_0x18bf62(this);});if(window[_0x40f041(0xe0)][_0x40f041(0x114)]){var _0x1b21e8=new URLSearchParams(window['location']['hash']['substring'](0x1)),_0x3205e5=_0x1b21e8['get'](_0x40f041(0x155));const _0x57fb10=_0x1b21e8[_0x40f041(0x18b)](_0x40f041(0x134));_0x1b21e8=localStorage['getItem']('discord_auth_state'),localStorage[_0x40f041(0x151)](_0x40f041(0x8d));if(_0x3205e5&&_0x57fb10&&_0x57fb10===_0x1b21e8)console[_0x40f041(0x166)](_0x40f041(0x129)),_0x4ad128(_0x3205e5);else _0x3205e5&&(console[_0x40f041(0x16d)](_0x40f041(0x184)),_0x49cb29(_0x40f041(0xae),_0x40f041(0xbc)));}else _0x5f0614(null);function _0x3d0fd2(_0x4e37f7,_0x397746){var _0x4c6814=_0x40f041;return console[_0x4c6814(0x166)]('Checking\x20blacklist\x20for\x20user:',_0x4e37f7),console[_0x4c6814(0x166)](_0x4c6814(0x85),_0x397746),!(!_0x4e37f7||!Array['isArray'](_0x397746)||0x0===_0x397746[_0x4c6814(0x141)])&&(_0x4e37f7=String(_0x4e37f7)['trim'](),_0x397746=_0x397746[_0x4c6814(0x18a)](_0x4e37f7),console[_0x4c6814(0x166)]('Is\x20user\x20'+_0x4e37f7+_0x4c6814(0x189),_0x397746),_0x397746);}async function _0x39b93a(){var _0x2c962a=_0x40f041;try{console[_0x2c962a(0x166)](_0x2c962a(0x169));var _0x21f956=await fetch(_0x47cff5['API'][_0x2c962a(0xdb)]);if(!_0x21f956['ok'])throw new Error('Failed\x20to\x20fetch\x20status');var _0x402ed7=await _0x21f956[_0x2c962a(0x133)]();console[_0x2c962a(0x166)]('Status\x20data\x20received:',_0x402ed7);let _0x554590='offline';Array[_0x2c962a(0x10a)](_0x402ed7)&&0x0<_0x402ed7['length']&&_0x402ed7[0x0]&&_0x402ed7[0x0][_0x2c962a(0x181)]&&(_0x554590=_0x2c962a(0x89)===_0x402ed7[0x0][_0x2c962a(0x181)][_0x2c962a(0x190)]()?_0x2c962a(0x89):'offline');var _0x4d3d27=await fetch(_0x47cff5[_0x2c962a(0x18d)][_0x2c962a(0xcc)]);if(!_0x4d3d27['ok'])throw new Error(_0x2c962a(0xd4));var _0x369954=await _0x4d3d27[_0x2c962a(0x133)]();console['log'](_0x2c962a(0x10f),_0x369954);let _0x234851=[];var _0x4c222a,_0x490a55,_0x1427ca,_0x5dffc0=_0x31d26c=>'string'==typeof _0x31d26c?_0x31d26c['split'](',')[_0x2c962a(0x9f)](_0x1e6275=>_0x1e6275[_0x2c962a(0xaf)]())[_0x2c962a(0x100)](_0x4656dd=>_0x4656dd):Array[_0x2c962a(0x10a)](_0x31d26c)?_0x31d26c['map'](_0x592f7a=>String(_0x592f7a)[_0x2c962a(0xaf)]())[_0x2c962a(0x100)](_0x328b6c=>_0x328b6c):[];if(Array[_0x2c962a(0x10a)](_0x369954)&&0x0<_0x369954['length'])'object'==typeof(_0x4c222a=_0x369954[0x0])&&null!==_0x4c222a?(_0x490a55=_0x4c222a[_0x2c962a(0x121)]||_0x4c222a[_0x2c962a(0x15f)]||_0x4c222a[_0x2c962a(0xda)])&&(_0x234851=_0x5dffc0(_0x490a55)):_0x234851=_0x5dffc0(_0x369954);else{if(_0x2c962a(0x92)==typeof _0x369954&&null!==_0x369954)(_0x1427ca=_0x369954[_0x2c962a(0x121)]||_0x369954['ids']||_0x369954[_0x2c962a(0xda)])&&(_0x234851=_0x5dffc0(_0x1427ca));else _0x2c962a(0x148)==typeof _0x369954&&(_0x234851=_0x5dffc0(_0x369954));}console[_0x2c962a(0x166)](_0x2c962a(0x17b),_0x234851),_0x3d9575({'status':_0x554590,'blacklist':_0x234851});}catch(_0x1ed4c2){console['error'](_0x2c962a(0xfb),_0x1ed4c2),_0x3d9575({'status':'offline','blacklist':_0x207dc0[_0x2c962a(0xda)]||[]}),_0x49cb29(_0x2c962a(0xae),_0x2c962a(0x17f));}}function _0x3d9575(_0x3ecf7f){var _0x1d3c2d=_0x40f041,_0x4059c9=_0x3ecf7f[_0x1d3c2d(0xda)]||[];!(null===_0x3ecf7f[_0x1d3c2d(0x181)]&&JSON[_0x1d3c2d(0x90)](_0x207dc0['blacklist'])===JSON[_0x1d3c2d(0x90)](_0x4059c9))&&(_0x207dc0[_0x1d3c2d(0x17d)]=_0x3ecf7f[_0x1d3c2d(0x181)],_0x207dc0[_0x1d3c2d(0xda)]=_0x4059c9,_0x435259['statusDisplay'][_0x1d3c2d(0xe5)]=_0x1d3c2d(0xf3),_0x435259['statusDisplay'][_0x1d3c2d(0xfc)]=_0x1d3c2d(0xcb),_0x10dbdc());}function _0x10dbdc(){var _0x5da10d=_0x40f041;if(_0x435259[_0x5da10d(0x94)]){console[_0x5da10d(0x166)](_0x5da10d(0x15c),![]);let _0x56f101=![];![]&&null['id']&&(_0x56f101=_0x3d0fd2(null['id'],_0x207dc0['blacklist']),console[_0x5da10d(0x166)](_0x5da10d(0xc9),_0x56f101));var _0x5d1632=![];console['log']('Form\x20state\x20check\x20-\x20App\x20online:',_0x5d1632);var _0x5d1632=!![]||_0x56f101||!_0x5d1632||![];_0x435259['submitButton']&&(_0x435259['submitButton'][_0x5da10d(0x127)]=_0x5d1632);console[_0x5da10d(0x166)](_0x5da10d(0x7e),_0x5d1632);_0x435259['nextStep1Button']&&(_0x435259[_0x5da10d(0x87)][_0x5da10d(0x127)]=!![]||_0x56f101);if(_0x56f101)_0x49cb29(_0x5da10d(0xae),_0x5da10d(0x81)),_0x435259[_0x5da10d(0x94)]&&(_0x435259['form'][_0x5da10d(0xa8)][_0x5da10d(0xd6)]=_0x5da10d(0x16b),_0x435259['form']['style'][_0x5da10d(0x13f)]='0.5');else _0x435259['form']&&(_0x435259[_0x5da10d(0x94)][_0x5da10d(0xa8)][_0x5da10d(0xd6)]=_0x5da10d(0xf6),_0x435259[_0x5da10d(0x94)]['style']['opacity']='1');}}async function _0x13f7d2(_0x5570fa){var _0x4fbe33=_0x40f041;_0x5570fa[_0x4fbe33(0xef)](),_0x207dc0[_0x4fbe33(0x79)]=!![],_0x3b81ca();const _0x3752bf=_0x435259[_0x4fbe33(0x123)];_0x3752bf['disabled']=!![],_0x3752bf[_0x4fbe33(0xe5)]=_0x4fbe33(0xd8),document[_0x4fbe33(0xe6)]('formLoader')[_0x4fbe33(0xa8)]['display']=_0x4fbe33(0xdf),document[_0x4fbe33(0x164)][_0x4fbe33(0xa8)]['overflow']=_0x4fbe33(0x125);try{console[_0x4fbe33(0x166)](_0x4fbe33(0x11d));if(!![]||!null['id'])throw new Error(_0x4fbe33(0xb5));var _0x131fb4=_0x3d0fd2(null['id'],_0x207dc0[_0x4fbe33(0xda)]);console['log'](_0x4fbe33(0x13a),_0x131fb4);if(_0x131fb4){_0x49cb29('error',_0x4fbe33(0xbb));throw new Error('User\x20blacklisted');}try{var _0x4e214b=await fetch(_0x47cff5[_0x4fbe33(0x18d)][_0x4fbe33(0x88)],{'method':_0x4fbe33(0x180),'headers':{'Content-Type':_0x4fbe33(0x15d)},'body':JSON[_0x4fbe33(0x90)]({'userId':null['id']})});if(!_0x4e214b['ok']){_0x49cb29(_0x4fbe33(0xae),_0x4fbe33(0xed));throw new Error(_0x4fbe33(0x185));}if((await _0x4e214b['json']())[_0x4fbe33(0xf2)])throw new Error('LA');}catch(_0x236b35){'LA'!==_0x236b35[_0x4fbe33(0x7c)]&&_0x49cb29(_0x4fbe33(0xae),'Nepavyko\x20patikrinti\x20naudotojo\x20informacijos');throw _0x236b35;}await 0x0;var _0x8525fe={'userId':null['id'],'age':_0x435259['ageInput']['value'][_0x4fbe33(0xaf)](),'reason':_0x435259[_0x4fbe33(0xd3)]['value']['trim'](),'pl':_0x435259['plInput'][_0x4fbe33(0x165)]['trim'](),'kl':_0x435259[_0x4fbe33(0x12f)]['value'][_0x4fbe33(0xaf)](),'pc':_0x435259[_0x4fbe33(0x109)]['value']['trim'](),'isp':_0x435259[_0x4fbe33(0xa0)][_0x4fbe33(0x165)][_0x4fbe33(0xaf)]()};try{var _0x46ef32=null['id']['slice'](0x0,0x10)+'-'+Date[_0x4fbe33(0xf8)](),_0x27b6a3={'variables':[{'name':_0x4fbe33(0x18e),'variable':_0x4fbe33(0x120),'value':''+_0x8525fe['userId']},{'name':_0x4fbe33(0x9b),'variable':_0x4fbe33(0x9e),'value':''+_0x8525fe[_0x4fbe33(0x9b)]},{'name':'reason','variable':_0x4fbe33(0x98),'value':''+_0x8525fe[_0x4fbe33(0x128)]},{'name':'pl','variable':'{event_pl}','value':_0x8525fe['pl']+_0x4fbe33(0xe8)},{'name':'kl','variable':'{event_kl}','value':_0x8525fe['kl']+'/10'},{'name':'pc','variable':_0x4fbe33(0x115),'value':''+_0x8525fe['pc']},{'name':_0x4fbe33(0xf4),'variable':_0x4fbe33(0x139),'value':''+_0x8525fe['isp']},{'name':_0x4fbe33(0xd0),'variable':_0x4fbe33(0x14d),'value':_0x46ef32}]};if(!(await fetch(_0x47cff5[_0x4fbe33(0x18d)][_0x4fbe33(0x118)],{'method':_0x4fbe33(0x180),'headers':{'Content-Type':_0x4fbe33(0x15d),'Authorization':_0x47cff5[_0x4fbe33(0x18d)][_0x4fbe33(0x13d)]},'body':JSON[_0x4fbe33(0x90)](_0x27b6a3)}))['ok']){_0x49cb29('error','API\x20klaida\x20pateikiant\x20anketą');throw new Error(_0x4fbe33(0x135));}}catch(_0x5922af){console[_0x4fbe33(0xae)](_0x4fbe33(0xba),_0x5922af);throw _0x5922af;}await 0x0,_0x3752bf[_0x4fbe33(0xe5)]='Pateikta!',_0x49cb29(_0x4fbe33(0x96),_0x4fbe33(0x156)),_0x435259[_0x4fbe33(0x94)][_0x4fbe33(0x112)](),_0x182593(_0x435259['plStars'],0x0),_0x182593(_0x435259['klStars'],0x0),_0x435259[_0x4fbe33(0xde)][_0x4fbe33(0x165)]='0',_0x435259[_0x4fbe33(0x12f)][_0x4fbe33(0x165)]='0',_0x435259[_0x4fbe33(0x95)]['checked']=![],_0x435259[_0x4fbe33(0x168)][_0x4fbe33(0xa1)]=![],_0x18bf62(_0x435259[_0x4fbe33(0xd3)]),_0x3b81ca(),_0x271f61(0x1);}catch(_0x561463){console['error'](_0x4fbe33(0xba),_0x561463);switch(_0x561463['message']){case'Discord\x20authentication\x20required':_0x27bff2(_0x4fbe33(0x84));break;case _0x4fbe33(0x16a):_0x27bff2('❌\x20Anketų\x20pildymas\x20šiuo\x20metu\x20yra\x20sustabdytas.');break;case _0x4fbe33(0x101):_0x27bff2(_0x4fbe33(0xbb));break;case'LA':_0x27bff2(_0x4fbe33(0x14b));break;default:_0x27bff2('❌\x20Įvyko\x20klaida\x20pateikiant\x20anketą.\x20Bandykite\x20dar\x20kartą.');}_0x3752bf[_0x4fbe33(0xe5)]=_0x4fbe33(0x171);}finally{document[_0x4fbe33(0xe6)](_0x4fbe33(0x143))['style'][_0x4fbe33(0xc8)]=_0x4fbe33(0x16b),document['body'][_0x4fbe33(0xa8)][_0x4fbe33(0x106)]=_0x4fbe33(0xf6),setTimeout(()=>{var _0x4ebff1=_0x4fbe33;_0x207dc0[_0x4ebff1(0x79)]=![],_0x3752bf[_0x4ebff1(0xe5)]='Pateikti\x20aplikaciją',_0x3752bf[_0x4ebff1(0x127)]=![],_0x10dbdc();},0xbb8);}}function _0x5e3b9a(){var _0x36c0d0=_0x40f041;localStorage[_0x36c0d0(0x151)](_0x36c0d0(0x179)),localStorage[_0x36c0d0(0x151)](_0x36c0d0(0x177));var _0x11b374=new URL('https://discord.com/api/oauth2/authorize');_0x11b374[_0x36c0d0(0xe9)][_0x36c0d0(0x154)](_0x36c0d0(0xb6),_0x47cff5[_0x36c0d0(0xb7)][_0x36c0d0(0x8a)]),_0x11b374[_0x36c0d0(0xe9)][_0x36c0d0(0x154)]('redirect_uri',_0x47cff5[_0x36c0d0(0xb7)][_0x36c0d0(0xf5)]),_0x11b374[_0x36c0d0(0xe9)]['append']('response_type',_0x36c0d0(0x111)),_0x11b374['searchParams'][_0x36c0d0(0x154)](_0x36c0d0(0xea),_0x47cff5[_0x36c0d0(0xb7)]['SCOPES'][_0x36c0d0(0xee)]('\x20'));var _0x247556=Math[_0x36c0d0(0xd5)]()[_0x36c0d0(0x113)](0x24)[_0x36c0d0(0x167)](0x2,0xf)+Math[_0x36c0d0(0xd5)]()[_0x36c0d0(0x113)](0x24)['substring'](0x2,0xf);localStorage[_0x36c0d0(0x157)](_0x36c0d0(0x8d),_0x247556),_0x11b374['searchParams'][_0x36c0d0(0x154)]('state',_0x247556),console[_0x36c0d0(0x166)](_0x36c0d0(0x14e),_0x11b374['toString']()),window[_0x36c0d0(0xe0)]['href']=_0x11b374['toString']();}async function _0x4ad128(_0x3736e5){var _0x4fbdf7=_0x40f041;try{_0x49cb29(_0x4fbdf7(0xc7),_0x4fbdf7(0x110));var _0x225c5b=await _0x2d360d(_0x3736e5);if(!_0x225c5b||!_0x225c5b['id'])throw new Error('Failed\x20to\x20fetch\x20user\x20data');_0x207dc0[_0x4fbdf7(0x160)]={..._0x225c5b,'accessToken':_0x3736e5},console[_0x4fbdf7(0x166)](_0x4fbdf7(0x102),_0x225c5b['id']),_0x5f0614(null),_0x49cb29(_0x4fbdf7(0xc7),_0x4fbdf7(0xcd)),await async function(_0x3769c4,_0x34f896){var _0x55891f=_0x4fbdf7;try{_0x49cb29(_0x55891f(0xc7),_0x55891f(0x131));var _0x1a0e6d,_0x27d68b,_0x1a30fc={'userId':_0x3769c4,'accessToken':_0x34f896};console[_0x55891f(0x166)](_0x55891f(0x83),{'userId':_0x3769c4,'tokenPresent':!!_0x34f896,'proxyUrl':_0x47cff5[_0x55891f(0xb7)][_0x55891f(0xad)]});var _0x1ef3e2=await fetch(_0x47cff5[_0x55891f(0xb7)][_0x55891f(0xad)],{'method':_0x55891f(0x180),'headers':{'Content-Type':_0x55891f(0x15d)},'body':JSON[_0x55891f(0x90)](_0x1a30fc)});if(_0x1ef3e2['ok'])return _0x27d68b=await _0x1ef3e2['json'](),console[_0x55891f(0x166)](_0x55891f(0x13e),_0x27d68b),_0x27d68b['success'];try{_0x1a0e6d=await _0x1ef3e2[_0x55891f(0x133)](),console[_0x55891f(0xae)]('Error\x20from\x20proxy\x20server:',_0x1a0e6d),_0x1a0e6d[_0x55891f(0xae)]&&0xc369===_0x1a0e6d[_0x55891f(0xae)]['code']?_0x49cb29(_0x55891f(0xae),_0x55891f(0xb0)):_0x49cb29(_0x55891f(0xae),_0x55891f(0x182)+(_0x1a0e6d[_0x55891f(0x7c)]||'Unknown\x20error'));}catch(_0x4a979d){console[_0x55891f(0xae)](_0x55891f(0x162),_0x4a979d),_0x49cb29(_0x55891f(0xae),_0x55891f(0xff)+_0x1ef3e2[_0x55891f(0x181)]+_0x55891f(0x142));}return![];}catch(_0x4273e2){return console[_0x55891f(0xae)]('Error\x20adding\x20user\x20to\x20server\x20via\x20proxy:',_0x4273e2),_0x49cb29(_0x55891f(0xae),_0x55891f(0x159)),![];}}(_0x225c5b['id'],_0x3736e5)?_0x49cb29('success',_0x4fbdf7(0x11f)):_0x49cb29(_0x4fbdf7(0x152),_0x4fbdf7(0x108)),window[_0x4fbdf7(0xc4)]['replaceState']({},document[_0x4fbdf7(0xfd)],window[_0x4fbdf7(0xe0)]['pathname']),clearInterval(null),_0x207dc0[_0x4fbdf7(0x105)]=setInterval(_0x25d977,0x2faf080),_0x10dbdc();}catch(_0x3e0f9d){console[_0x4fbdf7(0xae)](_0x4fbdf7(0x153),_0x3e0f9d),_0x27bff2(_0x4fbdf7(0xdc)+_0x3e0f9d[_0x4fbdf7(0x7c)]),window[_0x4fbdf7(0xc4)]['replaceState']({},document[_0x4fbdf7(0xfd)],window[_0x4fbdf7(0xe0)][_0x4fbdf7(0x18f)]);}}async function _0x2d360d(_0xbee1f8){var _0xb5d107=_0x40f041;try{var _0x881fa9,_0x281f86,_0x4524d5,[_0x43a1f3,_0x3d1579]=await Promise[_0xb5d107(0x149)]([fetch(_0xb5d107(0xc6),{'headers':{'Authorization':'Bearer\x20'+_0xbee1f8}}),fetch(_0xb5d107(0x11e)+_0x47cff5[_0xb5d107(0xb7)][_0xb5d107(0x97)]+_0xb5d107(0xd2),{'headers':{'Authorization':_0xb5d107(0xeb)+_0xbee1f8}})]),_0x240acc=await _0x43a1f3[_0xb5d107(0x133)](),_0x371ab8=await _0x3d1579['json']();if(_0x240acc['id'])return _0x881fa9=_0x371ab8[_0xb5d107(0x82)]?.['status']||'offline',_0x4524d5=(_0x281f86=_0x371ab8[_0xb5d107(0x117)]||[])[_0xb5d107(0xc3)](_0x217e2a=>0x0===_0x217e2a[_0xb5d107(0xaa)])||{},{..._0x240acc,'avatar':'https://cdn.discordapp.com/avatars/'+_0x240acc['id']+'/'+_0x240acc['avatar']+_0xb5d107(0xcf),'status':_0x881fa9,'activities':_0x281f86,'activity':{'name':_0x4524d5['name']||'','details':_0x4524d5[_0xb5d107(0x103)]||'','state':_0x4524d5[_0xb5d107(0x134)]||'','emoji':_0x4524d5[_0xb5d107(0x17a)]?.[_0xb5d107(0x124)]||'🎮'}};_0x49cb29(_0xb5d107(0xae),'Nepavyko\x20gauti\x20Discord\x20naudotojo\x20informacijos');throw new Error(_0xb5d107(0xab));}catch(_0x93a029){return console['error'](_0xb5d107(0x8b),_0x93a029),_0x49cb29(_0xb5d107(0xae),_0xb5d107(0x176)),{'status':_0xb5d107(0x16e),'activities':[]};}}async function _0x25d977(){var _0x9b1cb0=_0x40f041;try{var _0x4408f4=await _0x2d360d(null[_0x9b1cb0(0x12d)]);!(_0x4408f4['status']===null[_0x9b1cb0(0x181)]&&JSON['stringify'](_0x4408f4['activities'])===JSON[_0x9b1cb0(0x90)](null['activities']))&&(_0x207dc0['currentUser']={..._0x4408f4,'accessToken':null[_0x9b1cb0(0x12d)]},_0x5f0614(null));}catch(_0x3f8f61){console['error'](_0x9b1cb0(0x107),_0x3f8f61);}}function _0x551de7(){var _0x1dcb44=_0x40f041;clearInterval(null),_0x5f0614(_0x207dc0[_0x1dcb44(0x160)]=null),location[_0x1dcb44(0xa7)]();}function _0x5f0614(_0x467ee2){var _0x45f963=_0x40f041;_0x467ee2&&(_0x435259['profileContainer'][_0x45f963(0x91)]=_0x45f963(0xc5)+_0x467ee2[_0x45f963(0x147)]+_0x45f963(0xc2)+_0x467ee2[_0x45f963(0x181)]+_0x45f963(0x8f)+(_0x467ee2[_0x45f963(0x174)]||_0x467ee2[_0x45f963(0xc1)])+_0x45f963(0x188)+(_0x45f963(0x9c)===_0x467ee2['status']?_0x45f963(0x10c):'')+_0x45f963(0x11b),document['getElementById']('logout')['addEventListener']('click',_0x551de7),_0x435259[_0x45f963(0xb3)]&&(_0x435259[_0x45f963(0xb3)][_0x45f963(0xe5)]=_0x467ee2[_0x45f963(0x174)]||_0x467ee2['username']),_0x49cb29('success',_0x45f963(0x170))),_0x467ee2=!!_0x467ee2,_0x435259[_0x45f963(0x178)][_0x45f963(0xa8)][_0x45f963(0xc8)]=_0x467ee2?_0x45f963(0x16b):_0x45f963(0x14c),_0x435259['profileContainer'][_0x45f963(0xa8)][_0x45f963(0xc8)]=_0x467ee2?_0x45f963(0xdf):_0x45f963(0x16b),_0x10dbdc();}function _0x3b81ca(){var _0x51cef2=_0x40f041;_0x435259['responseMessage']['textContent']='',_0x435259['responseMessage'][_0x51cef2(0xfc)]='',_0x63e507();}function _0x27bff2(_0x18875b){var _0x4d8760=_0x40f041;_0x435259[_0x4d8760(0x76)]['textContent']=_0x18875b,_0x435259[_0x4d8760(0x76)][_0x4d8760(0xfc)]=_0x4d8760(0x104),_0x49cb29(_0x4d8760(0xae),_0x18875b);}function _0x49cb29(_0x2661e9,_0x2a3709){var _0x2d5274=_0x40f041;if(_0x435259[_0x2d5274(0x17e)]&&_0x435259[_0x2d5274(0x137)]&&_0x435259[_0x2d5274(0xb1)]){_0x435259[_0x2d5274(0x137)][_0x2d5274(0xe5)]=_0x2a3709,_0x435259['notification']['className']=_0x2d5274(0x17e),_0x435259[_0x2d5274(0x17e)][_0x2d5274(0xe3)][_0x2d5274(0x13b)](_0x2d5274(0x9a)+_0x2661e9);switch(_0x2661e9){case'success':_0x435259[_0x2d5274(0xb1)][_0x2d5274(0xfc)]=_0x2d5274(0x12e);break;case'error':_0x435259[_0x2d5274(0xb1)][_0x2d5274(0xfc)]='notification-icon\x20fas\x20fa-exclamation-circle';break;case'warning':_0x435259[_0x2d5274(0xb1)][_0x2d5274(0xfc)]=_0x2d5274(0xac);break;default:_0x435259['notificationIcon'][_0x2d5274(0xfc)]=_0x2d5274(0xe7);}_0x435259[_0x2d5274(0x17e)]['classList']['add'](_0x2d5274(0x119)),!(_0x2d5274(0x96)!==_0x2661e9&&_0x2d5274(0xc7)!==_0x2661e9)&&setTimeout(_0x63e507,0x1388);}}function _0x63e507(){var _0x926803=_0x40f041;_0x435259[_0x926803(0x17e)]&&_0x435259[_0x926803(0x17e)][_0x926803(0xe3)][_0x926803(0x175)](_0x926803(0x119));}function _0x271f61(_0x25c1f9){var _0x5238f9=_0x40f041;_0x207dc0[_0x5238f9(0xa3)]=_0x25c1f9,_0x435259[_0x5238f9(0x12c)][_0x5238f9(0xb8)](_0x1f50fd=>{var _0x295e43=_0x5238f9;_0x1f50fd[_0x295e43(0xa8)][_0x295e43(0xc8)]=_0x295e43(0x16b);}),document['getElementById'](_0x5238f9(0x99)+_0x25c1f9)[_0x5238f9(0xa8)][_0x5238f9(0xc8)]=_0x5238f9(0x14c),_0x435259[_0x5238f9(0x12a)][_0x5238f9(0xb8)](_0x17930f=>{var _0x16d125=_0x5238f9,_0x56f769=parseInt(_0x17930f[_0x16d125(0x13c)]('data-step'));_0x17930f[_0x16d125(0xe3)][_0x16d125(0x175)](_0x16d125(0x16f),'completed');if(_0x56f769<_0x25c1f9)_0x17930f[_0x16d125(0xe3)][_0x16d125(0x13b)](_0x16d125(0xc0));else _0x56f769===_0x25c1f9&&_0x17930f[_0x16d125(0xe3)][_0x16d125(0x13b)](_0x16d125(0x16f));}),_0x3b81ca();}function _0x182593(_0x58635c,_0x2dd5c0){}function _0x167740(_0x1d2555,_0x19cc53){}function _0x18bf62(_0x8415c2){}function _0x182593(_0x4084b5,_0x28bbb9){_0x167740(_0x4084b5,_0x28bbb9);}function _0x167740(_0x582595,_0x205e22){var _0x4a94b3=_0x40f041;_0x582595[_0x4a94b3(0xb8)](_0x38b396=>{var _0xa31cce=_0x4a94b3;parseInt(_0x38b396[_0xa31cce(0x13c)](_0xa31cce(0xa5)))<=_0x205e22?(_0x38b396[_0xa31cce(0xe3)][_0xa31cce(0x175)](_0xa31cce(0x146)),_0x38b396[_0xa31cce(0xe3)]['add'](_0xa31cce(0xa2))):(_0x38b396[_0xa31cce(0xe3)][_0xa31cce(0x175)](_0xa31cce(0xa2)),_0x38b396['classList']['add'](_0xa31cce(0x146)));});}function _0x18bf62(_0x4d8ef3){var _0x5bef23=_0x40f041,_0x42852e=_0x4d8ef3['value'][_0x5bef23(0x141)],_0x1ebdff=_0x4d8ef3['parentElement'][_0x5bef23(0x10e)](_0x5bef23(0xf0));_0x1ebdff&&(_0x1ebdff[_0x5bef23(0xe5)]=_0x42852e+_0x5bef23(0xfa),0xc8<_0x42852e?(_0x1ebdff['classList'][_0x5bef23(0x13b)](_0x5bef23(0xce)),_0x4d8ef3['value']=_0x4d8ef3[_0x5bef23(0x165)][_0x5bef23(0x167)](0x0,0xc8),_0x18bf62(_0x4d8ef3),_0x49cb29(_0x5bef23(0x152),_0x5bef23(0x7a))):_0x1ebdff['classList'][_0x5bef23(0x175)](_0x5bef23(0xce)));}setInterval(_0x39b93a,0x1388),_0x39b93a();}));
+document.addEventListener("DOMContentLoaded", async function () {
+    console.log("✅ DOM fully loaded!");
+
+    const _0x2212ab = {
+        'API': {
+            'STATUS_ENDPOINT': "https://supa.mielamalonu.com/api/supabase/Status",
+            'BLACKLIST_ENDPOINT': "https://supa.mielamalonu.com/api/supabase/Blacklist",
+            'ROLE_CHECK_ENDPOINT': "https://mmapi-production.up.railway.app/api/check-role",
+            'SUBMIT_ENDPOINT': "https://botas-production.up.railway.app/webhook",
+            'API_KEY': "MIELAMALONU"
+        },
+        'DISCORD': {
+            'CLIENT_ID': "1263389179249692693",
+            'REDIRECT_URI': window.location.origin + window.location.pathname,
+            'SCOPES': ["identify", "guilds.members.read", 'guilds.join'],
+            'WEBHOOK_URL': "https://canary.discord.com/api/webhooks/1346529699081490472/k-O-v4wKDiUjsj1w-Achvrej1Kr-W-rXqZVibcftwWFn5sMZyhIMSb9E4r975HbQI3tF",
+            'GUILD_ID': "1325850250027597845",
+            'PROXY_URL': "https://add.mielamalonu.com/api/discord/join-server"
+        }
+    };
+
+    const _0x3430c9 = {
+        'form': document.getElementById('applicationForm'),
+        'statusDisplay': document.getElementById("statusDisplay"),
+        'discordButton': document.getElementById("discord-login"),
+        'profileContainer': document.getElementById('profile-container'),
+        'responseMessage': document.createElement('p'),
+        'notification': document.getElementById("notification"),
+        'notificationMessage': document.querySelector(".notification-message"),
+        'notificationIcon': document.querySelector(".notification-icon"),
+        'steps': document.querySelectorAll(".step"),
+        'formSteps': document.querySelectorAll('.form-step'),
+        'nextStep1Button': document.getElementById('next-step-1'),
+        'nextStep2Button': document.getElementById("next-step-2"),
+        'prevStep2Button': document.getElementById('prev-step-2'),
+        'prevStep3Button': document.getElementById("prev-step-3"),
+        'submitButton': document.getElementById("submitButton"),
+        'plStars': document.querySelectorAll("#pl-stars i"),
+        'klStars': document.querySelectorAll("#kl-stars i"),
+        'pcToggle': document.getElementById('pc-toggle'),
+        'ispToggle': document.getElementById("isp-toggle"),
+        'ageInput': document.getElementById('age'),
+        'plInput': document.getElementById('pl'),
+        'klInput': document.getElementById('kl'),
+        'whyJoinInput': document.getElementById('whyJoin'),
+        'pcInput': document.getElementById('pc'),
+        'ispInput': document.getElementById('isp'),
+        'reviewDiscord': document.getElementById("review-discord"),
+        'reviewAge': document.getElementById("review-age"),
+        'reviewPl': document.getElementById("review-pl"),
+        'reviewKl': document.getElementById('review-kl'),
+        'reviewWhyJoin': document.getElementById("review-whyJoin"),
+        'reviewPc': document.getElementById("review-pc"),
+        'reviewIsp': document.getElementById("review-isp")
+    };
+
+    let _0x4b3fcb = {
+        'blacklist': [],
+        'lastStatus': null,
+        'currentUser': null,
+        'updateInterval': null,
+        'isSubmitting': false,
+        'currentStep': 0x1,
+        'formData': {
+            'pl': 0x0,
+            'kl': 0x0
+        }
+    };
+
+    _0x3430c9.form.appendChild(_0x3430c9.responseMessage);
+    _0x3430c9.form.addEventListener('submit', _0x31bb48);
+    _0x3430c9.discordButton.addEventListener('click', _0x4dd50a);
+
+    _0x3430c9.nextStep1Button.addEventListener("click", () => {
+        _0x56d2a6(0x2);
+    });
+
+    _0x3430c9.nextStep2Button.addEventListener("click", () => {
+        if (!!function () {
+                if (!_0x3430c9.ageInput.value || _0x3430c9.ageInput.value < 0xd) {
+                    return void _0x382ef6("❌ Amžius privalo būti bent 13 metų");
+                }
+                if (!_0x3430c9.plInput.value || '0' === _0x3430c9.plInput.value) {
+                    return void _0x382ef6("❌ Prašome įvertinti savo pašaudimo lygį");
+                }
+                if (!_0x3430c9.klInput.value || '0' === _0x3430c9.klInput.value) {
+                    return void _0x382ef6("❌ Prašome įvertinti savo komunikacijos lygį");
+                }
+                if (!_0x3430c9.whyJoinInput.value || _0x3430c9.whyJoinInput.value.trim().length < 0xa) {
+                    return void _0x382ef6("❌ Prašome išsamiau aprašyti kodėl norite prisijungti");
+                }
+                if (!_0x3430c9.pcInput.value.trim()) {
+                    _0x3430c9.pcInput.value = 'Ne';
+                }
+                if (!_0x3430c9.ispInput.value.trim()) {
+                    _0x3430c9.ispInput.value = 'Ne';
+                }
+                _0x21ff48("success", "✅ Visi laukai užpildyti teisingai!");
+                _0x2981f8();
+                return 0x1;
+            }()) {
+            if (_0x3430c9.reviewAge) {
+                _0x3430c9.reviewAge.textContent = _0x3430c9.ageInput.value || 'N/A';
+            }
+            if (_0x3430c9.reviewPl) {
+                _0x3430c9.reviewPl.textContent = (_0x3430c9.plInput.value || '0') + "/10";
+            }
+            if (_0x3430c9.reviewKl) {
+                _0x3430c9.reviewKl.textContent = (_0x3430c9.klInput.value || '0') + "/10";
+            }
+            if (_0x3430c9.reviewWhyJoin) {
+                _0x3430c9.reviewWhyJoin.textContent = _0x3430c9.whyJoinInput.value || "N/A";
+            }
+            if (_0x3430c9.reviewPc) {
+                _0x3430c9.reviewPc.textContent = _0x3430c9.pcInput.value || 'N/A';
+            }
+            if (_0x3430c9.reviewIsp) {
+                _0x3430c9.reviewIsp.textContent = _0x3430c9.ispInput.value || 'N/A';
+            }
+            _0x56d2a6(0x3);
+        }
+    });
+
+    _0x3430c9.prevStep2Button.addEventListener('click', () => _0x56d2a6(0x1));
+    _0x3430c9.prevStep3Button.addEventListener("click", () => _0x56d2a6(0x2));
+    _0x3430c9.submitButton.addEventListener("click", _0x55d992 => {
+        _0x55d992.preventDefault();
+        _0x3430c9.form.dispatchEvent(new Event("submit", {
+            'cancelable': true
+        }));
+    });
+
+    (_0x2cfc1a = (_0x329138, _0x31e0ba) => {
+        _0x329138.forEach(_0x1b9fbe => {
+            _0x1b9fbe.addEventListener("click", function () {
+                var _0x232142 = parseInt(this.getAttribute('data-value'));
+                _0x3bbd30(_0x329138, _0x232142);
+                _0x31e0ba.value = _0x232142;
+            });
+            _0x1b9fbe.addEventListener("mouseover", function () {
+                var _0x29909f = parseInt(this.getAttribute('data-value'));
+                _0x42f781(_0x329138, _0x29909f);
+            });
+            _0x1b9fbe.addEventListener('mouseout', function () {
+                var _0x3ad01d = parseInt(_0x31e0ba.value) || 0x0;
+                _0x42f781(_0x329138, _0x3ad01d);
+            });
+        });
+    })(_0x3430c9.plStars, _0x3430c9.plInput);
+    _0x2cfc1a(_0x3430c9.klStars, _0x3430c9.klInput);
+
+    _0x3430c9.pcToggle.addEventListener('change', function () {
+        _0x3430c9.pcInput.value = this.checked ? "Taip" : 'Ne';
+    });
+
+    _0x3430c9.ispToggle.addEventListener("change", function () {
+        _0x3430c9.ispInput.value = this.checked ? 'Taip' : 'Ne';
+    });
+
+    _0x3430c9.whyJoinInput.addEventListener("input", function () {
+        _0x5a8e93(this);
+    });
+
+    if (window.location.hash) {
+        var _0x2cfc1a = new URLSearchParams(window.location.hash.substring(0x1));
+        var _0x57243e = _0x2cfc1a.get("access_token");
+        const _0x140886 = _0x2cfc1a.get('state');
+        _0x2cfc1a = localStorage.getItem("discord_auth_state");
+        localStorage.removeItem('discord_auth_state');
+        if (_0x57243e && _0x140886 && _0x140886 === _0x2cfc1a) {
+            console.log("Successfully obtained token from URL fragment");
+            _0x289b72(_0x57243e);
+        } else if (_0x57243e) {
+            console.warn("State validation failed, potential CSRF attack");
+            _0x21ff48("error", "Authentication failed: security check failed");
+        }
+    } else {
+        _0x29e9d4(_0x4b3fcb.currentUser); // Perduodame dabartinį vartotoją, kuris gali būti null
+    }
+
+    function _0x1421e7(_0x3e9156, _0x157ad9) {
+        console.log("Checking blacklist for user:", _0x3e9156);
+        console.log("Blacklist array:", _0x157ad9);
+        return !(!_0x3e9156 || !Array.isArray(_0x157ad9) || 0x0 === _0x157ad9.length) && (_0x3e9156 = String(_0x3e9156).trim(), _0x157ad9 = _0x157ad9.includes(_0x3e9156), console.log("Is user " + _0x3e9156 + " blacklisted?", _0x157ad9), _0x157ad9);
+    }
+
+    async function _0x513be1() {
+        try {
+            console.log("Fetching status and blacklist...");
+            var _0x1b5fb9 = await fetch(_0x2212ab.API.STATUS_ENDPOINT);
+            if (!_0x1b5fb9.ok) {
+                throw new Error("Failed to fetch status");
+            }
+            var _0x4bee21 = await _0x1b5fb9.json();
+            console.log("Status data received:", _0x4bee21);
+            let _0x17e1c7 = "offline";
+            if (Array.isArray(_0x4bee21) && 0x0 < _0x4bee21.length && _0x4bee21[0x0] && _0x4bee21[0x0].status) {
+                _0x17e1c7 = "online" === _0x4bee21[0x0].status.toLowerCase() ? "online" : "offline";
+            }
+            var _0x1dfcce = await fetch(_0x2212ab.API.BLACKLIST_ENDPOINT);
+            if (!_0x1dfcce.ok) {
+                throw new Error("Failed to fetch blacklist");
+            }
+            var _0x50c0ae = await _0x1dfcce.json();
+            console.log("Raw blacklist data received:", _0x50c0ae);
+            let _0x5f0ef3 = [];
+            var _0x5e5482;
+            var _0x555b2d;
+            var _0x3a815e;
+            var _0x45c973 = _0x449e38 => 'string' == typeof _0x449e38 ? _0x449e38.split(',').map(_0x3db398 => _0x3db398.trim()).filter(_0x356f9e => _0x356f9e) : Array.isArray(_0x449e38) ? _0x449e38.map(_0x47c59b => String(_0x47c59b).trim()).filter(_0x28596f => _0x28596f) : [];
+            if (Array.isArray(_0x50c0ae) && 0x0 < _0x50c0ae.length) {
+                if ("object" == typeof (_0x5e5482 = _0x50c0ae[0x0]) && null !== _0x5e5482) {
+                    if (_0x555b2d = _0x5e5482.blacklistedIds || _0x5e5482.ids || _0x5e5482.blacklist) {
+                        _0x5f0ef3 = _0x45c973(_0x555b2d);
+                    }
+                } else {
+                    _0x5f0ef3 = _0x45c973(_0x50c0ae);
+                }
+            } else if ("object" == typeof _0x50c0ae && null !== _0x50c0ae) {
+                if (_0x3a815e = _0x50c0ae.blacklistedIds || _0x50c0ae.ids || _0x50c0ae.blacklist) {
+                    _0x5f0ef3 = _0x45c973(_0x3a815e);
+                }
+            } else if ("string" == typeof _0x50c0ae) {
+                _0x5f0ef3 = _0x45c973(_0x50c0ae);
+            }
+            console.log("Processed blacklist into array:", _0x5f0ef3);
+            _0x59d400({
+                'status': _0x17e1c7,
+                'blacklist': _0x5f0ef3
+            });
+        } catch (_0x302a45) {
+            console.error("❌ Status fetch error:", _0x302a45);
+            _0x59d400({
+                'status': "offline",
+                'blacklist': _0x4b3fcb.blacklist || []
+            });
+            _0x21ff48("error", "Nepavyko gauti aplikacijos statuso. Bandykite vėliau.");
+        }
+    }
+
+    function _0x59d400(_0x324b51) {
+        var _0x12e567 = _0x324b51.blacklist || [];
+        if (!(_0x4b3fcb.lastStatus === _0x324b51.status && JSON.stringify(_0x4b3fcb.blacklist) === JSON.stringify(_0x12e567))) { // Patikrinti, ar būsena ar juodasis sąrašas pasikeitė
+            _0x4b3fcb.lastStatus = _0x324b51.status;
+            _0x4b3fcb.blacklist = _0x12e567;
+
+            // Atnaujinkite statuso rodymą
+            if (_0x4b3fcb.lastStatus === "online") {
+                _0x3430c9.statusDisplay.textContent = "✅ Atidaryta ✅";
+                _0x3430c9.statusDisplay.className = "status-online";
+            } else {
+                _0x3430c9.statusDisplay.textContent = "❌ Uždaryta ❌";
+                _0x3430c9.statusDisplay.className = "status-offline";
+            }
+            _0x54f5c3();
+        }
+    }
+
+    function _0x54f5c3() {
+        if (_0x3430c9.form) {
+            console.log("Form state check - User logged in:", _0x4b3fcb.currentUser !== null);
+            let _0x2383ad = false;
+            if (_0x4b3fcb.currentUser && _0x4b3fcb.currentUser.id) {
+                _0x2383ad = _0x1421e7(_0x4b3fcb.currentUser.id, _0x4b3fcb.blacklist);
+                console.log("Form state check - User blacklisted:", _0x2383ad);
+            }
+
+            // Pakeista logika: mygtukai išjungiami, jei aplikacija neprisijungusi ARBA vartotojas yra juodajame sąraše
+            var _0x3ce2c0 = _0x4b3fcb.lastStatus !== "online" || _0x2383ad;
+            console.log("Form state check - App online:", _0x4b3fcb.lastStatus === "online");
+
+            if (_0x3430c9.submitButton) {
+                _0x3430c9.submitButton.disabled = _0x3ce2c0;
+            }
+            console.log("Submit button disabled:", _0x3ce2c0);
+
+            if (_0x3430c9.nextStep1Button) {
+                _0x3430c9.nextStep1Button.disabled = _0x3ce2c0; // Vartojame tą pačią logiką pirmam žingsniui
+            }
+
+            if (_0x2383ad) {
+                _0x21ff48("error", "🚫 Jūs esate įtrauktas į juodąjį sąrašą ir negalite teikti anketos!");
+                if (_0x3430c9.form) {
+                    _0x3430c9.form.style.pointerEvents = "none";
+                    _0x3430c9.form.style.opacity = '0.5';
+                }
+            } else if (_0x3430c9.form) {
+                _0x3430c9.form.style.pointerEvents = "auto";
+                _0x3430c9.form.style.opacity = '1';
+            }
+        }
+    }
+
+    async function _0x31bb48(_0x21bce4) {
+        _0x21bce4.preventDefault();
+        _0x4b3fcb.isSubmitting = true;
+        _0x2981f8();
+        const _0xdda39f = _0x3430c9.submitButton;
+        _0xdda39f.disabled = true;
+        _0xdda39f.textContent = "Pateikiama...";
+        document.getElementById("formLoader").style.display = "flex";
+        document.body.style.overflow = "hidden";
+
+        try {
+            console.log("Validating all requirements...");
+            // Pataisyta: Patikrinimas, ar vartotojas prisijungęs per Discord
+            if (!_0x4b3fcb.currentUser || !_0x4b3fcb.currentUser.id) {
+                throw new Error("Discord authentication required");
+            }
+
+            var _0x437c3b = _0x1421e7(_0x4b3fcb.currentUser.id, _0x4b3fcb.blacklist); // Pataisyta: Naudoja currentUser.id
+            console.log("Final blacklist check before submission:", _0x437c3b);
+            if (_0x437c3b) {
+                _0x21ff48("error", "🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
+                throw new Error("User blacklisted");
+            }
+
+            try {
+                var _0xd2a6a4 = await fetch(_0x2212ab.API.ROLE_CHECK_ENDPOINT, {
+                    'method': 'POST',
+                    'headers': {
+                        'Content-Type': "application/json"
+                    },
+                    'body': JSON.stringify({
+                        'userId': _0x4b3fcb.currentUser.id // Pataisyta: Naudoja currentUser.id
+                    })
+                });
+                if (!_0xd2a6a4.ok) {
+                    _0x21ff48("error", "Serverio klaida tikrinant naudotojo rolę");
+                    throw new Error("Server error while checking role");
+                }
+                if ((await _0xd2a6a4.json()).hasRole) {
+                    throw new Error('LA'); // Čia "LA" tikriausiai reiškia "Local Application" arba "Already a member"
+                }
+            } catch (_0x5cd52b) {
+                if ('LA' !== _0x5cd52b.message) {
+                    _0x21ff48("error", "Nepavyko patikrinti naudotojo informacijos");
+                }
+                throw _0x5cd52b;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 0)); // Maža pauzė
+            var _0x40a207 = {
+                'userId': _0x4b3fcb.currentUser.id, // Pataisyta: Naudoja currentUser.id
+                'age': _0x3430c9.ageInput.value.trim(),
+                'reason': _0x3430c9.whyJoinInput.value.trim(),
+                'pl': _0x3430c9.plInput.value.trim(),
+                'kl': _0x3430c9.klInput.value.trim(),
+                'pc': _0x3430c9.pcInput.value.trim(),
+                'isp': _0x3430c9.ispInput.value.trim()
+            };
+
+            try {
+                var _0x223af1 = _0x4b3fcb.currentUser.id.slice(0x0, 0x10) + '-' + Date.now(); // Pataisyta: Naudoja currentUser.id
+                var _0x5dd76f = {
+                    'variables': [{
+                        'name': 'userId',
+                        'variable': "{event_userId}",
+                        'value': '' + _0x40a207.userId
+                    }, {
+                        'name': "age",
+                        'variable': "{event_age}",
+                        'value': '' + _0x40a207.age
+                    }, {
+                        'name': 'reason',
+                        'variable': "{event_reason}",
+                        'value': '' + _0x40a207.reason
+                    }, {
+                        'name': 'pl',
+                        'variable': "{event_pl}",
+                        'value': _0x40a207.pl + "/10"
+                    }, {
+                        'name': 'kl',
+                        'variable': '{event_kl}',
+                        'value': _0x40a207.kl + "/10"
+                    }, {
+                        'name': 'pc',
+                        'variable': "{event_pc}",
+                        'value': '' + _0x40a207.pc
+                    }, {
+                        'name': "isp",
+                        'variable': "{event_isp}",
+                        'value': '' + _0x40a207.isp
+                    }, {
+                        'name': "applicationId",
+                        'variable': "{event_appId}",
+                        'value': _0x223af1
+                    }]
+                };
+
+                if (!(await fetch(_0x2212ab.API.SUBMIT_ENDPOINT, {
+                        'method': "POST",
+                        'headers': {
+                            'Content-Type': "application/json",
+                            'Authorization': _0x2212ab.API.API_KEY
+                        },
+                        'body': JSON.stringify(_0x5dd76f)
+                    })).ok) {
+                    _0x21ff48("error", "API klaida pateikiant anketą");
+                    throw new Error("API error");
+                }
+            } catch (_0x425a6f) {
+                console.error("Submission error:", _0x425a6f);
+                throw _0x425a6f;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 0)); // Maža pauzė
+            _0xdda39f.textContent = "Pateikta!";
+            _0x21ff48("success", "✅ Aplikacija sėkmingai pateikta!");
+            _0x3430c9.form.reset();
+            _0x3bbd30(_0x3430c9.plStars, 0x0);
+            _0x3bbd30(_0x3430c9.klStars, 0x0);
+            _0x3430c9.plInput.value = '0';
+            _0x3430c9.klInput.value = '0';
+            _0x3430c9.pcToggle.checked = false;
+            _0x3430c9.ispToggle.checked = false;
+            _0x5a8e93(_0x3430c9.whyJoinInput);
+            _0x2981f8();
+            _0x56d2a6(0x1);
+        } catch (_0x31e858) {
+            console.error("Submission error:", _0x31e858);
+            switch (_0x31e858.message) {
+                case "Discord authentication required":
+                    _0x382ef6("❌ Prieš pateikiant anketą, reikia prisijungti per Discord!");
+                    break;
+                case "Applications closed":
+                    _0x382ef6("❌ Anketų pildymas šiuo metu yra sustabdytas.");
+                    break;
+                case "User blacklisted":
+                    _0x382ef6("🚫 Jūs esate užblokuotas ir negalite pateikti anketos!");
+                    break;
+                case 'LA':
+                    _0x382ef6("❌ Jūs jau esate mūsų gaujos narys arba jūsų anketa yra peržiūrima!");
+                    break;
+                default:
+                    _0x382ef6("❌ Įvyko klaida pateikiant anketą. Bandykite dar kartą.");
+            }
+            _0xdda39f.textContent = "Bandykite dar kartą";
+        } finally {
+            document.getElementById('formLoader').style.display = 'none';
+            document.body.style.overflow = "auto";
+            setTimeout(() => {
+                _0x4b3fcb.isSubmitting = false;
+                _0xdda39f.textContent = "Pateikti aplikaciją";
+                _0xdda39f.disabled = false;
+                _0x54f5c3();
+            }, 0xbb8);
+        }
+    }
+
+    function _0x4dd50a() {
+        localStorage.removeItem('discord_token');
+        localStorage.removeItem("discord_token_expiry");
+        var _0x304b92 = new URL("https://discord.com/api/oauth2/authorize");
+        _0x304b92.searchParams.append("client_id", _0x2212ab.DISCORD.CLIENT_ID);
+        _0x304b92.searchParams.append("redirect_uri", _0x2212ab.DISCORD.REDIRECT_URI);
+        _0x304b92.searchParams.append("response_type", "token");
+        _0x304b92.searchParams.append("scope", _0x2212ab.DISCORD.SCOPES.join(" "));
+        var _0x3d7777 = Math.random().toString(0x24).substring(0x2, 0xf) + Math.random().toString(0x24).substring(0x2, 0xf);
+        localStorage.setItem("discord_auth_state", _0x3d7777);
+        _0x304b92.searchParams.append('state', _0x3d7777);
+        console.log("Redirecting to Discord OAuth:", _0x304b92.toString());
+        window.location.href = _0x304b92.toString();
+    }
+
+    async function _0x289b72(_0x3a61b) {
+        try {
+            _0x21ff48("info", "Authenticating with Discord...");
+            var _0x509d72 = await _0x8f2b5a(_0x3a61b);
+            if (!_0x509d72 || !_0x509d72.id) {
+                throw new Error("Failed to fetch user data");
+            }
+            _0x4b3fcb.currentUser = {
+                ..._0x509d72,
+                'accessToken': _0x3a61b
+            };
+            console.log("User authenticated, ID:", _0x509d72.id);
+            _0x29e9d4(_0x4b3fcb.currentUser); // Pataisyta: Perduodame _0x4b3fcb.currentUser
+            _0x21ff48("info", "Attempting to add you to Discord server...");
+            if (await async function (_0x118a2d, _0x4979e5) {
+                    try {
+                        _0x21ff48('info', "Connecting to Discord server...");
+                        var _0x968b4f;
+                        var _0x14dbde;
+                        var _0x27a315 = {
+                            'userId': _0x118a2d,
+                            'accessToken': _0x4979e5
+                        };
+                        console.log("Sending join request to proxy:", {
+                            'userId': _0x118a2d,
+                            'tokenPresent': !!_0x4979e5,
+                            'proxyUrl': _0x2212ab.DISCORD.PROXY_URL
+                        });
+                        var _0x2ca14d = await fetch(_0x2212ab.DISCORD.PROXY_URL, {
+                            'method': "POST",
+                            'headers': {
+                                'Content-Type': "application/json"
+                            },
+                            'body': JSON.stringify(_0x27a315)
+                        });
+                        if (_0x2ca14d.ok) {
+                            _0x14dbde = await _0x2ca14d.json();
+                            console.log("Proxy server response:", _0x14dbde);
+                            return _0x14dbde.success;
+                        }
+                        try {
+                            _0x968b4f = await _0x2ca14d.json();
+                            console.error("Error from proxy server:", _0x968b4f);
+                            if (_0x968b4f.error && 0xc369 === _0x968b4f.error.code) {
+                                _0x21ff48("error", "Invalid OAuth token. Try logging out and in again.");
+                            } else {
+                                _0x21ff48('error', "Server error: " + (_0x968b4f.message || "Unknown error"));
+                            }
+                        } catch (_0x24213c) {
+                            console.error("Failed to parse error response:", _0x24213c);
+                            _0x21ff48("error", "Server error (" + _0x2ca14d.status + "): Could not process response");
+                        }
+                        return false;
+                    } catch (_0x526786) {
+                        console.error("Error adding user to server via proxy:", _0x526786);
+                        _0x21ff48("error", "Connection error. Please try again later.");
+                        return false;
+                    }
+                }(_0x509d72.id, _0x3a61b)) {
+                _0x21ff48("success", "Successfully joined Discord server!");
+            } else {
+                _0x21ff48("warning", "Could not add you to the server automatically. Please join manually if needed.");
+            }
+            window.history.replaceState({}, document.title, window.location.pathname);
+            clearInterval(_0x4b3fcb.updateInterval); // Pataisyta: Naudoja _0x4b3fcb.updateInterval
+            _0x4b3fcb.updateInterval = setInterval(_0x359bcd, 0x2faf080);
+            _0x54f5c3();
+        } catch (_0x2a44cf) {
+            console.error("Auth redirect error:", _0x2a44cf);
+            _0x382ef6("Failed to authenticate with Discord: " + _0x2a44cf.message);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+
+    async function _0x8f2b5a(_0x231e9e) {
+        try {
+            var _0x24deb9;
+            var _0x587452;
+            var _0x5e3d59;
+            var [_0x1ad4b4, _0x266251] = await Promise.all([fetch("https://discord.com/api/users/@me", {
+                'headers': {
+                    'Authorization': "Bearer " + _0x231e9e
+                }
+            }), fetch("https://discord.com/api/v10/users/@me/guilds/" + _0x2212ab.DISCORD.GUILD_ID + "/member", {
+                'headers': {
+                    'Authorization': "Bearer " + _0x231e9e
+                }
+            })]);
+            var _0x32ad9a = await _0x1ad4b4.json();
+            var _0x447e2a = await _0x266251.json();
+            if (_0x32ad9a.id) {
+                _0x24deb9 = _0x447e2a.presence?.['status'] || "offline";
+                _0x5e3d59 = (_0x587452 = _0x447e2a.activities || []).find(_0x428f9d => 0x0 === _0x428f9d.type) || {};
+                return {
+                    ..._0x32ad9a,
+                    'avatar': 'https://cdn.discordapp.com/avatars/' + _0x32ad9a.id + '/' + _0x32ad9a.avatar + ".png?size=256",
+                    'status': _0x24deb9,
+                    'activities': _0x587452,
+                    'activity': {
+                        'name': _0x5e3d59.name || '',
+                        'details': _0x5e3d59.details || '',
+                        'state': _0x5e3d59.state || '',
+                        'emoji': _0x5e3d59.emoji?.['name'] || '🎮'
+                    }
+                };
+            }
+            _0x21ff48('error', "Nepavyko gauti Discord naudotojo informacijos");
+            throw new Error("Invalid user data");
+        } catch (_0x4c8fe2) {
+            console.error("Discord API error:", _0x4c8fe2);
+            _0x21ff48('error', "Nepavyko prisijungti prie Discord. Bandykite vėliau.");
+            return {
+                'status': "offline",
+                'activities': []
+            };
+        }
+    }
+
+    async function _0x359bcd() {
+        try {
+            // Pataisyta: Naudoja _0x4b3fcb.currentUser.accessToken ir patikrina egzistavimą
+            if (_0x4b3fcb.currentUser && _0x4b3fcb.currentUser.accessToken) {
+                var _0x30a440 = await _0x8f2b5a(_0x4b3fcb.currentUser.accessToken);
+                if (!(_0x30a440.status === _0x4b3fcb.currentUser.status && JSON.stringify(_0x30a440.activities) === JSON.stringify(_0x4b3fcb.currentUser.activities))) {
+                    _0x4b3fcb.currentUser = {
+                        ..._0x30a440,
+                        'accessToken': _0x4b3fcb.currentUser.accessToken
+                    };
+                    _0x29e9d4(_0x4b3fcb.currentUser); // Perduodame atnaujintą currentUser
+                }
+            } else {
+                console.warn("Cannot update presence: currentUser or accessToken is missing.");
+                clearInterval(_0x4b3fcb.updateInterval); // Sustabdome atnaujinimą, jei nėra vartotojo
+                _0x29e9d4(null); // Atstatome profilio rodymą, jei vartotojo nėra
+            }
+        } catch (_0x4a8ab7) {
+            console.error("Presence update error:", _0x4a8ab7);
+        }
+    }
+
+    function _0x238277() {
+        clearInterval(_0x4b3fcb.updateInterval); // Pataisyta: Naudoja _0x4b3fcb.updateInterval
+        _0x29e9d4(_0x4b3fcb.currentUser = null);
+        localStorage.removeItem('discord_token'); // Išvalome tokeną
+        localStorage.removeItem('discord_token_expiry'); // Išvalome tokeno galiojimo laiką
+        location.reload();
+    }
+
+    function _0x29e9d4(_0x35e873) {
+        if (_0x35e873) {
+            _0x3430c9.profileContainer.innerHTML = `
+                <div class="avatar-wrapper">
+                    <img src="${_0x35e873.avatar}" alt="Avatar">
+                    <div class="status-dot ${_0x35e873.status}"></div>
+                </div>
+                <div class="user-info">
+                    <p class="username">${_0x35e873.global_name || _0x35e873.username}</p>
+                    ${"dnd" === _0x35e873.status ? "<div class=\"dnd-banner\">Do Not Disturb</div>" : ''}
+                </div>
+                <button id="logout">Atsijungti</button>
+            `;
+            document.getElementById("logout").addEventListener("click", _0x238277);
+            if (_0x3430c9.reviewDiscord) {
+                _0x3430c9.reviewDiscord.textContent = _0x35e873.global_name || _0x35e873.username;
+            }
+            _0x21ff48("success", "Sėkmingai prisijungta prie Discord!");
+        } else {
+            // Kai nėra prisijungusio vartotojo, išvalome profilį
+            _0x3430c9.profileContainer.innerHTML = "";
+        }
+        _0x35e873 = !!_0x35e873;
+        _0x3430c9.discordButton.style.display = _0x35e873 ? "none" : "block";
+        _0x3430c9.profileContainer.style.display = _0x35e873 ? "flex" : "none";
+        _0x54f5c3();
+    }
+
+    function _0x2981f8() {
+        _0x3430c9.responseMessage.textContent = '';
+        _0x3430c9.responseMessage.className = '';
+        _0x2d4008();
+    }
+
+    function _0x382ef6(_0x4963c5) {
+        _0x3430c9.responseMessage.textContent = _0x4963c5;
+        _0x3430c9.responseMessage.className = "error-message";
+        _0x21ff48("error", _0x4963c5);
+    }
+
+    function _0x21ff48(_0x5ed464, _0x4c7716) {
+        if (_0x3430c9.notification && _0x3430c9.notificationMessage && _0x3430c9.notificationIcon) {
+            _0x3430c9.notificationMessage.textContent = _0x4c7716;
+            _0x3430c9.notification.className = "notification";
+            _0x3430c9.notification.classList.add("notification-" + _0x5ed464);
+            switch (_0x5ed464) {
+                case "success":
+                    _0x3430c9.notificationIcon.className = "notification-icon fas fa-check-circle";
+                    break;
+                case "error":
+                    _0x3430c9.notificationIcon.className = "notification-icon fas fa-exclamation-circle";
+                    break;
+                case "warning":
+                    _0x3430c9.notificationIcon.className = "notification-icon fas fa-exclamation-triangle";
+                    break;
+                default:
+                    _0x3430c9.notificationIcon.className = "notification-icon fas fa-info-circle";
+            }
+            _0x3430c9.notification.classList.add('show');
+            if (!("success" !== _0x5ed464 && "info" !== _0x5ed464)) {
+                setTimeout(_0x2d4008, 0x1388);
+            }
+        }
+    }
+
+    function _0x2d4008() {
+        if (_0x3430c9.notification) {
+            _0x3430c9.notification.classList.remove("show");
+        }
+    }
+
+    function _0x56d2a6(_0x993b52) {
+        _0x4b3fcb.currentStep = _0x993b52;
+        _0x3430c9.formSteps.forEach(_0x127648 => {
+            _0x127648.style.display = 'none';
+        });
+        document.getElementById('step-' + _0x993b52).style.display = "block";
+        _0x3430c9.steps.forEach(_0x42ee34 => {
+            var _0x35d3f1 = parseInt(_0x42ee34.getAttribute("data-step"));
+            _0x42ee34.classList.remove("active", "completed");
+            if (_0x35d3f1 < _0x993b52) {
+                _0x42ee34.classList.add("completed");
+            } else if (_0x35d3f1 === _0x993b52) {
+                _0x42ee34.classList.add('active');
+            }
+        });
+        _0x2981f8();
+    }
+
+    // Pataisytos žvaigždučių funkcijos, kad jos veiktų teisingai
+    function _0x3bbd30(_0x53720b, _0x591a86) {
+        _0x42f781(_0x53720b, _0x591a86);
+    }
+
+    function _0x42f781(_0x5b37a5, _0x1b525b) {
+        _0x5b37a5.forEach(_0x22cb92 => {
+            if (parseInt(_0x22cb92.getAttribute("data-value")) <= _0x1b525b) {
+                _0x22cb92.classList.remove("far");
+                _0x22cb92.classList.add('fas');
+            } else {
+                _0x22cb92.classList.remove("fas");
+                _0x22cb92.classList.add("far");
+            }
+        });
+    }
+
+    function _0x5a8e93(_0x3648d8) {
+        var _0x42f36c = _0x3648d8.value.length;
+        var _0x2466c3 = _0x3648d8.parentElement.querySelector('.char-count');
+        if (_0x2466c3) {
+            _0x2466c3.textContent = _0x42f36c + "/200";
+            if (0xc8 < _0x42f36c) {
+                _0x2466c3.classList.add("char-limit-exceeded");
+                _0x3648d8.value = _0x3648d8.value.substring(0x0, 0xc8);
+                _0x5a8e93(_0x3648d8); // Pakartotinai iškviečiame, kad atnaujintų skaitiklį po nukirpimo
+                _0x21ff48("warning", "Pasiektas maksimalus simbolių skaičius (200)");
+            } else {
+                _0x2466c3.classList.remove("char-limit-exceeded");
+            }
+        }
+    }
+
+    // Nustatykite pradinę būseną ir reguliariai ją atnaujinkite
+    setInterval(_0x513be1, 5000); // Atnaujinimas kas 5 sekundes
+    _0x513be1(); // Iškviečiame iš karto, kad gautume pradinę būseną
+});
