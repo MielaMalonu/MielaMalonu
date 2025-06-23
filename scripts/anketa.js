@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         'method': "POST",
                         'headers': {
                             'Content-Type': "application/json",
-                            'Authorization': _0x2212ab.API.API_KEY
+                            'X-Webhook-Secret': _0x2212ab.API.API_KEY
                         },
                         'body': JSON.stringify(_0x5dd76f)
                     })).ok) {
