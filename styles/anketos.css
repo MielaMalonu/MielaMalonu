@@ -3,7 +3,7 @@
     --primary-color: #000000;
     --secondary-color: #1e1e1e;
     --tertiary-color: #111111;
-    --accent-color: #45ff64; /* Specific green for consistency */
+    --accent-color: #45ff64; /* Adjusted to a specific green you were using */
     --error-color: #ED4245;
     --warning-color: #FFA500;
     --pending-color: #5865F2;
@@ -119,7 +119,7 @@ h1 {
     transition: var(--transition);
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Consistent spacing between direct children */
+    gap: 8px; /* REVERTED: Original gap value */
 }
 
 .application-item:hover {
@@ -131,7 +131,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0; /* Let parent gap handle spacing */
+    margin-bottom: 12px; /* REVERTED: Original margin-bottom */
 }
 
 .application-id {
@@ -217,14 +217,14 @@ h1 {
 .application-field {
     display: flex;
     flex-direction: column;
-    margin: 0; /* Set margin to 0 to prevent extra spacing, handled by parent gap */
+    margin-bottom: 12px; /* REVERTED: Original margin-bottom */
 }
 
 .field-name {
     font-size: 14px;
     color: var(--text-secondary);
     font-weight: 500;
-    margin-bottom: 4px; /* Keep small margin for label to value */
+    margin-bottom: 4px;
 }
 
 .field-value {
@@ -236,11 +236,17 @@ h1 {
     border: 1px solid rgba(60, 60, 60, 0.3);
 }
 
-/* Removed: .rejection-reason class and its styles as the field is no longer generated */
+/* REMOVED: .rejection-reason class and its styles - this is the ONLY intended CSS change */
+/*
+.rejection-reason {
+    color: #ff3333;
+    border-left: 3px solid #ff3333;
+}
+*/
 
 .rating-row {
     display: flex;
-    margin-top: 0; /* Handled by parent gap */
+    margin-top: 12px; /* REVERTED: Original margin-top */
     gap: 16px;
 }
 
@@ -267,7 +273,7 @@ h1 {
 }
 
 .bottom-info {
-    margin-top: 12px; /* This specific margin is kept for spacing from the elements above it to the bottom info */
+    margin-top: 12px;
     font-size: 12px;
     color: var(--text-muted);
     display: flex;
