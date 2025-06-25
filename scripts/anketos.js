@@ -1,1 +1,395 @@
-var _0x302255=_0x2bc5;function _0x2bc5(_0xee11d7,_0x45b9bb){var _0x59459d=_0x5945();return _0x2bc5=function(_0x2bc570,_0x246236){_0x2bc570=_0x2bc570-0x1ec;var _0x587390=_0x59459d[_0x2bc570];return _0x587390;},_0x2bc5(_0xee11d7,_0x45b9bb);}(function(_0xcf7eaa,_0x5f586d){var _0x5b0562=_0x2bc5,_0x17a78e=_0xcf7eaa();while(!![]){try{var _0x2d28d3=-parseInt(_0x5b0562(0x1fa))/0x1+-parseInt(_0x5b0562(0x253))/0x2+parseInt(_0x5b0562(0x2a3))/0x3+-parseInt(_0x5b0562(0x260))/0x4+parseInt(_0x5b0562(0x203))/0x5+parseInt(_0x5b0562(0x292))/0x6*(-parseInt(_0x5b0562(0x21b))/0x7)+-parseInt(_0x5b0562(0x283))/0x8*(-parseInt(_0x5b0562(0x27d))/0x9);if(_0x2d28d3===_0x5f586d)break;else _0x17a78e['push'](_0x17a78e['shift']());}catch(_0x372f5b){_0x17a78e['push'](_0x17a78e['shift']());}}}(_0x5945,0x7dd0a));function debug(..._0x4e5b61){var _0x5d00ef=_0x2bc5;console[_0x5d00ef(0x285)](_0x5d00ef(0x234),..._0x4e5b61);}debug(_0x302255(0x2a2));const DISCORD_REDIRECT_URI=encodeURIComponent(window['location'][_0x302255(0x26c)]+window[_0x302255(0x25c)]['pathname']);let discordToken=null,discordUserId=null,pendingAppIdToDelete=null,authWindow=null;function getQueryParam(_0x1b8912){var _0x487d3b=_0x302255;return new URLSearchParams(window['location']['search'])[_0x487d3b(0x268)](_0x1b8912);}function getStatusClass(_0x2bd4f7){var _0x3f32c0=_0x302255;return _0x2bd4f7?(_0x2bd4f7=_0x2bd4f7[_0x3f32c0(0x22e)]())[_0x3f32c0(0x252)](_0x3f32c0(0x242))||_0x2bd4f7['includes'](_0x3f32c0(0x29d))||_0x2bd4f7[_0x3f32c0(0x252)](_0x3f32c0(0x287))?_0x3f32c0(0x256):_0x2bd4f7[_0x3f32c0(0x252)](_0x3f32c0(0x244))||_0x2bd4f7[_0x3f32c0(0x252)](_0x3f32c0(0x259))||_0x2bd4f7[_0x3f32c0(0x252)](_0x3f32c0(0x28a))?'status-rejected':_0x2bd4f7[_0x3f32c0(0x252)](_0x3f32c0(0x22d))||_0x2bd4f7[_0x3f32c0(0x252)](_0x3f32c0(0x223))?_0x3f32c0(0x269):'status-reviewing':_0x3f32c0(0x224);}function formatDate(_0x3d4f69){var _0x4623b4=_0x302255;if(!_0x3d4f69)return _0x4623b4(0x227);try{return new Date(_0x3d4f69)['toISOString']()[_0x4623b4(0x1f6)]('T')[0x0];}catch(_0x4f9db8){return _0x3d4f69;}}function showOAuthPopup(){var _0x3e8a76=_0x302255;debug(_0x3e8a76(0x230)),document[_0x3e8a76(0x28c)](_0x3e8a76(0x1f3))['classList'][_0x3e8a76(0x258)](_0x3e8a76(0x200));}function hideOAuthPopup(){var _0x19fa69=_0x302255;debug(_0x19fa69(0x26f)),document['getElementById']('oauth-popup')[_0x19fa69(0x289)][_0x19fa69(0x217)]('hidden');}function _0x5945(){var _0x495977=['HTTP\x20error!\x20Status:\x20','User\x20ID\x20from\x20URL:','Komunikavimo\x20lygis','toString','nextElementSibling','user','pending','status-reviewing','metai','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-item\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-label\x22>Pašaudymo\x20lygis</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-value\x22>','N/A','Fetching\x20application\x20details:','anketos.html?user=','Negalite\x20to\x20padaryti.\x20Jūs\x20neturite\x20administratoriaus\x20teisių.','Current\x20user\x20ID:','(error)','laukiama','toLowerCase','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-item\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-label\x22>Komunikavimo\x20lygis</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22rating-value\x22>','Showing\x20OAuth\x20popup','message','įspėjimą','DATA','DEBUG:','Nepateikta','application/json','data','.application-date','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-field\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-name\x22>Atmetimo\x20priežastis</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-value\x20rejection-reason\x22>','</div>','Opening\x20Discord\x20OAuth\x20popup','trim','getAttribute','.field-name','date','status','<button\x20class=\x22remove-btn\x22\x20data-id=\x22','patvirtinta','&PRIEŽASTIS=eq.','atmesta','innerHTML','Application\x20not\x20found','Aplikacija\x20sėkmingai\x20ištrinta!','data-id','value','959449311366766622','&ID=eq.','User\x20is\x20admin,\x20proceeding\x20with\x20deletion','access_token','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-header\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-id\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\x22\x20alt=\x22MM\x22\x20class=\x22header-logo\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22user-info\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22username\x22>Anketos</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22user-id\x22>@','Ar\x20tikrai\x20norite\x20ištrinti\x20šią\x20aplikaciją?','type','addEventListener','includes','439808KwBkhL','Setting\x20up\x20remove\x20button\x20event\x20listeners','preventDefault','status-accepted','&PL=eq.','remove','atmestas','DELETE','Taip','location','isp','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-field\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-name\x22>Dėl\x20ko\x20nori\x20i\x20Ganga</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-value\x22>','Delete\x20URL\x20with\x20all\x20filters:','3706756sLCXbD','PRIEŽASTIS','DOM\x20loaded','App\x20match\x20score\x20(','Admin\x20ID:','Clicked\x20element\x20data:','screenX','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22status-tag\x20','get','status-pending','hash','textContent','origin','.user-id','User\x20cancelled\x20deletion','Hiding\x20OAuth\x20popup','target','Total\x20remove\x20buttons\x20with\x20listeners:','&response_type=token&scope=identify','...','width=600,height=800,left=','Getting\x20user\x20info\x20with\x20token:','Amžius','status-message','Received\x20message\x20from\x20auth\x20popup:','STATUS','authenticate-btn','userId','Error\x20getting\x20Discord\x20user\x20info:','27GKNiOv','&PCCHECK=eq.','keypress','parentNode','querySelectorAll','length','5572272nuYdIH','Found\x20target\x20application\x20for\x20deletion:','log','Failed\x20to\x20delete.\x20Status:\x20','accepted','applications','classList','rejected','pc\x20check','getElementById','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22bottom-info\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\x22\x20alt=\x22MM\x22\x20class=\x22footer-logo\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Miela\x20Malonu\x20|\x20Anketos\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','outerHeight','stopPropagation','&NICK=eq.','NICK','78JXALCw','Remove\x20button\x20clicked\x20via\x20delegation\x20for\x20ID:','Has\x20Discord\x20auth,\x20confirming\x20deletion','json','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-field\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-name\x22>Ar\x20sutiktumėte\x20pasidaryti\x20pc\x20check?</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-value\x22>','Enter','querySelector','&ISP=eq.','No\x20Discord\x20token/user\x20ID,\x20showing\x20auth\x20popup','Discord\x20authentication\x20failed.\x20Please\x20try\x20again.','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','priimtas','&KL=eq.','forEach','open','Could\x20not\x20get\x20response\x20text:','Script\x20started','1930860uhgzZN','error-message','METAI','Delete\x20successful','Discord\x20API\x20error:','priezastis','Remove\x20button\x20clicked\x20for\x20ID:','PCCHECK','Processing\x20pending\x20deletion:','cancel-auth-btn','&STATUS=eq.','&DATA=eq.','<div\x20class=\x22error\x22>No\x20applications\x20found.</div>','cbb','REASON','Auth\x20button\x20clicked,\x20opening\x20Discord\x20OAuth\x20popup','pccheck','error','Cancel\x20auth\x20button\x20clicked','\x22>Pašalinti</button>','search','.status-tag','remove-btn','contains','oauth-popup','Could\x20not\x20locate\x20the\x20clicked\x20application\x20in\x20the\x20DOM','replaceChild','split','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-item\x22\x20data-id=\x22','Error\x20fetching\x20data:','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','711497NQscUo','success-message','.rating-label','Found\x20applications:','username','https://supa.mielamalonu.com/api/supabase/Anketos?select=ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON','hidden','&METAI=eq.','Remove\x20application\x20clicked:','2175585LXDoJF','<div\x20class=\x22error\x22>Failed\x20to\x20load\x20applications:\x20','closed','text','Got\x20access\x20token\x20from\x20popup:','Atmetimo\x20priežastis','href','Handling\x20Discord\x20auth\x20with\x20token','substring','Auth\x20successful:','click','ISP','discord_auth','nick','Peržiūrima','Error\x20deleting\x20application:','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','Klaida\x20trinant\x20aplikaciją:\x20','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-field\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-name\x22>Ar\x20išpirkumėte\x20įspėjimą\x20jei\x20jis\x20būtų\x20dėl\x20jūsų\x20kaltės?</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-value\x22>','DOMContentLoaded','add','):\x20','https://supa.mielamalonu.com/api/supabase/Anketos?ID=eq.','Bearer\x20cbb','428029ojKNJk','replace'];_0x5945=function(){return _0x495977;};return _0x5945();}function showStatusMessage(_0xc8e8ac,_0x2ef62e=![]){var _0x45eb99=_0x302255;debug('Status\x20message:',_0xc8e8ac,_0x2ef62e?_0x45eb99(0x22c):'');const _0x274839=document[_0x45eb99(0x28c)](_0x45eb99(0x277));_0x274839[_0x45eb99(0x26b)]=_0xc8e8ac,_0x274839['classList'][_0x45eb99(0x258)](_0x45eb99(0x200),'success-message',_0x45eb99(0x2a4)),_0x274839[_0x45eb99(0x289)][_0x45eb99(0x217)](_0x2ef62e?_0x45eb99(0x2a4):_0x45eb99(0x1fb)),setTimeout(()=>{var _0x268492=_0x45eb99;_0x274839[_0x268492(0x289)][_0x268492(0x217)](_0x268492(0x200));},0x1388);}function openDiscordAuthPopup(){var _0x18251a=_0x302255;debug(_0x18251a(0x23b));var _0x1f76ae=window[_0x18251a(0x266)]+(window['outerWidth']-0x258)/0x2,_0xddc36f=window['screenY']+(window[_0x18251a(0x28e)]-0x320)/0x2,_0x1c78c6='https://discord.com/api/oauth2/authorize?client_id=1263389179249692693&redirect_uri='+DISCORD_REDIRECT_URI+_0x18251a(0x272);authWindow=window[_0x18251a(0x2a0)](_0x1c78c6,'Discord\x20Authentication',_0x18251a(0x274)+_0x1f76ae+',top='+_0xddc36f+',resizable=yes,scrollbars=yes');const _0x46eff1=setInterval(()=>{var _0x34d16b=_0x18251a;try{var _0x1a596f;if(authWindow[_0x34d16b(0x205)])clearInterval(_0x46eff1);else authWindow['location'][_0x34d16b(0x209)][_0x34d16b(0x252)]('access_token=')&&(clearInterval(_0x46eff1),_0x1a596f=new URLSearchParams(authWindow['location'][_0x34d16b(0x26a)][_0x34d16b(0x20b)](0x1))['get'](_0x34d16b(0x24d)),authWindow['close'](),_0x1a596f)&&(debug(_0x34d16b(0x207),_0x1a596f['substring'](0x0,0xa)+_0x34d16b(0x273)),handleDiscordAuth(_0x1a596f));}catch(_0x479845){}},0x1f4);}async function handleDiscordAuth(_0x558ad2){var _0x208f31=_0x302255;debug(_0x208f31(0x20a)),hideOAuthPopup();var _0xcf4957=await getUserInfo(_0x558ad2);_0xcf4957?(discordToken=_0x558ad2,discordUserId=_0xcf4957['id'],debug(_0x208f31(0x20c),_0xcf4957[_0x208f31(0x1fe)],discordUserId),debug('Is\x20admin?',discordUserId===_0x208f31(0x24a)),pendingAppIdToDelete&&(debug(_0x208f31(0x2ab),pendingAppIdToDelete),_0x558ad2=pendingAppIdToDelete,pendingAppIdToDelete=null,await deleteApplication(_0x558ad2))):showStatusMessage(_0x208f31(0x29b),!![]);}async function getUserInfo(_0x2d626d){var _0xc83edb=_0x302255;debug(_0xc83edb(0x275),_0x2d626d[_0xc83edb(0x20b)](0x0,0xa)+'...');try{var _0x4cce43,_0xc81a95,_0x1a88bc=await fetch('https://discord.com/api/users/@me',{'headers':{'Authorization':'Bearer\x20'+_0x2d626d}});if(_0x1a88bc['ok'])return debug('User\x20info\x20received:',(_0xc81a95=await _0x1a88bc[_0xc83edb(0x295)]())[_0xc83edb(0x1fe)],_0xc81a95['id']),_0xc81a95;_0x4cce43=await _0x1a88bc[_0xc83edb(0x206)](),debug(_0xc83edb(0x2a7),_0x1a88bc['status'],_0x4cce43);throw new Error('Failed\x20to\x20get\x20user\x20info\x20from\x20Discord:\x20'+_0x1a88bc[_0xc83edb(0x240)]);}catch(_0x154108){return debug(_0xc83edb(0x27c),_0x154108),console[_0xc83edb(0x1ec)]('Error\x20getting\x20Discord\x20user\x20info:',_0x154108),null;}}async function deleteApplication(_0x9fadd3){var _0x3a0791=_0x302255;debug('Attempting\x20to\x20delete\x20application:',_0x9fadd3),debug(_0x3a0791(0x22b),discordUserId),debug(_0x3a0791(0x264),_0x3a0791(0x24a));try{if(discordUserId!==_0x3a0791(0x24a))return debug('Delete\x20failed:\x20Not\x20admin'),showStatusMessage(_0x3a0791(0x22a),!![]),![];debug(_0x3a0791(0x24c));var _0x4a5a79=_0x3a0791(0x219)+encodeURIComponent(_0x9fadd3[_0x3a0791(0x23c)]());debug(_0x3a0791(0x228),_0x4a5a79);var _0x2d1759=await fetch(_0x4a5a79,{'headers':{'apikey':_0x3a0791(0x2b0),'Authorization':_0x3a0791(0x21a)}});if(!_0x2d1759['ok'])throw new Error('Failed\x20to\x20fetch\x20application\x20details.\x20Status:\x20'+_0x2d1759[_0x3a0791(0x240)]);var _0x51c746=await _0x2d1759['json']();debug(_0x3a0791(0x1fd),_0x51c746[_0x3a0791(0x282)]);if(0x0===_0x51c746['length'])throw new Error(_0x3a0791(0x246));var _0x1026be=document[_0x3a0791(0x298)]('.application-item[data-id=\x22'+_0x9fadd3+'\x22]');if(!_0x1026be)throw new Error(_0x3a0791(0x1f4));const _0x472959={'nick':_0x1026be[_0x3a0791(0x298)](_0x3a0791(0x26d))?.['textContent'][_0x3a0791(0x23c)]()[_0x3a0791(0x21c)]('@',''),'status':_0x1026be[_0x3a0791(0x298)](_0x3a0791(0x1f0))?.[_0x3a0791(0x26b)][_0x3a0791(0x23c)](),'date':_0x1026be[_0x3a0791(0x298)](_0x3a0791(0x238))?.['textContent'][_0x3a0791(0x23c)]()};_0x1026be[_0x3a0791(0x281)](_0x3a0791(0x23e))[_0x3a0791(0x29f)](_0x5dee4d=>{var _0x65869a=_0x3a0791,_0x27906d=_0x5dee4d[_0x65869a(0x26b)][_0x65869a(0x23c)](),_0x5dee4d=_0x5dee4d[_0x65869a(0x221)];if(_0x27906d[_0x65869a(0x252)](_0x65869a(0x276))&&_0x5dee4d)_0x472959[_0x65869a(0x225)]=_0x5dee4d[_0x65869a(0x26b)]['trim']();else{if(_0x27906d[_0x65869a(0x252)](_0x65869a(0x28b))&&_0x5dee4d)_0x472959['pccheck']=_0x5dee4d[_0x65869a(0x26b)][_0x65869a(0x23c)]();else{if(_0x27906d[_0x65869a(0x252)](_0x65869a(0x232))&&_0x5dee4d)_0x472959['isp']=_0x5dee4d[_0x65869a(0x26b)][_0x65869a(0x23c)]();else _0x27906d[_0x65869a(0x252)](_0x65869a(0x208))&&_0x5dee4d&&(_0x472959[_0x65869a(0x2a8)]=_0x5dee4d['textContent'][_0x65869a(0x23c)]());}}}),_0x1026be[_0x3a0791(0x281)](_0x3a0791(0x1fc))[_0x3a0791(0x29f)](_0x8f4b6d=>{var _0x47a537=_0x3a0791,_0x3e5f4c=_0x8f4b6d[_0x47a537(0x26b)][_0x47a537(0x23c)](),_0x8f4b6d=_0x8f4b6d['nextElementSibling'];if(_0x3e5f4c[_0x47a537(0x252)]('Pašaudymo\x20lygis')&&_0x8f4b6d)_0x472959['pl']=_0x8f4b6d['textContent'][_0x47a537(0x23c)]();else _0x3e5f4c['includes'](_0x47a537(0x21f))&&_0x8f4b6d&&(_0x472959['kl']=_0x8f4b6d[_0x47a537(0x26b)][_0x47a537(0x23c)]());}),debug(_0x3a0791(0x265),_0x472959);let _0xa9739=null,_0x3533c5=0x0;for(const _0x324741 of _0x51c746){let _0x3753bf=0x0;_0x324741[_0x3a0791(0x291)]===_0x472959[_0x3a0791(0x210)]&&(_0x3753bf+=0xa),_0x324741[_0x3a0791(0x279)]===_0x472959[_0x3a0791(0x240)]&&(_0x3753bf+=0x5),formatDate(_0x324741[_0x3a0791(0x233)])===_0x472959[_0x3a0791(0x23f)]&&(_0x3753bf+=0x8),_0x324741[_0x3a0791(0x2a5)]&&_0x472959[_0x3a0791(0x225)]&&_0x324741[_0x3a0791(0x2a5)]['toString']()===_0x472959[_0x3a0791(0x225)]&&(_0x3753bf+=0x3),_0x324741['PL']&&_0x472959['pl']&&_0x324741['PL']['toString']()===_0x472959['pl']&&(_0x3753bf+=0x3),_0x324741['KL']&&_0x472959['kl']&&_0x324741['KL'][_0x3a0791(0x220)]()===_0x472959['kl']&&(_0x3753bf+=0x3),_0x324741[_0x3a0791(0x2aa)]===_0x472959[_0x3a0791(0x2b3)]&&(_0x3753bf+=0x3),_0x324741[_0x3a0791(0x20e)]===_0x472959[_0x3a0791(0x25d)]&&(_0x3753bf+=0x3),_0x324741[_0x3a0791(0x261)]===_0x472959[_0x3a0791(0x2a8)]&&(_0x3753bf+=0x3),debug(_0x3a0791(0x263)+_0x324741[_0x3a0791(0x291)]+',\x20'+formatDate(_0x324741[_0x3a0791(0x233)])+_0x3a0791(0x218)+_0x3753bf),_0x3753bf>_0x3533c5&&(_0x3533c5=_0x3753bf,_0xa9739=_0x324741);}if(!_0xa9739)throw new Error('Could\x20not\x20identify\x20the\x20specific\x20application\x20to\x20delete');debug(_0x3a0791(0x284),_0xa9739);let _0x5ded9d=_0x3a0791(0x219)+encodeURIComponent(_0x9fadd3[_0x3a0791(0x23c)]());_0xa9739[_0x3a0791(0x233)]&&(_0x5ded9d+=_0x3a0791(0x2ae)+encodeURIComponent(_0xa9739['DATA']));_0xa9739[_0x3a0791(0x291)]&&(_0x5ded9d+=_0x3a0791(0x290)+encodeURIComponent(_0xa9739[_0x3a0791(0x291)]));_0xa9739[_0x3a0791(0x279)]&&(_0x5ded9d+=_0x3a0791(0x2ad)+encodeURIComponent(_0xa9739[_0x3a0791(0x279)]));null!==_0xa9739[_0x3a0791(0x2a5)]&&undefined!==_0xa9739[_0x3a0791(0x2a5)]&&(_0x5ded9d+=_0x3a0791(0x201)+encodeURIComponent(_0xa9739[_0x3a0791(0x2a5)]));null!==_0xa9739['PL']&&undefined!==_0xa9739['PL']&&(_0x5ded9d+=_0x3a0791(0x257)+encodeURIComponent(_0xa9739['PL']));null!==_0xa9739['KL']&&undefined!==_0xa9739['KL']&&(_0x5ded9d+=_0x3a0791(0x29e)+encodeURIComponent(_0xa9739['KL']));_0xa9739[_0x3a0791(0x2aa)]&&(_0x5ded9d+=_0x3a0791(0x27e)+encodeURIComponent(_0xa9739[_0x3a0791(0x2aa)]));_0xa9739[_0x3a0791(0x20e)]&&(_0x5ded9d+=_0x3a0791(0x299)+encodeURIComponent(_0xa9739[_0x3a0791(0x20e)]));_0xa9739[_0x3a0791(0x261)]&&(_0x5ded9d+=_0x3a0791(0x243)+encodeURIComponent(_0xa9739['PRIEŽASTIS']));debug(_0x3a0791(0x25f),_0x5ded9d);var _0x52c188=await fetch(_0x5ded9d,{'method':_0x3a0791(0x25a),'headers':{'apikey':_0x3a0791(0x2b0),'Authorization':'Bearer\x20cbb','Content-Type':_0x3a0791(0x236)}});debug('Delete\x20response\x20status:',_0x52c188['status']);try{debug('Delete\x20response\x20text:',await _0x52c188['text']());}catch(_0x4e9c0c){debug(_0x3a0791(0x2a1),_0x4e9c0c);}if(_0x52c188['ok'])return showStatusMessage(_0x3a0791(0x247)),debug(_0x3a0791(0x2a6)),_0x1026be['remove'](),!![];throw new Error(_0x3a0791(0x286)+_0x52c188[_0x3a0791(0x240)]);}catch(_0x5afb1f){return debug(_0x3a0791(0x212),_0x5afb1f),console['error'](_0x3a0791(0x212),_0x5afb1f),showStatusMessage(_0x3a0791(0x214)+_0x5afb1f[_0x3a0791(0x231)],!![]),![];}}async function removeApplication(_0x238f34){var _0x42281e=_0x302255;debug(_0x42281e(0x202),_0x238f34),pendingAppIdToDelete=_0x238f34;if(!discordToken||!discordUserId)return debug(_0x42281e(0x29a)),showOAuthPopup(),![];debug(_0x42281e(0x294)),confirm(_0x42281e(0x24f))?await deleteApplication(_0x238f34):(debug(_0x42281e(0x26e)),pendingAppIdToDelete=null);}function createDiscordEmbeds(_0x290708){var _0x4a8f6c=_0x302255;debug('Creating\x20embeds\x20for',_0x290708?_0x290708['length']:0x0,_0x4a8f6c(0x288));if(!_0x290708||0x0===_0x290708[_0x4a8f6c(0x282)])return _0x4a8f6c(0x2af);let _0x49180c='';return _0x290708[_0x4a8f6c(0x29f)](_0x170c1c=>{var _0x18fe39=_0x4a8f6c,_0x43416c=getStatusClass(_0x170c1c[_0x18fe39(0x279)]),_0x33db13=formatDate(_0x170c1c[_0x18fe39(0x233)]),_0x30997c=_0x170c1c[_0x18fe39(0x279)]&&(_0x170c1c[_0x18fe39(0x279)][_0x18fe39(0x22e)]()[_0x18fe39(0x252)](_0x18fe39(0x244))||_0x170c1c['STATUS'][_0x18fe39(0x22e)]()['includes'](_0x18fe39(0x259))||_0x170c1c[_0x18fe39(0x279)]['toLowerCase']()[_0x18fe39(0x252)](_0x18fe39(0x28a))),_0x172dcb=_0x18fe39(0x241)+(_0x170c1c['ID']||_0x170c1c['id'])+_0x18fe39(0x1ee);_0x49180c+=_0x18fe39(0x1f7)+(_0x170c1c['ID']||_0x170c1c['id'])+_0x18fe39(0x24e)+(_0x170c1c[_0x18fe39(0x291)]||_0x18fe39(0x227))+_0x18fe39(0x267)+_0x43416c+'\x22>'+(_0x170c1c[_0x18fe39(0x279)]||_0x18fe39(0x211))+'</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-actions\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-date\x22>'+_0x33db13+_0x18fe39(0x213)+_0x172dcb+'\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22application-field\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-name\x22>Amžius</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22field-value\x22>'+(_0x170c1c['METAI']||_0x18fe39(0x227))+_0x18fe39(0x25e)+(_0x170c1c[_0x18fe39(0x2b1)]||_0x18fe39(0x227))+_0x18fe39(0x29c)+(_0x30997c?_0x18fe39(0x239)+(_0x170c1c[_0x18fe39(0x261)]||_0x18fe39(0x235))+_0x18fe39(0x1f9):'')+_0x18fe39(0x296)+(_0x170c1c[_0x18fe39(0x2aa)]||_0x18fe39(0x25b))+_0x18fe39(0x215)+(_0x170c1c[_0x18fe39(0x20e)]||_0x18fe39(0x25b))+_0x18fe39(0x226)+(_0x170c1c['PL']||'0')+_0x18fe39(0x22f)+(_0x170c1c['KL']||'0')+_0x18fe39(0x28d);}),_0x49180c;}function setupRemoveButtons(){var _0x1f1441=_0x302255;debug(_0x1f1441(0x254));var _0x322314=document[_0x1f1441(0x281)]('.remove-btn');_0x322314['forEach'](_0x56fb60=>{var _0x49c707=_0x1f1441,_0x2f2984=_0x56fb60['cloneNode'](!![]);_0x56fb60[_0x49c707(0x280)][_0x49c707(0x1f5)](_0x2f2984,_0x56fb60),_0x2f2984[_0x49c707(0x251)](_0x49c707(0x20d),function(_0x1ffc6f){var _0x44132e=_0x49c707;_0x1ffc6f[_0x44132e(0x255)](),_0x1ffc6f[_0x44132e(0x28f)](),_0x1ffc6f=this[_0x44132e(0x23d)](_0x44132e(0x248)),debug(_0x44132e(0x2a9),_0x1ffc6f),_0x1ffc6f&&removeApplication(_0x1ffc6f);});}),debug(_0x1f1441(0x271),_0x322314[_0x1f1441(0x282)]);}async function fetchApplications(_0x43b758=null){var _0xc1afa4=_0x302255;debug('Fetching\x20applications\x20for\x20user:',_0x43b758);var _0x2d78f7=document[_0xc1afa4(0x28c)]('content');_0x2d78f7['innerHTML']='<div\x20class=\x22loading\x22>Loading\x20application\x20data...</div>';try{let _0x208c46=_0xc1afa4(0x1ff);_0x43b758&&(_0x208c46+=_0xc1afa4(0x24b)+encodeURIComponent(_0x43b758));debug('Fetch\x20URL:',_0x208c46);var _0x4fe81c=await fetch(_0x208c46,{'headers':{'apikey':_0xc1afa4(0x2b0),'Authorization':'Bearer\x20cbb'}});if(!_0x4fe81c['ok'])throw new Error(_0xc1afa4(0x21d)+_0x4fe81c[_0xc1afa4(0x240)]);var _0x4160b9=await _0x4fe81c['json']();debug('Received',_0x4160b9[_0xc1afa4(0x282)],_0xc1afa4(0x288)),_0x2d78f7[_0xc1afa4(0x245)]=createDiscordEmbeds(_0x4160b9),setupRemoveButtons();}catch(_0x41a8dc){debug(_0xc1afa4(0x1f8),_0x41a8dc),console[_0xc1afa4(0x1ec)]('Error\x20fetching\x20data:',_0x41a8dc),_0x2d78f7[_0xc1afa4(0x245)]=_0xc1afa4(0x204)+_0x41a8dc[_0xc1afa4(0x231)]+_0xc1afa4(0x23a);}}function setupSearchButton(){var _0x5d7167=_0x302255;const _0x40a2d8=document['getElementById']('searchButton'),_0x441af1=document[_0x5d7167(0x28c)](_0x5d7167(0x27b));_0x40a2d8['addEventListener'](_0x5d7167(0x20d),()=>{var _0x3cc4c3=_0x5d7167,_0x307be8=_0x441af1[_0x3cc4c3(0x249)][_0x3cc4c3(0x23c)]();_0x307be8&&(window[_0x3cc4c3(0x25c)][_0x3cc4c3(0x209)]=_0x3cc4c3(0x229)+_0x307be8);}),_0x441af1[_0x5d7167(0x251)](_0x5d7167(0x27f),_0x3e0033=>{var _0x4f9746=_0x5d7167;_0x4f9746(0x297)===_0x3e0033['key']&&_0x40a2d8[_0x4f9746(0x20d)]();});}function setupAuthButtons(){var _0x1ada7c=_0x302255,_0x19610e=document[_0x1ada7c(0x28c)](_0x1ada7c(0x27a)),_0x5d7917=document[_0x1ada7c(0x28c)](_0x1ada7c(0x2ac));_0x19610e['addEventListener'](_0x1ada7c(0x20d),()=>{var _0x115ddf=_0x1ada7c;debug(_0x115ddf(0x2b2)),hideOAuthPopup(),openDiscordAuthPopup();}),_0x5d7917[_0x1ada7c(0x251)](_0x1ada7c(0x20d),()=>{var _0x47c335=_0x1ada7c;debug(_0x47c335(0x1ed)),pendingAppIdToDelete=null,hideOAuthPopup();});}document[_0x302255(0x251)](_0x302255(0x20d),function(_0xe4c1e9){var _0x5ab7a9=_0x302255;_0xe4c1e9[_0x5ab7a9(0x270)]&&_0xe4c1e9[_0x5ab7a9(0x270)][_0x5ab7a9(0x289)][_0x5ab7a9(0x1f2)](_0x5ab7a9(0x1f1))&&(_0xe4c1e9['preventDefault'](),_0xe4c1e9['stopPropagation'](),debug(_0x5ab7a9(0x293),_0xe4c1e9=_0xe4c1e9[_0x5ab7a9(0x270)][_0x5ab7a9(0x23d)]('data-id')),_0xe4c1e9)&&removeApplication(_0xe4c1e9);}),window[_0x302255(0x251)](_0x302255(0x231),function(_0x4c6250){var _0x400053=_0x302255;_0x4c6250['data']&&_0x400053(0x20f)===_0x4c6250[_0x400053(0x237)][_0x400053(0x250)]&&(debug(_0x400053(0x278),_0x4c6250[_0x400053(0x237)]),handleDiscordAuth(_0x4c6250[_0x400053(0x237)]['token']));}),document[_0x302255(0x251)](_0x302255(0x216),async()=>{var _0x19a9b0=_0x302255;debug(_0x19a9b0(0x262)),setupSearchButton(),setupAuthButtons();var _0x178780=new URLSearchParams(window['location'][_0x19a9b0(0x1ef)])[_0x19a9b0(0x268)](_0x19a9b0(0x222));debug(_0x19a9b0(0x21e),_0x178780),_0x178780&&(document['getElementById'](_0x19a9b0(0x27b))[_0x19a9b0(0x249)]=_0x178780),await fetchApplications(_0x178780);});
+function debug(..._0x4e5b61) {
+  console.log("DEBUG:", ..._0x4e5b61);
+}
+debug("Script started");
+const DISCORD_REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
+let discordToken = null;
+let discordUserId = null;
+let pendingAppIdToDelete = null;
+let authWindow = null;
+function getQueryParam(_0x1b8912) {
+  return new URLSearchParams(window.location.search).get(_0x1b8912);
+}
+function getStatusClass(_0x2bd4f7) {
+  return _0x2bd4f7 ? (_0x2bd4f7 = _0x2bd4f7.toLowerCase()).includes("patvirtinta") || _0x2bd4f7.includes("priimtas") || _0x2bd4f7.includes("accepted") ? "status-accepted" : _0x2bd4f7.includes("atmesta") || _0x2bd4f7.includes("atmestas") || _0x2bd4f7.includes("rejected") ? 'status-rejected' : _0x2bd4f7.includes("laukiama") || _0x2bd4f7.includes("pending") ? "status-pending" : 'status-reviewing' : "status-reviewing";
+}
+function formatDate(_0x3d4f69) {
+  if (!_0x3d4f69) {
+    return "N/A";
+  }
+  try {
+    return new Date(_0x3d4f69).toISOString().split('T')[0x0];
+  } catch (_0x4f9db8) {
+    return _0x3d4f69;
+  }
+}
+function showOAuthPopup() {
+  debug("Showing OAuth popup");
+  document.getElementById("oauth-popup").classList.remove("hidden");
+}
+function hideOAuthPopup() {
+  debug("Hiding OAuth popup");
+  document.getElementById('oauth-popup').classList.add('hidden');
+}
+function showStatusMessage(_0xc8e8ac, _0x2ef62e = false) {
+  debug("Status message:", _0xc8e8ac, _0x2ef62e ? "(error)" : '');
+  const _0x274839 = document.getElementById("status-message");
+  _0x274839.textContent = _0xc8e8ac;
+  _0x274839.classList.remove("hidden", 'success-message', "error-message");
+  _0x274839.classList.add(_0x2ef62e ? "error-message" : "success-message");
+  setTimeout(() => {
+    _0x274839.classList.add("hidden");
+  }, 0x1388);
+}
+function openDiscordAuthPopup() {
+  debug("Opening Discord OAuth popup");
+  var _0x1f76ae = window.screenX + (window.outerWidth - 0x258) / 0x2;
+  var _0xddc36f = window.screenY + (window.outerHeight - 0x320) / 0x2;
+  var _0x1c78c6 = 'https://discord.com/api/oauth2/authorize?client_id=1263389179249692693&redirect_uri=' + DISCORD_REDIRECT_URI + "&response_type=token&scope=identify";
+  authWindow = window.open(_0x1c78c6, "Discord Authentication", "width=600,height=800,left=" + _0x1f76ae + ',top=' + _0xddc36f + ',resizable=yes,scrollbars=yes');
+  const _0x46eff1 = setInterval(() => {
+    try {
+      var _0x1a596f;
+      if (authWindow.closed) {
+        clearInterval(_0x46eff1);
+      } else if (authWindow.location.href.includes('access_token=') && (clearInterval(_0x46eff1), _0x1a596f = new URLSearchParams(authWindow.location.hash.substring(0x1)).get("access_token"), authWindow.close(), _0x1a596f)) {
+        debug("Got access token from popup:", _0x1a596f.substring(0x0, 0xa) + "...");
+        handleDiscordAuth(_0x1a596f);
+      }
+    } catch (_0x479845) {}
+  }, 0x1f4);
+}
+async function handleDiscordAuth(_0x558ad2) {
+  debug("Handling Discord auth with token");
+  hideOAuthPopup();
+  var _0xcf4957 = await getUserInfo(_0x558ad2);
+  if (_0xcf4957) {
+    discordToken = _0x558ad2;
+    discordUserId = _0xcf4957.id;
+    debug("Auth successful:", _0xcf4957.username, discordUserId);
+    debug("Is admin?", discordUserId === "959449311366766622");
+    if (pendingAppIdToDelete) {
+      debug("Processing pending deletion:", pendingAppIdToDelete);
+      _0x558ad2 = pendingAppIdToDelete;
+      pendingAppIdToDelete = null;
+      await deleteApplication(_0x558ad2);
+    }
+  } else {
+    showStatusMessage("Discord authentication failed. Please try again.", true);
+  }
+}
+async function getUserInfo(_0x2d626d) {
+  debug("Getting user info with token:", _0x2d626d.substring(0x0, 0xa) + '...');
+  try {
+    var _0x4cce43;
+    var _0xc81a95;
+    var _0x1a88bc = await fetch('https://discord.com/api/users/@me', {
+      'headers': {
+        'Authorization': "Bearer " + _0x2d626d
+      }
+    });
+    if (_0x1a88bc.ok) {
+      debug("User info received:", (_0xc81a95 = await _0x1a88bc.json()).username, _0xc81a95.id);
+      return _0xc81a95;
+    }
+    _0x4cce43 = await _0x1a88bc.text();
+    debug("Discord API error:", _0x1a88bc.status, _0x4cce43);
+    throw new Error("Failed to get user info from Discord: " + _0x1a88bc.status);
+  } catch (_0x154108) {
+    debug("Error getting Discord user info:", _0x154108);
+    console.error("Error getting Discord user info:", _0x154108);
+    return null;
+  }
+}
+async function deleteApplication(_0x9fadd3) {
+  debug("Attempting to delete application:", _0x9fadd3);
+  debug("Current user ID:", discordUserId);
+  debug("Admin ID:", "959449311366766622");
+  try {
+    if (discordUserId !== "959449311366766622") {
+      debug("Delete failed: Not admin");
+      showStatusMessage("Negalite to padaryti. Jūs neturite administratoriaus teisių.", true);
+      return false;
+    }
+    debug("User is admin, proceeding with deletion");
+    var _0x4a5a79 = "https://supa.mielamalonu.com/api/supabase/Anketos?ID=eq." + encodeURIComponent(_0x9fadd3.trim());
+    debug("Fetching application details:", _0x4a5a79);
+    var _0x2d1759 = await fetch(_0x4a5a79, {
+      'headers': {
+        'apikey': "cbb",
+        'Authorization': "Bearer cbb"
+      }
+    });
+    if (!_0x2d1759.ok) {
+      throw new Error("Failed to fetch application details. Status: " + _0x2d1759.status);
+    }
+    var _0x51c746 = await _0x2d1759.json();
+    debug("Found applications:", _0x51c746.length);
+    if (0x0 === _0x51c746.length) {
+      throw new Error("Application not found");
+    }
+    var _0x1026be = document.querySelector(".application-item[data-id=\"" + _0x9fadd3 + "\"]");
+    if (!_0x1026be) {
+      throw new Error("Could not locate the clicked application in the DOM");
+    }
+    const _0x472959 = {
+      'nick': _0x1026be.querySelector(".user-id")?.['textContent']["trim"]()["replace"]('@', ''),
+      'status': _0x1026be.querySelector(".status-tag")?.["textContent"]["trim"](),
+      'date': _0x1026be.querySelector(".application-date")?.['textContent']["trim"]()
+    };
+    _0x1026be.querySelectorAll(".field-name").forEach(_0x5dee4d => {
+      var _0x27906d = _0x5dee4d.textContent.trim();
+      var _0x5dee4d = _0x5dee4d.nextElementSibling;
+      if (_0x27906d.includes("Amžius") && _0x5dee4d) {
+        _0x472959.metai = _0x5dee4d.textContent.trim();
+      } else {
+        if (_0x27906d.includes("pc check") && _0x5dee4d) {
+          _0x472959.pccheck = _0x5dee4d.textContent.trim();
+        } else {
+          if (_0x27906d.includes("įspėjimą") && _0x5dee4d) {
+            _0x472959.isp = _0x5dee4d.textContent.trim();
+          }
+          // REMOVE THIS SECTION
+          /*
+          else if (_0x27906d.includes("Atmetimo priežastis") && _0x5dee4d) {
+              _0x472959.priezastis = _0x5dee4d.textContent.trim();
+          }
+          */
+        }
+      }
+    });
+    _0x1026be.querySelectorAll(".rating-label").forEach(_0x8f4b6d => {
+      var _0x3e5f4c = _0x8f4b6d.textContent.trim();
+      var _0x8f4b6d = _0x8f4b6d.nextElementSibling;
+      if (_0x3e5f4c.includes("Pašaudymo lygis") && _0x8f4b6d) {
+        _0x472959.pl = _0x8f4b6d.textContent.trim();
+      } else if (_0x3e5f4c.includes("Komunikavimo lygis") && _0x8f4b6d) {
+        _0x472959.kl = _0x8f4b6d.textContent.trim();
+      }
+    });
+    debug("Clicked element data:", _0x472959);
+    let _0xa9739 = null;
+    let _0x3533c5 = 0x0;
+    for (const _0x324741 of _0x51c746) {
+      let _0x3753bf = 0x0;
+      if (_0x324741.NICK === _0x472959.nick) {
+        _0x3753bf += 0xa;
+      }
+      if (_0x324741.STATUS === _0x472959.status) {
+        _0x3753bf += 0x5;
+      }
+      if (formatDate(_0x324741.DATA) === _0x472959.date) {
+        _0x3753bf += 0x8;
+      }
+      if (_0x324741.METAI && _0x472959.metai && _0x324741.METAI.toString() === _0x472959.metai) {
+        _0x3753bf += 0x3;
+      }
+      if (_0x324741.PL && _0x472959.pl && _0x324741.PL.toString() === _0x472959.pl) {
+        _0x3753bf += 0x3;
+      }
+      if (_0x324741.KL && _0x472959.kl && _0x324741.KL.toString() === _0x472959.kl) {
+        _0x3753bf += 0x3;
+      }
+      if (_0x324741.PCCHECK === _0x472959.pccheck) {
+        _0x3753bf += 0x3;
+      }
+      if (_0x324741.ISP === _0x472959.isp) {
+        _0x3753bf += 0x3;
+      }
+      // REMOVE THIS LINE
+      // if (_0x324741.PRIEŽASTIS === _0x472959.priezastis) { _0x3753bf += 0x3; }
+      debug("App match score (" + _0x324741.NICK + ", " + formatDate(_0x324741.DATA) + "): " + _0x3753bf);
+      if (_0x3753bf > _0x3533c5) {
+        _0x3533c5 = _0x3753bf;
+        _0xa9739 = _0x324741;
+      }
+    }
+    if (!_0xa9739) {
+      throw new Error("Could not identify the specific application to delete");
+    }
+    debug("Found target application for deletion:", _0xa9739);
+    let _0x5ded9d = "https://supa.mielamalonu.com/api/supabase/Anketos?ID=eq." + encodeURIComponent(_0x9fadd3.trim());
+    if (_0xa9739.DATA) {
+      _0x5ded9d += "&DATA=eq." + encodeURIComponent(_0xa9739.DATA);
+    }
+    if (_0xa9739.NICK) {
+      _0x5ded9d += "&NICK=eq." + encodeURIComponent(_0xa9739.NICK);
+    }
+    if (_0xa9739.STATUS) {
+      _0x5ded9d += "&STATUS=eq." + encodeURIComponent(_0xa9739.STATUS);
+    }
+    if (null !== _0xa9739.METAI && undefined !== _0xa9739.METAI) {
+      _0x5ded9d += "&METAI=eq." + encodeURIComponent(_0xa9739.METAI);
+    }
+    if (null !== _0xa9739.PL && undefined !== _0xa9739.PL) {
+      _0x5ded9d += "&PL=eq." + encodeURIComponent(_0xa9739.PL);
+    }
+    if (null !== _0xa9739.KL && undefined !== _0xa9739.KL) {
+      _0x5ded9d += "&KL=eq." + encodeURIComponent(_0xa9739.KL);
+    }
+    if (_0xa9739.PCCHECK) {
+      _0x5ded9d += "&PCCHECK=eq." + encodeURIComponent(_0xa9739.PCCHECK);
+    }
+    if (_0xa9739.ISP) {
+      _0x5ded9d += "&ISP=eq." + encodeURIComponent(_0xa9739.ISP);
+    }
+    // REMOVE THIS LINE
+    // if (_0xa9739.PRIEŽASTIS) { _0x5ded9d += "&PRIEŽASTIS=eq." + encodeURIComponent(_0xa9739.PRIEŽASTIS); }
+    debug("Delete URL with all filters:", _0x5ded9d);
+    var _0x52c188 = await fetch(_0x5ded9d, {
+      'method': "DELETE",
+      'headers': {
+        'apikey': "cbb",
+        'Authorization': "Bearer cbb",
+        'Content-Type': "application/json"
+      }
+    });
+    debug("Delete response status:", _0x52c188.status);
+    try {
+      debug("Delete response text:", await _0x52c188.text());
+    } catch (_0x4e9c0c) {
+      debug("Could not get response text:", _0x4e9c0c);
+    }
+    if (_0x52c188.ok) {
+      showStatusMessage("Aplikacija sėkmingai ištrinta!");
+      debug("Delete successful");
+      _0x1026be.remove();
+      return true;
+    }
+    throw new Error("Failed to delete. Status: " + _0x52c188.status);
+  } catch (_0x5afb1f) {
+    debug("Error deleting application:", _0x5afb1f);
+    console.error("Error deleting application:", _0x5afb1f);
+    showStatusMessage("Klaida trinant aplikaciją: " + _0x5afb1f.message, true);
+    return false;
+  }
+}
+async function removeApplication(_0x238f34) {
+  debug("Remove application clicked:", _0x238f34);
+  pendingAppIdToDelete = _0x238f34;
+  if (!discordToken || !discordUserId) {
+    debug("No Discord token/user ID, showing auth popup");
+    showOAuthPopup();
+    return false;
+  }
+  debug("Has Discord auth, confirming deletion");
+  if (confirm("Ar tikrai norite ištrinti šią aplikaciją?")) {
+    await deleteApplication(_0x238f34);
+  } else {
+    debug("User cancelled deletion");
+    pendingAppIdToDelete = null;
+  }
+}
+function createDiscordEmbeds(_0x290708) {
+  debug("Creating embeds for", _0x290708 ? _0x290708.length : 0x0, "applications");
+  if (!_0x290708 || 0x0 === _0x290708.length) {
+    return "<div class=\"error\">No applications found.</div>";
+  }
+  let _0x49180c = '';
+  _0x290708.forEach(_0x170c1c => {
+    var _0x43416c = getStatusClass(_0x170c1c.STATUS);
+    var _0x33db13 = formatDate(_0x170c1c.DATA);
+    var _0x30997c = _0x170c1c.STATUS && (_0x170c1c.STATUS.toLowerCase().includes("atmesta") || _0x170c1c.STATUS.toLowerCase().includes("atmestas") || _0x170c1c.STATUS.toLowerCase().includes("rejected"));
+    var _0x172dcb = "<button class=\"remove-btn\" data-id=\"" + (_0x170c1c.ID || _0x170c1c.id) + "\">Pašalinti</button>";
+    _0x49180c += "\n            <div class=\"application-item\" data-id=\"" + (_0x170c1c.ID || _0x170c1c.id) + "\">\n                <div class=\"application-header\">\n                    <div class=\"application-id\">\n                        <img src=\"https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\" alt=\"MM\" class=\"header-logo\">\n                        <div class=\"user-info\">\n                            <span class=\"username\">Anketos</span>\n                            <span class=\"user-id\">@" + (_0x170c1c.NICK || "N/A") + "</span>\n                        </div>\n                        <span class=\"status-tag " + _0x43416c + "\">" + (_0x170c1c.STATUS || "Peržiūrima") + "</span>\n                    </div>\n                    <div class=\"application-actions\">\n                        <div class=\"application-date\">" + _0x33db13 + "</div>\n                        " + _0x172dcb + "\n                    </div>\n                </div>\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Amžius</div>\n                    <div class=\"field-value\">" + (_0x170c1c.METAI || "N/A") + "</div>\n                </div>\n\n                <div class=\"application-field\">\n                    <div class=\"field-name\">Dėl ko nori i Ganga</div>\n                    <div class=\"field-value\">" + (_0x170c1c.REASON || "N/A") + "</div>\n                </div>\n                \n                " + (_0x30997c ? "\n                <div class=\"application-field\">\n                    <div class=\"field-name\">Atmetimo priežastis</div>\n                    <div class=\"field-value rejection-reason\">" + (_0x170c1c.PRIEŽASTIS || "Nepateikta") + "</div>\n                </div>\n                " : '') + "\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Ar sutiktumėte pasidaryti pc check?</div>\n                    <div class=\"field-value\">" + (_0x170c1c.PCCHECK || "Taip") + "</div>\n                </div>\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Ar išpirkumėte įspėjimą jei jis būtų dėl jūsų kaltės?</div>\n                    <div class=\"field-value\">" + (_0x170c1c.ISP || "Taip") + "</div>\n                </div>\n                \n                <div class=\"rating-row\">\n                    <div class=\"rating-item\">\n                        <div class=\"rating-label\">Pašaudymo lygis</div>\n                        <div class=\"rating-value\">" + (_0x170c1c.PL || '0') + "</div>\n                    </div>\n                    <div class=\"rating-item\">\n                        <div class=\"rating-label\">Komunikavimo lygis</div>\n                        <div class=\"rating-value\">" + (_0x170c1c.KL || '0') + "</div>\n                    </div>\n                </div>\n                \n                <div class=\"bottom-info\">\n                    <img src=\"https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\" alt=\"MM\" class=\"footer-logo\">\n                    Miela Malonu | Anketos\n                </div>\n            </div>\n        ";
+  });
+  return _0x49180c;
+}
+function setupRemoveButtons() {
+  debug("Setting up remove button event listeners");
+  var _0x322314 = document.querySelectorAll('.remove-btn');
+  _0x322314.forEach(_0x56fb60 => {
+    var _0x2f2984 = _0x56fb60.cloneNode(true);
+    _0x56fb60.parentNode.replaceChild(_0x2f2984, _0x56fb60);
+    _0x2f2984.addEventListener("click", function (_0x1ffc6f) {
+      _0x1ffc6f.preventDefault();
+      _0x1ffc6f.stopPropagation();
+      _0x1ffc6f = this.getAttribute("data-id");
+      debug("Remove button clicked for ID:", _0x1ffc6f);
+      if (_0x1ffc6f) {
+        removeApplication(_0x1ffc6f);
+      }
+    });
+  });
+  debug("Total remove buttons with listeners:", _0x322314.length);
+}
+async function fetchApplications(_0x43b758 = null) {
+  debug("Fetching applications for user:", _0x43b758);
+  var _0x2d78f7 = document.getElementById('content');
+  _0x2d78f7.innerHTML = "<div class=\"loading\">Loading application data...</div>";
+  try {
+    let _0x208c46 = "https://supa.mielamalonu.com/api/supabase/Anketos?select=ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON";
+    // If "PRIEŽASTIS" is no longer needed, you can remove it from the select query as well.
+    // However, it won't cause issues if you leave it here and simply don't display it.
+    // To remove: `ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON,PRIEŽASTIS`
+    debug("Fetch URL:", _0x208c46);
+    var _0x4fe81c = await fetch(_0x208c46, {
+      'headers': {
+        'apikey': "cbb",
+        'Authorization': "Bearer cbb"
+      }
+    });
+    if (!_0x4fe81c.ok) {
+      throw new Error("HTTP error! Status: " + _0x4fe81c.status);
+    }
+    var _0x4160b9 = await _0x4fe81c.json();
+    debug('Received', _0x4160b9.length, "applications");
+    _0x2d78f7.innerHTML = createDiscordEmbeds(_0x4160b9);
+    setupRemoveButtons();
+  } catch (_0x41a8dc) {
+    debug("Error fetching data:", _0x41a8dc);
+    console.error("Error fetching data:", _0x41a8dc);
+    _0x2d78f7.innerHTML = "<div class=\"error\">Failed to load applications: " + _0x41a8dc.message + "</div>";
+  }
+}
+function setupSearchButton() {
+  const _0x40a2d8 = document.getElementById('searchButton');
+  const _0x441af1 = document.getElementById("userId");
+  _0x40a2d8.addEventListener("click", () => {
+    var _0x307be8 = _0x441af1.value.trim();
+    if (_0x307be8) {
+      window.location.href = "anketos.html?user=" + _0x307be8;
+    }
+  });
+  _0x441af1.addEventListener("keypress", _0x3e0033 => {
+    if ("Enter" === _0x3e0033.key) {
+      _0x40a2d8.click();
+    }
+  });
+}
+function setupAuthButtons() {
+  var _0x19610e = document.getElementById("authenticate-btn");
+  var _0x5d7917 = document.getElementById("cancel-auth-btn");
+  _0x19610e.addEventListener("click", () => {
+    debug("Auth button clicked, opening Discord OAuth popup");
+    hideOAuthPopup();
+    openDiscordAuthPopup();
+  });
+  _0x5d7917.addEventListener("click", () => {
+    debug("Cancel auth button clicked");
+    pendingAppIdToDelete = null;
+    hideOAuthPopup();
+  });
+}
+document.addEventListener("click", function (_0xe4c1e9) {
+  if (_0xe4c1e9.target && _0xe4c1e9.target.classList.contains("remove-btn") && (_0xe4c1e9.preventDefault(), _0xe4c1e9.stopPropagation(), debug("Remove button clicked via delegation for ID:", _0xe4c1e9 = _0xe4c1e9.target.getAttribute('data-id')), _0xe4c1e9)) {
+    removeApplication(_0xe4c1e9);
+  }
+});
+window.addEventListener("message", function (_0x4c6250) {
+  if (_0x4c6250.data && "discord_auth" === _0x4c6250.data.type) {
+    debug("Received message from auth popup:", _0x4c6250.data);
+    handleDiscordAuth(_0x4c6250.data.token);
+  }
+});
+document.addEventListener("DOMContentLoaded", async () => {
+  debug("DOM loaded");
+  setupSearchButton();
+  setupAuthButtons();
+  var _0x178780 = new URLSearchParams(window.location.search).get("user");
+  debug("User ID from URL:", _0x178780);
+  if (_0x178780) {
+    document.getElementById("userId").value = _0x178780;
+  }
+  await fetchApplications(_0x178780);
+});
