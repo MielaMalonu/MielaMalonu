@@ -149,12 +149,10 @@ async function deleteApplication(_0x9fadd3) {
           if (_0x27906d.includes("įspėjimą") && _0x5dee4d) {
             _0x472959.isp = _0x5dee4d.textContent.trim();
           }
-          // REMOVE THIS SECTION
-          /*
-          else if (_0x27906d.includes("Atmetimo priežastis") && _0x5dee4d) {
-              _0x472959.priezastis = _0x5dee4d.textContent.trim();
-          }
-          */
+          // REMOVED: No longer extract 'priezastis' from the DOM if it's not needed.
+          // else if (_0x27906d.includes("Atmetimo priežastis") && _0x5dee4d) {
+          //   _0x472959.priezastis = _0x5dee4d.textContent.trim();
+          // }
         }
       }
     });
@@ -196,7 +194,7 @@ async function deleteApplication(_0x9fadd3) {
       if (_0x324741.ISP === _0x472959.isp) {
         _0x3753bf += 0x3;
       }
-      // REMOVE THIS LINE
+      // REMOVED: No longer compare 'priezastis' for matching if not needed for deletion criteria
       // if (_0x324741.PRIEŽASTIS === _0x472959.priezastis) { _0x3753bf += 0x3; }
       debug("App match score (" + _0x324741.NICK + ", " + formatDate(_0x324741.DATA) + "): " + _0x3753bf);
       if (_0x3753bf > _0x3533c5) {
@@ -222,7 +220,7 @@ async function deleteApplication(_0x9fadd3) {
       _0x5ded9d += "&METAI=eq." + encodeURIComponent(_0xa9739.METAI);
     }
     if (null !== _0xa9739.PL && undefined !== _0xa9739.PL) {
-      _0x5ded9d += "&PL=eq." + encodeURIComponent(_0xa9739.PL);
+      _0x5ded9d += "&PL=eq." + encodeURIComponent(_0xxa9739.PL);
     }
     if (null !== _0xa9739.KL && undefined !== _0xa9739.KL) {
       _0x5ded9d += "&KL=eq." + encodeURIComponent(_0xa9739.KL);
@@ -231,9 +229,9 @@ async function deleteApplication(_0x9fadd3) {
       _0x5ded9d += "&PCCHECK=eq." + encodeURIComponent(_0xa9739.PCCHECK);
     }
     if (_0xa9739.ISP) {
-      _0x5ded9d += "&ISP=eq." + encodeURIComponent(_0xa9739.ISP);
+      _0x5ded9d += "&ISP=eq." + encodeURIComponent(_0xxa9739.ISP);
     }
-    // REMOVE THIS LINE
+    // REMOVED: No longer include 'PRIEŽASTIS' in the delete URL if not needed for the filter.
     // if (_0xa9739.PRIEŽASTIS) { _0x5ded9d += "&PRIEŽASTIS=eq." + encodeURIComponent(_0xa9739.PRIEŽASTIS); }
     debug("Delete URL with all filters:", _0x5ded9d);
     var _0x52c188 = await fetch(_0x5ded9d, {
@@ -289,9 +287,10 @@ function createDiscordEmbeds(_0x290708) {
   _0x290708.forEach(_0x170c1c => {
     var _0x43416c = getStatusClass(_0x170c1c.STATUS);
     var _0x33db13 = formatDate(_0x170c1c.DATA);
-    var _0x30997c = _0x170c1c.STATUS && (_0x170c1c.STATUS.toLowerCase().includes("atmesta") || _0x170c1c.STATUS.toLowerCase().includes("atmestas") || _0x170c1c.STATUS.toLowerCase().includes("rejected"));
+    // This variable _0x30997c is no longer needed if "Atmetimo priežastis" is completely removed.
+    // var _0x30997c = _0x170c1c.STATUS && (_0x170c1c.STATUS.toLowerCase().includes("atmesta") || _0x170c1c.STATUS.toLowerCase().includes("atmestas") || _0x170c1c.STATUS.toLowerCase().includes("rejected"));
     var _0x172dcb = "<button class=\"remove-btn\" data-id=\"" + (_0x170c1c.ID || _0x170c1c.id) + "\">Pašalinti</button>";
-    _0x49180c += "\n            <div class=\"application-item\" data-id=\"" + (_0x170c1c.ID || _0x170c1c.id) + "\">\n                <div class=\"application-header\">\n                    <div class=\"application-id\">\n                        <img src=\"https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\" alt=\"MM\" class=\"header-logo\">\n                        <div class=\"user-info\">\n                            <span class=\"username\">Anketos</span>\n                            <span class=\"user-id\">@" + (_0x170c1c.NICK || "N/A") + "</span>\n                        </div>\n                        <span class=\"status-tag " + _0x43416c + "\">" + (_0x170c1c.STATUS || "Peržiūrima") + "</span>\n                    </div>\n                    <div class=\"application-actions\">\n                        <div class=\"application-date\">" + _0x33db13 + "</div>\n                        " + _0x172dcb + "\n                    </div>\n                </div>\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Amžius</div>\n                    <div class=\"field-value\">" + (_0x170c1c.METAI || "N/A") + "</div>\n                </div>\n\n                <div class=\"application-field\">\n                    <div class=\"field-name\">Dėl ko nori i Ganga</div>\n                    <div class=\"field-value\">" + (_0x170c1c.REASON || "N/A") + "</div>\n                </div>\n                \n                " + (_0x30997c ? "\n                <div class=\"application-field\">\n                    <div class=\"field-name\">Atmetimo priežastis</div>\n                    <div class=\"field-value rejection-reason\">" + (_0x170c1c.PRIEŽASTIS || "Nepateikta") + "</div>\n                </div>\n                " : '') + "\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Ar sutiktumėte pasidaryti pc check?</div>\n                    <div class=\"field-value\">" + (_0x170c1c.PCCHECK || "Taip") + "</div>\n                </div>\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Ar išpirkumėte įspėjimą jei jis būtų dėl jūsų kaltės?</div>\n                    <div class=\"field-value\">" + (_0x170c1c.ISP || "Taip") + "</div>\n                </div>\n                \n                <div class=\"rating-row\">\n                    <div class=\"rating-item\">\n                        <div class=\"rating-label\">Pašaudymo lygis</div>\n                        <div class=\"rating-value\">" + (_0x170c1c.PL || '0') + "</div>\n                    </div>\n                    <div class=\"rating-item\">\n                        <div class=\"rating-label\">Komunikavimo lygis</div>\n                        <div class=\"rating-value\">" + (_0x170c1c.KL || '0') + "</div>\n                    </div>\n                </div>\n                \n                <div class=\"bottom-info\">\n                    <img src=\"https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\" alt=\"MM\" class=\"footer-logo\">\n                    Miela Malonu | Anketos\n                </div>\n            </div>\n        ";
+    _0x49180c += "\n            <div class=\"application-item\" data-id=\"" + (_0x170c1c.ID || _0x170c1c.id) + "\">\n                <div class=\"application-header\">\n                    <div class=\"application-id\">\n                        <img src=\"https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\" alt=\"MM\" class=\"header-logo\">\n                        <div class=\"user-info\">\n                            <span class=\"username\">Anketos</span>\n                            <span class=\"user-id\">@" + (_0x170c1c.NICK || "N/A") + "</span>\n                        </div>\n                        <span class=\"status-tag " + _0x43416c + "\">" + (_0x170c1c.STATUS || "Peržiūrima") + "</span>\n                    </div>\n                    <div class=\"application-actions\">\n                        <div class=\"application-date\">" + _0x33db13 + "</div>\n                        " + _0x172dcb + "\n                    </div>\n                </div>\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Amžius</div>\n                    <div class=\"field-value\">" + (_0x170c1c.METAI || "N/A") + "</div>\n                </div>\n\n                <div class=\"application-field\">\n                    <div class=\"field-name\">Dėl ko nori i Ganga</div>\n                    <div class=\"field-value\">" + (_0x170c1c.REASON || "N/A") + "</div>\n                </div>\n                \n                \n\n                <div class=\"application-field\">\n                    <div class=\"field-name\">Ar sutiktumėte pasidaryti pc check?</div>\n                    <div class=\"field-value\">" + (_0x170c1c.PCCHECK || "Taip") + "</div>\n                </div>\n                \n                <div class=\"application-field\">\n                    <div class=\"field-name\">Ar išpirkumėte įspėjimą jei jis būtų dėl jūsų kaltės?</div>\n                    <div class=\"field-value\">" + (_0x170c1c.ISP || "Taip") + "</div>\n                </div>\n                \n                <div class=\"rating-row\">\n                    <div class=\"rating-item\">\n                        <div class=\"rating-label\">Pašaudymo lygis</div>\n                        <div class=\"rating-value\">" + (_0x170c1c.PL || '0') + "</div>\n                    </div>\n                    <div class=\"rating-item\">\n                        <div class=\"rating-label\">Komunikavimo lygis</div>\n                        <div class=\"rating-value\">" + (_0x170c1c.KL || '0') + "</div>\n                    </div>\n                </div>\n                \n                <div class=\"bottom-info\">\n                    <img src=\"https://cdn.discordapp.com/icons/1325850250027597845/a_390be3fdaab65e28c28d150ca21d93bb.gif?size=1024\" alt=\"MM\" class=\"footer-logo\">\n                    Miela Malonu | Anketos\n                </div>\n            </div>\n        ";
   });
   return _0x49180c;
 }
@@ -318,10 +317,13 @@ async function fetchApplications(_0x43b758 = null) {
   var _0x2d78f7 = document.getElementById('content');
   _0x2d78f7.innerHTML = "<div class=\"loading\">Loading application data...</div>";
   try {
+    // If "PRIEŽASTIS" is no longer needed at all, you can remove it from this select query as well.
+    // Current: "ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON"
+    // If you want to remove it: "ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON"
     let _0x208c46 = "https://supa.mielamalonu.com/api/supabase/Anketos?select=ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON";
-    // If "PRIEŽASTIS" is no longer needed, you can remove it from the select query as well.
-    // However, it won't cause issues if you leave it here and simply don't display it.
-    // To remove: `ID,METAI,PL,KL,PCCHECK,ISP,STATUS,DATA,NICK,REASON,PRIEŽASTIS`
+    if (_0x43b758) {
+      _0x208c46 += "&ID=eq." + encodeURIComponent(_0x43b758);
+    }
     debug("Fetch URL:", _0x208c46);
     var _0x4fe81c = await fetch(_0x208c46, {
       'headers': {
