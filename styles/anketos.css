@@ -240,6 +240,7 @@ h1 {
 .rejection-reason {
     color: #ff3333; /* Red text for rejection reason */
     border-left: 3px solid #ff3333;
+    display:none;
 }
 
 .rating-row {
