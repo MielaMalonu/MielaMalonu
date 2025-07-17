@@ -78,10 +78,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Step 1 -> Step 2 Navigation
     ui.nextStep1Button.addEventListener("click", () => {
-        // FIXED: Added validation to ensure user is logged in before proceeding.
+        // FIX: Add a guard clause to check for a logged-in user.
         if (!appState.currentUser || !appState.currentUser.id) {
             showNotification("error", "❌ Turite prisijungti su Discord, kad tęstumėte!");
-            return;
+            return; // Stop the function here if the user is not logged in.
         }
         goToStep(2);
     });
@@ -256,15 +256,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const isBlacklisted = appState.currentUser ? isUserBlacklisted(appState.currentUser.id, appState.blacklist) : false;
         const isAppOffline = appState.lastStatus !== "online";
-        
-        // Final submit button logic
+        const isLoggedIn = appState.currentUser && appState.currentUser.id;
+
+        // Logic for the final submission button on step 3
         const disableSubmit = isAppOffline || isBlacklisted;
         if (ui.submitButton) {
             ui.submitButton.disabled = disableSubmit;
         }
 
-        // FIXED: First step button should also be disabled if the user isn't logged in.
-        const disableFirstStep = isAppOffline || isBlacklisted || !appState.currentUser;
+        // FIX: The "Next Step" button for step 1 must be disabled if the app is offline OR the user is not logged in.
+        const disableFirstStep = isAppOffline || !isLoggedIn;
         if (ui.nextStep1Button) {
             ui.nextStep1Button.disabled = disableFirstStep;
         }
@@ -278,6 +279,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             ui.form.style.opacity = '1';
         }
     }
+
 
     /**
      * Handles the entire form submission process.
@@ -562,12 +564,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (ui.reviewDiscord) {
                 ui.reviewDiscord.textContent = user.global_name || user.username;
             }
-            showNotification("success", "Sėkmingai prisijungta prie Discord!");
+            // Only show success on initial login, not every profile update
+            // showNotification("success", "Sėkmingai prisijungta prie Discord!");
         } else {
             ui.profileContainer.innerHTML = "";
         }
         
-        const isLoggedIn = !!user;
+        const isLoggedIn = !!(user && user.id);
         ui.discordButton.style.display = isLoggedIn ? "none" : "block";
         ui.profileContainer.style.display = isLoggedIn ? "flex" : "none";
         updateFormAccess();
