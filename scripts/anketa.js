@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         
         if (isBlacklisted) {
-            showNotification("error", "🚫 Jūs esate įtrauktas į juodąjį sąrašą ir negalite teikti anketos!");
+            showNotification("error", "🚫 Jūs esate įtrauktas į BLACKLIST ir negalite pateikti anketos!");
             ui.form.style.pointerEvents = "none";
             ui.form.style.opacity = '0.5';
         } else {
@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.log("User authenticated, ID:", userData.id);
             updateProfileUI(appState.currentUser);
 
-            showNotification("info", "Attempting to add you to the Discord server...");
+            showNotification("info", "Bandoma jus prijungti prie Discord serverio");
             const joined = await joinDiscordServer(userData.id, accessToken);
             if (joined) {
                 showNotification("success", "Sėkmingai prisijungta prie Discord  serverio!");
