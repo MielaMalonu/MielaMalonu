@@ -423,9 +423,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             showNotification("info", "Attempting to add you to the Discord server...");
             const joined = await joinDiscordServer(userData.id, accessToken);
             if (joined) {
-                showNotification("success", "Successfully joined Discord server!");
+                showNotification("success", "Sėkmingai prisijungta prie Discord  serverio!");
             } else {
-                showNotification("warning", "Could not add you to the server automatically. Please join manually if needed.");
+                showNotification("warning", "Nepavyko pridėti prie Discord serverio bandykite prisijungti pats jei nesate prisijunges.");
             }
             
             // Clean up URL and start presence updates
