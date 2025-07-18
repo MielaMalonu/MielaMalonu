@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         API: {
             STATUS_ENDPOINT: "https://supa.mielamalonu.com/api/supabase/Status",
             BLACKLIST_ENDPOINT: "https://supa.mielamalonu.com/api/supabase/Blacklist",
-            ROLE_CHECK_ENDPOINT: "https://mmapi-production.up.railway.app/api/check-role",
+            ROLE_CHECK_ENDPOINT: "https://narys.mielamalonu.com/api/check-role",
             SUBMIT_ENDPOINT: "https://botas-production.up.railway.app/webhook",
             API_KEY: "MIELAMALONU"
         },
