@@ -1,1 +1,304 @@
-function _0x44f4(){var _0x531ea6=['Failed\x20to\x20get\x20Discord\x20user\x20profile','innerHTML','discord_badge_hash','log','icStatusIcon','currentTarget','STEAM\x20NICKAS','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','order','https://cdn.discordapp.com/avatars/','createElement','.nav-button','vardas','icinfo-item\x20ic-missing-info','Error\x20loading\x20warnings:','warningStatus','warningCount','PRIEŽASTIS','loading-spinner','Nepavyko\x20išsiųsti\x20duomenų.\x20Bandykite\x20vėliau.','origin','none','pavarde','hidden','style','div','331512XHjPAA','remove','avatar','.copy-message','data-tab','IC\x20Info\x20pateikta\x20sėkmingai\x20✅','supabase','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','18807LcVibL','3194004VjwhGb','access_token','status-badge\x20badge-danger','.png?size=16\x22\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20onerror=\x22this.onerror=null;\x20this.src=\x27/api/placeholder/16/16\x27;\x22\x20alt=\x22badge\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22badge-text\x22>','.server-members','Error\x20during\x20Discord\x20authentication:','appendChild','href','warning-item','Bearer\x20','length','loginButton','icinfo-item','VARDAS','includes','clipboard','Ispejimai','getElementById','filter','setItem','Per\x20Daug\x20ispėjimų','value','loginError','&response_type=token&scope=identify\x20guilds.members.read','Užpildyta','loginScreen','icStatusBadge','global_name','warn','icon','display','getItem','access_token=','guild_member_flags','Neturi\x20ispėjimų','discord_guild_tag','First\x20warning\x20query\x20failed,\x20trying\x20alternative\x20method:','Error\x20loading\x20IC\x20info:','Error\x20loading\x20recent\x20activity:','active-status','#ic-form-popup\x20input[required]','UŽPILDYTA','.discord-server-icon','username','/api/placeholder/40/40','disabled','guild','getAttribute','741720psiVBX','png','form-status','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22user-container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22primary-user-badge\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20class=\x22badge-icon\x22\x20src=\x22https://cdn.discordapp.com/clan-badges/','discord_avatar','then','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22warning-reason\x22>','rpc','get','substring','Užpildykite\x20visus\x20laukelius\x20teisingai','get_ic_info_by_discord_id','body','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','Rank','\x20Members</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','a_390be3fdaab65e28c28d150ca21d93bb','None','Error\x20fetching\x20Discord\x20invite\x20data:','target','Error\x20submitting\x20form:','forEach','PAVARDĖ','User','STATUSAS','loading','fill-ic-info-btn','Second\x20IC\x20query\x20attempt\x20failed,\x20trying\x20direct\x20query:','querySelectorAll','55824gSUfGk','click','short','inline-block','DATA','discord_username','numeric','userName','catch','statusText','Not\x20Found','querySelector','RANKAS','Normaliai\x20ispėjimų','Failed\x20to\x20fetch\x20Discord\x20profile:\x20','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22warning-date\x22>','.png','<div\x20class=\x22warning-reason\x22>Neturi\x20Ispėjimų</div>','warningsContainer','beforeend','userAvatar','active','7nxpKfx','Member','addEventListener','.close-btn','textContent','all','ic-submit-button','src','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>Statusas:</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22icinfo-status\x20','json','ic-form-popup','approximate_member_count','Neužpildyta','156bzpScg','nick','add','flex','from','Unknown','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>No\x20character\x20information\x20found\x20for\x20your\x20Discord\x20account.</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20id=\x22fill-ic-info-btn\x22\x20class=\x22fill-ic-btn\x22>Užpildyti\x20IC\x20informaciją</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','status-badge\x20badge-success','.tab-content','location','setProperty','isArray','0\x200\x200\x202px\x20rgba(237,\x2066,\x2069,\x200.2)','Authentication\x20failed.\x20Please\x20try\x20again.','4325275FJEgCs','/member','split','status-badge\x20badge-warning','https://discord.com/api/oauth2/authorize?client_id=1263389179249692693&redirect_uri=','toLocaleDateString','rgba(237,\x2066,\x2069,\x200.6)','borderColor','1325850250027597845','https://discord.com/api/users/@me','approximate_presence_count','color','discord_id','icStatusContainer','title','https://cdn.discordapp.com/icons/','https://smodsdsnswwtnbnmzhse.supabase.co','pathname','block','discord_server_id','en-US','name','removeItem','className','\x20Online</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22margin:\x200\x204px;\x22>•</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span>','Unknown\x20date','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','steam-nick','select','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','Error\x20loading\x20dashboard\x20data:','dashboard','#3ba55c','logoutBtn','hash','trim','</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22username-text\x22>','error','boxShadow','classList','guild_id','steam-link','#ed4245','#ic-form-popup\x20input','10230471EWaJqj','roles','Could\x20not\x20fetch\x20guild\x20member\x20info\x20for\x20guild\x20','insertAdjacentHTML'];_0x44f4=function(){return _0x531ea6;};return _0x44f4();}var _0x2ff475=_0x5734;function _0x5734(_0x346a4a,_0x5e8fed){var _0x44f462=_0x44f4();return _0x5734=function(_0x5734f3,_0x207477){_0x5734f3=_0x5734f3-0x10e;var _0x50d938=_0x44f462[_0x5734f3];return _0x50d938;},_0x5734(_0x346a4a,_0x5e8fed);}(function(_0x1e5905,_0x202e3d){var _0x49133e=_0x5734,_0x52d490=_0x1e5905();while(!![]){try{var _0x5ec0b7=parseInt(_0x49133e(0x110))/0x1+parseInt(_0x49133e(0x1c4))/0x2+-parseInt(_0x49133e(0x193))/0x3*(-parseInt(_0x49133e(0x133))/0x4)+-parseInt(_0x49133e(0x141))/0x5+-parseInt(_0x49133e(0x194))/0x6*(parseInt(_0x49133e(0x126))/0x7)+parseInt(_0x49133e(0x18b))/0x8+parseInt(_0x49133e(0x16d))/0x9;if(_0x5ec0b7===_0x202e3d)break;else _0x52d490['push'](_0x52d490['shift']());}catch(_0x39fa19){_0x52d490['push'](_0x52d490['shift']());}}}(_0x44f4,0x6e568),document[_0x2ff475(0x128)]('DOMContentLoaded',function(){var _0x220c9a=_0x2ff475;const _0x277a96=_0x220c9a(0x145)+encodeURIComponent(window['location'][_0x220c9a(0x185)]+window[_0x220c9a(0x13c)][_0x220c9a(0x152)])+_0x220c9a(0x1ab),_0x59641f=window[_0x220c9a(0x191)]['createClient'](_0x220c9a(0x151),'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtb2RzZHNuc3d3dG5ibm16aHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjUyOTAsImV4cCI6MjA1NzIwMTI5MH0.zMdjymIaGU66_y6X-fS8nKnrWgJjXgw7NgXPBIzVCiI'),_0x409abd=document[_0x220c9a(0x10f)](_0x220c9a(0x17c)),_0x21becb=document[_0x220c9a(0x10f)](_0x220c9a(0x13b)),_0x523eef=document['getElementById'](_0x220c9a(0x1ad));var _0x148840,_0x2e85cc,_0x135d4b,_0x143b45,_0xf6a903,_0x164b5c=document[_0x220c9a(0x1a5)](_0x220c9a(0x19f));const _0x267b60=document[_0x220c9a(0x1a5)](_0x220c9a(0x124)),_0x452f47=document['getElementById'](_0x220c9a(0x117)),_0x5b59ac=document[_0x220c9a(0x1a5)](_0x220c9a(0x162)),_0x156d43=document[_0x220c9a(0x1a5)](_0x220c9a(0x1aa)),_0x6315b4=document['getElementById'](_0x220c9a(0x122)),_0x132419=document[_0x220c9a(0x1a5)](_0x220c9a(0x14e)),_0x291eca=document[_0x220c9a(0x1a5)]('gangDetailsContainer');function _0x877a9a(_0x2e89af,_0x11eec9,_0x492c89,_0xfb9596,_0x6d3b7){var _0x21a9f7=_0x220c9a;_0xfb9596&&_0x6d3b7&&_0x492c89?_0x452f47['innerHTML']=_0x21a9f7(0x1c7)+_0xfb9596+'/'+_0x6d3b7+_0x21a9f7(0x197)+_0x492c89+_0x21a9f7(0x165)+(_0x2e89af||_0x21a9f7(0x1db))+_0x21a9f7(0x15b):_0x452f47['textContent']=_0x2e89af||_0x21a9f7(0x1db),_0x267b60[_0x21a9f7(0x12d)]=_0x11eec9||_0x21a9f7(0x1c0);}function _0x5e371e(){var _0x584a21=_0x220c9a;_0x523eef[_0x584a21(0x189)][_0x584a21(0x1b2)]=_0x584a21(0x186),document[_0x584a21(0x1a5)](_0x584a21(0x160))[_0x584a21(0x168)][_0x584a21(0x135)](_0x584a21(0x125)),_0x409abd[0x0][_0x584a21(0x168)][_0x584a21(0x135)](_0x584a21(0x125));}function _0x3d50c5(){var _0x343664=_0x220c9a;_0x523eef['style']['display']='block',_0x21becb['forEach'](_0xc65a21=>_0xc65a21[_0x343664(0x168)][_0x343664(0x18c)](_0x343664(0x125))),_0x409abd['forEach'](_0xe12709=>_0xe12709[_0x343664(0x168)][_0x343664(0x18c)](_0x343664(0x125)));}async function _0x105d3c(_0x460665){var _0x1da858=_0x220c9a;try{await Promise[_0x1da858(0x12b)]([async function(_0x3cb524){var _0x195b62=_0x1da858;try{var _0x97e800=String(_0x3cb524);let {data:_0x238545,error:_0x2bc5bb}=await _0x59641f[_0x195b62(0x137)]('Ispejimai')[_0x195b62(0x15d)]('*')[_0x195b62(0x1a6)]('ID','eq',_0x97e800)[_0x195b62(0x179)](_0x195b62(0x114),{'ascending':!0x1});if(_0x2bc5bb&&(console['warn'](_0x195b62(0x1b8),_0x2bc5bb),{data:_0x238545,error:_0x2bc5bb}=await _0x59641f['from'](_0x195b62(0x1a4))[_0x195b62(0x15d)]('*')['eq']('ID',_0x97e800)[_0x195b62(0x179)](_0x195b62(0x114),{'ascending':!0x1})),_0x2bc5bb)throw _0x2bc5bb;var _0x270924,_0x28a50a=document['getElementById'](_0x195b62(0x181));return _0x28a50a&&(_0x28a50a[_0x195b62(0x12a)]=_0x238545?_0x238545[_0x195b62(0x19e)]:0x0,_0x270924=document[_0x195b62(0x1a5)](_0x195b62(0x180)))&&(_0x238545&&0x0!==_0x238545[_0x195b62(0x19e)]?_0x238545['length']<0x3?(_0x270924[_0x195b62(0x12a)]=_0x195b62(0x11d),_0x270924[_0x195b62(0x158)]=_0x195b62(0x144)):(_0x270924['textContent']=_0x195b62(0x1a8),_0x270924[_0x195b62(0x158)]=_0x195b62(0x196)):(_0x270924[_0x195b62(0x12a)]=_0x195b62(0x1b6),_0x270924[_0x195b62(0x158)]=_0x195b62(0x13a))),_0x565bbc(_0x238545||[]),_0x238545;}catch(_0x520abb){return console[_0x195b62(0x166)](_0x195b62(0x17f),_0x520abb),_0x565bbc([]),[];}}(_0x460665),_0x5e5865(_0x460665),async function(_0xf31bfe){var _0x47ad93=_0x1da858;try{return console[_0x47ad93(0x174)]('Loading\x20recent\x20activity\x20for\x20user:',_0xf31bfe),[];}catch(_0x2f93b9){return console[_0x47ad93(0x166)](_0x47ad93(0x1ba),_0x2f93b9),[];}}(_0x460665)]),fetch('https://discordapp.com/api/invites/VfC3Ay86cW?with_counts=true')[_0x1da858(0x1c9)](_0x5344b7=>_0x5344b7[_0x1da858(0x12f)]())[_0x1da858(0x1c9)](_0xd3f2e8=>{var _0xe1111=_0x1da858,_0x17caea=document[_0xe1111(0x11b)](_0xe1111(0x198)),_0x17caea=(_0x17caea&&(_0x17caea[_0xe1111(0x172)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22online-indicator\x22></span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span>'+_0xd3f2e8[_0xe1111(0x14b)]+_0xe1111(0x159)+_0xd3f2e8[_0xe1111(0x131)]+_0xe1111(0x1d3)),document[_0xe1111(0x11b)]('.discord-server-name')),_0x17caea=(_0x17caea&&_0xd3f2e8[_0xe1111(0x1c2)]&&_0xd3f2e8[_0xe1111(0x1c2)][_0xe1111(0x156)]&&(_0x17caea[_0xe1111(0x12a)]=_0xd3f2e8[_0xe1111(0x1c2)]['name']),document['querySelector'](_0xe1111(0x1be)));_0x17caea&&_0xd3f2e8[_0xe1111(0x1c2)]&&_0xd3f2e8[_0xe1111(0x1c2)][_0xe1111(0x1b1)]&&(_0xd3f2e8=_0xe1111(0x150)+_0xd3f2e8[_0xe1111(0x1c2)]['id']+'/'+_0xd3f2e8['guild'][_0xe1111(0x1b1)]+'.'+(_0xd3f2e8['guild'][_0xe1111(0x1b1)]['startsWith']('a_')?'gif':_0xe1111(0x1c5))+'?size=1024',_0x17caea[_0xe1111(0x12d)]=_0xd3f2e8);})[_0x1da858(0x118)](_0x4a9881=>{var _0x25ce92=_0x1da858;console[_0x25ce92(0x166)](_0x25ce92(0x1d6),_0x4a9881);});}catch(_0x1d67bb){console[_0x1da858(0x166)](_0x1da858(0x15f),_0x1d67bb);}}function _0x565bbc(_0x39df5){var _0x3cfb11=_0x220c9a;_0x6315b4&&(_0x6315b4[_0x3cfb11(0x172)]='',_0x39df5&&0x0!==_0x39df5[_0x3cfb11(0x19e)]?_0x39df5['forEach']((_0x370b3e,_0x1f7be6)=>{var _0x411c60=_0x3cfb11,_0x32200c=document[_0x411c60(0x17b)](_0x411c60(0x18a));_0x32200c[_0x411c60(0x158)]=_0x411c60(0x19c),_0x32200c['style'][_0x411c60(0x13d)]('--item-delay',_0x1f7be6);let _0x28d76e=_0x411c60(0x15a);if(_0x370b3e[_0x411c60(0x114)])try{var _0x4a8e54=new Date(_0x370b3e[_0x411c60(0x114)]);_0x28d76e=_0x4a8e54[_0x411c60(0x146)](_0x411c60(0x155),{'month':_0x411c60(0x112),'day':'numeric','year':_0x411c60(0x116)});}catch(_0x1e0488){console[_0x411c60(0x166)]('Error\x20formatting\x20date:',_0x1e0488);}_0x32200c[_0x411c60(0x172)]=_0x411c60(0x1ca)+(_0x370b3e[_0x411c60(0x182)]||'Unknown\x20reason')+_0x411c60(0x11f)+_0x28d76e+_0x411c60(0x15e),_0x6315b4['appendChild'](_0x32200c);}):((_0x39df5=document[_0x3cfb11(0x17b)](_0x3cfb11(0x18a)))[_0x3cfb11(0x158)]=_0x3cfb11(0x19c),_0x39df5['innerHTML']=_0x3cfb11(0x121),_0x6315b4['appendChild'](_0x39df5)));}async function _0x5e5865(_0xe2d9dd){var _0x13efd4=_0x220c9a;try{var _0x390b5b,_0x4ec7e0,_0x435c8b=String(_0xe2d9dd);let {data:_0x3233d1,error:_0x198d91}=await _0x59641f[_0x13efd4(0x137)]('IC')[_0x13efd4(0x15d)]('*')[_0x13efd4(0x1a6)]('DISCORD_ID','eq',_0x435c8b);if((_0x198d91||Array['isArray'](_0x3233d1)&&0x0===_0x3233d1['length'])&&(console[_0x13efd4(0x174)]('First\x20IC\x20query\x20attempt\x20failed,\x20trying\x20text\x20comparison:',_0x198d91),{data:_0x3233d1,error:_0x198d91}=await _0x59641f['from']('IC')['select']('*')['ilike']('ID',_0x435c8b),_0x198d91||Array[_0x13efd4(0x13e)](_0x3233d1)&&0x0===_0x3233d1[_0x13efd4(0x19e)])){console['log'](_0x13efd4(0x10e),_0x198d91);try{var {data:_0x5425f5,error:_0x3a8bb5}=await _0x59641f[_0x13efd4(0x1cb)](_0x13efd4(0x1cf),{'discord_id_param':_0x435c8b});!_0x3a8bb5&&_0x5425f5&&0x0<_0x5425f5[_0x13efd4(0x19e)]&&(_0x3233d1=_0x5425f5,_0x198d91=null);}catch(_0x538f31){console[_0x13efd4(0x1b0)]('RPC\x20call\x20failed:',_0x538f31);}}if(Array[_0x13efd4(0x13e)](_0x3233d1)&&0x0<_0x3233d1[_0x13efd4(0x19e)]&&(_0x3233d1=_0x3233d1[0x0]),_0x198d91)throw _0x198d91;if(_0x3233d1)return _0x390b5b=document[_0x13efd4(0x1a5)](_0x13efd4(0x175)),_0x4ec7e0=document[_0x13efd4(0x1a5)](_0x13efd4(0x1ae)),_0x390b5b&&_0x4ec7e0&&_0x3233d1&&(_0x13efd4(0x1bd)===_0x3233d1[_0x13efd4(0x1dc)]?(_0x390b5b['style'][_0x13efd4(0x14c)]=_0x13efd4(0x161),_0x4ec7e0['textContent']=_0x13efd4(0x1ac),_0x4ec7e0[_0x13efd4(0x158)]=_0x13efd4(0x13a)):(_0x390b5b[_0x13efd4(0x189)]['color']='#ed4245',_0x4ec7e0[_0x13efd4(0x12a)]=_0x13efd4(0x132),_0x4ec7e0[_0x13efd4(0x158)]=_0x13efd4(0x196))),_0x4804ee=_0x3233d1,_0x132419&&_0x291eca&&(_0x132419['innerHTML']='',_0x291eca['innerHTML']='',_0x4804ee?((_0x479d26=document[_0x13efd4(0x17b)](_0x13efd4(0x18a)))[_0x13efd4(0x158)]=_0x13efd4(0x1a0),_0x479d26[_0x13efd4(0x172)]=_0x13efd4(0x12e)+('UŽPILDYTA'===_0x4804ee['STATUSAS']?_0x13efd4(0x1bb):'inactive-status')+_0x13efd4(0x178)+(_0x4804ee[_0x13efd4(0x1dc)]||_0x13efd4(0x138))+_0x13efd4(0x1d1),_0x132419['appendChild'](_0x479d26),(_0x479d26=document[_0x13efd4(0x17b)](_0x13efd4(0x18a)))['className']=_0x13efd4(0x1a0),_0x479d26['innerHTML']='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>Vardas\x20Pavardė:</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>'+(_0x4804ee[_0x13efd4(0x1a1)]||_0x13efd4(0x138))+'\x20'+(_0x4804ee[_0x13efd4(0x1da)]||'')+_0x13efd4(0x192),_0x132419[_0x13efd4(0x19a)](_0x479d26),(_0x479d26=document[_0x13efd4(0x17b)]('div'))[_0x13efd4(0x158)]=_0x13efd4(0x1a0),_0x479d26[_0x13efd4(0x172)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>Steamo\x20Nickas:</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>'+(_0x4804ee[_0x13efd4(0x177)]||_0x13efd4(0x138))+'</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20',_0x132419[_0x13efd4(0x19a)](_0x479d26),(_0x479d26=document['createElement'](_0x13efd4(0x18a)))[_0x13efd4(0x158)]=_0x13efd4(0x1a0),_0x479d26['innerHTML']='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>Rankas:</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>'+(_0x4804ee[_0x13efd4(0x11c)]||_0x13efd4(0x1d5))+_0x13efd4(0x192),_0x291eca[_0x13efd4(0x19a)](_0x479d26)):_0x58b954()),_0x3233d1;throw new Error('No\x20IC\x20info\x20found\x20for\x20this\x20user');}catch(_0x1586a1){return console[_0x13efd4(0x166)](_0x13efd4(0x1b9),_0x1586a1),_0x58b954(),(_0xe2d9dd=document[_0x13efd4(0x1a5)](_0x13efd4(0x175)),_0x435c8b=document[_0x13efd4(0x1a5)]('icStatusBadge')),(_0xe2d9dd&&_0x435c8b&&(_0xe2d9dd[_0x13efd4(0x189)]['color']=_0x13efd4(0x16b),_0x435c8b[_0x13efd4(0x12a)]=_0x13efd4(0x11a),_0x435c8b['className']=_0x13efd4(0x196)),null);}var _0x4804ee,_0x479d26;}function _0x58b954(){var _0xd39edb=_0x220c9a,_0x57da6f;_0x132419&&_0x291eca&&(_0x132419[_0xd39edb(0x172)]='',_0x291eca[_0xd39edb(0x172)]='',(_0x57da6f=document[_0xd39edb(0x17b)](_0xd39edb(0x18a)))[_0xd39edb(0x158)]='icinfo-item',_0x57da6f[_0xd39edb(0x172)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>Statusas:</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22icinfo-status\x20inactive-status\x22>Not\x20Found</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20',_0x132419[_0xd39edb(0x19a)](_0x57da6f),(_0x57da6f=document[_0xd39edb(0x17b)]('div'))['className']=_0xd39edb(0x17e),_0x57da6f[_0xd39edb(0x172)]=_0xd39edb(0x139),_0x291eca[_0xd39edb(0x19a)](_0x57da6f),(_0x57da6f=document[_0xd39edb(0x1a5)](_0xd39edb(0x1de)))&&_0x57da6f[_0xd39edb(0x128)](_0xd39edb(0x111),_0x584d34),_0x2e8357(),document[_0xd39edb(0x10f)](_0xd39edb(0x16c))[_0xd39edb(0x1d9)](_0x478353=>{var _0x4dd8f8=_0xd39edb;_0x478353[_0x4dd8f8(0x128)]('input',function(){var _0x235959=_0x4dd8f8;this[_0x235959(0x189)]['borderColor']='',this[_0x235959(0x189)][_0x235959(0x167)]='';});}));}function _0x2e8357(){var _0x40eeca=_0x220c9a;if(!document[_0x40eeca(0x1a5)](_0x40eeca(0x130))){document[_0x40eeca(0x1d0)][_0x40eeca(0x170)](_0x40eeca(0x123),'\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22ic-form-popup\x22\x20class=\x22popup-container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22popup-content\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22popup-header\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>IC\x20Info\x20anketa</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22close-btn\x22>&times;</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22popup-body\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22form-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22vardas\x22>Vardas</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22vardas\x22\x20placeholder=\x22Įveskite\x20vardą\x22\x20required>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22form-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22pavarde\x22>Pavardė</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22pavarde\x22\x20placeholder=\x22Įveskite\x20pavardę\x22\x20required>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22form-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22steam-nick\x22>Steam\x20Nickas</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22steam-nick\x22\x20placeholder=\x22Įveskite\x20Steam\x20slapyvardį\x22\x20required>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22form-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22steam-link\x22>Steam\x20Nuoroda</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22url\x22\x20id=\x22steam-link\x22\x20placeholder=\x22https://steamcommunity.com/id/...\x22\x20required>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22ic-form-status\x22\x20class=\x22form-status\x22></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20id=\x22ic-submit-button\x22\x20class=\x22submit-button\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20id=\x22submit-text\x22>Pateikti</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20id=\x22loading-spinner\x22\x20class=\x22spinner\x20hidden\x22></span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>');const _0x3f9494=document[_0x40eeca(0x1a5)]('ic-form-popup');var _0x18a779=_0x3f9494[_0x40eeca(0x11b)](_0x40eeca(0x129)),_0x487fd3=document[_0x40eeca(0x1a5)](_0x40eeca(0x12c));_0x18a779[_0x40eeca(0x128)](_0x40eeca(0x111),()=>{var _0x5a2e42=_0x40eeca;_0x3f9494[_0x5a2e42(0x189)][_0x5a2e42(0x1b2)]='none';}),window[_0x40eeca(0x128)]('click',_0x26c7e2=>{var _0x3041e7=_0x40eeca;_0x26c7e2[_0x3041e7(0x1d7)]===_0x3f9494&&(_0x3f9494[_0x3041e7(0x189)][_0x3041e7(0x1b2)]='none');}),_0x487fd3[_0x40eeca(0x128)]('click',_0x5a7a17);}}function _0x584d34(){var _0x542480=_0x220c9a;_0x2e8357(),document[_0x542480(0x1a5)](_0x542480(0x130))[_0x542480(0x189)]['display']=_0x542480(0x136);}async function _0x5a7a17(){var _0x4bdc0e=_0x220c9a;if((function(){var _0x2aabda=_0x5734,_0xda55f1=document[_0x2aabda(0x10f)](_0x2aabda(0x1bc));let _0x28b275=!0x0;return _0xda55f1['forEach'](_0x259eae=>{var _0x5ae34d=_0x2aabda;_0x259eae[_0x5ae34d(0x1a9)][_0x5ae34d(0x164)]()?(_0x259eae[_0x5ae34d(0x189)][_0x5ae34d(0x148)]='',_0x259eae['style'][_0x5ae34d(0x167)]=''):(_0x259eae[_0x5ae34d(0x189)][_0x5ae34d(0x148)]=_0x5ae34d(0x147),_0x259eae['style'][_0x5ae34d(0x167)]=_0x5ae34d(0x13f),_0x28b275=!0x1);}),(_0xda55f1=document['getElementById'](_0x2aabda(0x16a)))[_0x2aabda(0x1a9)]&&!_0xda55f1[_0x2aabda(0x1a9)][_0x2aabda(0x1a2)]('steamcommunity.com')&&(_0xda55f1[_0x2aabda(0x189)]['borderColor']='rgba(237,\x2066,\x2069,\x200.6)',_0xda55f1['style'][_0x2aabda(0x167)]='0\x200\x200\x202px\x20rgba(237,\x2066,\x2069,\x200.2)',_0x28b275=!0x1),_0x28b275;}())){var _0xffff21=document['getElementById'](_0x4bdc0e(0x17d))['value'][_0x4bdc0e(0x164)](),_0x1a582d=document['getElementById'](_0x4bdc0e(0x187))[_0x4bdc0e(0x1a9)]['trim'](),_0x35e626=document['getElementById'](_0x4bdc0e(0x15c))[_0x4bdc0e(0x1a9)]['trim'](),_0x49dfd9=document[_0x4bdc0e(0x1a5)](_0x4bdc0e(0x16a))[_0x4bdc0e(0x1a9)]['trim'](),_0x7db4=localStorage[_0x4bdc0e(0x1b3)](_0x4bdc0e(0x14d)),_0x37b988=localStorage[_0x4bdc0e(0x1b3)](_0x4bdc0e(0x115));if(_0x7db4&&_0x37b988){const _0x131671=document[_0x4bdc0e(0x1a5)]('ic-submit-button'),_0x144a3f=document[_0x4bdc0e(0x1a5)](_0x4bdc0e(0x183));_0x131671[_0x4bdc0e(0x1c1)]=!0x0,_0x131671[_0x4bdc0e(0x168)][_0x4bdc0e(0x135)](_0x4bdc0e(0x1dd)),_0x144a3f['classList']['remove'](_0x4bdc0e(0x188)),_0x7db4={'DISCORD_ID':_0x7db4,'USERIS':_0x37b988,'VARDAS':_0xffff21,'PAVARDĖ':_0x1a582d,'STEAM\x20NICKAS':_0x35e626,'STEAM\x20LINKAS':_0x49dfd9,'STATUSAS':_0x4bdc0e(0x1bd)};try{var _0xb0f62e=(await _0x59641f[_0x4bdc0e(0x137)]('IC')['insert']([_0x7db4]))[_0x4bdc0e(0x166)];if(_0xb0f62e)throw _0xb0f62e;_0xbbf120(_0x4bdc0e(0x190),'success'),document[_0x4bdc0e(0x10f)](_0x4bdc0e(0x16c))[_0x4bdc0e(0x1d9)](_0x3f93b6=>{var _0x209a11=_0x4bdc0e;_0x3f93b6['value']='',_0x3f93b6['style'][_0x209a11(0x148)]='',_0x3f93b6['style'][_0x209a11(0x167)]='';}),setTimeout(()=>{var _0x30e730=_0x4bdc0e;document[_0x30e730(0x1a5)](_0x30e730(0x130))[_0x30e730(0x189)][_0x30e730(0x1b2)]=_0x30e730(0x186);var _0x38ccf6=localStorage['getItem']('discord_id');_0x38ccf6&&_0x5e5865(_0x38ccf6);},0x7d0);}catch(_0x994ce7){console[_0x4bdc0e(0x166)](_0x4bdc0e(0x1d8),_0x994ce7),_0xbbf120(_0x4bdc0e(0x184),_0x4bdc0e(0x166));}finally{setTimeout(()=>{var _0x3233b2=_0x4bdc0e;_0x131671['disabled']=!0x1,_0x131671[_0x3233b2(0x168)][_0x3233b2(0x18c)](_0x3233b2(0x1dd)),_0x144a3f[_0x3233b2(0x168)][_0x3233b2(0x135)]('hidden');},0x1f4);}}else _0xbbf120('Nepavyko\x20gauti\x20Discord\x20informacijos',_0x4bdc0e(0x166));}else _0xbbf120(_0x4bdc0e(0x1ce),_0x4bdc0e(0x166));}function _0xbbf120(_0x46fa12,_0x34af27){var _0x3dcd94=_0x220c9a;const _0x4d31ee=document[_0x3dcd94(0x1a5)]('ic-form-status');_0x4d31ee[_0x3dcd94(0x12a)]=_0x46fa12,_0x4d31ee['className']=_0x3dcd94(0x1c6),_0x4d31ee['classList'][_0x3dcd94(0x135)](_0x34af27),setTimeout(()=>{var _0x487d4a=_0x3dcd94;_0x4d31ee[_0x487d4a(0x12a)]='',_0x4d31ee[_0x487d4a(0x158)]='form-status';},0x1388);}_0x409abd['forEach'](_0x419661=>{var _0x325b11=_0x220c9a;_0x419661['addEventListener'](_0x325b11(0x111),()=>{var _0x4f8abb=_0x325b11,_0x4f63cf;_0x4f63cf=_0x419661,_0x4f8abb(0x186)===_0x523eef['style']['display']&&(_0x409abd[_0x4f8abb(0x1d9)](_0x320b0c=>_0x320b0c[_0x4f8abb(0x168)][_0x4f8abb(0x18c)](_0x4f8abb(0x125))),_0x21becb[_0x4f8abb(0x1d9)](_0x482915=>_0x482915['classList'][_0x4f8abb(0x18c)](_0x4f8abb(0x125))),_0x4f63cf[_0x4f8abb(0x168)]['add'](_0x4f8abb(0x125)),_0x4f63cf=_0x4f63cf[_0x4f8abb(0x1c3)](_0x4f8abb(0x18f)),document[_0x4f8abb(0x1a5)](_0x4f63cf)[_0x4f8abb(0x168)][_0x4f8abb(0x135)](_0x4f8abb(0x125)));});}),_0x164b5c['addEventListener']('click',function(){var _0x4ea577=_0x220c9a;window[_0x4ea577(0x13c)][_0x4ea577(0x19b)]=_0x277a96;}),_0x5b59ac&&_0x5b59ac[_0x220c9a(0x128)]('click',function(){var _0x47dd3c=_0x220c9a;localStorage[_0x47dd3c(0x157)](_0x47dd3c(0x14d)),localStorage['removeItem']('discord_username'),localStorage[_0x47dd3c(0x157)](_0x47dd3c(0x1c8)),localStorage[_0x47dd3c(0x157)](_0x47dd3c(0x1b7)),localStorage[_0x47dd3c(0x157)](_0x47dd3c(0x154)),localStorage[_0x47dd3c(0x157)](_0x47dd3c(0x173)),_0x452f47[_0x47dd3c(0x12a)]='Neprisijungta',_0x267b60['src']=_0x47dd3c(0x1c0),_0x5b59ac[_0x47dd3c(0x189)][_0x47dd3c(0x1b2)]=_0x47dd3c(0x186),_0x3d50c5();}),window[_0x220c9a(0x13c)][_0x220c9a(0x163)]['includes'](_0x220c9a(0x1b4))?(async function(){var _0x3d1899=_0x220c9a;try{var _0x50c894=window[_0x3d1899(0x13c)][_0x3d1899(0x163)][_0x3d1899(0x1cd)](0x1),_0x337df2=new URLSearchParams(_0x50c894)[_0x3d1899(0x1cc)](_0x3d1899(0x195));if(!_0x337df2)throw new Error('No\x20access\x20token\x20found');var _0x1cf5cd=await async function(_0x2c5a7c){var _0x2c8521=_0x3d1899;try{var _0x197daf=await fetch(_0x2c8521(0x14a),{'headers':{'Authorization':_0x2c8521(0x19d)+_0x2c5a7c}});if(_0x197daf['ok'])return await _0x197daf[_0x2c8521(0x12f)]();throw new Error(_0x2c8521(0x11e)+_0x197daf['statusText']);}catch(_0x5937ec){throw console['error']('Error\x20fetching\x20Discord\x20profile:',_0x5937ec),_0x5937ec;}}(_0x337df2);if(!_0x1cf5cd||!_0x1cf5cd['id'])throw new Error(_0x3d1899(0x171));var _0x232254=await async function(_0x3ffde4,_0x3760a2){var _0x2adec1=_0x3d1899;try{var _0xacdbbf=await fetch('https://discord.com/api/users/@me/guilds/'+_0x3760a2+_0x2adec1(0x142),{'headers':{'Authorization':_0x2adec1(0x19d)+_0x3ffde4}});return _0xacdbbf['ok']?await _0xacdbbf[_0x2adec1(0x12f)]():(console[_0x2adec1(0x1b0)](_0x2adec1(0x16f)+_0x3760a2+':\x20'+_0xacdbbf[_0x2adec1(0x119)]),null);}catch(_0x4da58a){return console['error']('Error\x20fetching\x20Discord\x20guild\x20member\x20info:',_0x4da58a),null;}}(_0x337df2,(_0x1cf5cd['id'],_0x3d1899(0x149)));let _0x13b2be=null,_0x3b252b=null,_0x46312d=null;_0x232254&&_0x3d1899(0x149)===_0x232254[_0x3d1899(0x169)]&&(_0x13b2be=_0x232254[_0x3d1899(0x1b5)]?_0x3d1899(0x127):null,_0x3b252b='1325850250027597845',_0x46312d=_0x3d1899(0x1d4),_0x232254['nick']?_0x13b2be=_0x232254[_0x3d1899(0x134)][_0x3d1899(0x143)]('\x20')[0x0]:_0x232254[_0x3d1899(0x16e)]&&0x0<_0x232254[_0x3d1899(0x16e)][_0x3d1899(0x19e)]&&(_0x13b2be=_0x3d1899(0x1d2))),localStorage[_0x3d1899(0x1a7)](_0x3d1899(0x14d),_0x1cf5cd['id']),localStorage[_0x3d1899(0x1a7)](_0x3d1899(0x115),_0x1cf5cd[_0x3d1899(0x1af)]||_0x1cf5cd[_0x3d1899(0x1bf)]),localStorage[_0x3d1899(0x1a7)](_0x3d1899(0x1b7),_0x13b2be),localStorage[_0x3d1899(0x1a7)](_0x3d1899(0x154),_0x3b252b),localStorage[_0x3d1899(0x1a7)](_0x3d1899(0x173),_0x46312d);var _0x3de12e=_0x1cf5cd['avatar']?_0x3d1899(0x17a)+_0x1cf5cd['id']+'/'+_0x1cf5cd[_0x3d1899(0x18d)]+_0x3d1899(0x120):'/api/placeholder/40/40';localStorage['setItem'](_0x3d1899(0x1c8),_0x3de12e),_0x877a9a(_0x1cf5cd['global_name']||_0x1cf5cd[_0x3d1899(0x1bf)],_0x3de12e,_0x13b2be,_0x3b252b,_0x46312d),_0x5e371e(),_0x105d3c(_0x1cf5cd['id']),_0x5b59ac[_0x3d1899(0x189)][_0x3d1899(0x1b2)]=_0x3d1899(0x113),window['history']['replaceState']({},document[_0x3d1899(0x14f)],window[_0x3d1899(0x13c)][_0x3d1899(0x152)]);}catch(_0xb3b958){console[_0x3d1899(0x166)](_0x3d1899(0x199),_0xb3b958),_0x156d43&&(_0x156d43[_0x3d1899(0x12a)]=_0x3d1899(0x140),_0x156d43['style'][_0x3d1899(0x1b2)]=_0x3d1899(0x153)),_0x3d50c5();}}()):(_0x164b5c=localStorage[_0x220c9a(0x1b3)]('discord_id'),_0x148840=localStorage[_0x220c9a(0x1b3)](_0x220c9a(0x115)),_0x2e85cc=localStorage[_0x220c9a(0x1b3)](_0x220c9a(0x1c8)),_0x135d4b=localStorage[_0x220c9a(0x1b3)](_0x220c9a(0x1b7)),_0x143b45=localStorage[_0x220c9a(0x1b3)]('discord_server_id'),_0xf6a903=localStorage[_0x220c9a(0x1b3)]('discord_badge_hash'),_0x164b5c?(_0x877a9a(_0x148840,_0x2e85cc,_0x135d4b,_0x143b45,_0xf6a903),_0x5e371e(),_0x105d3c(_0x164b5c),_0x5b59ac[_0x220c9a(0x189)]['display']=_0x220c9a(0x113)):(_0x3d50c5(),_0x5b59ac['style'][_0x220c9a(0x1b2)]=_0x220c9a(0x186))),window['copyToClipboard']=function(_0x48c07d){var _0x36f2a3=_0x220c9a;const _0x31a368=event[_0x36f2a3(0x176)][_0x36f2a3(0x11b)](_0x36f2a3(0x18e));navigator[_0x36f2a3(0x1a3)]['writeText'](_0x48c07d)[_0x36f2a3(0x1c9)](()=>{var _0x50923e=_0x36f2a3;_0x31a368['style'][_0x50923e(0x1b2)]=_0x50923e(0x153),setTimeout(()=>{var _0x10c83f=_0x50923e;_0x31a368[_0x10c83f(0x189)]['display']=_0x10c83f(0x186);},0x7d0);});};}));
+document.addEventListener('DOMContentLoaded', function () {
+    // --- Konfiguracija ---
+    const config = {
+        API: {
+            BASE_URL: "https://supa.mielamalonu.com/api/supabase", // Tavo API adresas
+            API_KEY: "cbb" // Tavo API raktas (jei tavo API jo reikalauja)
+        },
+        DISCORD: {
+            CLIENT_ID: "1263389179249692693",
+            GUILD_ID: "1325850250027597845", // Tavo serverio ID
+            REDIRECT_URI: window.location.origin + window.location.pathname,
+            SCOPE: "identify guilds.members.read",
+            AUTH_URL: `https://discord.com/api/oauth2/authorize?client_id=1263389179249692693&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}&response_type=token&scope=identify guilds.members.read`
+        },
+        DISCORD_INVITE_API: 'https://discordapp.com/api/invites/VfC3Ay86cW?with_counts=true'
+    };
+
+    // --- DOM Elementai ---
+    const navButtons = document.querySelectorAll(".nav-button");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const loginScreen = document.getElementById("loginScreen");
+    const dashboardScreen = document.getElementById("dashboard");
+    const loginButton = document.getElementById("loginButton");
+    const userAvatar = document.getElementById("userAvatar");
+    const userNameElement = document.getElementById("userName");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const loginError = document.getElementById("loginError");
+    const warningsContainer = document.getElementById("warningsContainer");
+    const icStatusContainer = document.getElementById("icStatusContainer");
+    const gangDetailsContainer = document.getElementById('gangDetailsContainer');
+
+    // --- API PAGALBINĖ FUNKCIJA ---
+    async function apiFetch(endpoint, options = {}) {
+        const url = `${config.API.BASE_URL}${endpoint}`;
+        const headers = {
+            'Content-Type': 'application/json',
+            'apikey': config.API.API_KEY,
+            ...options.headers,
+        };
+
+        const response = await fetch(url, { ...options, headers });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ message: response.statusText }));
+            throw new Error(errorData.message || `API klaida: ${response.status}`);
+        }
+        if (response.status === 204) return;
+        return response.json();
+    }
+
+    // --- VARTOTOJO SĄSAJOS (UI) FUNKCIJOS ---
+
+    function updateProfileUI(username, avatarUrl, guildTag, serverId, badgeHash) {
+        if (serverId && badgeHash && guildTag) {
+            userNameElement.innerHTML = `
+                <div class="user-container">
+                    <span class="primary-user-badge">
+                        <img class="badge-icon" src="https://cdn.discordapp.com/clan-badges/${serverId}/${badgeHash}.png?size=16" onerror="this.onerror=null; this.src='/api/placeholder/16/16';" alt="badge">
+                        <span class="badge-text">${guildTag}</span>
+                    </span>
+                    <span class="username-text">${username || "User"}</span>
+                </div>`;
+        } else {
+            userNameElement.textContent = username || "User";
+        }
+        userAvatar.src = avatarUrl || "/api/placeholder/40/40";
+    }
+
+    function showDashboard() {
+        loginScreen.style.display = 'none';
+        dashboardScreen.classList.add("active");
+        navButtons[0].classList.add("active");
+        logoutBtn.style.display = 'inline-block';
+    }
+
+    function showLoginScreen() {
+        loginScreen.style.display = 'block';
+        dashboardScreen.classList.remove("active");
+        tabContents.forEach(tab => tab.classList.remove("active"));
+        navButtons.forEach(button => button.classList.remove("active"));
+        logoutBtn.style.display = 'none';
+    }
+
+    function displayWarnings(warnings) {
+        if (!warningsContainer) return;
+        warningsContainer.innerHTML = '';
+        if (warnings && warnings.length > 0) {
+            warnings.forEach((warning, index) => {
+                const item = document.createElement("div");
+                item.className = "warning-item";
+                item.style.setProperty('--item-delay', index);
+                let formattedDate = "Nežinoma data";
+                if (warning.DATA) {
+                    try {
+                        formattedDate = new Date(warning.DATA).toLocaleDateString("lt-LT", { month: "short", day: 'numeric', year: "numeric" });
+                    } catch (e) { console.error("Klaida formatuojant datą:", e); }
+                }
+                item.innerHTML = `
+                    <div class="warning-reason">${warning.PRIEŽASTIS || "Nežinoma priežastis"}</div>
+                    <div class="warning-date">${formattedDate}</div>`;
+                warningsContainer.appendChild(item);
+            });
+        } else {
+            const noWarningsItem = document.createElement("div");
+            noWarningsItem.className = "warning-item";
+            noWarningsItem.innerHTML = `<div class="warning-reason">Neturi Įspėjimų</div>`;
+            warningsContainer.appendChild(noWarningsItem);
+        }
+    }
+
+    function displayIcData(icData) {
+        if (icStatusContainer && gangDetailsContainer) {
+            icStatusContainer.innerHTML = `
+                <div class="icinfo-item">
+                    <div>Statusas:</div>
+                    <div class="icinfo-status ${icData.STATUSAS === 'UŽPILDYTA' ? 'active-status' : 'inactive-status'}">${icData.STATUSAS || "Unknown"}</div>
+                </div>
+                <div class="icinfo-item">
+                    <div>Vardas Pavardė:</div>
+                    <div>${icData.VARDAS || "Unknown"} ${icData.PAVARDĖ || ''}</div>
+                </div>
+                <div class="icinfo-item">
+                    <div>Steam Nickas:</div>
+                    <div>${icData["STEAM NICKAS"] || "Unknown"}</div>
+                </div>`;
+            gangDetailsContainer.innerHTML = `
+                <div class="icinfo-item">
+                    <div>Rankas:</div>
+                    <div>${icData.RANKAS || "None"}</div>
+                </div>`;
+        }
+    }
+    
+    function displayEmptyIcForm() {
+        if (icStatusContainer && gangDetailsContainer) {
+            icStatusContainer.innerHTML = `
+                <div class="icinfo-item">
+                    <div>Statusas:</div>
+                    <div class="icinfo-status inactive-status">Not Found</div>
+                </div>`;
+            gangDetailsContainer.innerHTML = `
+                <div class="icinfo-item ic-missing-info">
+                    <div>No character information found for your Discord account.</div>
+                    <button id="fill-ic-info-btn" class="fill-ic-btn">Užpildyti IC informaciją</button>
+                </div>`;
+            document.getElementById("fill-ic-info-btn")?.addEventListener("click", openIcFormPopup);
+        }
+    }
+
+    function createIcFormPopup() {
+        if (document.getElementById("ic-form-popup")) return;
+        document.body.insertAdjacentHTML("beforeend", `
+            <div id="ic-form-popup" class="popup-container">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h3>IC Info anketa</h3>
+                        <span class="close-btn">&times;</span>
+                    </div>
+                    <div class="popup-body">
+                        <div class="form-group"><label for="vardas">Vardas</label><input type="text" id="vardas" placeholder="Įveskite vardą" required></div>
+                        <div class="form-group"><label for="pavarde">Pavardė</label><input type="text" id="pavarde" placeholder="Įveskite pavardę" required></div>
+                        <div class="form-group"><label for="steam-nick">Steam Nickas</label><input type="text" id="steam-nick" placeholder="Įveskite Steam slapyvardį" required></div>
+                        <div class="form-group"><label for="steam-link">Steam Nuoroda</label><input type="url" id="steam-link" placeholder="https://steamcommunity.com/id/..." required></div>
+                        <div id="ic-form-status" class="form-status"></div>
+                        <button id="ic-submit-button" class="submit-button"><span id="submit-text">Pateikti</span><span id="loading-spinner" class="spinner hidden"></span></button>
+                    </div>
+                </div>
+            </div>`);
+
+        const popup = document.getElementById('ic-form-popup');
+        popup.querySelector(".close-btn").addEventListener("click", () => popup.style.display = 'none');
+        window.addEventListener('click', e => { if (e.target === popup) popup.style.display = 'none'; });
+        document.getElementById("ic-submit-button").addEventListener('click', handleIcFormSubmit);
+    }
+
+    function openIcFormPopup() {
+        createIcFormPopup();
+        document.getElementById("ic-form-popup").style.display = "flex";
+    }
+    
+    // --- DUOMENŲ KROVIMO FUNKCIJOS ---
+
+    async function loadDashboardData(userId) {
+        try {
+            await Promise.all([
+                loadWarnings(userId),
+                loadIcData(userId),
+                loadServerInfo()
+            ]);
+        } catch (error) {
+            console.error("Klaida kraunant panelės duomenis:", error);
+        }
+    }
+
+    async function loadWarnings(userId) {
+        try {
+            const warnings = await apiFetch(`/Ispejimai?ID=eq.${userId}&order=DATA.desc`);
+            displayWarnings(warnings);
+        } catch (error) {
+            console.error("Klaida gaunant įspėjimus:", error);
+            displayWarnings([]);
+        }
+    }
+
+    async function loadIcData(userId) {
+        try {
+            const icDataArray = await apiFetch(`/IC?DISCORD_ID=eq.${userId}`);
+            icDataArray && icDataArray.length > 0 ? displayIcData(icDataArray[0]) : displayEmptyIcForm();
+        } catch (error) {
+            console.error("Klaida gaunant IC duomenis:", error);
+            displayEmptyIcForm();
+        }
+    }
+
+    async function loadServerInfo() {
+        try {
+            const response = await fetch(config.DISCORD_INVITE_API);
+            const data = await response.json();
+            const membersElement = document.querySelector(".server-members");
+            if (membersElement) {
+                membersElement.innerHTML = `<span class="online-indicator"></span> <span>${data.approximate_presence_count} Online</span> <span style="margin: 0 4px;">•</span> <span>${data.approximate_member_count} Members</span>`;
+            }
+        } catch (e) { console.error("Klaida gaunant serverio info:", e); }
+    }
+    
+    async function handleIcFormSubmit() {
+        // ... validacijos logika
+        
+        const formData = { /* ... formos duomenys ... */ };
+
+        try {
+            await apiFetch('/IC', { method: 'POST', body: JSON.stringify(formData) });
+            // ... sėkmės atvejo logika ...
+        } catch (error) {
+            // ... klaidos atvejo logika ...
+        }
+    }
+    
+    // --- AUTENTIFIKACIJA ---
+
+    async function handleDiscordRedirect() {
+        try {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = params.get("access_token");
+            if (!accessToken) throw new Error("Nerastas prieigos raktas");
+
+            const [userData, memberData] = await Promise.all([
+                fetch("https://discord.com/api/users/@me", { headers: { 'Authorization': `Bearer ${accessToken}` } }).then(res => res.json()),
+                fetch(`https://discord.com/api/users/@me/guilds/${config.DISCORD.GUILD_ID}/member`, { headers: { 'Authorization': `Bearer ${accessToken}` } }).then(res => res.ok ? res.json() : null)
+            ]);
+
+            if (!userData.id) throw new Error("Nepavyko gauti Discord profilio");
+
+            localStorage.setItem("discord_id", userData.id);
+            localStorage.setItem("discord_username", userData.global_name || userData.username);
+            localStorage.setItem("discord_avatar", userData.avatar ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png` : '/api/placeholder/40/40');
+            
+            if (memberData) {
+                localStorage.setItem("discord_guild_tag", "Member");
+                localStorage.setItem("discord_server_id", memberData.guild_id);
+                localStorage.setItem("discord_badge_hash", "a_390be3fdaab65e28c28d150ca21d93bb"); // Pavyzdys
+            }
+            
+            window.history.replaceState({}, document.title, window.location.pathname);
+            initializeApp();
+        } catch (error) {
+            console.error("Klaida Discord autorizacijos metu:", error);
+            if(loginError) loginError.textContent = "Autorizacija nepavyko. Bandykite dar kartą.";
+            showLoginScreen();
+        }
+    }
+
+    function initializeApp() {
+        const userId = localStorage.getItem('discord_id');
+        if (userId) {
+            updateProfileUI(
+                localStorage.getItem('discord_username'),
+                localStorage.getItem('discord_avatar'),
+                localStorage.getItem('discord_guild_tag'),
+                localStorage.getItem('discord_server_id'),
+                localStorage.getItem('discord_badge_hash')
+            );
+            showDashboard();
+            loadDashboardData(userId);
+        } else {
+            showLoginScreen();
+        }
+    }
+
+    // --- MYGTUKŲ PRISKYRIMAS ---
+    loginButton.addEventListener('click', () => window.location.href = config.DISCORD.AUTH_URL);
+    logoutBtn.addEventListener('click', () => {
+        Object.keys(localStorage).forEach(key => { if (key.startsWith('discord_')) localStorage.removeItem(key); });
+        updateProfileUI('Neprisijungta', '/api/placeholder/40/40');
+        showLoginScreen();
+    });
+
+    // --- PROGRAMOS PALEIDIMAS ---
+    if (window.location.hash.includes("access_token=")) {
+        handleDiscordRedirect();
+    } else {
+        initializeApp();
+    }
+});
